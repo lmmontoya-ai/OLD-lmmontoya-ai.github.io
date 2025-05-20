@@ -1,0 +1,290 @@
+---
+// src/components/layout/Header.astro
+// Site header with navigation, distinctive brand styling and hover effects
+
+import { Image } from "astro:assets";
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 h-14 border-b border-accent/10 shadow-md"
+  style="background-color: rgba(13, 27, 42, 0.95); backdrop-filter: blur(12px);"
+>
+  <div
+    class="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"
+  >
+  </div>
+
+  <div class="container mx-auto px-6 py-2 flex items-center justify-between">
+    <!-- Brand/Motto -->
+    <a
+      href="/"
+      class="text-primary font-sans font-semibold text-lg tracking-tight group relative"
+    >
+      <span class="block text-sm text-secondary font-normal mt-0.5 font-mono">
+        Understand to Align
+      </span>
+      <span
+        class="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-accent to-highlight transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+      ></span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-8">
+      <a
+        href="/roadmap"
+        class="text-secondary hover:text-accent font-medium font-mono transition-all duration-300 relative group py-2 px-3"
+      >
+        Roadmap
+        <span
+          class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-accent/40 to-accent/0 transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+        ></span>
+      </a>
+      <a
+        href="/projects"
+        class="text-secondary hover:text-accent font-medium font-mono transition-all duration-300 relative group py-2 px-3"
+      >
+        Projects
+        <span
+          class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-accent/40 to-accent/0 transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+        ></span>
+      </a>
+      <a
+        href="/literature"
+        class="text-secondary hover:text-accent font-medium font-mono transition-all duration-300 relative group py-2 px-3"
+      >
+        Literature
+        <span
+          class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-accent/40 to-accent/0 transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+        ></span>
+      </a>
+      <a
+        href="/contact"
+        class="relative overflow-hidden group rounded-lg"
+        aria-label="Contact"
+      >
+        <span
+          class="absolute inset-0 w-full h-full bg-gradient-to-r from-accent to-highlight opacity-90"
+        ></span>
+        <span
+          class="text-secondary hover:text-accent font-medium font-mono transition-all duration-300 relative group py-2 px-3"
+        >
+          Contact
+        </span>
+      </a>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="menu-toggle"
+      class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg text-secondary hover:text-accent transition-colors duration-300"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-5 h-5"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div
+    id="mobile-menu"
+    class="md:hidden fixed inset-0 z-50 transform translate-x-full transition-transform duration-400 ease-in-out pt-24 px-8"
+    style="background-color: rgba(13, 27, 42, 0.95); backdrop-filter: blur(12px);"
+  >
+    <!-- Close button -->
+    <button
+      id="close-menu"
+      class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full text-surface hover:text-accent transition-colors duration-300"
+      aria-label="Close menu"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-5 h-5"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <nav class="flex flex-col gap-8 text-lg">
+      <a
+        href="/roadmap"
+        class="text-surface py-3 border-b border-accent/20 flex items-center justify-between group font-mono transform transition-transform duration-300 hover:translate-x-2"
+      >
+        <span
+          class="group-hover:text-accent transition-colors duration-300 font-medium font-mono"
+          >Roadmap</span
+        >
+        <div
+          class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </div>
+      </a>
+      <a
+        href="/projects"
+        class="text-surface py-3 border-b border-accent/20 flex items-center justify-between group font-mono transform transition-transform duration-300 hover:translate-x-2"
+      >
+        <span
+          class="group-hover:text-accent transition-colors duration-300 font-medium font-mono"
+          >Projects</span
+        >
+        <div
+          class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </div>
+      </a>
+      <a
+        href="/literature"
+        class="text-surface py-3 border-b border-accent/20 flex items-center justify-between group font-mono transform transition-transform duration-300 hover:translate-x-2"
+      >
+        <span
+          class="group-hover:text-accent transition-colors duration-300 font-medium font-mono"
+          >Literature</span
+        >
+        <div
+          class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </div>
+      </a>
+      <a
+        href="/contact"
+        class="mt-6 w-full overflow-hidden relative group rounded-lg font-mono transform transition-transform duration-300 hover:scale-105"
+      >
+        <span
+          class="absolute inset-0 w-full h-full bg-gradient-to-r from-accent to-highlight opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+        ></span>
+        <span
+          class="relative py-3 flex justify-center items-center text-white font-medium font-mono"
+        >
+          Contact
+        </span>
+      </a>
+    </nav>
+
+    <!-- Brand in mobile menu -->
+    <div class="absolute bottom-10 left-8 right-8">
+      <div
+        class="text-surface font-sans font-semibold text-lg tracking-tight opacity-80"
+      >
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-highlight inline-block"
+        >
+          Luis Miguel Montoya
+        </span>
+        <span class="block text-sm text-surface/80 font-normal mt-1 font-mono">
+          Understand to Align
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const closeMenu = document.getElementById("close-menu");
+    const header = document.getElementById("site-header");
+
+    menuToggle?.addEventListener("click", () => {
+      const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", (!expanded).toString());
+
+      if (expanded) {
+        mobileMenu?.classList.add("translate-x-full");
+        document.body.classList.remove("overflow-hidden");
+      } else {
+        mobileMenu?.classList.remove("translate-x-full");
+        document.body.classList.add("overflow-hidden");
+      }
+    });
+
+    closeMenu?.addEventListener("click", () => {
+      menuToggle?.setAttribute("aria-expanded", "false");
+      mobileMenu?.classList.add("translate-x-full");
+      document.body.classList.remove("overflow-hidden");
+    });
+
+    // Update this to maintain dark color on scroll
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        // Keep default styles when scrolled
+      } else {
+        // No change needed when at the top either
+      }
+    });
+
+    // Initial animation for the header on page load - maintain darker color
+    document.addEventListener("DOMContentLoaded", () => {
+      header?.classList.add("opacity-0");
+      setTimeout(() => {
+        header?.classList.remove("opacity-0");
+        header?.classList.add("opacity-100");
+      }, 100);
+    });
+  </script>
+</header>
+
+<style>
+  #site-header {
+    transition:
+      opacity 0.5s ease,
+      box-shadow 0.3s ease;
+  }
+</style>

@@ -1,0 +1,209 @@
+---
+// src/pages/index.astro
+// Landing page with simplified hero featuring latest content cards
+
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/ui/Hero.astro";
+import Card from "../components/ui/Card.astro";
+import Button from "../components/ui/Button.astro";
+
+// Sample data for latest content (one from each section)
+const latestRoadmap = {
+  title: "Mechanistic Interpretability Fundamentals",
+  date: "2024-02-15",
+  tag: "Latest Milestone",
+  description: "Core concepts in circuit analysis and feature visualization.",
+  href: "/roadmap/mech-interp-fundamentals",
+};
+
+const latestProject = {
+  title: "Attention Head Attribution in LLMs",
+  description:
+    "Developed novel metrics for quantifying attention head contributions to factual recall.",
+  tag: "Latest Project",
+  date: "2024-03-15",
+  href: "/projects/attention-attribution",
+};
+
+const latestLiterature = {
+  title: "Mechanistic Interpretability: Current Progress",
+  description:
+    "A comprehensive overview of the state of mechanistic interpretability research.",
+  tag: "Latest Resource",
+  date: "2024-01-10",
+  href: "/literature/mech-interp-survey",
+};
+---
+
+<Layout title="Luis Miguel Montoya — Understand to Align">
+  <Hero>
+    <!-- Vertical stack of latest content cards -->
+    <div
+      class="w-full rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 shadow-md"
+    >
+      <div
+        class="p-4 bg-white/10 border-b border-white/10 flex justify-between items-center"
+      >
+        <h3 class="font-medium text-white text-lg">Latest Updates</h3>
+        <a
+          href="/roadmap"
+          class="text-accent text-sm flex items-center hover:underline"
+        >
+          See All
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 ml-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Roadmap card -->
+      <a
+        href={latestRoadmap.href}
+        class="block p-4 hover:bg-accent/5 transition-colors border-b border-neutral/5"
+      >
+        <div class="flex items-start">
+          <div class="p-2 bg-accent/10 rounded-lg mr-3 text-accent">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <div class="text-xs font-medium text-accent mb-1">
+              {latestRoadmap.tag}
+            </div>
+            <h4 class="font-semibold text-white mb-1">
+              {latestRoadmap.title}
+            </h4>
+            <div class="text-xs text-white/60 font-mono">
+              {latestRoadmap.date}
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project card -->
+      <a
+        href={latestProject.href}
+        class="block p-4 hover:bg-highlight/5 transition-colors border-b border-neutral/5"
+      >
+        <div class="flex items-start">
+          <div class="p-2 bg-highlight/10 rounded-lg mr-3 text-highlight">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <div class="text-xs font-medium text-highlight mb-1">
+              {latestProject.tag}
+            </div>
+            <h4 class="font-semibold text-white mb-1">
+              {latestProject.title}
+            </h4>
+            <div class="text-xs text-white/60 font-mono">
+              {latestProject.date}
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Literature card -->
+      <a
+        href={latestLiterature.href}
+        class="block p-4 hover:bg-primary/5 transition-colors"
+      >
+        <div class="flex items-start">
+          <div class="p-2 bg-primary/10 rounded-lg mr-3 text-primary">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <div class="text-xs font-medium text-primary mb-1">
+              {latestLiterature.tag}
+            </div>
+            <h4 class="font-semibold text-white mb-1">
+              {latestLiterature.title}
+            </h4>
+            <div class="text-xs text-white/60 font-mono">
+              {latestLiterature.date}
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </Hero>
+
+  <!-- Contact CTA -->
+  <section class="py-20 bg-gradient-to-r from-accent/5 to-highlight/5 relative">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-semibold text-primary mb-4">
+        Let's Connect
+      </h2>
+      <p class="text-secondary text-lg mb-8 max-w-2xl mx-auto">
+        Interested in collaborating on AI interpretability research or
+        discussing ideas? I'm always open to connecting with fellow researchers
+        and practitioners.
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Get in Touch
+      </Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .bg-grid-pattern {
+    background-image: linear-gradient(
+        to right,
+        rgba(var(--color-primary), 0.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(var(--color-primary), 0.05) 1px,
+        transparent 1px
+      );
+    background-size: 2rem 2rem;
+  }
+</style>

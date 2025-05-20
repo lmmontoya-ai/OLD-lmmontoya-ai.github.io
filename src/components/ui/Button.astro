@@ -1,0 +1,79 @@
+---
+// src/components/ui/Button.astro
+// Reusable button component with primary/secondary variants and consistent styling
+
+interface Props {
+  href?: string;
+  variant?: "primary" | "secondary" | "outline";
+  size?: "sm" | "md" | "lg";
+  class?: string;
+  rounded?: boolean;
+  ariaLabel?: string;
+  fullWidth?: boolean;
+  type?: "button" | "submit" | "reset";
+}
+
+const {
+  href,
+  variant = "primary",
+  size = "md",
+  class: className = "",
+  rounded = false,
+  ariaLabel,
+  fullWidth = false,
+  type = "button",
+} = Astro.props;
+
+// Base classes
+const baseClasses =
+  "inline-flex items-center justify-center font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent/40";
+
+// Size classes
+const sizeClasses = {
+  sm: "text-sm px-3 py-1.5",
+  md: "px-5 py-2.5",
+  lg: "text-lg px-6 py-3",
+}[size];
+
+// Variant classes
+const variantClasses = {
+  primary:
+    "bg-gradient-to-r from-accent to-highlight text-white hover:shadow-md hover:translate-y-[-1px]",
+  secondary:
+    "bg-accent/10 text-accent hover:bg-accent/15 hover:translate-y-[-1px]",
+  outline:
+    "border border-neutral/20 text-secondary hover:border-accent/30 hover:text-primary hover:translate-y-[-1px]",
+}[variant];
+
+// Optional classes
+const roundedClasses = rounded ? "rounded-full" : "rounded-lg";
+const widthClasses = fullWidth ? "w-full" : "";
+
+// Combine all classes
+const classes = [
+  baseClasses,
+  sizeClasses,
+  variantClasses,
+  roundedClasses,
+  widthClasses,
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+
+// Determine which element to render
+const Element = href ? "a" : "button";
+---
+
+<Element
+  href={href}
+  class={classes}
+  aria-label={ariaLabel}
+  type={!href ? type : undefined}
+  {...href ? { target: href.startsWith("http") ? "_blank" : undefined } : {}}
+  {...href
+    ? { rel: href.startsWith("http") ? "noopener noreferrer" : undefined }
+    : {}}
+>
+  <slot />
+</Element>

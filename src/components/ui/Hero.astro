@@ -110,7 +110,9 @@ const {
         </h1>
 
         <!-- Motto/tagline -->
-        <p class="text-xl md:text-2xl text-primary font-medium mb-4">
+        <p
+          class="text-xl md:text-2xl text-primary font-normal tracking-[0.02em] mb-4"
+        >
           {title}
         </p>
 
@@ -120,42 +122,35 @@ const {
         </p>
 
         <!-- Call to action buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 mb-8">
+        <div class="flex flex-col sm:flex-row sm:justify-start gap-4 mb-8">
           <a
             href="/roadmap"
-            class="relative overflow-hidden group rounded-lg inline-flex"
+            class="btn btn-primary group px-6 py-3 hover:bg-amber-200 hover:shadow-lg transition-all duration-300"
           >
-            <span
-              class="absolute inset-0 w-full h-full bg-gradient-to-r from-accent to-highlight opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-            ></span>
-            <span
-              class="relative px-6 py-3 text-white font-medium inline-flex items-center transition-transform duration-300 group-hover:translate-y-[-1px] group-hover:shadow-md"
+            View Roadmap
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              View Research Roadmap
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-              </svg>
-            </span>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
           </a>
 
           <a
             href="/projects"
-            class="px-6 py-3 rounded-lg border border-primary/20 text-primary hover:bg-primary/5 hover:border-accent/30 transition-all duration-300 inline-flex items-center font-medium"
+            class="btn btn-secondary group px-6 py-3 hover:border-highlight hover:border-opacity-80 hover:text-highlight transition-all duration-300"
           >
             Explore Projects
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 ml-2"
+              class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

@@ -6,6 +6,7 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/ui/Hero.astro";
 import Card from "../components/ui/Card.astro";
 import Button from "../components/ui/Button.astro";
+import { formatRelativeDate } from "../utils/dateUtils";
 
 // Sample data for latest content (one from each section)
 const latestRoadmap = {
@@ -47,12 +48,12 @@ const latestLiterature = {
         <h3 class="font-medium text-white text-lg">Latest Updates</h3>
         <a
           href="/roadmap"
-          class="text-accent text-sm flex items-center hover:underline"
+          class="text-accent text-sm flex items-center px-3 py-1.5 rounded-full hover:bg-accent/10 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 group"
         >
           See All
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 ml-1"
+            class="h-4 w-4 ml-1 group-hover:translate-x-0.5 transition-transform duration-200"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -67,9 +68,10 @@ const latestLiterature = {
       <!-- Roadmap card -->
       <a
         href={latestRoadmap.href}
-        class="block p-4 hover:bg-accent/5 transition-colors border-b border-neutral/5"
+        class="relative block p-4 hover:bg-accent/10 hover:shadow-md hover:scale-[1.01] transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent rounded-sm mt-[1px]"
       >
-        <div class="flex items-start">
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#D4AF37]"></div>
+        <div class="flex items-center pl-3">
           <div class="p-2 bg-accent/10 rounded-lg mr-3 text-accent">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -95,6 +97,9 @@ const latestLiterature = {
             </h4>
             <div class="text-xs text-white/60 font-mono">
               {latestRoadmap.date}
+              <span class="opacity-70"
+                >• {formatRelativeDate(latestRoadmap.date)}</span
+              >
             </div>
           </div>
         </div>
@@ -103,9 +108,10 @@ const latestLiterature = {
       <!-- Project card -->
       <a
         href={latestProject.href}
-        class="block p-4 hover:bg-highlight/5 transition-colors border-b border-neutral/5"
+        class="relative block p-4 hover:bg-highlight/10 hover:shadow-md hover:scale-[1.01] transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-highlight rounded-sm mt-[1px]"
       >
-        <div class="flex items-start">
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500"></div>
+        <div class="flex items-center pl-3">
           <div class="p-2 bg-highlight/10 rounded-lg mr-3 text-highlight">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -131,6 +137,9 @@ const latestLiterature = {
             </h4>
             <div class="text-xs text-white/60 font-mono">
               {latestProject.date}
+              <span class="opacity-70"
+                >• {formatRelativeDate(latestProject.date)}</span
+              >
             </div>
           </div>
         </div>
@@ -139,9 +148,10 @@ const latestLiterature = {
       <!-- Literature card -->
       <a
         href={latestLiterature.href}
-        class="block p-4 hover:bg-primary/5 transition-colors"
+        class="relative block p-4 hover:bg-primary/10 hover:shadow-md hover:scale-[1.01] transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary rounded-sm mt-[1px]"
       >
-        <div class="flex items-start">
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-purple-500"></div>
+        <div class="flex items-center pl-3">
           <div class="p-2 bg-primary/10 rounded-lg mr-3 text-primary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -167,6 +177,9 @@ const latestLiterature = {
             </h4>
             <div class="text-xs text-white/60 font-mono">
               {latestLiterature.date}
+              <span class="opacity-70"
+                >• {formatRelativeDate(latestLiterature.date)}</span
+              >
             </div>
           </div>
         </div>

@@ -145,7 +145,7 @@ const {
 
           <a
             href="/projects"
-            class="btn btn-secondary group px-6 py-3 hover:border-highlight hover:border-opacity-80 hover:text-highlight transition-all duration-300"
+            class="btn btn-secondary group px-6 py-3 hover:border-highlight hover:border-opacity-80 hover:text-highlight transition-all duration-300 border-2 border-accent outline-none focus-visible:outline-highlight focus-visible:outline-2"
           >
             Explore Projects
             <svg
@@ -166,8 +166,10 @@ const {
       </div>
 
       <!-- Vertical card stack for latest content (placeholder for actual content) -->
-      <div class="w-full lg:w-auto lg:min-w-[400px] max-w-md">
-        <div class="space-y-6">
+      <div
+        class="w-full lg:w-auto lg:min-w-[400px] max-w-md h-full flex items-center"
+      >
+        <div class="space-y-6 flex-1 flex">
           <!-- This will be filled with actual cards in the index page -->
           <slot />
         </div>

@@ -29,7 +29,7 @@ const {
       rel="stylesheet"
     />
   </head>
-  <body class="bg-[#1B263B] text-white">
+  <body>
     <!-- Subtle grid overlay for technical aesthetic -->
     <div
       class="fixed inset-0 bg-grid-pattern opacity-[0.2] pointer-events-none z-0"
@@ -44,7 +44,7 @@ const {
       <slot />
     </main>
 
-    <footer class="relative z-10 bg-[#0D1B2A] py-12 border-t border-white/10">
+    <footer class="relative z-10 border-t border-white/10 py-12">
       <div class="container mx-auto px-6">
         <div class="grid md:grid-cols-3 gap-8">
           <div>
@@ -147,10 +147,14 @@ const {
       .bg-grid-pattern {
         background-image: linear-gradient(
             to right,
-            rgb(212 175 55 / 0.2) 1px,
+            rgb(var(--color-grid)) 1px,
             transparent 1px
           ),
-          linear-gradient(to bottom, rgb(212 175 55 / 0.2) 1px, transparent 1px);
+          linear-gradient(
+            to bottom,
+            rgb(var(--color-grid)) 1px,
+            transparent 1px
+          );
         background-size: 2rem 2rem;
       }
 
@@ -164,5 +168,53 @@ const {
         }
       }
     </style>
+
+    <script>
+      // Theme toggle functionality
+      const getTheme = () => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme") || "dark";
+        }
+        if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+          return "light";
+        }
+        return "dark";
+      };
+
+      const theme = getTheme();
+
+      if (theme === "light") {
+        document.documentElement.classList.add("light-theme");
+      } else {
+        document.documentElement.classList.remove("light-theme");
+      }
+
+      window.localStorage.setItem("theme", theme);
+
+      const handleToggleClick = () => {
+        const element = document.documentElement;
+        element.classList.toggle("light-theme");
+
+        const isLight = element.classList.contains("light-theme");
+        localStorage.setItem("theme", isLight ? "light" : "dark");
+      };
+
+      // Ensure DOM is fully loaded before adding event listeners
+      document.addEventListener("DOMContentLoaded", () => {
+        const themeToggle = document.getElementById("themeToggle");
+        themeToggle?.addEventListener("click", handleToggleClick);
+      });
+
+      // Also handle for Astro page transitions if they exist
+      if (document.addEventListener) {
+        document.addEventListener("astro:page-load", () => {
+          const themeToggle = document.getElementById("themeToggle");
+          themeToggle?.addEventListener("click", handleToggleClick);
+        });
+      }
+    </script>
   </body>
 </html>

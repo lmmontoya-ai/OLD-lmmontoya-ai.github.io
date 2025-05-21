@@ -2,6 +2,7 @@
 
 @layer base {
   :root {
+    /* Default theme (dark) */
     --color-primary: 13 27 42; /* Deep Navy */
     --color-secondary: 27 38 59; /* Slate Blue */
     --color-accent: 0 123 255; /* Blue */
@@ -10,9 +11,36 @@
     --color-success: 76 175 80; /* Green */
     --color-progress: 255 152 0; /* Orange */
     --color-neutral: 158 158 158; /* Grey */
+    --color-background: 27 38 59; /* Slate Blue */
+    --color-text: 255 255 255; /* White */
+    --color-text-secondary: 255 255 255; /* White */
+    --color-text-secondary-alpha: 0.6; /* Opacity for secondary text */
+    --color-border: 255 255 255; /* White */
+    --color-border-alpha: 0.1; /* Opacity for borders */
+    --color-card-bg: 13 27 42; /* Deep Navy */
+    --color-footer-bg: 13 27 42; /* Deep Navy */
+    --color-grid: 212 175 55; /* Gold */
+    --color-grid-alpha: 0.2; /* Opacity for grid */
 
-    /* Dark mode colors */
-    --color-surface-dark: 18 18 18; /* Dark bg */
+    /* Light theme colors */
+    --color-primary-light: 13 27 42; /* Deep Navy - preserved for brand consistency */
+    --color-secondary-light: 27 38 59; /* Slate Blue - preserved for brand consistency */
+    --color-accent-light: 0 123 255; /* Blue */
+    --color-highlight-light: 212 175 55; /* Gold */
+    --color-surface-light: 27 38 59; /* Slate Blue */
+    --color-success-light: 76 175 80; /* Green */
+    --color-progress-light: 255 152 0; /* Orange */
+    --color-neutral-light: 108 117 125; /* Darker Grey for light theme */
+    --color-background-light: 245 247 250; /* White/Light */
+    --color-text-light: 13 27 42; /* Deep Navy */
+    --color-text-secondary-light: 13 27 42; /* Deep Navy */
+    --color-text-secondary-light-alpha: 0.7; /* Opacity for secondary text */
+    --color-border-light: 13 27 42; /* Deep Navy */
+    --color-border-light-alpha: 0.1; /* Opacity for borders */
+    --color-card-bg-light: 255 255 255; /* White */
+    --color-footer-bg-light: 235 237 240; /* Light Gray */
+    --color-grid-light: 13 27 42; /* Deep Navy */
+    --color-grid-light-alpha: 0.05; /* Opacity for grid */
 
     /* Typography scale - 1.25 ratio (mobile) */
     --font-size-base: 16px;
@@ -37,6 +65,28 @@
     }
   }
 
+  /* Light theme class */
+  .light-theme {
+    --color-primary: var(--color-primary-light);
+    --color-secondary: var(--color-secondary-light);
+    --color-accent: var(--color-accent-light);
+    --color-highlight: var(--color-highlight-light);
+    --color-surface: var(--color-surface-light);
+    --color-success: var(--color-success-light);
+    --color-progress: var(--color-progress-light);
+    --color-neutral: var(--color-neutral-light);
+    --color-background: var(--color-background-light);
+    --color-text: var(--color-text-light);
+    --color-text-secondary: var(--color-text-secondary-light);
+    --color-text-secondary-alpha: var(--color-text-secondary-light-alpha);
+    --color-border: var(--color-border-light);
+    --color-border-alpha: var(--color-border-light-alpha);
+    --color-card-bg: var(--color-card-bg-light);
+    --color-footer-bg: var(--color-footer-bg-light);
+    --color-grid: var(--color-grid-light);
+    --color-grid-alpha: var(--color-grid-light-alpha);
+  }
+
   html {
     scroll-behavior: smooth;
     font-size: var(--font-size-base);
@@ -44,15 +94,17 @@
 
   body {
     font-family: 'IBM Plex Sans', system-ui, sans-serif;
-    color: #fff;
-    background-color: #1B263B;
+    color: rgb(var(--color-text));
+    background-color: rgb(var(--color-background));
     line-height: var(--line-height-base, 1.5);
+    transition: background-color var(--transition-base), color var(--transition-base);
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Inter', system-ui, sans-serif;
     font-weight: 600;
     letter-spacing: var(--tracking-tight);
+    color: rgb(var(--color-text));
   }
 
   h1 {
@@ -101,6 +153,32 @@
 }
 
 @layer components {
+  /* Utility classes for theme colors */
+  .text-primary {
+    color: rgb(var(--color-text));
+  }
+
+  .text-themed-text {
+    color: rgb(var(--color-text));
+  }
+
+  .text-secondary {
+    color: rgba(var(--color-text-secondary), var(--color-text-secondary-alpha));
+  }
+
+  .bg-primary {
+    background-color: rgb(var(--color-primary));
+  }
+
+  .bg-accent {
+    background-color: rgb(var(--color-accent));
+  }
+
+  .border-primary {
+    border-color: rgba(var(--color-border), var(--color-border-alpha));
+  }
+
+  /* Button Styles */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -117,7 +195,7 @@
 
   .btn-primary {
     background-color: rgb(var(--color-highlight));
-    color: #0D1B2A;
+    color: rgb(var(--color-primary));
     transition: background-color var(--transition-base, 250ms ease-in-out),
                 transform var(--transition-base, 250ms ease-in-out),
                 box-shadow var(--transition-base, 250ms ease-in-out);
@@ -131,8 +209,8 @@
 
   .btn-secondary {
     background-color: transparent;
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgb(var(--color-text));
+    border: 1px solid rgba(var(--color-border), var(--color-border-alpha));
     transition: border-color var(--transition-base, 250ms ease-in-out),
                 color var(--transition-base, 250ms ease-in-out),
                 transform var(--transition-base, 250ms ease-in-out);
@@ -145,12 +223,13 @@
   }
 
   .card {
-    background-color: #0D1B2A;
+    background-color: rgb(var(--color-card-bg));
     border-radius: 1rem;
     padding: 1.5rem;
     box-shadow: var(--shadow-sm);
     transition: box-shadow var(--transition-base, 250ms ease-in-out),
-                transform var(--transition-base, 250ms ease-in-out);
+                transform var(--transition-base, 250ms ease-in-out),
+                background-color var(--transition-base, 250ms ease-in-out);
   }
 
   .card:hover {
@@ -163,9 +242,10 @@
     display: flex;
     flex-direction: column;
     gap: 1px;
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: rgba(var(--color-text), 0.03);
     border-radius: 0.5rem;
     overflow: hidden;
+    transition: background-color var(--transition-base, 250ms ease-in-out);
   }
 
   .updates-item {
@@ -175,7 +255,7 @@
   }
 
   .updates-item:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(var(--color-text), 0.05);
   }
 
   .gradient-text {
@@ -189,6 +269,45 @@
   .section {
     padding-top: 4rem;
     padding-bottom: 4rem;
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: rgba(var(--color-background), 0.8);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(var(--color-border), var(--color-border-alpha));
+    cursor: pointer;
+    transition: all var(--transition-base);
+    margin-left: 1rem;
+  }
+
+  .theme-toggle:hover {
+    background-color: rgba(var(--color-text), 0.1);
+    transform: translateY(-1px);
+  }
+
+  .theme-toggle svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: rgb(var(--color-text));
+    transition: all var(--transition-base);
+  }
+
+  .nav-link-divider {
+    display: inline-block;
+    width: 1px;
+    height: 16px;
+    margin: 0 0.75rem;
+    background-color: rgb(var(--color-text));
+    opacity: 0.2;
+    border-radius: 0.5px;
+    transition: background-color var(--transition-base), opacity var(--transition-base);
   }
 
   @media (min-width: 1024px) {

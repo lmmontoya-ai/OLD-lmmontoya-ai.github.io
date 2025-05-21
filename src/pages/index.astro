@@ -6,6 +6,8 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/ui/Hero.astro";
 import Card from "../components/ui/Card.astro";
 import Button from "../components/ui/Button.astro";
+import UpdateCard from "../components/ui/UpdateCard.astro";
+import UpdatesContainer from "../components/ui/UpdatesContainer.astro";
 import { formatRelativeDate } from "../utils/dateUtils";
 
 // Sample data for latest content (one from each section)
@@ -39,152 +41,43 @@ const latestLiterature = {
 <Layout title="Luis Miguel Montoya — Understand to Align">
   <Hero>
     <!-- Vertical stack of latest content cards -->
-    <div
-      class="w-full rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 shadow-md"
-    >
-      <div
-        class="p-4 bg-white/10 border-b border-white/10 flex justify-between items-center"
-      >
-        <h3 class="font-medium text-white text-lg">Latest Updates</h3>
-        <a
-          href="/roadmap"
-          class="text-accent text-sm flex items-center px-3 py-1.5 rounded-full hover:bg-accent/10 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 group"
-        >
-          See All
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 ml-1 group-hover:translate-x-0.5 transition-transform duration-200"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </a>
-      </div>
-
+    <UpdatesContainer>
       <!-- Roadmap card -->
-      <a
+      <UpdateCard
+        title={latestRoadmap.title}
+        date={latestRoadmap.date}
+        tag={latestRoadmap.tag}
+        description={latestRoadmap.description}
         href={latestRoadmap.href}
-        class="relative block p-4 hover:bg-accent/10 hover:shadow-md hover:scale-[1.01] transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent rounded-sm mt-[1px]"
-      >
-        <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#D4AF37]"></div>
-        <div class="flex items-center pl-3">
-          <div class="p-2 bg-accent/10 rounded-lg mr-3 text-accent">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-              ></path>
-            </svg>
-          </div>
-          <div>
-            <div class="text-xs font-medium text-accent mb-1">
-              {latestRoadmap.tag}
-            </div>
-            <h4 class="font-semibold text-white mb-1">
-              {latestRoadmap.title}
-            </h4>
-            <div class="text-xs text-white/60 font-mono">
-              {latestRoadmap.date}
-              <span class="opacity-70"
-                >• {formatRelativeDate(latestRoadmap.date)}</span
-              >
-            </div>
-          </div>
-        </div>
-      </a>
+        icon="roadmap"
+        colorClass="bg-accent/10"
+        borderColorClass="bg-[#D4AF37]"
+      />
 
       <!-- Project card -->
-      <a
+      <UpdateCard
+        title={latestProject.title}
+        date={latestProject.date}
+        tag={latestProject.tag}
+        description={latestProject.description}
         href={latestProject.href}
-        class="relative block p-4 hover:bg-highlight/10 hover:shadow-md hover:scale-[1.01] transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-highlight rounded-sm mt-[1px]"
-      >
-        <div class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500"></div>
-        <div class="flex items-center pl-3">
-          <div class="p-2 bg-highlight/10 rounded-lg mr-3 text-highlight">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
-              ></path>
-            </svg>
-          </div>
-          <div>
-            <div class="text-xs font-medium text-highlight mb-1">
-              {latestProject.tag}
-            </div>
-            <h4 class="font-semibold text-white mb-1">
-              {latestProject.title}
-            </h4>
-            <div class="text-xs text-white/60 font-mono">
-              {latestProject.date}
-              <span class="opacity-70"
-                >• {formatRelativeDate(latestProject.date)}</span
-              >
-            </div>
-          </div>
-        </div>
-      </a>
+        icon="project"
+        colorClass="bg-highlight/10"
+        borderColorClass="bg-cyan-500"
+      />
 
       <!-- Literature card -->
-      <a
+      <UpdateCard
+        title={latestLiterature.title}
+        date={latestLiterature.date}
+        tag={latestLiterature.tag}
+        description={latestLiterature.description}
         href={latestLiterature.href}
-        class="relative block p-4 hover:bg-primary/10 hover:shadow-md hover:scale-[1.01] transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary rounded-sm mt-[1px]"
-      >
-        <div class="absolute left-0 top-0 bottom-0 w-1 bg-purple-500"></div>
-        <div class="flex items-center pl-3">
-          <div class="p-2 bg-primary/10 rounded-lg mr-3 text-primary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-              ></path>
-            </svg>
-          </div>
-          <div>
-            <div class="text-xs font-medium text-primary mb-1">
-              {latestLiterature.tag}
-            </div>
-            <h4 class="font-semibold text-white mb-1">
-              {latestLiterature.title}
-            </h4>
-            <div class="text-xs text-white/60 font-mono">
-              {latestLiterature.date}
-              <span class="opacity-70"
-                >• {formatRelativeDate(latestLiterature.date)}</span
-              >
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
+        icon="literature"
+        colorClass="bg-primary/10"
+        borderColorClass="bg-purple-500"
+      />
+    </UpdatesContainer>
   </Hero>
 
   <!-- Contact CTA -->

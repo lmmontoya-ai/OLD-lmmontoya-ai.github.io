@@ -4,14 +4,20 @@ export default {
     theme: {
       extend: {
         colors: {
-          primary: '#0D1B2A',
-          secondary: '#1B263B',
-          accent: '#007BFF',
-          highlight: '#D4AF37',
-          surface: '#F5F7FA',
-          success: '#4CAF50',
-          progress: '#FF9800',
-          neutral: '#9E9E9E'
+          primary: 'rgb(var(--color-primary) / <alpha-value>)',
+          secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+          accent: 'rgb(var(--color-accent) / <alpha-value>)',
+          highlight: 'rgb(var(--color-highlight) / <alpha-value>)',
+          surface: 'rgb(var(--color-surface) / <alpha-value>)',
+          success: 'rgb(var(--color-success) / <alpha-value>)',
+          progress: 'rgb(var(--color-progress) / <alpha-value>)',
+          neutral: 'rgb(var(--color-neutral) / <alpha-value>)',
+          background: 'rgb(var(--color-background) / <alpha-value>)',
+          "themed-text": 'rgb(var(--color-text) / <alpha-value>)',
+          "themed-text-secondary": 'rgba(var(--color-text-secondary), var(--color-text-secondary-alpha))',
+          "themed-border": 'rgba(var(--color-border), var(--color-border-alpha))',
+          "card-bg": 'rgb(var(--color-card-bg) / <alpha-value>)',
+          "footer-bg": 'rgb(var(--color-footer-bg) / <alpha-value>)',
         },
         fontFamily: {
           sans: ['Inter', 'system-ui', 'sans-serif'],

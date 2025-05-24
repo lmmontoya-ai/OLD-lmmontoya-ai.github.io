@@ -12,59 +12,60 @@ interface Props {
   description?: string;
   href: string;
   icon: "roadmap" | "project" | "literature";
-  colorClass: string;
-  borderColorClass: string;
+  variant: "milestone" | "project" | "resource";
 }
 
-const {
-  title,
-  date,
-  tag,
-  description,
-  href,
-  icon,
-  colorClass,
-  borderColorClass,
-} = Astro.props;
+const { title, date, tag, description, href, icon, variant } = Astro.props;
 ---
 
 <a
   href={href}
-  class={`group relative block p-4 hover:${colorClass} hover:shadow-md hover:scale-[1.01] transition-all duration-200 focus-visible:outline focus-visible:outline-accent rounded-sm mt-[1px] flex-1`}
+  class={`update-card update-card-${variant} group block transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2`}
 >
-  <div
-    class={`absolute left-0.5 top-0 bottom-0 w-1 group-hover:w-1.5 ${borderColorClass} transition-all duration-200`}
-  >
-  </div>
-  <div class="flex items-center pl-3">
-    <div
-      class={`p-2 ${colorClass} rounded-lg mr-3 ${colorClass.replace("bg-", "text-").replace("/10", "")}`}
-    >
+  <div class="flex items-center gap-3">
+    <div class={`update-icon update-icon-${variant} flex-shrink-0`}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5"
+        class="h-4 w-4"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
+        stroke-width="2"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d={iconPaths[icon]}></path>
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[icon]}
+        ></path>
       </svg>
     </div>
-    <div>
-      <div
-        class={`text-xs font-medium ${colorClass.replace("bg-", "text-").replace("/10", "")} mb-1`}
-      >
+
+    <div class="min-w-0 flex-1">
+      <div class={`update-tag update-tag-${variant}`}>
         {tag}
       </div>
-      <h4 class="font-semibold text-white mb-1">{title}</h4>
-      {description && <p class="text-white/80 text-xs mb-1">{description}</p>}
-      <div class="text-xs text-white/60 font-mono">
-        {date}
-        <span class="opacity-70"> • {formatRelativeDate(date)}</span>
+
+      <h4
+        class="font-semibold text-themed-text mb-1.5 font-sans leading-tight group-hover:text-accent transition-colors duration-200 text-base"
+      >
+        {title}
+      </h4>
+
+      {
+        description && (
+          <p class="text-themed-text-secondary text-sm mb-2 leading-relaxed font-body line-clamp-2">
+            {description}
+          </p>
+        )
+      }
+
+      <div
+        class="text-xs text-themed-text-secondary font-mono opacity-75 group-hover:opacity-100 transition-opacity duration-200"
+      >
+        <time datetime={date} class="tabular-nums font-medium">
+          {date}
+        </time>
+        <span class="opacity-60 mx-1.5">•</span>
+        <span class="opacity-80">
+          {formatRelativeDate(date)}
+        </span>
       </div>
     </div>
   </div>

@@ -4,12 +4,47 @@
 
 import { Image } from "astro:assets";
 import ThemeToggle from "../ui/ThemeToggle.astro";
+
+// Get current path for active link styling
+const currentPath = Astro.url.pathname;
+
+// Helper function to generate nav link classes
+const getNavLinkClasses = (path: string) => {
+  const isActive = currentPath.startsWith(path);
+  const baseClasses =
+    "flex items-center h-10 px-3 font-medium font-mono text-sm transition-all duration-300 relative group rounded-lg";
+  const activeClasses = isActive
+    ? "text-accent"
+    : "text-themed-text hover:text-accent";
+  return `${baseClasses} ${activeClasses}`;
+};
+
+const getNavLinkUnderlineClasses = (path: string) => {
+  const isActive = currentPath.startsWith(path);
+  const baseClasses =
+    "absolute bottom-0 left-0 w-full h-0.5 bg-accent transform origin-left transition-transform duration-300 ease-out";
+  const scaleClasses = isActive
+    ? "scale-x-100"
+    : "scale-x-0 group-hover:scale-x-100";
+  return `${baseClasses} ${scaleClasses}`;
+};
+
+const getMobileNavLinkClasses = (path: string) => {
+  const isActive = currentPath.startsWith(path);
+  const baseClasses =
+    "py-3 border-b border-themed-border flex items-center justify-between group font-mono transform transition-all duration-300 hover:translate-x-1 relative";
+  const activeClasses = isActive
+    ? "text-accent border-accent/30"
+    : "text-themed-text";
+  return `${baseClasses} ${activeClasses}`;
+};
 ---
 
 <header
   id="site-header"
   class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 h-14 shadow-lg bg-background/95 backdrop-blur-lg"
 >
+  <!-- Bottom gradient border -->
   <div
     class="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"
   >
@@ -22,7 +57,7 @@ import ThemeToggle from "../ui/ThemeToggle.astro";
       class="font-sans font-semibold text-lg tracking-tight group relative"
     >
       <span
-        class="block text-m md:text-m text-highlight font-bold mt-0.5 font-mono"
+        class="block text-m md:text-m font-bold mt-0.5 font-mono text-highlight transition-colors duration-300 group-hover:text-accent"
       >
         Understand to Align
       </span>
@@ -33,50 +68,45 @@ import ThemeToggle from "../ui/ThemeToggle.astro";
 
     <!-- Desktop Navigation -->
     <nav class="hidden md:flex items-center gap-2 h-full">
-      <a
-        href="/roadmap"
-        class="flex items-center h-10 px-3 text-themed-text hover:text-accent font-medium font-mono text-sm transition-all duration-300 relative group rounded-lg"
-      >
+      <a href="/roadmap" class={getNavLinkClasses("/roadmap")}>
         Roadmap
-        <span
-          class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-accent/40 to-accent/0 transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
-        ></span>
+        <span class={getNavLinkUnderlineClasses("/roadmap")}></span>
       </a>
-      <span class="nav-link-divider"></span>
-      <a
-        href="/projects"
-        class="flex items-center h-10 px-3 text-themed-text hover:text-accent font-medium font-mono text-sm transition-all duration-300 relative group rounded-lg"
+
+      <!-- Nav link divider -->
+      <div
+        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200"
+        style="background: linear-gradient(to bottom, transparent 0%, rgb(var(--color-text)) 20%, rgb(var(--color-text)) 80%, transparent 100%);"
       >
+      </div>
+
+      <a href="/projects" class={getNavLinkClasses("/projects")}>
         Projects
-        <span
-          class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-accent/40 to-accent/0 transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
-        ></span>
+        <span class={getNavLinkUnderlineClasses("/projects")}></span>
       </a>
-      <span class="nav-link-divider"></span>
-      <a
-        href="/literature"
-        class="flex items-center h-10 px-3 text-themed-text hover:text-accent font-medium font-mono text-sm transition-all duration-300 relative group rounded-lg"
+
+      <div
+        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200"
+        style="background: linear-gradient(to bottom, transparent 0%, rgb(var(--color-text)) 20%, rgb(var(--color-text)) 80%, transparent 100%);"
       >
+      </div>
+
+      <a href="/literature" class={getNavLinkClasses("/literature")}>
         Literature
-        <span
-          class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-accent/40 to-accent/0 transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
-        ></span>
+        <span class={getNavLinkUnderlineClasses("/literature")}></span>
       </a>
-      <span class="nav-link-divider"></span>
-      <a
-        href="/contact"
-        class="flex items-center h-10 px-3 relative overflow-hidden group rounded-lg text-themed-text hover:text-themed-text font-medium font-mono text-sm transition-all duration-300"
-        aria-label="Contact"
+
+      <div
+        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200"
+        style="background: linear-gradient(to bottom, transparent 0%, rgb(var(--color-text)) 20%, rgb(var(--color-text)) 80%, transparent 100%);"
       >
-        <span
-          class="absolute inset-0 w-full h-full bg-gradient-to-r from-accent to-highlight opacity-80 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"
-        ></span>
-        <span
-          class="font-medium font-mono text-sm transition-all duration-300 relative z-10"
-        >
-          Contact
-        </span>
+      </div>
+
+      <a href="/contact" class={getNavLinkClasses("/contact")}>
+        Contact
+        <span class={getNavLinkUnderlineClasses("/contact")}></span>
       </a>
+
       <ThemeToggle />
     </nav>
 
@@ -133,10 +163,7 @@ import ThemeToggle from "../ui/ThemeToggle.astro";
     </button>
 
     <nav class="flex flex-col gap-6 text-lg flex-grow">
-      <a
-        href="/roadmap"
-        class="text-themed-text py-3 border-b border-themed-border flex items-center justify-between group font-mono transform transition-transform duration-300 hover:translate-x-1"
-      >
+      <a href="/roadmap" class={getMobileNavLinkClasses("/roadmap")}>
         <span
           class="group-hover:text-accent transition-colors duration-300 font-medium"
           >Roadmap</span
@@ -158,11 +185,14 @@ import ThemeToggle from "../ui/ThemeToggle.astro";
               d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
         </div>
+        {
+          currentPath.startsWith("/roadmap") && (
+            <span class="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-r-full" />
+          )
+        }
       </a>
-      <a
-        href="/projects"
-        class="text-themed-text py-3 border-b border-themed-border flex items-center justify-between group font-mono transform transition-transform duration-300 hover:translate-x-1"
-      >
+
+      <a href="/projects" class={getMobileNavLinkClasses("/projects")}>
         <span
           class="group-hover:text-accent transition-colors duration-300 font-medium"
           >Projects</span
@@ -184,11 +214,14 @@ import ThemeToggle from "../ui/ThemeToggle.astro";
               d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
         </div>
+        {
+          currentPath.startsWith("/projects") && (
+            <span class="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-r-full" />
+          )
+        }
       </a>
-      <a
-        href="/literature"
-        class="text-themed-text py-3 border-b border-themed-border flex items-center justify-between group font-mono transform transition-transform duration-300 hover:translate-x-1"
-      >
+
+      <a href="/literature" class={getMobileNavLinkClasses("/literature")}>
         <span
           class="group-hover:text-accent transition-colors duration-300 font-medium"
           >Literature</span
@@ -210,17 +243,63 @@ import ThemeToggle from "../ui/ThemeToggle.astro";
               d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
         </div>
+        {
+          currentPath.startsWith("/literature") && (
+            <span class="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-r-full" />
+          )
+        }
       </a>
-      <a
-        href="/contact"
-        class="mt-auto w-full overflow-hidden relative group rounded-lg font-mono transform transition-transform duration-300 hover:scale-105 bg-gradient-to-r from-accent to-highlight"
-      >
+
+      <a href="/contact" class={getMobileNavLinkClasses("/contact")}>
         <span
-          class="relative py-3 flex justify-center items-center text-primary font-medium"
+          class="group-hover:text-accent transition-colors duration-300 font-medium"
+          >Contact</span
         >
-          Contact
-        </span>
+        <div
+          class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </div>
+        {
+          currentPath.startsWith("/contact") && (
+            <span class="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-r-full" />
+          )
+        }
       </a>
+
+      <div class="mt-auto w-full text-center">
+        <a
+          href="/projects"
+          class="inline-flex items-center justify-center w-full py-3 px-6 rounded-lg font-mono font-medium text-sm bg-gradient-to-r from-accent to-highlight text-primary transform transition-transform duration-300 hover:scale-105"
+        >
+          View All Projects
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 ml-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
     </nav>
 
     <!-- Brand in mobile menu -->
@@ -272,17 +351,3 @@ import ThemeToggle from "../ui/ThemeToggle.astro";
     });
   </script>
 </header>
-
-<style>
-  #site-header {
-    transition:
-      opacity 0.5s ease,
-      box-shadow 0.3s ease,
-      background-color var(--transition-base);
-  }
-  #mobile-menu {
-    transition:
-      transform 0.3s ease-in-out,
-      background-color var(--transition-base);
-  }
-</style>

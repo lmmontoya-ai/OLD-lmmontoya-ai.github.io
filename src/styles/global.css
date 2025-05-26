@@ -2,81 +2,43 @@
 
 @layer base {
   :root {
-    /* Dark Theme - Based on user specifications */
-    --color-primary: 15 23 42; /* Slate 900 - Retained for specific component primary elements if needed, or for light theme text */
-    --color-secondary: 51 65 85; /* Slate 600 - Retained for secondary component elements */
-    --color-accent: 59 130 246; /* Blue 500 - Consistent interactive blue */
-    --color-highlight: 212 175 55; /* Original Gold - For highlights and CTAs */
-    --color-surface: 30 41 59; /* Slate 700 - For card backgrounds or elevated surfaces */
-    --color-success: 34 197 94; /* Emerald 500 - Success states */
-    --color-progress: 249 115 22; /* Orange 500 - Progress indicators */
-    --color-neutral: 148 163 184; /* Slate 400 - Neutral elements */
+    /* Essential CSS variables for compatibility with existing styles */
+    /* These will be gradually replaced with Tailwind utilities */
 
-    --color-background: 15 27 43; /* #0F1B2B - Primary page background (Deep Navy) */
-    --color-hero-gradient-start: 19 38 60; /* #13263C */
-    --color-hero-gradient-end: 11 20 31;   /* #0B141F */
-
-    --color-text: 248 250 252; /* Slate 50 - Primary text (White-ish) */
-    --color-text-secondary: 203 213 225; /* Slate 300 - Secondary text */
+    /* Dark theme colors (default) */
+    --color-primary: 15 23 42;
+    --color-secondary: 51 65 85;
+    --color-accent: 59 130 246;
+    --color-highlight: 212 175 55;
+    --color-surface: 30 41 59;
+    --color-success: 34 197 94;
+    --color-progress: 249 115 22;
+    --color-neutral: 148 163 184;
+    --color-background: 15 27 43;
+    --color-text: 248 250 252;
+    --color-text-secondary: 203 213 225;
     --color-text-secondary-alpha: 1;
-
-    --color-border: 100 116 139; /* Slate 500 - For more visible borders on dark bg */
+    --color-border: 100 116 139;
     --color-border-alpha: 0.25;
+    --color-card-bg: 30 41 59;
+    --color-footer-bg: 11 20 31;
 
-    --color-card-bg: 30 41 59; /* Slate 700 (slightly lighter than #0F1B2B) - Card backgrounds */
-    --color-footer-bg: 11 20 31; /* #0B141F - Deepest for footer, matches hero end */
-
-    --color-grid: 255 255 255; /* White for grid lines */
-    --color-grid-alpha: 0.10; /* 10% opacity for grid */
-
-    /* Light Theme - Industry standard palette with improved colors */
-    --color-primary-light: 28 42 77;        /* #1C2A4D (Deep Navy Blue) - Primary text, titles, headers */
-    --color-secondary-light: 74 74 74;      /* #4A4A4A (Charcoal Grey) - Secondary text */
-    --color-accent-light: 77 139 247;       /* #4D8BF7 (Vibrant Sky Blue) - Interactive elements, links */
-    --color-highlight-light: 208 124 92;    /* #D4B896 (Pastel Golden Beige) - More muted, desaturated version for buttons, CTAs */
-    --color-surface-light: 124 111 156;     /* #7C6F9C (Muted Purple) - Special highlights, distinctive sections */
-    --color-success-light: 28 141 76;       /* Keep existing green for success states */
-    --color-progress-light: 234 88 12;      /* Keep existing orange for progress */
-    --color-neutral-light: 228 231 235;     /* #E4E7EB (Soft Grey) - Dividers, subtle backgrounds */
-
-    --color-background-light: 248 250 253;  /* #F8FAFD (Soft White) - Primary background */
-
-    --color-text-light: 28 42 77;           /* #1C2A4D (Deep Navy Blue) - Primary text */
-    --color-text-secondary-light: 74 74 74; /* #4A4A4A (Charcoal Grey) - Secondary text */
-    --color-text-secondary-light-alpha: 1;
-
-    --color-border-light: 228 231 235;      /* #E4E7EB (Soft Grey) - Borders, dividers */
-    --color-border-light-alpha: 1;
-
-    --color-card-bg-light: 255 255 255;     /* Pure white for cards */
-    --color-footer-bg-light: 248 250 253;   /* #F8FAFD (Soft White) - Footer background */
-
-    --color-grid-light: 228 231 235;        /* #E4E7EB (Soft Grey) - Grid lines */
-    --color-grid-light-alpha: 0.4;          /* Subtle grid opacity */
-
-    /* Typography scale - 1.25 ratio (mobile) */
+    /* Typography and motion */
     --font-size-base: 16px;
     --line-height-base: 1.6;
     --tracking-tight: -0.025em;
     --tracking-wide: 0.025em;
-
-    /* Enhanced motion settings */
     --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-page: 150ms ease;
-    --transition-scroll: 500ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    /* Shadow system - More pronounced shadows for dark theme */
-    --shadow-xs: 0 1px 3px 0 rgba(0, 0, 0, 0.6);
-    --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.7), 0 1px 3px -1px rgba(0, 0, 0, 0.7);
-    --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.7), 0 2px 6px -2px rgba(0, 0, 0, 0.7);
-    --shadow-lg: 0 12px 20px -3px rgba(0, 0, 0, 0.8), 0 6px 10px -4px rgba(0, 0, 0, 0.7);
-    --shadow-xl: 0 24px 32px -5px rgba(0, 0, 0, 0.9), 0 12px 16px -6px rgba(0, 0, 0, 0.8);
-
-    /* Glow effects for dark theme */
-    --glow-accent: 0 0 20px rgba(var(--color-accent), 0.2);
-    --glow-highlight: 0 0 20px rgba(var(--color-highlight), 0.2);
-    --glow-success: 0 0 20px rgba(var(--color-success), 0.2);
+    /* Shadows for dark theme */
+    --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.7),
+      0 1px 3px -1px rgba(0, 0, 0, 0.7);
+    --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.7),
+      0 2px 6px -2px rgba(0, 0, 0, 0.7);
+    --shadow-lg: 0 12px 20px -3px rgba(0, 0, 0, 0.8),
+      0 6px 10px -4px rgba(0, 0, 0, 0.7);
+    --glow-highlight: 0 0 20px rgba(212, 175, 55, 0.2);
   }
 
   @media (min-width: 1024px) {
@@ -87,34 +49,31 @@
   }
 
   .light-theme {
-    --color-primary: var(--color-primary-light);
-    --color-secondary: var(--color-secondary-light);
-    --color-accent: var(--color-accent-light);
-    --color-highlight: var(--color-highlight-light);
-    --color-surface: var(--color-surface-light);
-    --color-success: var(--color-success-light);
-    --color-progress: var(--color-progress-light);
-    --color-neutral: var(--color-neutral-light);
-    --color-background: var(--color-background-light);
-    --color-text: var(--color-text-light);
-    --color-text-secondary: var(--color-text-secondary-light);
-    --color-text-secondary-alpha: var(--color-text-secondary-light-alpha);
-    --color-border: var(--color-border-light);
-    --color-border-alpha: var(--color-border-light-alpha);
-    --color-card-bg: var(--color-card-bg-light);
-    --color-footer-bg: var(--color-footer-bg-light);
-    --color-grid: var(--color-grid-light);
-    --color-grid-alpha: var(--color-grid-light-alpha);
+    /* Light theme color overrides */
+    --color-primary: 28 42 77;
+    --color-secondary: 74 74 74;
+    --color-accent: 77 139 247;
+    --color-highlight: 208 124 92;
+    --color-surface: 124 111 156;
+    --color-success: 28 141 76;
+    --color-progress: 234 88 12;
+    --color-neutral: 228 231 235;
+    --color-background: 248 250 253;
+    --color-text: 28 42 77;
+    --color-text-secondary: 74 74 74;
+    --color-border: 228 231 235;
+    --color-border-alpha: 1;
+    --color-card-bg: 255 255 255;
+    --color-footer-bg: 248 250 253;
 
-    /* More pronounced shadows for light theme: increased visibility while maintaining elegance */
-    --shadow-xs: 0 1px 3px 0 rgba(28, 42, 77, 0.12);
-    --shadow-sm: 0 3px 6px 0 rgba(28, 42, 77, 0.15), 0 2px 4px -1px rgba(28, 42, 77, 0.12);
-    --shadow-md: 0 6px 12px -2px rgba(28, 42, 77, 0.18), 0 3px 6px -2px rgba(28, 42, 77, 0.15);
-    --shadow-lg: 0 12px 32px -4px rgba(28, 42, 77, 0.22), 0 6px 12px -4px rgba(28, 42, 77, 0.18);
-    --shadow-xl: 0 20px 40px -8px rgba(28, 42, 77, 0.26), 0 12px 20px -8px rgba(28, 42, 77, 0.22);
-    --glow-accent: var(--shadow-md);
+    /* Light theme shadows */
+    --shadow-sm: 0 3px 6px 0 rgba(28, 42, 77, 0.15),
+      0 2px 4px -1px rgba(28, 42, 77, 0.12);
+    --shadow-md: 0 6px 12px -2px rgba(28, 42, 77, 0.18),
+      0 3px 6px -2px rgba(28, 42, 77, 0.15);
+    --shadow-lg: 0 12px 32px -4px rgba(28, 42, 77, 0.22),
+      0 6px 12px -4px rgba(28, 42, 77, 0.18);
     --glow-highlight: var(--shadow-md);
-    --glow-success: var(--shadow-md);
   }
 
   html {
@@ -123,16 +82,22 @@
   }
 
   body {
-    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
     color: rgb(var(--color-text));
     background-color: rgb(var(--color-background));
     line-height: var(--line-height-base, 1.6);
-    transition: background-color var(--transition-base), color var(--transition-base);
+    transition: background-color var(--transition-base),
+      color var(--transition-base);
     font-feature-settings: "kern" 1, "liga" 1, "cv02" 1;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', system-ui, sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Inter", system-ui, sans-serif;
     font-weight: 600;
     letter-spacing: var(--tracking-tight);
     color: rgb(var(--color-text));
@@ -163,19 +128,21 @@
     font-weight: 600;
   }
 
-  code, pre {
-    font-family: 'IBM Plex Mono', monospace;
+  code,
+  pre {
+    font-family: "IBM Plex Mono", monospace;
   }
 
   a {
-    color: rgb(var(--color-accent)); /* Changed from highlight to accent for general links */
+    color: rgb(
+      var(--color-accent)
+    ); /* Changed from highlight to accent for general links */
     text-decoration: none;
     transition: color var(--transition-base);
   }
   a:hover {
     color: rgb(var(--color-highlight)); /* Highlight on hover */
   }
-
 
   :focus-visible {
     outline: 2px solid rgb(var(--color-accent));
@@ -188,7 +155,9 @@
       scroll-behavior: auto;
     }
 
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -247,7 +216,7 @@
     border-radius: 0.75rem;
     transition: all var(--transition-spring);
     font-weight: 600;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
     letter-spacing: var(--tracking-tight);
     position: relative;
     overflow: hidden;
@@ -275,7 +244,8 @@
   .btn-secondary {
     background-color: transparent;
     color: rgb(var(--color-text));
-    border: 2px solid rgba(var(--color-border), calc(var(--color-border-alpha) * 2));
+    border: 2px solid
+      rgba(var(--color-border), calc(var(--color-border-alpha) * 2));
     backdrop-filter: blur(4px);
   }
 
@@ -300,15 +270,17 @@
   }
 
   .card::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg,
+    background: linear-gradient(
+      135deg,
       rgba(var(--color-accent), 0.1) 0%,
       transparent 50%,
-      rgba(var(--color-highlight), 0.1) 100%);
+      rgba(var(--color-highlight), 0.1) 100%
+    );
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: xor;
     pointer-events: none;
@@ -328,11 +300,14 @@
 
   /* Refined Updates Container Styling */
   .updates-container {
-    background: linear-gradient(135deg,
+    background: linear-gradient(
+      135deg,
       rgba(var(--color-card-bg), 0.95) 0%,
-      rgba(var(--color-card-bg), 0.85) 100%);
+      rgba(var(--color-card-bg), 0.85) 100%
+    );
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(var(--color-border), calc(var(--color-border-alpha) * 1.5));
+    border: 1px solid
+      rgba(var(--color-border), calc(var(--color-border-alpha) * 1.5));
     border-radius: 1.25rem;
     overflow: hidden;
     box-shadow: var(--shadow-lg);
@@ -345,10 +320,13 @@
   }
 
   .updates-header {
-    background: linear-gradient(135deg,
+    background: linear-gradient(
+      135deg,
       rgba(var(--color-surface), 0.1) 0%,
-      rgba(var(--color-surface), 0.05) 100%);
-    border-bottom: 1px solid rgba(var(--color-border), calc(var(--color-border-alpha) * 1.2));
+      rgba(var(--color-surface), 0.05) 100%
+    );
+    border-bottom: 1px solid
+      rgba(var(--color-border), calc(var(--color-border-alpha) * 1.2));
     padding: 1rem 1.25rem;
   }
 
@@ -362,7 +340,7 @@
   }
 
   .update-card::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     top: 0;
@@ -410,7 +388,7 @@
   }
 
   .update-icon::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
@@ -428,7 +406,11 @@
   }
 
   .update-icon-milestone::before {
-    background: linear-gradient(135deg, rgba(var(--color-highlight), 0.2), rgba(var(--color-highlight), 0.1));
+    background: linear-gradient(
+      135deg,
+      rgba(var(--color-highlight), 0.2),
+      rgba(var(--color-highlight), 0.1)
+    );
   }
 
   .update-icon-project {
@@ -437,7 +419,11 @@
   }
 
   .update-icon-project::before {
-    background: linear-gradient(135deg, rgba(var(--color-accent), 0.2), rgba(var(--color-accent), 0.1));
+    background: linear-gradient(
+      135deg,
+      rgba(var(--color-accent), 0.2),
+      rgba(var(--color-accent), 0.1)
+    );
   }
 
   .update-icon-resource {
@@ -446,12 +432,16 @@
   }
 
   .update-icon-resource::before {
-    background: linear-gradient(135deg, rgba(var(--color-success), 0.2), rgba(var(--color-success), 0.1));
+    background: linear-gradient(
+      135deg,
+      rgba(var(--color-success), 0.2),
+      rgba(var(--color-success), 0.1)
+    );
   }
 
   /* Enhanced tag styling - Compact and aligned with title */
   .update-tag {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: "IBM Plex Mono", monospace;
     font-size: 0.6875rem;
     font-weight: 500;
     letter-spacing: var(--tracking-wide);
@@ -486,9 +476,11 @@
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    background-image: linear-gradient(135deg,
+    background-image: linear-gradient(
+      135deg,
       rgb(var(--color-accent)) 0%,
-      rgb(var(--color-highlight)) 100%);
+      rgb(var(--color-highlight)) 100%
+    );
     display: inline-block;
     position: relative;
   }

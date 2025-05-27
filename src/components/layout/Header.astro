@@ -14,15 +14,15 @@ const getNavLinkClasses = (path: string) => {
   const baseClasses =
     "flex items-center h-10 px-3 font-medium font-mono text-sm transition-all duration-300 relative group rounded-lg";
   const activeClasses = isActive
-    ? "text-accent"
-    : "text-themed-text hover:text-accent";
+    ? "text-blue-500"
+    : "text-white hover:text-blue-500";
   return `${baseClasses} ${activeClasses}`;
 };
 
 const getNavLinkUnderlineClasses = (path: string) => {
   const isActive = currentPath.startsWith(path);
   const baseClasses =
-    "absolute bottom-0 left-0 w-full h-0.5 bg-accent transform origin-left transition-transform duration-300 ease-out";
+    "absolute -bottom-1 left-0 w-full h-0.5 bg-blue-500 transform origin-left transition-transform duration-300 ease-out";
   const scaleClasses = isActive
     ? "scale-x-100"
     : "scale-x-0 group-hover:scale-x-100";
@@ -32,10 +32,10 @@ const getNavLinkUnderlineClasses = (path: string) => {
 const getMobileNavLinkClasses = (path: string) => {
   const isActive = currentPath.startsWith(path);
   const baseClasses =
-    "py-3 border-b border-themed-border flex items-center justify-between group font-mono transform transition-all duration-300 hover:translate-x-1 relative";
+    "py-3 border-b border-themed flex items-center justify-between group font-mono transform transition-all duration-300 hover:translate-x-1 relative";
   const activeClasses = isActive
-    ? "text-accent border-accent/30"
-    : "text-themed-text";
+    ? "text-blue-500 border-blue-500/30"
+    : "text-white";
   return `${baseClasses} ${activeClasses}`;
 };
 ---
@@ -46,7 +46,7 @@ const getMobileNavLinkClasses = (path: string) => {
 >
   <!-- Bottom gradient border -->
   <div
-    class="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"
+    class="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent"
   >
   </div>
 
@@ -57,13 +57,10 @@ const getMobileNavLinkClasses = (path: string) => {
       class="font-sans font-semibold text-lg tracking-tight group relative"
     >
       <span
-        class="block text-m md:text-m font-bold mt-0.5 font-mono text-highlight transition-colors duration-300 group-hover:text-accent"
+        class="block text-m md:text-m font-bold mt-0.5 font-mono transition-colors duration-300 group-hover:text-blue-500 text-highlight-themed"
       >
         Understand to Align
       </span>
-      <span
-        class="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-accent to-highlight transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
-      ></span>
     </a>
 
     <!-- Desktop Navigation -->
@@ -75,8 +72,7 @@ const getMobileNavLinkClasses = (path: string) => {
 
       <!-- Nav link divider -->
       <div
-        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200"
-        style="background: linear-gradient(to bottom, transparent 0%, rgb(var(--color-text)) 20%, rgb(var(--color-text)) 80%, transparent 100%);"
+        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200 bg-gradient-to-b from-transparent via-white to-transparent"
       >
       </div>
 
@@ -86,8 +82,7 @@ const getMobileNavLinkClasses = (path: string) => {
       </a>
 
       <div
-        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200"
-        style="background: linear-gradient(to bottom, transparent 0%, rgb(var(--color-text)) 20%, rgb(var(--color-text)) 80%, transparent 100%);"
+        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200 bg-gradient-to-b from-transparent via-white to-transparent"
       >
       </div>
 
@@ -97,8 +92,7 @@ const getMobileNavLinkClasses = (path: string) => {
       </a>
 
       <div
-        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200"
-        style="background: linear-gradient(to bottom, transparent 0%, rgb(var(--color-text)) 20%, rgb(var(--color-text)) 80%, transparent 100%);"
+        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200 bg-gradient-to-b from-transparent via-white to-transparent"
       >
       </div>
 
@@ -115,7 +109,7 @@ const getMobileNavLinkClasses = (path: string) => {
       <ThemeToggle />
       <button
         id="menu-toggle"
-        class="flex items-center justify-center w-10 h-10 rounded-lg text-themed-text-secondary hover:text-accent transition-colors duration-300"
+        class="flex items-center justify-center w-10 h-10 rounded-lg text-themed-secondary hover:text-blue-500 transition-colors duration-300"
         aria-label="Toggle menu"
         aria-expanded="false"
       >
@@ -144,7 +138,7 @@ const getMobileNavLinkClasses = (path: string) => {
     <!-- Close button -->
     <button
       id="close-menu"
-      class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full text-themed-text-secondary hover:text-accent transition-colors duration-300"
+      class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full text-themed-secondary hover:text-blue-500 transition-colors duration-300"
       aria-label="Close menu"
     >
       <svg
@@ -165,11 +159,11 @@ const getMobileNavLinkClasses = (path: string) => {
     <nav class="flex flex-col gap-6 text-lg flex-grow">
       <a href="/roadmap" class={getMobileNavLinkClasses("/roadmap")}>
         <span
-          class="group-hover:text-accent transition-colors duration-300 font-medium"
+          class="group-hover:text-blue-500 transition-colors duration-300 font-medium"
           >Roadmap</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+          class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 opacity-75 group-hover:opacity-100 transition-opacity duration-300"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -187,18 +181,18 @@ const getMobileNavLinkClasses = (path: string) => {
         </div>
         {
           currentPath.startsWith("/roadmap") && (
-            <span class="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-r-full" />
+            <span class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-r-full" />
           )
         }
       </a>
 
       <a href="/projects" class={getMobileNavLinkClasses("/projects")}>
         <span
-          class="group-hover:text-accent transition-colors duration-300 font-medium"
+          class="group-hover:text-blue-500 transition-colors duration-300 font-medium"
           >Projects</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+          class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 opacity-75 group-hover:opacity-100 transition-opacity duration-300"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -216,18 +210,18 @@ const getMobileNavLinkClasses = (path: string) => {
         </div>
         {
           currentPath.startsWith("/projects") && (
-            <span class="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-r-full" />
+            <span class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-r-full" />
           )
         }
       </a>
 
       <a href="/literature" class={getMobileNavLinkClasses("/literature")}>
         <span
-          class="group-hover:text-accent transition-colors duration-300 font-medium"
+          class="group-hover:text-blue-500 transition-colors duration-300 font-medium"
           >Literature</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+          class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 opacity-75 group-hover:opacity-100 transition-opacity duration-300"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -245,18 +239,18 @@ const getMobileNavLinkClasses = (path: string) => {
         </div>
         {
           currentPath.startsWith("/literature") && (
-            <span class="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-r-full" />
+            <span class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-r-full" />
           )
         }
       </a>
 
       <a href="/contact" class={getMobileNavLinkClasses("/contact")}>
         <span
-          class="group-hover:text-accent transition-colors duration-300 font-medium"
+          class="group-hover:text-blue-500 transition-colors duration-300 font-medium"
           >Contact</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+          class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 opacity-75 group-hover:opacity-100 transition-opacity duration-300"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -274,7 +268,7 @@ const getMobileNavLinkClasses = (path: string) => {
         </div>
         {
           currentPath.startsWith("/contact") && (
-            <span class="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-r-full" />
+            <span class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-r-full" />
           )
         }
       </a>
@@ -282,7 +276,7 @@ const getMobileNavLinkClasses = (path: string) => {
       <div class="mt-auto w-full text-center">
         <a
           href="/projects"
-          class="inline-flex items-center justify-center w-full py-3 px-6 rounded-lg font-mono font-medium text-sm bg-gradient-to-r from-accent to-highlight text-primary transform transition-transform duration-300 hover:scale-105"
+          class="inline-flex items-center justify-center w-full py-3 px-6 rounded-lg font-mono font-medium text-sm bg-gradient-to-r from-blue-500 to-amber-500 text-white transform transition-transform duration-300 hover:scale-105"
         >
           View All Projects
           <svg
@@ -305,14 +299,14 @@ const getMobileNavLinkClasses = (path: string) => {
     <!-- Brand in mobile menu -->
     <div class="mt-12 text-center">
       <div
-        class="text-themed-text-secondary font-sans font-semibold text-lg tracking-tight opacity-80"
+        class="text-themed-secondary font-sans font-semibold text-lg tracking-tight opacity-80"
       >
         <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-highlight inline-block"
+          class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-amber-500 inline-block"
         >
           Luis Miguel Montoya
         </span>
-        <span class="block text-sm font-normal mt-1 font-mono text-highlight">
+        <span class="block text-sm font-normal mt-1 font-mono text-amber-500">
           Understand to Align
         </span>
       </div>

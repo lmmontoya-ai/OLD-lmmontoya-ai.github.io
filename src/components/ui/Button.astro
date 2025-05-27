@@ -1,6 +1,7 @@
 ---
 // src/components/ui/Button.astro
 // Reusable button component with primary/secondary variants and consistent styling
+// Now using pure Tailwind utilities instead of custom CSS classes
 
 interface Props {
   href?: string;
@@ -24,29 +25,81 @@ const {
   type = "button",
 } = Astro.props;
 
-// Base classes
-const baseClasses =
-  "inline-flex items-center justify-center font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent/40";
+// Base classes using Tailwind utilities
+const baseClasses = [
+  "inline-flex",
+  "items-center", 
+  "justify-center",
+  "font-semibold",
+  "font-heading",
+  "tracking-tight",
+  "relative",
+  "overflow-hidden",
+  "transition-all",
+  "duration-spring",
+  "focus:outline-none",
+  "focus-visible:ring-2",
+  "focus-visible:ring-offset-2",
+].join(" ");
 
-// Size classes
+// Size classes using Tailwind utilities
 const sizeClasses = {
-  sm: "text-sm px-3 py-1.5",
-  md: "px-5 py-2.5",
-  lg: "text-lg px-6 py-3",
+  sm: "text-sm px-3 py-1.5 rounded-lg",
+  md: "px-4 py-2 rounded-lg",
+  lg: "text-lg px-6 py-3 rounded-xl",
 }[size];
 
-// Variant classes
+// Variant classes using Tailwind utilities and CSS variables for theme compatibility
 const variantClasses = {
-  primary:
-    "bg-gradient-to-r from-accent to-highlight text-white hover:shadow-md hover:translate-y-[-1px]",
-  secondary:
-    "bg-accent/10 text-accent hover:bg-accent/15 hover:translate-y-[-1px]",
-  outline:
-    "border border-neutral/20 text-secondary hover:border-accent/30 hover:text-primary hover:translate-y-[-1px]",
+  primary: [
+    // Background and text (background set via inline style for CSS variable)
+    "text-slate-900",
+    "border",
+    "border-transparent",
+    "shadow-themed-sm",
+    "focus-visible:ring-amber-500",
+    // Hover effects
+    "hover:-translate-y-0.5",
+    "hover:brightness-105",
+    "hover:shadow-themed-lg",
+    // Active state
+    "active:-translate-y-px",
+    "active:transition-all",
+    "active:duration-100",
+  ].join(" "),
+  
+  secondary: [
+    // Background and text
+    "bg-transparent",
+    "text-white",
+    "border-2",
+    "border-white/50",
+    "backdrop-blur-button",
+    "focus-visible:ring-blue-500",
+    // Hover effects
+    "hover:text-blue-500",
+    "hover:border-blue-500",
+    "hover:bg-blue-500/5",
+    "hover:-translate-y-px",
+    "hover:shadow-themed-md",
+  ].join(" "),
+  
+  outline: [
+    // Background and text
+    "bg-transparent",
+    "text-themed-secondary",
+    "border",
+    "border-slate-500/20",
+    "focus-visible:ring-blue-500",
+    // Hover effects
+    "hover:border-blue-500/30",
+    "hover:text-themed",
+    "hover:-translate-y-px",
+  ].join(" "),
 }[variant];
 
 // Optional classes
-const roundedClasses = rounded ? "rounded-full" : "rounded-lg";
+const roundedClasses = rounded ? "rounded-full" : "";
 const widthClasses = fullWidth ? "w-full" : "";
 
 // Combine all classes
@@ -63,6 +116,9 @@ const classes = [
 
 // Determine which element to render
 const Element = href ? "a" : "button";
+
+// Special styling for primary variant background
+const isPrimary = variant === "primary";
 ---
 
 <Element
@@ -75,5 +131,21 @@ const Element = href ? "a" : "button";
     ? { rel: href.startsWith("http") ? "noopener noreferrer" : undefined }
     : {}}
 >
-  <slot />
+  {isPrimary && (
+    <!-- Theme-aware background for primary buttons -->
+          <div class="absolute inset-0 dark:block hidden" style="background-color: rgb(212 175 55);"></div>
+      <div class="absolute inset-0 dark:hidden block" style="background-color: rgb(208 124 92);"></div>
+  )}
+  {isPrimary && (
+    <!-- Hover glow effect for primary buttons -->
+    <div 
+      class="absolute inset-0 transition-all duration-spring opacity-0 hover:opacity-100"
+      style="box-shadow: var(--glow-highlight), var(--shadow-lg);"
+    ></div>
+  )}
+  
+  <!-- Button content - Added flex and items-center to keep text and icons on same line -->
+  <span class="relative z-10 flex items-center">
+    <slot />
+  </span>
 </Element>

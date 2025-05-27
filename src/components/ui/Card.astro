@@ -1,6 +1,7 @@
 ---
 // src/components/ui/Card.astro
 // Reusable card component with consistent styling and hover effects
+// Now using pure Tailwind utilities instead of custom CSS classes
 
 interface Props {
   title: string;
@@ -25,20 +26,69 @@ const {
 } = Astro.props;
 
 const CardWrapper = href ? "a" : "div";
-const wrapperClasses = `card bg-white rounded-2xl overflow-hidden ${featured ? "border-l-4 border-l-accent" : "border border-neutral/10"} ${href ? "hover:shadow-md hover:translate-y-[-2px] transition-all duration-300 group" : ""}`;
+
+// Base card classes using Tailwind utilities
+const baseClasses = [
+  // Layout and positioning
+  "relative",
+  "overflow-hidden",
+  "rounded-2xl",
+  "transition-all",
+  "duration-spring",
+  // Background and backdrop
+  "bg-card-themed/80",
+  "backdrop-blur-card",
+  // Border and shadow
+  "border",
+  "border-themed",
+  "shadow-themed-sm",
+  // Padding
+  "p-8",
+  "lg:p-10",
+].join(" ");
+
+// Interactive classes for links
+const interactiveClasses = href
+  ? [
+      "group",
+      "hover:-translate-y-1",
+      "hover:shadow-themed-xl",
+      "hover:border-blue-500/20",
+    ].join(" ")
+  : "";
+
+// Featured card styling
+const featuredClasses = featured
+  ? ["border-l-4", "border-l-blue-500"].join(" ")
+  : "";
+
+// Combine all classes
+const cardClasses = [baseClasses, interactiveClasses, featuredClasses]
+  .filter(Boolean)
+  .join(" ");
 ---
 
-<CardWrapper href={href} class={wrapperClasses}>
+<CardWrapper href={href} class={cardClasses}>
+  <!-- Gradient border effect (recreating ::before pseudo-element) -->
+  {
+    href && (
+      <div
+        class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-base pointer-events-none"
+        style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, transparent 50%, rgba(212, 175, 55, 0.1) 100%); padding: 1px; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: xor;"
+      />
+    )
+  }
+
   {
     imageSrc && (
-      <div class="relative h-48 overflow-hidden">
+      <div class="relative h-48 overflow-hidden -m-8 mb-6 lg:-m-10 lg:mb-8">
         <img
           src={imageSrc}
           alt={imageAlt}
           class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {featured && (
-          <div class="absolute bottom-0 left-0 bg-accent text-white text-xs font-medium px-3 py-1">
+          <div class="absolute bottom-0 left-0 bg-blue-500 text-white text-xs font-medium px-3 py-1">
             Featured
           </div>
         )}
@@ -46,30 +96,34 @@ const wrapperClasses = `card bg-white rounded-2xl overflow-hidden ${featured ? "
     )
   }
 
-  <div class="p-6">
+  <div>
     {
       tag && (
         <div class="mb-3">
-          <span class="text-xs font-medium bg-accent/5 text-accent px-2 py-1 rounded-md inline-block">
+          <span class="text-xs font-medium bg-blue-500/5 text-blue-500 px-2 py-1 rounded-md inline-block">
             {tag}
           </span>
         </div>
       )
     }
 
-    {date && <div class="text-secondary text-sm mb-2 font-mono">{date}</div>}
+    {
+      date && (
+        <div class="text-themed-secondary text-sm mb-2 font-mono">{date}</div>
+      )
+    }
 
     <h3
-      class="text-xl font-semibold mb-3 text-primary group-hover:text-accent transition-colors duration-300"
+      class="text-xl font-semibold mb-3 text-themed group-hover:text-blue-500 transition-colors duration-300"
     >
       {title}
     </h3>
 
-    {description && <p class="text-secondary mb-4">{description}</p>}
+    {description && <p class="text-themed-secondary mb-4">{description}</p>}
 
     {
       href && (
-        <div class="flex items-center mt-4 text-accent font-medium text-sm">
+        <div class="flex items-center mt-4 text-blue-500 font-medium text-sm">
           <span class="mr-2">Read more</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -90,10 +144,3 @@ const wrapperClasses = `card bg-white rounded-2xl overflow-hidden ${featured ? "
     }
   </div>
 </CardWrapper>
-
-<style>
-  .card {
-    box-shadow: 0 1px 3px 0 rgba(16, 30, 54, 0.05);
-    isolation: isolate;
-  }
-</style>

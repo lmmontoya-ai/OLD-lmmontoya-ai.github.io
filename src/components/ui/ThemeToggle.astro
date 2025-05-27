@@ -56,13 +56,13 @@
 <script>
   // Icon visibility based on current theme
   const updateIconVisibility = () => {
-    const isLight = document.documentElement.classList.contains("light-theme");
+    const isDark = document.documentElement.classList.contains("dark");
     const sunIcon = document.getElementById("sun-icon");
     const moonIcon = document.getElementById("moon-icon");
 
     if (sunIcon && moonIcon) {
-      sunIcon.classList.toggle("hidden", !isLight);
-      moonIcon.classList.toggle("hidden", isLight);
+      sunIcon.classList.toggle("hidden", isDark);
+      moonIcon.classList.toggle("hidden", !isDark);
     }
   };
 

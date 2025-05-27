@@ -1,114 +1,63 @@
 ---
 import { formatRelativeDate } from "../../utils/dateUtils";
 import { iconPaths } from "../../utils/iconPaths";
+import { 
+  updateCardVariants, 
+  updateCardIconVariants, 
+  updateCardTagVariants, 
+  updateCardTitleVariants,
+  cn,
+  type UpdateCardVariants 
+} from "../../utils/variants";
 
 // src/components/ui/UpdateCard.astro
 // Reusable component for displaying latest update cards with consistent styling
-// Now using pure Tailwind utilities instead of custom CSS classes
+// Now using class-variance-authority for variant management
 
-interface Props {
+interface Props extends UpdateCardVariants {
   title: string;
   date: string;
   tag: string;
   description?: string;
   href: string;
   icon: "roadmap" | "project" | "literature";
-  variant: "milestone" | "project" | "resource";
+  class?: string;
 }
 
-const { title, date, tag, description, href, icon, variant } = Astro.props;
+const { 
+  title, 
+  date, 
+  tag, 
+  description, 
+  href, 
+  icon, 
+  variant = "milestone",
+  class: className = ""
+} = Astro.props;
 
-// Base update card classes using Tailwind utilities
-const baseCardClasses = [
-  "relative",
-  "block",
-  "group",
-  "p-4",
-  "px-5",
-  "rounded-xl",
-  "m-px",
-  "transition-all",
-  "duration-base",
-  "focus-visible:outline",
-  "focus-visible:outline-2",
-  "focus-visible:outline-blue-500",
-  "focus-visible:outline-offset-2",
-  // Hover effects
-  "hover:translate-x-1",
-].join(" ");
-
-// Variant-specific hover background
-const hoverBgClasses = {
-  milestone: "", // Will be set with inline styles for theme awareness
-  project: "hover:bg-blue-500/3",
-  resource: "hover:bg-emerald-500/3",
-}[variant];
-
-// Icon container classes
-const iconBaseClasses = [
-  "flex",
-  "items-center",
-  "justify-center",
-  "w-9",
-  "h-9",
-  "flex-shrink-0",
-  "relative",
-  "transition-all",
-  "duration-spring",
-  // Removed background, border radius, and overflow for clean icon look
-].join(" ");
-
-// Icon variant classes - just color, no background
-const iconVariantClasses = {
-  milestone: "", // Will be set with inline styles for theme awareness
-  project: "text-blue-500",
-  resource: "text-emerald-500",
-}[variant];
-
-// Tag classes
-const tagBaseClasses = [
-  "font-mono",
-  "text-caption",
-  "font-medium",
-  "tracking-wide",
-  "uppercase",
-  "inline-block",
-  "mb-1.5",
-  "transition-all",
-  "duration-base",
-  // Removed border and background for cleaner look like original
-].join(" ");
-
-// Tag variant classes - much more subtle styling like original
-const tagVariantClasses = {
-  milestone: "", // Will be set with inline styles for theme awareness
-  project: "text-blue-500",
-  resource: "text-emerald-500",
-}[variant];
-
-// Title hover color classes - variant-specific
-const titleHoverClasses = {
-  milestone: "", // Will be set with inline styles for theme awareness
-  project: "group-hover:text-blue-500",
-  resource: "group-hover:text-emerald-500",
-}[variant];
+// Generate classes using CVA
+const cardClasses = cn(updateCardVariants({ variant }), className);
+const iconClasses = cn(updateCardIconVariants({ variant }));
+const tagClasses = cn(updateCardTagVariants({ variant }));
+const titleClasses = cn(updateCardTitleVariants({ variant }));
 
 // Left border indicator color - theme-aware for milestone
 const borderColor = {
   milestone: "", // Will be set with conditional rendering for theme awareness
   project: "rgb(59, 130, 246)", // --color-accent
   resource: "rgb(34, 197, 94)", // --color-success
-}[variant];
+}[variant || "milestone"];
 ---
 
-<a href={href} class={`${baseCardClasses} ${hoverBgClasses}`}>
+<a href={href} class={cardClasses}>
   {variant === "milestone" && (
     <>
       <!-- Theme-aware hover background for milestone cards -->
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 dark:block hidden" style="background-color: rgba(212, 175, 55, 0.03);"></div>
-  <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 dark:hidden block" style="background-color: rgba(208, 124, 92, 0.03);"></div>
+      <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 dark:block hidden" style="background-color: rgba(212, 175, 55, 0.03);"></div>
+      <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 dark:hidden block" style="background-color: rgba(208, 124, 92, 0.03);"></div>
     </>
   )}
+  
   <!-- Left border indicator (recreating ::before pseudo-element) -->
   {
     variant === "milestone" ? (
@@ -131,7 +80,7 @@ const borderColor = {
   }
 
   <div class="flex items-center gap-3">
-    <div class={`${iconBaseClasses} ${iconVariantClasses}`}>
+    <div class={iconClasses}>
       {
         variant === "milestone" ? (
           <>
@@ -186,7 +135,7 @@ const borderColor = {
     </div>
 
     <div class="min-w-0 flex-1">
-      <div class={`${tagBaseClasses} ${tagVariantClasses}`}>
+      <div class={tagClasses}>
         {
           variant === "milestone" ? (
             <>
@@ -209,9 +158,7 @@ const borderColor = {
         }
       </div>
 
-      <h4
-        class={`font-semibold text-themed mb-1.5 font-sans leading-tight transition-colors duration-200 text-base ${titleHoverClasses}`}
-      >
+      <h4 class={titleClasses}>
         {
           variant === "milestone" ? (
             <span class="group-hover:text-blue-500">{title}</span>

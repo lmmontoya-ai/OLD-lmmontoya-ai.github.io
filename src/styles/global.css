@@ -170,4 +170,17 @@
   /* All custom utility classes previously here have been removed. */
   /* Styling is now handled by Tailwind's utility classes directly in components */
   /* or through the Tailwind theme configuration in tailwind.config.mjs. */
+
+  /* 
+   * NOTE: @apply should be used VERY sparingly. The only valid use cases are:
+   * 
+   * 1. When you need to style elements you don't control (e.g., markdown content):
+   *    .prose h2 { @apply text-2xl font-bold mt-8 mb-4; }
+   * 
+   * 2. When creating a truly reusable pattern used 10+ times:
+   *    .icon-base { @apply w-5 h-5 flex-shrink-0; }
+   * 
+   * Currently, this project uses ZERO @apply directives, which is ideal.
+   * All styling is achieved through utility classes and CVA variants.
+   */
 }

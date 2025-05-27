@@ -1,9 +1,11 @@
 ---
 // src/components/ui/Card.astro
 // Reusable card component with consistent styling and hover effects
-// Now using pure Tailwind utilities instead of custom CSS classes
+// Now using class-variance-authority for variant management
 
-interface Props {
+import { cardVariants, cn, type CardVariants } from "../../utils/variants";
+
+interface Props extends CardVariants {
   title: string;
   description?: string;
   href?: string;
@@ -11,7 +13,7 @@ interface Props {
   date?: string;
   imageSrc?: string;
   imageAlt?: string;
-  featured?: boolean;
+  class?: string;
 }
 
 const {
@@ -23,52 +25,22 @@ const {
   imageSrc,
   imageAlt = "",
   featured = false,
+  class: className = "",
 } = Astro.props;
 
 const CardWrapper = href ? "a" : "div";
 
-// Base card classes using Tailwind utilities
-const baseClasses = [
-  // Layout and positioning
-  "relative",
-  "overflow-hidden",
-  "rounded-2xl",
-  "transition-all",
-  "duration-spring",
-  // Background and backdrop
-  "bg-card-themed/80",
-  "backdrop-blur-card",
-  // Border and shadow
-  "border",
-  "border-themed",
-  "shadow-themed-sm",
-  // Padding
-  "p-8",
-  "lg:p-10",
-].join(" ");
-
-// Interactive classes for links
-const interactiveClasses = href
-  ? [
-      "group",
-      "hover:-translate-y-1",
-      "hover:shadow-themed-xl",
-      "hover:border-blue-500/20",
-    ].join(" ")
-  : "";
-
-// Featured card styling
-const featuredClasses = featured
-  ? ["border-l-4", "border-l-blue-500"].join(" ")
-  : "";
-
-// Combine all classes
-const cardClasses = [baseClasses, interactiveClasses, featuredClasses]
-  .filter(Boolean)
-  .join(" ");
+// Generate classes using CVA
+const classes = cn(
+  cardVariants({
+    interactive: !!href,
+    featured,
+  }),
+  className
+);
 ---
 
-<CardWrapper href={href} class={cardClasses}>
+<CardWrapper href={href} class={classes}>
   <!-- Gradient border effect (recreating ::before pseudo-element) -->
   {
     href && (

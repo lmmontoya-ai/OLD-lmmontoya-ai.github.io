@@ -153,7 +153,7 @@ export const updateCardVariants = cva(
     "rounded-xl",
     "m-px",
     "transition-all",
-    "duration-base",
+    "duration-theme",
     "focus-visible:outline",
     "focus-visible:outline-2",
     "focus-visible:outline-blue-500",
@@ -187,7 +187,7 @@ export const updateCardIconVariants = cva(
     "flex-shrink-0",
     "relative",
     "transition-all",
-    "duration-spring",
+    "duration-theme",
   ],
   {
     variants: {
@@ -215,7 +215,7 @@ export const updateCardTagVariants = cva(
     "inline-block",
     "mb-1.5",
     "transition-all",
-    "duration-base",
+    "duration-theme",
   ],
   {
     variants: {
@@ -240,8 +240,6 @@ export const updateCardTitleVariants = cva(
     "mb-1.5",
     "font-sans",
     "leading-tight",
-    "transition-colors",
-    "duration-200",
     "text-base",
   ],
   {

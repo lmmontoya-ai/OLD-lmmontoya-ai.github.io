@@ -4,49 +4,19 @@
 
 import { Image } from "astro:assets";
 import ThemeToggle from "../ui/ThemeToggle.astro";
+import NavLink from "../ui/NavLink.astro";
 
 // Get current path for active link styling
 const currentPath = Astro.url.pathname;
-
-// Helper function to generate nav link classes
-const getNavLinkClasses = (path: string) => {
-  const isActive = currentPath.startsWith(path);
-  const baseClasses =
-    "flex items-center h-10 px-3 font-medium font-mono text-sm transition-all duration-300 relative group rounded-lg";
-  const activeClasses = isActive
-    ? "text-blue-500"
-    : "text-white hover:text-blue-500";
-  return `${baseClasses} ${activeClasses}`;
-};
-
-const getNavLinkUnderlineClasses = (path: string) => {
-  const isActive = currentPath.startsWith(path);
-  const baseClasses =
-    "absolute -bottom-1 left-0 w-full h-0.5 bg-blue-500 transform origin-left transition-transform duration-300 ease-out";
-  const scaleClasses = isActive
-    ? "scale-x-100"
-    : "scale-x-0 group-hover:scale-x-100";
-  return `${baseClasses} ${scaleClasses}`;
-};
-
-const getMobileNavLinkClasses = (path: string) => {
-  const isActive = currentPath.startsWith(path);
-  const baseClasses =
-    "py-3 border-b border-themed flex items-center justify-between group font-mono transform transition-all duration-300 hover:translate-x-1 relative";
-  const activeClasses = isActive
-    ? "text-blue-500 border-blue-500/30"
-    : "text-white";
-  return `${baseClasses} ${activeClasses}`;
-};
 ---
 
 <header
   id="site-header"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 h-14 shadow-lg bg-background/95 backdrop-blur-lg"
+  class="fixed top-0 left-0 right-0 z-50 transition-theme-all h-14 shadow-lg bg-primary/95 backdrop-blur-lg"
 >
   <!-- Bottom gradient border -->
   <div
-    class="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent"
+    class="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-interactive-primary/40 to-transparent transition-theme-opacity"
   >
   </div>
 
@@ -57,7 +27,7 @@ const getMobileNavLinkClasses = (path: string) => {
       class="font-sans font-semibold text-lg tracking-tight group relative"
     >
       <span
-        class="block text-m md:text-m font-bold mt-0.5 font-mono transition-colors duration-300 group-hover:text-blue-500 text-highlight-themed"
+        class="block text-m md:text-m font-bold mt-0.5 font-mono transition-theme group-hover:text-interactive-primary text-highlight-themed"
       >
         Understand to Align
       </span>
@@ -65,41 +35,31 @@ const getMobileNavLinkClasses = (path: string) => {
 
     <!-- Desktop Navigation -->
     <nav class="hidden md:flex items-center gap-2 h-full">
-      <a href="/roadmap" class={getNavLinkClasses("/roadmap")}>
-        Roadmap
-        <span class={getNavLinkUnderlineClasses("/roadmap")}></span>
-      </a>
+      <NavLink href="/roadmap" currentPath={currentPath}> Roadmap </NavLink>
 
       <!-- Nav link divider -->
       <div
-        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200 bg-gradient-to-b from-transparent via-white to-transparent"
+        class="inline-block w-px h-4 mx-3 opacity-20 transition-theme-opacity bg-gradient-to-b from-transparent via-content-primary to-transparent"
       >
       </div>
 
-      <a href="/projects" class={getNavLinkClasses("/projects")}>
-        Projects
-        <span class={getNavLinkUnderlineClasses("/projects")}></span>
-      </a>
+      <NavLink href="/projects" currentPath={currentPath}> Projects </NavLink>
 
       <div
-        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200 bg-gradient-to-b from-transparent via-white to-transparent"
+        class="inline-block w-px h-4 mx-3 opacity-20 transition-theme-opacity bg-gradient-to-b from-transparent via-content-primary to-transparent"
       >
       </div>
 
-      <a href="/literature" class={getNavLinkClasses("/literature")}>
+      <NavLink href="/literature" currentPath={currentPath}>
         Literature
-        <span class={getNavLinkUnderlineClasses("/literature")}></span>
-      </a>
+      </NavLink>
 
       <div
-        class="inline-block w-px h-4 mx-3 opacity-20 transition-opacity duration-200 bg-gradient-to-b from-transparent via-white to-transparent"
+        class="inline-block w-px h-4 mx-3 opacity-20 transition-theme-opacity bg-gradient-to-b from-transparent via-content-primary to-transparent"
       >
       </div>
 
-      <a href="/contact" class={getNavLinkClasses("/contact")}>
-        Contact
-        <span class={getNavLinkUnderlineClasses("/contact")}></span>
-      </a>
+      <NavLink href="/contact" currentPath={currentPath}> Contact </NavLink>
 
       <ThemeToggle />
     </nav>
@@ -109,7 +69,7 @@ const getMobileNavLinkClasses = (path: string) => {
       <ThemeToggle />
       <button
         id="menu-toggle"
-        class="flex items-center justify-center w-10 h-10 rounded-lg text-themed-secondary hover:text-blue-500 transition-colors duration-300"
+        class="flex items-center justify-center w-10 h-10 rounded-lg text-content-secondary hover:text-interactive-primary transition-theme"
         aria-label="Toggle menu"
         aria-expanded="false"
       >
@@ -133,12 +93,12 @@ const getMobileNavLinkClasses = (path: string) => {
   <!-- Mobile Navigation Drawer -->
   <div
     id="mobile-menu"
-    class="md:hidden fixed inset-0 z-40 transform translate-x-full transition-transform duration-300 ease-in-out pt-20 pb-8 px-6 bg-background/95 backdrop-blur-lg flex flex-col"
+    class="md:hidden fixed inset-0 z-40 transform translate-x-full transition-transform duration-300 ease-in-out pt-20 pb-8 px-6 bg-primary/95 backdrop-blur-lg flex flex-col"
   >
     <!-- Close button -->
     <button
       id="close-menu"
-      class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full text-themed-secondary hover:text-blue-500 transition-colors duration-300"
+      class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full text-content-secondary hover:text-interactive-primary transition-theme"
       aria-label="Close menu"
     >
       <svg
@@ -157,13 +117,18 @@ const getMobileNavLinkClasses = (path: string) => {
     </button>
 
     <nav class="flex flex-col gap-6 text-lg flex-grow">
-      <a href="/roadmap" class={getMobileNavLinkClasses("/roadmap")}>
+      <NavLink
+        href="/roadmap"
+        currentPath={currentPath}
+        variant="mobile"
+        class="group"
+      >
         <span
-          class="group-hover:text-blue-500 transition-colors duration-300 font-medium"
+          class="group-hover:text-interactive-primary transition-theme font-medium"
           >Roadmap</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+          class="w-6 h-6 rounded-full bg-interactive-primary/10 flex items-center justify-center text-interactive-primary opacity-75 group-hover:opacity-100 transition-theme-opacity"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -179,20 +144,20 @@ const getMobileNavLinkClasses = (path: string) => {
               d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
         </div>
-        {
-          currentPath.startsWith("/roadmap") && (
-            <span class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-r-full" />
-          )
-        }
-      </a>
+      </NavLink>
 
-      <a href="/projects" class={getMobileNavLinkClasses("/projects")}>
+      <NavLink
+        href="/projects"
+        currentPath={currentPath}
+        variant="mobile"
+        class="group"
+      >
         <span
-          class="group-hover:text-blue-500 transition-colors duration-300 font-medium"
+          class="group-hover:text-interactive-primary transition-theme font-medium"
           >Projects</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+          class="w-6 h-6 rounded-full bg-interactive-primary/10 flex items-center justify-center text-interactive-primary opacity-75 group-hover:opacity-100 transition-theme-opacity"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -208,20 +173,20 @@ const getMobileNavLinkClasses = (path: string) => {
               d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
         </div>
-        {
-          currentPath.startsWith("/projects") && (
-            <span class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-r-full" />
-          )
-        }
-      </a>
+      </NavLink>
 
-      <a href="/literature" class={getMobileNavLinkClasses("/literature")}>
+      <NavLink
+        href="/literature"
+        currentPath={currentPath}
+        variant="mobile"
+        class="group"
+      >
         <span
-          class="group-hover:text-blue-500 transition-colors duration-300 font-medium"
+          class="group-hover:text-interactive-primary transition-theme font-medium"
           >Literature</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+          class="w-6 h-6 rounded-full bg-interactive-primary/10 flex items-center justify-center text-interactive-primary opacity-75 group-hover:opacity-100 transition-theme-opacity"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -237,20 +202,20 @@ const getMobileNavLinkClasses = (path: string) => {
               d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
         </div>
-        {
-          currentPath.startsWith("/literature") && (
-            <span class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-r-full" />
-          )
-        }
-      </a>
+      </NavLink>
 
-      <a href="/contact" class={getMobileNavLinkClasses("/contact")}>
+      <NavLink
+        href="/contact"
+        currentPath={currentPath}
+        variant="mobile"
+        class="group"
+      >
         <span
-          class="group-hover:text-blue-500 transition-colors duration-300 font-medium"
+          class="group-hover:text-interactive-primary transition-theme font-medium"
           >Contact</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+          class="w-6 h-6 rounded-full bg-interactive-primary/10 flex items-center justify-center text-interactive-primary opacity-75 group-hover:opacity-100 transition-theme-opacity"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -266,17 +231,12 @@ const getMobileNavLinkClasses = (path: string) => {
               d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
         </div>
-        {
-          currentPath.startsWith("/contact") && (
-            <span class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-r-full" />
-          )
-        }
-      </a>
+      </NavLink>
 
       <div class="mt-auto w-full text-center">
         <a
           href="/projects"
-          class="inline-flex items-center justify-center w-full py-3 px-6 rounded-lg font-mono font-medium text-sm bg-gradient-to-r from-blue-500 to-amber-500 text-white transform transition-transform duration-300 hover:scale-105"
+          class="inline-flex items-center justify-center w-full py-3 px-6 rounded-lg font-mono font-medium text-sm bg-gradient-to-r from-interactive-primary to-interactive-secondary text-white transform transition-theme-transform hover:scale-105"
         >
           View All Projects
           <svg
@@ -299,14 +259,16 @@ const getMobileNavLinkClasses = (path: string) => {
     <!-- Brand in mobile menu -->
     <div class="mt-12 text-center">
       <div
-        class="text-themed-secondary font-sans font-semibold text-lg tracking-tight opacity-80"
+        class="text-content-secondary font-sans font-semibold text-lg tracking-tight opacity-80"
       >
         <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-amber-500 inline-block"
+          class="text-transparent bg-clip-text bg-gradient-to-r from-interactive-primary to-interactive-secondary inline-block"
         >
           Luis Miguel Montoya
         </span>
-        <span class="block text-sm font-normal mt-1 font-mono text-amber-500">
+        <span
+          class="block text-sm font-normal mt-1 font-mono text-interactive-secondary"
+        >
           Understand to Align
         </span>
       </div>

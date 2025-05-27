@@ -1,0 +1,76 @@
+---
+// src/components/ui/NavLink.astro
+// Reusable navigation link component with proper hover/active states and underline animation
+// Follows exact same pattern as UpdatesContainer "See All" button
+
+interface Props {
+  href: string;
+  currentPath: string;
+  class?: string;
+  variant?: "desktop" | "mobile";
+}
+
+const {
+  href,
+  currentPath,
+  class: className = "",
+  variant = "desktop",
+} = Astro.props;
+
+// Check if this link is active
+const isActive = currentPath.startsWith(href);
+
+// Generate classes based on variant
+const getClasses = () => {
+  const baseClasses = "relative group transition-theme";
+
+  if (variant === "desktop") {
+    return [
+      baseClasses,
+      "flex items-center h-10 px-3 font-medium font-mono text-sm rounded-lg",
+      // Follow UpdatesContainer "See All" pattern:
+      // Default: theme-aware text, Hover: blue text, Active: blue text
+      isActive
+        ? "text-interactive-primary"
+        : "text-content-primary hover:text-interactive-primary",
+      className,
+    ].join(" ");
+  } else {
+    // Mobile variant
+    return [
+      baseClasses,
+      "py-3 border-b border-primary flex items-center justify-between font-mono transform hover:translate-x-1",
+      // Mobile colors
+      isActive
+        ? "text-interactive-primary border-interactive-primary/30"
+        : "text-content-primary hover:text-interactive-primary",
+      className,
+    ].join(" ");
+  }
+};
+
+// Underline classes for desktop variant - exact same as UpdatesContainer
+const getUnderlineClasses = () => {
+  return [
+    "absolute -bottom-1 left-0 w-full h-0.5",
+    "bg-interactive-primary", // Blue underline
+    "transform origin-left transition-theme-transform",
+    // Active: underline visible, Default: hidden but appears on hover
+    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
+  ].join(" ");
+};
+---
+
+<a href={href} class={getClasses()}>
+  <slot />
+
+  <!-- Desktop underline animation - exact same pattern as UpdatesContainer "See All" -->
+  {variant === "desktop" && <span class={getUnderlineClasses()} />}
+
+  <!-- Mobile active indicator -->
+  {
+    variant === "mobile" && isActive && (
+      <span class="absolute left-0 top-0 bottom-0 w-1 bg-interactive-primary rounded-r-full" />
+    )
+  }
+</a>

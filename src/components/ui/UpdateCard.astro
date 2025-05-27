@@ -1,13 +1,13 @@
 ---
 import { formatRelativeDate } from "../../utils/dateUtils";
 import { iconPaths } from "../../utils/iconPaths";
-import { 
-  updateCardVariants, 
-  updateCardIconVariants, 
-  updateCardTagVariants, 
+import {
+  updateCardVariants,
+  updateCardIconVariants,
+  updateCardTagVariants,
   updateCardTitleVariants,
   cn,
-  type UpdateCardVariants 
+  type UpdateCardVariants
 } from "../../utils/variants";
 
 // src/components/ui/UpdateCard.astro
@@ -24,13 +24,13 @@ interface Props extends UpdateCardVariants {
   class?: string;
 }
 
-const { 
-  title, 
-  date, 
-  tag, 
-  description, 
-  href, 
-  icon, 
+const {
+  title,
+  date,
+  tag,
+  description,
+  href,
+  icon,
   variant = "milestone",
   class: className = ""
 } = Astro.props;
@@ -53,27 +53,27 @@ const borderColor = {
   {variant === "milestone" && (
     <>
       <!-- Theme-aware hover background for milestone cards -->
-      <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 dark:block hidden" style="background-color: rgba(212, 175, 55, 0.03);"></div>
-      <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 dark:hidden block" style="background-color: rgba(208, 124, 92, 0.03);"></div>
+      <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-theme-opacity dark:block hidden" style="background-color: rgba(212, 175, 55, 0.03);"></div>
+      <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-theme-opacity dark:hidden block" style="background-color: rgba(208, 124, 92, 0.03);"></div>
     </>
   )}
-  
+
   <!-- Left border indicator (recreating ::before pseudo-element) -->
   {
     variant === "milestone" ? (
       <>
         <div
-          class="absolute left-0 top-0 bottom-0 w-0.5 rounded-r-sm transform scale-y-0 origin-center transition-transform duration-300 group-hover:scale-y-100 dark:block hidden"
+          class="absolute left-0 top-0 bottom-0 w-0.5 rounded-r-sm transform scale-y-0 origin-center transition-theme-transform group-hover:scale-y-100 dark:block hidden"
           style="background-color: rgb(212, 175, 55);"
         />
         <div
-          class="absolute left-0 top-0 bottom-0 w-0.5 rounded-r-sm transform scale-y-0 origin-center transition-transform duration-300 group-hover:scale-y-100 dark:hidden block"
+          class="absolute left-0 top-0 bottom-0 w-0.5 rounded-r-sm transform scale-y-0 origin-center transition-theme-transform group-hover:scale-y-100 dark:hidden block"
           style="background-color: rgb(208, 124, 92);"
         />
       </>
     ) : (
       <div
-        class="absolute left-0 top-0 bottom-0 w-0.5 rounded-r-sm transform scale-y-0 origin-center transition-transform duration-300 group-hover:scale-y-100"
+        class="absolute left-0 top-0 bottom-0 w-0.5 rounded-r-sm transform scale-y-0 origin-center transition-theme-transform group-hover:scale-y-100"
         style={`background-color: ${borderColor};`}
       />
     )
@@ -161,7 +161,7 @@ const borderColor = {
       <h4 class={titleClasses}>
         {
           variant === "milestone" ? (
-            <span class="group-hover:text-blue-500">{title}</span>
+            <span class="group-hover:text-blue-500 transition-theme">{title}</span>
           ) : (
             title
           )
@@ -177,7 +177,7 @@ const borderColor = {
       }
 
       <div
-        class="text-xs text-themed-secondary font-mono opacity-75 group-hover:opacity-100 transition-opacity duration-200"
+        class="text-xs text-themed-secondary font-mono opacity-75 group-hover:opacity-100 transition-theme-opacity"
       >
         <time datetime={date} class="tabular-nums font-medium">
           {date}

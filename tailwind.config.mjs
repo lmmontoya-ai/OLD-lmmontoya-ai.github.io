@@ -276,6 +276,8 @@ export default {
         spring: "300ms",
         fast: "100ms",
         slow: "700ms",
+        // Theme switching duration - standardized across all components
+        theme: "200ms",
       },
       transitionTimingFunction: {
         linear: "linear",
@@ -535,63 +537,71 @@ export default {
     // Custom plugin to add theme-aware utilities
     function ({ addUtilities, theme }) {
       const newUtilities = {
-        // === SEMANTIC THEME-AWARE UTILITIES ===
+        // === SEMANTIC THEME-AWARE UTILITIES WITH PROPER TRANSITIONS ===
 
-        // Content/Text utilities
+        // Content/Text utilities - WITH TRANSITIONS
         ".text-content-primary": {
           color: "rgb(248 250 252)", // Dark theme
+          transition: "color 200ms cubic-bezier(0.4, 0, 0.2, 1)", // Match global timing
           ":not(.dark) &": {
             color: "rgb(28 42 77)", // Light theme
           },
         },
         ".text-content-secondary": {
           color: "rgb(203 213 225)", // Dark theme
+          transition: "color 200ms cubic-bezier(0.4, 0, 0.2, 1)", // Match global timing
           ":not(.dark) &": {
             color: "rgb(74 74 74)", // Light theme
           },
         },
         ".text-content-tertiary": {
           color: "rgb(148 163 184)", // Dark theme
+          transition: "color 200ms cubic-bezier(0.4, 0, 0.2, 1)", // Match global timing
           ":not(.dark) &": {
             color: "rgb(100 116 139)", // Light theme
           },
         },
 
-        // Background utilities
+        // Background utilities - WITH TRANSITIONS
         ".bg-primary": {
           backgroundColor: "rgb(15 27 43)", // Dark theme
+          transition: "background-color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
           ":not(.dark) &": {
             backgroundColor: "rgb(248 250 253)", // Light theme
           },
         },
         ".bg-secondary": {
           backgroundColor: "rgb(30 41 59)", // Dark theme
+          transition: "background-color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
           ":not(.dark) &": {
             backgroundColor: "rgb(255 255 255)", // Light theme
           },
         },
         ".bg-tertiary": {
           backgroundColor: "rgb(11 20 31)", // Dark theme
+          transition: "background-color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
           ":not(.dark) &": {
             backgroundColor: "rgb(248 250 253)", // Light theme
           },
         },
 
-        // Border utilities
+        // Border utilities - WITH TRANSITIONS
         ".border-primary": {
           borderColor: "rgba(100 116 139 / 0.25)", // Dark theme
+          transition: "border-color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
           ":not(.dark) &": {
             borderColor: "rgb(228 231 235)", // Light theme
           },
         },
         ".border-secondary": {
           borderColor: "rgba(51 65 85 / 0.3)", // Dark theme
+          transition: "border-color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
           ":not(.dark) &": {
             borderColor: "rgba(228 231 235 / 0.6)", // Light theme
           },
         },
 
-        // Interactive utilities
+        // Interactive utilities - NO TRANSITIONS (these are for hover states)
         ".text-interactive-primary": {
           color: "rgb(59 130 246)", // Same in both themes
         },
@@ -611,7 +621,7 @@ export default {
           },
         },
 
-        // Status utilities
+        // Status utilities - NO TRANSITIONS
         ".text-status-success": {
           color: "rgb(34 197 94)", // Dark theme
           ":not(.dark) &": {
@@ -637,43 +647,49 @@ export default {
           },
         },
 
-        // === LEGACY THEME-AWARE UTILITIES (for backward compatibility) ===
+        // === LEGACY THEME-AWARE UTILITIES WITH TRANSITIONS (for backward compatibility) ===
 
-        // Theme-aware text colors
+        // Theme-aware text colors - WITH TRANSITIONS
         ".text-themed": {
           color: "rgb(248 250 252)",
+          transition: "color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
           ":not(.dark) &": {
             color: "rgb(28 42 77)",
           },
         },
         ".text-themed-secondary": {
           color: "rgb(203 213 225)",
+          transition: "color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
           ":not(.dark) &": {
             color: "rgb(74 74 74)",
           },
         },
         ".text-highlight-themed": {
           color: "rgb(212 175 55)",
+          transition: "color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
           ":not(.dark) &": {
             color: "rgb(208 124 92)",
           },
         },
-        // Theme-aware background colors
+        // Theme-aware background colors - WITH TRANSITIONS
         ".bg-themed": {
           backgroundColor: "rgb(15 27 43)",
+          transition: "background-color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
           ":not(.dark) &": {
             backgroundColor: "rgb(248 250 253)",
           },
         },
         ".bg-card-themed": {
           backgroundColor: "rgba(30 41 59 / 0.8)",
+          transition: "background-color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
           ":not(.dark) &": {
             backgroundColor: "rgb(255 255 255)",
           },
         },
-        // Theme-aware borders
+        // Theme-aware borders - WITH TRANSITIONS
         ".border-themed": {
           borderColor: "rgba(100 116 139 / 0.25)",
+          transition: "border-color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
           ":not(.dark) &": {
             borderColor: "rgb(228 231 235)",
           },
@@ -736,5 +752,35 @@ export default {
 
       addUtilities(newUtilities);
     },
+    // Custom plugin for theme transition utilities
+    function({ addUtilities }) {
+      const themeTransitionUtilities = {
+        // Base theme transition for color changes
+        '.transition-theme': {
+          transitionProperty: 'color, background-color, border-color, text-decoration-color, fill, stroke',
+          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          transitionDuration: '200ms',
+        },
+        // Theme transition including shadows
+        '.transition-theme-all': {
+          transitionProperty: 'color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, opacity',
+          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          transitionDuration: '200ms',
+        },
+        // Theme transition for opacity only
+        '.transition-theme-opacity': {
+          transitionProperty: 'opacity',
+          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          transitionDuration: '200ms',
+        },
+        // Theme transition for transform (for elements that move on theme change)
+        '.transition-theme-transform': {
+          transitionProperty: 'transform, color, background-color',
+          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          transitionDuration: '200ms',
+        },
+      }
+      addUtilities(themeTransitionUtilities)
+    }
   ],
 };

@@ -1,153 +1,21 @@
-/* === REGISTERED CUSTOM PROPERTIES === */
-/* Tailwind v4: Registered properties for enhanced performance and type safety */
-/*
- * OPTIMIZATION NOTES (Task 4.3 - Audit and Modernize Custom Utilities):
- * - Removed unused animation utilities (animate-fade-in-slow, animate-scale-bounce, etc.)
- * - Removed unused keyframes (fadeOut, slideDown, slideLeft, slideRight, etc.)
- * - Streamlined color-mix utilities (removed 20+ unused variations)
- * - Simplified logical properties (kept only m-inline-xs and text-start/end)
- * - Removed unused backdrop and grid utilities
- * - Kept essential utilities that are actively used in components
- * - Maintained semantic naming system and theme awareness
- * - Total reduction: ~500 lines of unused utility definitions
- */
-
-/* Moved all @property definitions to animations/properties.css */
-
 /* CSS-first Tailwind v4 configuration */
 @import "tailwindcss";
 
 /* Cascade layer organization */
 @layer theme, base, components, utilities;
 
-/* Main entry point for global styles */
-@import "tailwindcss";
-@import "./theme/index.css";
-@import "./utilities/semantic-colors.css";
-@import "./utilities/legacy-compat.css";
-@import "./utilities/modern-layout.css";
-@import "./utilities/interactive.css";
-@import "./utilities/components.css";
-@import "./base/reset.css";
-@import "./animations/keyframes.css";
+/* Modular imports */
+@import "./theme/index.css" layer(theme);
+@import "./base/reset.css" layer(base);
 @import "./animations/properties.css";
+@import "./animations/keyframes.css";
+@import "./utilities/semantic-colors.css" layer(utilities);
+@import "./utilities/legacy-compat.css" layer(utilities);
+@import "./utilities/modern-layout.css" layer(utilities);
+@import "./utilities/interactive.css" layer(utilities);
+@import "./utilities/components.css" layer(utilities);
 
-/* Existing global styles will be migrated to modular files in 4.5.2+ */
-
-/* === ESSENTIAL ANIMATION UTILITIES === */
-/* Moved to utilities/components.css (now uses .animate-* class syntax) */
-
-/* === ESSENTIAL KEYFRAMES === */
-/* Only keeping keyframes that are used by our utilities or likely to be needed */
-
-@keyframes fadeIn {
-  0% { --animation-opacity: 0; opacity: var(--animation-opacity); }
-  100% { --animation-opacity: 1; opacity: var(--animation-opacity); }
-}
-
-@keyframes slideUp {
-  0% {
-    --transform-translate-y: 20px;
-    --animation-opacity: 0;
-    transform: translateY(var(--transform-translate-y));
-    opacity: var(--animation-opacity);
-  }
-  100% {
-    --transform-translate-y: 0px;
-    --animation-opacity: 1;
-    transform: translateY(var(--transform-translate-y));
-    opacity: var(--animation-opacity);
-  }
-}
-
-@keyframes scaleIn {
-  0% {
-    --transform-scale: 0.95;
-    --animation-opacity: 0;
-    transform: scale(var(--transform-scale));
-    opacity: var(--animation-opacity);
-  }
-  100% {
-    --transform-scale: 1;
-    --animation-opacity: 1;
-    transform: scale(var(--transform-scale));
-    opacity: var(--animation-opacity);
-  }
-}
-
-@keyframes glow {
-  0% {
-    --glow-shadow-size: 20px;
-    --glow-shadow-opacity: 0.2;
-    box-shadow: 0 0 var(--glow-shadow-size) rgba(59, 130, 246, var(--glow-shadow-opacity));
-  }
-  100% {
-    --glow-shadow-size: 40px;
-    --glow-shadow-opacity: 0.4;
-    box-shadow: 0 0 var(--glow-shadow-size) rgba(59, 130, 246, var(--glow-shadow-opacity));
-  }
-}
-
-/* === MODERN V4 UTILITIES === */
-/* Using CSS variables from @theme and v4 best practices */
-
-
-
-/* === MODERN GRADIENT UTILITIES === */
-/* Moved to utilities/components.css (now uses .gradient-* class syntax) */
-
-/* === MODERN TYPOGRAPHY UTILITIES === */
-/* Moved to utilities/components.css or handled by Tailwind v4 built-in classes */
-
-/* === MODERN ACCESSIBILITY UTILITIES === */
-/* Moved to utilities/interactive.css */
-
-/* === MODERN LAYOUT UTILITIES === */
-/* Moved to utilities/modern-layout.css */
-
-/* === MODERN TRANSITION UTILITIES === */
-/* Moved to utilities/interactive.css */
-
-/* === ESSENTIAL ANIMATION UTILITIES === */
-/* Moved to utilities/components.css (now uses .animate-* class syntax) */
-
-/* === ESSENTIAL INTERACTION UTILITIES === */
-/* Moved to utilities/interactive.css */
-
-/* === ESSENTIAL COLOR UTILITIES (v4 Features) === */
-/* Note: These advanced color-mix utilities are available for future use but not currently needed */
-/* Keeping section minimal as Tailwind v4 provides most color functionality built-in */
-
-/* Essential color-mix utility for theme adaptation - future use */
-/* Moved to utilities/components.css or handled by Tailwind v4 built-in classes */
-
-/* === LOGICAL PROPERTIES (v4 RTL Support) === */
-/* Moved to utilities/modern-layout.css */
-
-/* === ESSENTIAL GRID UTILITIES === */
-/* Grid utilities available for future use - not currently needed */
-/* Note: Tailwind v4 provides comprehensive grid utilities built-in */
-
-/* === UPDATE CARD ACCENT UTILITIES (THEME-AWARE) === */
-/* Moved to utilities/interactive.css */
-
-/* === BASE STYLES MOVED TO base/reset.css === */
-
+/* Components layer - Currently empty, reserved for future use */
 @layer components {
-  /* All custom utility classes previously here have been removed. */
-  /* Styling is now handled by Tailwind's utility classes directly in components */
-  /* or through the Tailwind theme configuration in tailwind.config.mjs. */
-
-  /*
-   * NOTE: @apply should be used VERY sparingly. The only valid use cases are:
-   *
-   * 1. When you need to style elements you don't control (e.g., markdown content):
-   *    .prose h2 { @apply text-2xl font-bold mt-8 mb-4; }
-   *
-   * 2. When creating a truly reusable pattern used 10+ times:
-   *    .icon-base { @apply w-5 h-5 flex-shrink-0; }
-   *
-   * Currently, this project uses ZERO @apply directives, which is ideal.
-   * All styling is achieved through utility classes and CVA variants.
-   */
+  /* Component-specific styles would go here if needed */
 }

@@ -1,1 +1,148 @@
-/* Interactive Utilities: Hover, focus, animation utilities */
+/* ========================================
+   INTERACTIVE UTILITIES
+   Hover, focus, transitions, and interactive states
+   Tailwind v4 compatible with modern CSS best practices
+   ======================================== */
+
+/* === ACCESSIBILITY UTILITIES === */
+/* Focus ring utilities for keyboard navigation */
+
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid rgb(var(--color-interactive-focus));
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+@utility focus-ring-inset {
+  &:focus-visible {
+    outline: 2px solid rgb(var(--color-interactive-focus));
+    outline-offset: -2px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* === TRANSITION UTILITIES === */
+/* Theme-aware transition utilities for smooth interactions */
+
+@utility transition-theme {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: var(--transition-timing-base);
+  transition-duration: var(--transition-duration-theme);
+}
+
+@utility transition-theme-all {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, opacity;
+  transition-timing-function: var(--transition-timing-base);
+  transition-duration: var(--transition-duration-theme);
+}
+
+@utility transition-theme-opacity {
+  transition-property: opacity;
+  transition-timing-function: var(--transition-timing-base);
+  transition-duration: var(--transition-duration-theme);
+}
+
+@utility transition-theme-transform {
+  transition-property: transform, color, background-color;
+  transition-timing-function: var(--transition-timing-base);
+  transition-duration: var(--transition-duration-theme);
+}
+
+@utility transition-spring {
+  transition: all var(--transition-spring);
+}
+
+@utility transition-smooth {
+  transition: all var(--transition-duration-base) var(--transition-timing-smooth);
+}
+
+/* === HOVER EFFECTS === */
+/* Glow and enhancement effects for interactive elements */
+
+@utility hover-glow {
+  transition: box-shadow var(--transition-base);
+
+  &:hover {
+    box-shadow: var(--shadow-glow-accent);
+  }
+}
+
+/* === UPDATE CARD ACCENT UTILITIES (THEME-AWARE) === */
+/* Interactive utilities for UpdateCard component variants */
+
+/* Milestone Accent */
+@utility text-accent-milestone {
+  color: rgb(var(--color-accent-milestone));
+  transition: color var(--transition-base);
+  :not(.dark) & {
+    color: rgb(var(--color-accent-milestone-light));
+  }
+}
+
+@utility bg-accent-milestone {
+  background-color: rgb(var(--color-accent-milestone));
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-milestone-light));
+  }
+}
+
+@utility bg-accent-milestone-hover {
+  background-color: rgb(var(--color-accent-milestone) / 0.05);
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-milestone-light) / 0.05);
+  }
+}
+
+/* Project Accent */
+@utility text-accent-project {
+  color: rgb(var(--color-accent-project));
+  transition: color var(--transition-base);
+  :not(.dark) & {
+    color: rgb(var(--color-accent-project-light));
+  }
+}
+
+@utility bg-accent-project {
+  background-color: rgb(var(--color-accent-project));
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-project-light));
+  }
+}
+
+@utility bg-accent-project-hover {
+  background-color: rgb(var(--color-accent-project) / 0.05);
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-project-light) / 0.05);
+  }
+}
+
+/* Resource Accent */
+@utility text-accent-resource {
+  color: rgb(var(--color-accent-resource));
+  transition: color var(--transition-base);
+  :not(.dark) & {
+    color: rgb(var(--color-accent-resource-light));
+  }
+}
+
+@utility bg-accent-resource {
+  background-color: rgb(var(--color-accent-resource));
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-resource-light));
+  }
+}
+
+@utility bg-accent-resource-hover {
+  background-color: rgb(var(--color-accent-resource) / 0.05);
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-resource-light) / 0.05);
+  }
+}

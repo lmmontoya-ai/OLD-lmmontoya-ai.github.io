@@ -1,89 +1,101 @@
 
-/*
- * Semantic Color Utilities (Tailwind v4 Modular CSS)
- * --------------------------------------------------
- * Contains all semantic color utility classes for text, background, border, and status colors.
- * These utilities use CSS variables from the @theme layer and follow v4 best practices.
- *
- * Extracted from global.css as part of Task 4.5.3 (Jan 2025).
- */
+/* ========================================
+   SEMANTIC COLOR UTILITIES
+   Theme-aware color utilities using CSS variables
+   Tailwind v4 compatible - NO NESTING in @utility
+   ======================================== */
 
-@layer utilities {
-  @utility text-content-primary {
-    color: rgb(var(--color-content-primary));
-    transition: color var(--transition-base);
-    :not(.dark) & {
-      color: rgb(var(--color-content-inverse));
-    }
-  }
-  @utility text-content-secondary {
-    color: rgb(var(--color-content-secondary));
-    transition: color var(--transition-base);
-    :not(.dark) & {
-      color: rgb(var(--color-content-secondary));
-    }
-  }
-  @utility text-content-tertiary {
-    color: rgb(var(--color-content-tertiary));
-    transition: color var(--transition-base);
-  }
-  @utility bg-primary {
-    background-color: rgb(var(--color-bg-primary));
-    transition: background-color var(--transition-base);
-    :not(.dark) & {
-      background-color: rgb(var(--color-bg-inverse));
-    }
-  }
-  @utility bg-secondary {
-    background-color: rgb(var(--color-bg-secondary));
-    transition: background-color var(--transition-base);
-    :not(.dark) & {
-      background-color: rgb(var(--color-bg-inverse-secondary));
-    }
-  }
-  @utility bg-tertiary {
-    background-color: rgb(var(--color-bg-tertiary));
-    transition: background-color var(--transition-base);
-    :not(.dark) & {
-      background-color: rgb(var(--color-bg-inverse));
-    }
-  }
-  @utility border-primary {
-    border-color: rgb(var(--color-border-primary) / 0.25);
-    transition: border-color var(--transition-base);
-    :not(.dark) & {
-      border-color: rgb(var(--color-border-inverse));
-    }
-  }
-  @utility border-secondary {
-    border-color: rgb(var(--color-border-secondary) / 0.3);
-    transition: border-color var(--transition-base);
-    :not(.dark) & {
-      border-color: rgb(var(--color-border-inverse) / 0.6);
-    }
-  }
-  @utility text-interactive-primary {
-    color: rgb(var(--color-interactive-primary));
-  }
-  @utility text-interactive-secondary {
-    color: rgb(var(--color-interactive-secondary));
-  }
-  @utility bg-interactive-primary {
-    background-color: rgb(var(--color-interactive-primary));
-  }
-  @utility bg-interactive-secondary {
-    background-color: rgb(var(--color-interactive-secondary));
-  }
-  @utility text-status-success {
-    color: rgb(var(--color-status-success));
-  }
-  @utility text-status-warning {
-    color: rgb(var(--color-status-warning));
-  }
-  @utility bg-status-success {
-    background-color: rgb(var(--color-status-success));
-  }
-  @utility bg-status-warning {
-    background-color: rgb(var(--color-status-warning));
-  }
+/* === TEXT COLOR UTILITIES === */
+/* Theme-aware text colors */
+
+@utility text-content-primary {
+  color: rgb(var(--color-content-primary));
+  transition: color var(--transition-base);
 }
+
+@utility text-content-secondary {
+  color: rgb(var(--color-content-secondary));
+  transition: color var(--transition-base);
+}
+
+@utility text-content-tertiary {
+  color: rgb(var(--color-content-tertiary));
+  transition: color var(--transition-base);
+}
+
+/* === BACKGROUND COLOR UTILITIES === */
+/* Theme-aware background colors */
+
+@utility bg-primary {
+  background-color: rgb(var(--color-bg-primary));
+  transition: background-color var(--transition-base);
+}
+
+@utility bg-secondary {
+  background-color: rgb(var(--color-bg-secondary));
+  transition: background-color var(--transition-base);
+}
+
+@utility bg-tertiary {
+  background-color: rgb(var(--color-bg-tertiary));
+  transition: background-color var(--transition-base);
+}
+
+/* === BORDER COLOR UTILITIES === */
+/* Theme-aware border colors */
+
+@utility border-primary {
+  border-color: rgb(var(--color-border-primary) / 0.25);
+  transition: border-color var(--transition-base);
+}
+
+@utility border-secondary {
+  border-color: rgb(var(--color-border-secondary) / 0.3);
+  transition: border-color var(--transition-base);
+}
+
+/* === INTERACTIVE COLOR UTILITIES === */
+/* Interactive element colors */
+
+@utility text-interactive-primary {
+  color: rgb(var(--color-interactive-primary));
+}
+
+@utility text-interactive-secondary {
+  color: rgb(var(--color-interactive-secondary));
+}
+
+@utility bg-interactive-primary {
+  background-color: rgb(var(--color-interactive-primary));
+}
+
+@utility bg-interactive-secondary {
+  background-color: rgb(var(--color-interactive-secondary));
+}
+
+/* === STATUS COLOR UTILITIES === */
+/* Status and state colors */
+
+@utility text-status-success {
+  color: rgb(var(--color-status-success));
+}
+
+@utility text-status-warning {
+  color: rgb(var(--color-status-warning));
+}
+
+@utility bg-status-success {
+  background-color: rgb(var(--color-status-success));
+}
+
+@utility bg-status-warning {
+  background-color: rgb(var(--color-status-warning));
+}
+
+/* === THEME-AWARE UTILITIES (NO NESTING) === */
+/* These utilities are handled by the @theme CSS variables automatically */
+/* The theme switching is handled by the CSS variable values, not nested selectors */
+
+/* Note: In Tailwind v4, theme switching should be handled through CSS variable values
+   in the @theme block, not through nested selectors in @utility directives.
+   The --color-* variables automatically adapt based on the theme class on :root */

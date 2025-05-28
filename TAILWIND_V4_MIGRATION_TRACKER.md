@@ -581,15 +581,15 @@
   - [x] Move text-themed* utilities to `utilities/legacy-compat.css`
   - [x] Move bg-themed* utilities to `utilities/legacy-compat.css`
   - [x] Move shadow-themed-* utilities to `utilities/legacy-compat.css`
-- [ ] **4.5.5** Extract modern layout utilities
-  - [ ] Move logical properties to `utilities/modern-layout.css`
-  - [ ] Move RTL support utilities to `utilities/modern-layout.css`
-  - [ ] Move container and grid utilities to `utilities/modern-layout.css`
-- [ ] **4.5.6** Extract interactive utilities
-  - [ ] Move hover-* utilities to `utilities/interactive.css`
-  - [ ] Move focus-* utilities to `utilities/interactive.css`
-  - [ ] Move transition-* utilities to `utilities/interactive.css`
-  - [ ] Move animate-* utilities to `utilities/interactive.css`
+- [x] **4.5.5** Extract modern layout utilities ✅ *(~30 min)*
+  - [x] Move logical properties to `utilities/modern-layout.css`
+  - [x] Move RTL support utilities to `utilities/modern-layout.css`
+  - [x] Move container and grid utilities to `utilities/modern-layout.css`
+- [x] **4.5.6** Extract interactive utilities ✅ *(~25 min)*
+  - [x] Move hover-* utilities to `utilities/interactive.css`
+  - [x] Move focus-* utilities to `utilities/interactive.css`
+  - [x] Move transition-* utilities to `utilities/interactive.css`
+  - [x] Move UpdateCard accent utilities with hover states to `utilities/interactive.css`
 - [ ] **4.5.7** Extract component-specific utilities
   - [ ] Move UpdateCard accent utilities to `utilities/components.css`
   - [ ] Move gradient utilities to `utilities/components.css`

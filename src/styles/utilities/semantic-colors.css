@@ -17,7 +17,7 @@
  * Migration Notes:
  *   - Task 4.5.3: Extracted from global.css as part of Tailwind v4 modularization.
  *   - Follows Tailwind v4 best practices: @utility, no nesting, uses CSS variables for theme switching.
- *   - Modern/semantic utilities only; legacy/compatibility utilities are in legacy-compat.css.
+ *   - Modern/semantic utilities only; all legacy/compatibility utilities have been migrated.
  *
  * Usage/Contribution:
  *   - Use these utilities for all new color-related styling in components.

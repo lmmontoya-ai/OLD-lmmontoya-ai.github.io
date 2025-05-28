@@ -41,9 +41,7 @@
     stroke="currentColor"
     stroke-width="2"
   >
-    <path
-      d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
-    ></path>
+    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
   </svg>
 
   <!-- Visual indicator ring -->
@@ -69,10 +67,10 @@
     private rippleEffect: HTMLElement | null;
 
     constructor() {
-      this.button = document.getElementById('themeToggle');
-      this.sunIcon = document.getElementById('sun-icon');
-      this.moonIcon = document.getElementById('moon-icon');
-      this.rippleEffect = document.getElementById('ripple-effect');
+      this.button = document.getElementById("themeToggle");
+      this.sunIcon = document.getElementById("sun-icon");
+      this.moonIcon = document.getElementById("moon-icon");
+      this.rippleEffect = document.getElementById("ripple-effect");
 
       this.init();
     }
@@ -82,13 +80,13 @@
       this.updateIconVisibility();
 
       // Add click event listener
-      this.button?.addEventListener('click', () => this.toggleTheme());
+      this.button?.addEventListener("click", () => this.toggleTheme());
 
       // Listen for theme changes (for external theme changes)
       const observer = new MutationObserver(() => this.updateIconVisibility());
       observer.observe(document.documentElement, {
         attributes: true,
-        attributeFilter: ['class'],
+        attributeFilter: ["class"],
       });
     }
 
@@ -97,47 +95,48 @@
       this.createRippleEffect();
 
       // Toggle the theme
-      const isDark = document.documentElement.classList.contains('dark');
-      const newTheme = isDark ? 'light' : 'dark';
+      const isDark = document.documentElement.classList.contains("dark");
+      const newTheme = isDark ? "light" : "dark";
 
       // Add transition class to body for smooth theme transition
-      document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+      document.body.style.transition =
+        "background-color 0.3s ease, color 0.3s ease";
 
       // Update DOM
-      if (newTheme === 'dark') {
-        document.documentElement.classList.add('dark');
+      if (newTheme === "dark") {
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove("dark");
       }
 
       // Save to localStorage
-      localStorage.setItem('theme', newTheme);
+      localStorage.setItem("theme", newTheme);
 
       // Update icon visibility with animation
       setTimeout(() => this.updateIconVisibility(), 50);
 
       // Remove transition after theme change completes
       setTimeout(() => {
-        document.body.style.transition = '';
+        document.body.style.transition = "";
       }, 300);
     }
 
     updateIconVisibility() {
-      const isDark = document.documentElement.classList.contains('dark');
+      const isDark = document.documentElement.classList.contains("dark");
 
       if (this.sunIcon && this.moonIcon) {
         if (isDark) {
           // Show moon, hide sun (dark mode active)
-          this.sunIcon.style.transform = 'rotate(180deg) scale(0)';
-          this.sunIcon.style.opacity = '0';
-          this.moonIcon.style.transform = 'rotate(0deg) scale(1)';
-          this.moonIcon.style.opacity = '1';
+          this.sunIcon.style.transform = "rotate(180deg) scale(0)";
+          this.sunIcon.style.opacity = "0";
+          this.moonIcon.style.transform = "rotate(0deg) scale(1)";
+          this.moonIcon.style.opacity = "1";
         } else {
           // Show sun, hide moon (light mode active)
-          this.sunIcon.style.transform = 'rotate(0deg) scale(1)';
-          this.sunIcon.style.opacity = '1';
-          this.moonIcon.style.transform = 'rotate(-180deg) scale(0)';
-          this.moonIcon.style.opacity = '0';
+          this.sunIcon.style.transform = "rotate(0deg) scale(1)";
+          this.sunIcon.style.opacity = "1";
+          this.moonIcon.style.transform = "rotate(-180deg) scale(0)";
+          this.moonIcon.style.opacity = "0";
         }
       }
     }
@@ -145,20 +144,22 @@
     createRippleEffect() {
       if (this.rippleEffect) {
         // Reset animation
-        this.rippleEffect.style.transform = 'scale(0)';
-        this.rippleEffect.style.opacity = '1';
+        this.rippleEffect.style.transform = "scale(0)";
+        this.rippleEffect.style.opacity = "1";
 
         // Trigger reflow
         this.rippleEffect.offsetHeight;
 
         // Start animation
-        this.rippleEffect.style.transform = 'scale(1.5)';
-        this.rippleEffect.style.opacity = '0';
+        this.rippleEffect.style.transform = "scale(1.5)";
+        this.rippleEffect.style.opacity = "0";
 
         // Reset after animation
         setTimeout(() => {
-          this.rippleEffect.style.transform = 'scale(0)';
-          this.rippleEffect.style.opacity = '0';
+          if (this.rippleEffect) {
+            this.rippleEffect.style.transform = "scale(0)";
+            this.rippleEffect.style.opacity = "0";
+          }
         }, 300);
       }
     }
@@ -170,21 +171,23 @@
   }
 
   // Initialize on different page load events
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initThemeToggle);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initThemeToggle);
   } else {
     initThemeToggle();
   }
 
   // Also initialize on Astro page transitions
-  document.addEventListener('astro:page-load', initThemeToggle);
+  document.addEventListener("astro:page-load", initThemeToggle);
 </script>
 
 <style>
   /* Enhanced icon transitions */
-  #sun-icon, #moon-icon {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-                opacity 0.3s ease;
+  #sun-icon,
+  #moon-icon {
+    transition:
+      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity 0.3s ease;
   }
 
   /* Initial state - sun visible in light mode, moon visible in dark mode */

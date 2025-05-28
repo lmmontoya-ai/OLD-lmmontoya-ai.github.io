@@ -17,7 +17,6 @@
    at the top-level so @utility stays valid
    ———————————————————————————————— */
 @import "./utilities/semantic-colors.css";
-@import "./utilities/legacy-compat.css";
 @import "./utilities/modern-layout.css";
 @import "./utilities/interactive.css";
 @import "./utilities/components.css";

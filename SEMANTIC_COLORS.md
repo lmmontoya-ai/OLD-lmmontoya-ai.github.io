@@ -330,15 +330,13 @@ accent: { DEFAULT: "59 130 246", light: "77 139 247" }
 highlight: { DEFAULT: "212 175 55", light: "208 124 92" }
 ```
 
-Legacy utilities also remain available:
+**All legacy utilities have been migrated to modern semantic utilities:**
 
-```css
-.text-themed
-  .text-themed-secondary
-  .text-highlight-themed
-  .bg-themed
-  .bg-card-themed;
-```
+- `text-themed` → `text-content-primary`
+- `text-themed-secondary` → `text-content-secondary`
+- `text-highlight-themed` → `text-interactive-secondary`
+- `bg-themed` → `bg-primary`
+- `bg-card-themed` → `bg-secondary`
 
 ## Examples
 

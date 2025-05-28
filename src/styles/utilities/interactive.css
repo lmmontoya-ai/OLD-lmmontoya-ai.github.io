@@ -194,12 +194,12 @@
   &:hover {
     background-color: rgb(var(--color-interactive-primary));
     transform: translateY(-1px);
-    box-shadow: var(--shadow-themed-lg);
+    box-shadow: var(--shadow-lg);
   }
 
   :not(.dark) &:hover {
     background-color: rgb(var(--color-interactive-primary-light));
-    box-shadow: 0 8px 25px -5px rgba(var(--shadow-color-light), 0.15);
+    box-shadow: var(--shadow-lg-light);
   }
 }
 
@@ -225,12 +225,12 @@
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-themed-xl);
+    box-shadow: var(--shadow-xl);
     border-color: rgb(var(--color-interactive-primary) / 0.2);
   }
 
   :not(.dark) &:hover {
-    box-shadow: 0 20px 25px -5px rgba(var(--shadow-color-light), 0.15), 0 10px 10px -5px rgba(var(--shadow-color-light), 0.1);
+    box-shadow: var(--shadow-xl-light);
     border-color: rgb(var(--color-interactive-primary-light) / 0.3);
   }
 }

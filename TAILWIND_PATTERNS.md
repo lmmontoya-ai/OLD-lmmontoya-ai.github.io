@@ -107,24 +107,27 @@ updateCardTitleVariants({ variant: "milestone" | "project" | "resource" });
 
 ```html
 <!-- Text colors -->
-<p class="text-themed">Primary text</p>
-<p class="text-themed-secondary">Secondary text</p>
+<p class="text-content-primary">Primary text</p>
+<p class="text-content-secondary">Secondary text</p>
+<p class="text-interactive-secondary">Interactive/highlight text</p>
 
 <!-- Background colors -->
 <div class="bg-surface">Surface background</div>
-<div class="bg-card-themed">Card background</div>
+<div class="bg-secondary">Card background</div>
 
 <!-- Border colors -->
-<div class="border-themed">Themed border</div>
+<div class="border-primary">Primary border</div>
 ```
 
 ### Theme-Aware Utilities
 
-**Custom Utilities Created**:
+**Modern Semantic Utilities**:
 
-- `.text-highlight-themed` - Theme-aware highlight color
+- `.text-content-primary` - Primary text color
+- `.text-content-secondary` - Secondary text color
+- `.text-interactive-secondary` - Interactive/highlight color
 - `.shadow-themed-*` - Theme-aware shadow system
-- `.bg-card-themed` - Theme-aware card backgrounds
+- `.bg-secondary` - Theme-aware card backgrounds
 
 ### CSS Variables for Theming (Tailwind v4+)
 

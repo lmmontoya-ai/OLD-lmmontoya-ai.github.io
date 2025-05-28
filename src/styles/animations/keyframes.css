@@ -1,4 +1,26 @@
-/* Animation Keyframes: All @keyframes definitions */
+
+/**
+ * Animation Keyframes
+ *
+ * Purpose:
+ *   Contains all @keyframes definitions for project-wide and component-specific animations.
+ *   Enables reusable, theme-aware, and performant animations using registered custom properties.
+ *
+ * Tokens/Variables Used:
+ *   - --animation-opacity, --transform-translate-y, --transform-scale, --glow-shadow-size
+ *   - All animation-related tokens from theme/animations.css and animations/properties.css
+ *
+ * Migration Notes:
+ *   - Task 4.5.8: Extracted from global.css for modularization.
+ *   - Follows Tailwind v4 best practices: modular keyframes, uses registered custom properties.
+ *
+ * Usage/Contribution:
+ *   - Add new @keyframes here for project-wide or component-specific animations.
+ *   - Use only registered custom properties for animatable values.
+ *   - Document new keyframes in design-system.md if used across multiple components.
+ *
+ * @see theme/animations.css, animations/properties.css for token definitions
+ */
 
 @keyframes fadeIn {
   0% { --animation-opacity: 0; opacity: var(--animation-opacity); }

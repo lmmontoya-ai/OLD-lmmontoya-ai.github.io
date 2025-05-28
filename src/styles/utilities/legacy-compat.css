@@ -1,9 +1,29 @@
-/* Legacy Compatibility Utilities: text-themed*, bg-themed*, etc. */
-/*
- * LEGACY COMPATIBILITY UTILITIES
- * These utilities provide backward compatibility for theme-aware styling.
- * Use semantic utilities from semantic-colors.css for new code.
- * Modernized with CSS variables and v4 best practices.
+
+/**
+ * Legacy Compatibility Utilities
+ *
+ * Purpose:
+ *   Provides backward compatibility for legacy theme-aware utility classes (text-themed*, bg-themed*, etc.).
+ *   Ensures older components and styles continue to function after Tailwind v4 migration.
+ *
+ * Tokens/Variables Used:
+ *   - --color-content-primary, --color-content-secondary, --color-content-inverse
+ *   - --color-bg-primary, --color-bg-inverse
+ *   - --color-interactive-secondary
+ *   - All relevant tokens from theme/colors.css
+ *
+ * Migration Notes:
+ *   - Task 4.5.4: Extracted from global.css for modularization.
+ *   - Modernized to use CSS variables and v4 best practices.
+ *   - For new code, use semantic utilities from semantic-colors.css instead.
+ *
+ * Usage/Contribution:
+ *   - Only use these utilities for legacy or compatibility purposes.
+ *   - Do not add new utilities here; prefer semantic utilities for new work.
+ *   - Update theme/colors.css if new tokens are needed for legacy support.
+ *
+ * @see semantic-colors.css for modern utilities
+ * @see theme/colors.css for token definitions
  */
 
 /* === TEXT THEMED UTILITIES === */

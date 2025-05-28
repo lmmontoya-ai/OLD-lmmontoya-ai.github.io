@@ -1,4 +1,29 @@
-/* Base Styles: Reset, typography defaults, box-sizing, etc. */
+
+/**
+ * Base Styles (Reset)
+ *
+ * Purpose:
+ *   Provides CSS reset, base typography, box-sizing, and accessibility defaults for the portfolio.
+ *   Ensures a consistent baseline across browsers and devices, following Tailwind v4 and modern CSS best practices.
+ *
+ * Tokens/Variables Used:
+ *   - --font-size-base, --line-height-base, --tracking-tight, --tracking-wide
+ *   - --font-body, --color-text, --color-background
+ *   - --shadow-*-light (legacy), --transition-base
+ *   - All relevant tokens from theme/typography.css, theme/colors.css, theme/shadows.css
+ *
+ * Migration Notes:
+ *   - Task 4.5.9: Extracted from global.css for modularization.
+ *   - Legacy variables retained for compatibility; prefer @theme tokens for new code.
+ *   - Follows Tailwind v4 best practices for base layer organization.
+ *
+ * Usage/Contribution:
+ *   - Use this file for all base resets and typography defaults.
+ *   - Add new base styles here if needed for global consistency.
+ *   - Prefer @theme tokens for new variables and document in design-system.md.
+ *
+ * @see theme/typography.css, theme/colors.css, theme/shadows.css for token definitions
+ */
 
 @layer base {
   :root {

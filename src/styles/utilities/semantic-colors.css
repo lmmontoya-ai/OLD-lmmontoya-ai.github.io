@@ -1,4 +1,33 @@
 
+/**
+ * Semantic Color Utilities
+ *
+ * Purpose:
+ *   Provides theme-aware color utility classes for text, background, and borders using CSS variables.
+ *   Ensures consistent color usage across the portfolio, supporting both light and dark themes.
+ *
+ * Tokens/Variables Used:
+ *   - --color-content-primary, --color-content-secondary, --color-content-tertiary
+ *   - --color-bg-primary, --color-bg-secondary, --color-bg-tertiary
+ *   - --color-interactive-primary, --color-interactive-hover, --color-interactive-focus
+ *   - --color-status-success, --color-status-warning, --color-status-error
+ *   - --color-border-primary, --color-border-secondary, --color-border-accent
+ *   - All tokens defined in theme/colors.css
+ *
+ * Migration Notes:
+ *   - Task 4.5.3: Extracted from global.css as part of Tailwind v4 modularization.
+ *   - Follows Tailwind v4 best practices: @utility, no nesting, uses CSS variables for theme switching.
+ *   - Modern/semantic utilities only; legacy/compatibility utilities are in legacy-compat.css.
+ *
+ * Usage/Contribution:
+ *   - Use these utilities for all new color-related styling in components.
+ *   - Do not add legacy or non-semantic utilities here.
+ *   - For new tokens, update theme/colors.css and document usage in SEMANTIC_COLORS.md.
+ *
+ * @see SEMANTIC_COLORS.md for naming and usage guidelines
+ * @see theme/colors.css for token definitions
+ */
+
 /* ========================================
    SEMANTIC COLOR UTILITIES
    Theme-aware color utilities using CSS variables
@@ -91,11 +120,3 @@
 @utility bg-status-warning {
   background-color: rgb(var(--color-status-warning));
 }
-
-/* === THEME-AWARE UTILITIES (NO NESTING) === */
-/* These utilities are handled by the @theme CSS variables automatically */
-/* The theme switching is handled by the CSS variable values, not nested selectors */
-
-/* Note: In Tailwind v4, theme switching should be handled through CSS variable values
-   in the @theme block, not through nested selectors in @utility directives.
-   The --color-* variables automatically adapt based on the theme class on :root */

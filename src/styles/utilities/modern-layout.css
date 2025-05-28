@@ -1,8 +1,28 @@
-/* ========================================
-   MODERN LAYOUT UTILITIES
-   Logical properties, RTL support, container, and layout utilities
-   Tailwind v4 compatible with modern CSS best practices
-   ======================================== */
+
+/**
+ * Modern Layout Utilities
+ *
+ * Purpose:
+ *   Provides logical properties, RTL support, container, and layout utilities for modern CSS layouts.
+ *   Ensures responsive, accessible, and direction-aware layouts using Tailwind v4 and modern CSS best practices.
+ *
+ * Tokens/Variables Used:
+ *   - --spacing-container, --spacing-container-sm, --spacing-container-md, --spacing-container-lg, --spacing-container-xl
+ *   - --spacing-*, --radius-*, and other spacing/radius tokens from theme/spacing.css
+ *
+ * Migration Notes:
+ *   - Task 4.5.5: Extracted from global.css for modularization.
+ *   - Follows Tailwind v4 best practices: @utility, logical properties, and responsive design.
+ *   - Only modern, non-legacy utilities included; legacy utilities are in legacy-compat.css.
+ *
+ * Usage/Contribution:
+ *   - Use these utilities for all new layout and container styling.
+ *   - For new tokens, update theme/spacing.css and document in TAILWIND_PATTERNS.md.
+ *   - Do not add legacy or non-logical utilities here.
+ *
+ * @see TAILWIND_PATTERNS.md for logical property usage
+ * @see theme/spacing.css for token definitions
+ */
 
 /* === CONTAINER UTILITIES === */
 /* Fluid container with responsive padding */

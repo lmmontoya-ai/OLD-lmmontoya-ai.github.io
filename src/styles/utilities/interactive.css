@@ -1,8 +1,29 @@
-/* ========================================
-   INTERACTIVE UTILITIES
-   Hover, focus, transitions, and interactive states
-   Tailwind v4 compatible with modern CSS best practices
-   ======================================== */
+
+/**
+ * Interactive Utilities
+ *
+ * Purpose:
+ *   Provides utility classes for interactive states: hover, focus, transitions, and accessibility effects.
+ *   Ensures accessible, theme-aware, and performant interactive behaviors using Tailwind v4 and modern CSS best practices.
+ *
+ * Tokens/Variables Used:
+ *   - --color-interactive-focus, --color-interactive-primary, --color-interactive-hover
+ *   - --transition-timing-base, --transition-duration-theme
+ *   - --radius-sm, --radius-md
+ *   - All relevant tokens from theme/colors.css and theme/animations.css
+ *
+ * Migration Notes:
+ *   - Task 4.5.6: Extracted from global.css for modularization.
+ *   - Follows Tailwind v4 best practices: @utility, no legacy/semantic utilities here.
+ *   - Only interactive, accessibility, and transition utilities included.
+ *
+ * Usage/Contribution:
+ *   - Use these utilities for all new interactive and accessibility styling.
+ *   - For new tokens, update theme/colors.css or theme/animations.css and document usage.
+ *   - Do not add legacy or non-interactive utilities here.
+ *
+ * @see theme/colors.css, theme/animations.css for token definitions
+ */
 
 /* === ACCESSIBILITY UTILITIES === */
 /* Focus ring utilities for keyboard navigation */

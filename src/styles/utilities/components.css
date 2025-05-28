@@ -1,12 +1,30 @@
-/*
- * COMPONENT-SPECIFIC UTILITIES (Task 4.5.7)
- * Extracted from global.css as part of Tailwind v4 modularization.
- * These utilities are used by specific components (e.g., UpdateCard, Card, Hero, etc.)
- * and are not general-purpose or legacy/semantic utilities.
+
+/**
+ * Component-Specific Utilities
  *
- * Follows Tailwind v4 and modern CSS best practices.
+ * Purpose:
+ *   Provides utility classes used by specific components (e.g., UpdateCard, Card, Hero) that are not general-purpose, legacy, or semantic utilities.
+ *   Enables advanced gradients, animation helpers, and component-specific effects following Tailwind v4 and modern CSS best practices.
  *
- * Migration Note: Only actively used, non-legacy, non-semantic, non-interactive utilities are included here.
+ * Tokens/Variables Used:
+ *   - --color-hero-gradient-start, --color-hero-gradient-end
+ *   - --color-interactive-primary, --color-interactive-secondary
+ *   - --color-brand-primary, --color-brand-secondary
+ *   - --animation-duration, --animation-duration-fast
+ *   - --transform-scale
+ *   - All relevant tokens from theme/colors.css and theme/animations.css
+ *
+ * Migration Notes:
+ *   - Task 4.5.7: Extracted from global.css for modularization.
+ *   - Only actively used, non-legacy, non-semantic, non-interactive utilities are included here.
+ *   - Follows Tailwind v4 best practices for modular CSS.
+ *
+ * Usage/Contribution:
+ *   - Use these utilities only in the components that require them.
+ *   - For new component-specific utilities, document usage and update theme tokens as needed.
+ *   - Do not add general-purpose or legacy utilities here.
+ *
+ * @see theme/colors.css, theme/animations.css for token definitions
  */
 
 /* === MODERN GRADIENT UTILITIES === */

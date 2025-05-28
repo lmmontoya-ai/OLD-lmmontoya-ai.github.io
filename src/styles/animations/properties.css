@@ -1,4 +1,28 @@
-/* Registered Custom Properties: @property definitions for animation, color-mix, etc. */
+
+/**
+ * Registered Custom Properties
+ *
+ * Purpose:
+ *   Defines all @property custom property registrations for animation, color-mix, and transform tokens.
+ *   Enables performant, type-safe, and animatable CSS variables for use in keyframes and utilities.
+ *
+ * Tokens/Variables Registered:
+ *   - --animation-duration, --animation-duration-fast, --animation-duration-slow
+ *   - --transform-translate-x, --transform-translate-y, --transform-scale
+ *   - --animation-opacity, --glow-shadow-size, --glow-shadow-opacity
+ *   - --color-mix-opacity, and others as needed for animation/transition
+ *
+ * Migration Notes:
+ *   - Task 4.5.8: Extracted from global.css for modularization.
+ *   - Follows Tailwind v4 best practices: use @property for animatable variables.
+ *
+ * Usage/Contribution:
+ *   - Register new custom properties here before using them in keyframes or utilities.
+ *   - Use descriptive names and document their purpose.
+ *   - Reference these tokens in theme/animations.css and animations/keyframes.css as needed.
+ *
+ * @see theme/animations.css, animations/keyframes.css for usage
+ */
 
 /* Animation duration properties */
 @property --animation-duration {

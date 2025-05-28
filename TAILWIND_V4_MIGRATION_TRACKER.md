@@ -596,8 +596,9 @@
   - [x] Move backdrop utilities to `utilities/components.css`
     ✅ **COMPLETED** - All component-specific utilities (gradients, animation helpers, UpdateCard accents, and backdrops) have been moved from `global.css` to `utilities/components.css` and converted to standard class syntax. Build tested, no regressions. Task completed in ~15 min.
 - [ ] **4.5.8** Extract animation system
-  - [ ] Move registered properties to `animations/properties.css`
-  - [ ] Move keyframes to `animations/keyframes.css`
+  - [x] Move registered properties to `animations/properties.css`
+  - [x] Move keyframes to `animations/keyframes.css`
+    ✅ **COMPLETED** - All @property definitions and animation keyframes have been extracted from `global.css` to their respective modular files. Build tested, no regressions. Task completed in ~10 min.
 - [ ] **4.5.9** Extract base styles
   - [ ] Move HTML/body resets to `base/reset.css`
   - [ ] Move typography defaults to `base/reset.css`

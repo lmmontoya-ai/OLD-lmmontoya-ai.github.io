@@ -12,76 +12,7 @@
  * - Total reduction: ~500 lines of unused utility definitions
  */
 
-/* Animation duration properties */
-@property --animation-duration {
-  syntax: '<time>';
-  initial-value: 300ms;
-  inherits: false;
-}
-
-@property --animation-duration-fast {
-  syntax: '<time>';
-  initial-value: 150ms;
-  inherits: false;
-}
-
-@property --animation-duration-slow {
-  syntax: '<time>';
-  initial-value: 500ms;
-  inherits: false;
-}
-
-/* Transform properties for smoother animations */
-@property --transform-translate-y {
-  syntax: '<length>';
-  initial-value: 0px;
-  inherits: false;
-}
-
-@property --transform-translate-x {
-  syntax: '<length>';
-  initial-value: 0px;
-  inherits: false;
-}
-
-@property --transform-scale {
-  syntax: '<number>';
-  initial-value: 1;
-  inherits: false;
-}
-
-@property --transform-rotate {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-/* Opacity for fade animations */
-@property --animation-opacity {
-  syntax: '<number>';
-  initial-value: 1;
-  inherits: false;
-}
-
-/* Shadow properties for glow effects */
-@property --glow-shadow-size {
-  syntax: '<length>';
-  initial-value: 20px;
-  inherits: false;
-}
-
-@property --glow-shadow-opacity {
-  syntax: '<number>';
-  initial-value: 0.2;
-  inherits: false;
-}
-
-/* Color mixing properties */
-@property --color-mix-opacity {
-  syntax: '<percentage>';
-  initial-value: 100%;
-  inherits: false;
-}
+/* Moved all @property definitions to animations/properties.css */
 
 /* === CASCADE LAYER ORGANIZATION === */
 @layer theme, base, components, utilities;
@@ -101,26 +32,7 @@
 /* Existing global styles will be migrated to modular files in 4.5.2+ */
 
 /* === ESSENTIAL ANIMATION UTILITIES === */
-/* Only keeping utilities that are actually used or likely to be needed */
-
-/* Used in components - keep these */
-@utility animate-fade-in-fast {
-  animation: fadeIn var(--animation-duration-fast) ease-out;
-}
-
-@utility animate-slide-up-spring {
-  animation: slideUp var(--animation-duration) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Dynamic animation utilities for future use */
-@utility animate-custom-duration {
-  animation-duration: var(--animation-duration);
-}
-
-@utility animate-custom-scale {
-  transform: scale(var(--transform-scale));
-  transition: transform var(--animation-duration) ease-out;
-}
+/* Moved to utilities/components.css (now uses .animate-* class syntax) */
 
 /* === ESSENTIAL KEYFRAMES === */
 /* Only keeping keyframes that are used by our utilities or likely to be needed */

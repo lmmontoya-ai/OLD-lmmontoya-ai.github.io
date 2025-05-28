@@ -1,1 +1,72 @@
 /* Registered Custom Properties: @property definitions for animation, color-mix, etc. */
+
+/* Animation duration properties */
+@property --animation-duration {
+  syntax: '<time>';
+  initial-value: 300ms;
+  inherits: false;
+}
+
+@property --animation-duration-fast {
+  syntax: '<time>';
+  initial-value: 150ms;
+  inherits: false;
+}
+
+@property --animation-duration-slow {
+  syntax: '<time>';
+  initial-value: 500ms;
+  inherits: false;
+}
+
+/* Transform properties for smoother animations */
+@property --transform-translate-y {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: false;
+}
+
+@property --transform-translate-x {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: false;
+}
+
+@property --transform-scale {
+  syntax: '<number>';
+  initial-value: 1;
+  inherits: false;
+}
+
+@property --transform-rotate {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Opacity for fade animations */
+@property --animation-opacity {
+  syntax: '<number>';
+  initial-value: 1;
+  inherits: false;
+}
+
+/* Shadow properties for glow effects */
+@property --glow-shadow-size {
+  syntax: '<length>';
+  initial-value: 20px;
+  inherits: false;
+}
+
+@property --glow-shadow-opacity {
+  syntax: '<number>';
+  initial-value: 0.2;
+  inherits: false;
+}
+
+/* Color mixing properties */
+@property --color-mix-opacity {
+  syntax: '<percentage>';
+  initial-value: 100%;
+  inherits: false;
+}

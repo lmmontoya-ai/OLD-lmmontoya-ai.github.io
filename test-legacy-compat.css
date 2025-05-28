@@ -1,8 +1,0 @@
-/* Test file to verify legacy compatibility utilities work */
-@import "tailwindcss";
-@import "./src/styles/theme/index.css";
-@import "./src/styles/utilities/legacy-compat.css";
-
-.test {
-  @apply text-themed bg-themed shadow-themed-md;
-}

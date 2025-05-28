@@ -1,7 +1,7 @@
 # Tailwind CSS Patterns Documentation
 
-**Project**: Luis Miguel Montoya Portfolio  
-**Created**: 2024-12-19  
+**Project**: Luis Miguel Montoya Portfolio
+**Created**: 2024-12-19
 **Purpose**: Document Tailwind CSS patterns and best practices used in this project
 
 ---
@@ -126,6 +126,66 @@ updateCardTitleVariants({ variant: "milestone" | "project" | "resource" });
 - `.shadow-themed-*` - Theme-aware shadow system
 - `.bg-card-themed` - Theme-aware card backgrounds
 
+### CSS Variables for Theming (Tailwind v4+)
+
+With the move to Tailwind CSS v4 and a modular CSS structure, theme colors are primarily defined as CSS custom properties (variables) in `src/styles/theme/colors.css`. This allows for greater flexibility and easier management of themes.
+
+**Definition Example (`src/styles/theme/colors.css`):**
+
+```css
+/* Light theme variables */
+:root {
+  --color-text-primary: 28 42 77; /* #1C2A4D */
+  --color-background: 248 250 253; /* #F8FAFD */
+  /* ... more light theme variables ... */
+}
+
+/* Dark theme variables */
+.dark {
+  --color-text-primary: 248 250 252; /* #F8FAFC */
+  --color-background: 15 27 43; /* #0F1B2B */
+  /* ... more dark theme variables ... */
+}
+```
+
+**Usage in Tailwind Configuration (Conceptual for v4):**
+
+While Tailwind v4 aims to simplify configuration, you might still reference these CSS variables within your `tailwind.config.mjs` if you need to extend Tailwind's default theme with these variables for utility class generation.
+
+```javascript
+// tailwind.config.mjs (example)
+export default {
+  theme: {
+    extend: {
+      colors: {
+        primary: 'rgb(var(--color-text-primary) / <alpha-value>)',
+        background: 'rgb(var(--color-background) / <alpha-value>)',
+      },
+    },
+  },
+};
+```
+
+**Usage in Custom CSS or Components:**
+
+When writing custom CSS (e.g., for complex components or utilities not covered by Tailwind), or when needing to apply these colors directly (e.g., in Astro components via style attributes for dynamic scenarios), use the `rgb(var(...) / <alpha-value>)` syntax for opacity control.
+
+```html
+<!-- Example in an Astro component -->
+<div style=`color: rgb(var(--color-text-primary)); background-color: rgb(var(--color-background) / 0.5)`>
+  This text uses theme variables.
+</div>
+```
+
+**Key Advantages:**
+
+- **Centralized Definitions**: Theme colors are managed in one place.
+- **Dynamic Theming**: Easily switch themes by changing the class on the root element (e.g., `<html>` or `<body>`).
+- **Opacity Control**: The `rgb(var(...) / <alpha-value>)` syntax allows for applying alpha transparency directly where the color is used.
+- **Interoperability**: CSS variables can be used by Tailwind, custom CSS, and JavaScript if needed.
+
+Always prefer using Tailwind utility classes generated from these variables (e.g., `text-primary`, `bg-background`) where possible. Fall back to direct CSS variable usage only when necessary.
+
 ---
 
 ## 🚫 Anti-Patterns to Avoid
@@ -211,16 +271,17 @@ Inline styles are acceptable ONLY for:
 
 ### Performance Considerations
 
-1. **Avoid arbitrary values** - Use Tailwind's scale when possible
-2. **Minimize unique classes** - Reuse common patterns
-3. **Leverage PurgeCSS** - Ensure unused styles are removed
-4. **Use CSS variables sparingly** - Only for truly dynamic values
+1.  **Leverage Tailwind v4 JIT**: The new engine is designed for performance, generating only the CSS that is actually used.
+2.  **Modular CSS Imports**: Ensure `global.css` correctly imports all necessary modular files. Astro will handle bundling and optimization.
+3.  **Minimize Custom CSS**: Stick to utility classes and CSS variables as much as possible. Custom CSS should be minimal and well-justified.
+4.  **CSS Variable Usage**: While powerful, excessive use of CSS variables in highly dynamic contexts *could* have performance implications. Profile if unsure.
+5.  **Purging (Handled by Tailwind v4)**: Tailwind v4 inherently includes only the CSS needed, so manual PurgeCSS configuration is less of a concern for basic setups.
 
 ---
 
 ## 📚 Resources
 
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Tailwind CSS v4 Alpha Documentation](https://tailwindcss.com/blog/tailwindcss-v4-alpha)
 - [class-variance-authority](https://cva.style/docs)
 - [Tailwind CSS Best Practices](https://tailwindcss.com/docs/utility-first)
 
@@ -248,5 +309,5 @@ This approach should be maintained going forward.
 
 ---
 
-**Last Updated**: 2024-12-19  
+**Last Updated**: 2024-12-19
 **Maintainer**: Development Team

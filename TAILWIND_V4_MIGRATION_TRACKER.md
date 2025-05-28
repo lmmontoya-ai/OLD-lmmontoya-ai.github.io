@@ -575,11 +575,8 @@
   - [x] Move animation tokens to `theme/animations.css` (includes missing --transition-base tokens)
   - [x] Theme aggregator in `theme/index.css` properly imports all modules
   **Actual Time: 25 min** - Followed Tailwind v4 best practices, build/dev server working perfectly
-- [ ] **4.5.3** Extract semantic color utilities
-  - [ ] Move text-content-* utilities to `utilities/semantic-colors.css`
-  - [ ] Move bg-* semantic utilities to `utilities/semantic-colors.css`
-  - [ ] Move border-* semantic utilities to `utilities/semantic-colors.css`
-  - [ ] Move status color utilities to `utilities/semantic-colors.css`
+- [x] **4.5.3** Extract semantic color utilities
+  ✅ **COMPLETED** - All text-content-*, bg-*, border-*, and status color utilities were moved from `global.css` to `utilities/semantic-colors.css` as a dedicated @layer(utilities) file. Imports in `global.css` were already correct. Build tested and no regressions found. **Actual Time: 18 min**
 - [ ] **4.5.4** Extract legacy compatibility utilities
   - [ ] Move text-themed* utilities to `utilities/legacy-compat.css`
   - [ ] Move bg-themed* utilities to `utilities/legacy-compat.css`

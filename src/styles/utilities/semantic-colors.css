@@ -1,1 +1,89 @@
-/* Semantic Color Utilities: text-content-*, bg-*, border-* */
+
+/*
+ * Semantic Color Utilities (Tailwind v4 Modular CSS)
+ * --------------------------------------------------
+ * Contains all semantic color utility classes for text, background, border, and status colors.
+ * These utilities use CSS variables from the @theme layer and follow v4 best practices.
+ *
+ * Extracted from global.css as part of Task 4.5.3 (Jan 2025).
+ */
+
+@layer utilities {
+  @utility text-content-primary {
+    color: rgb(var(--color-content-primary));
+    transition: color var(--transition-base);
+    :not(.dark) & {
+      color: rgb(var(--color-content-inverse));
+    }
+  }
+  @utility text-content-secondary {
+    color: rgb(var(--color-content-secondary));
+    transition: color var(--transition-base);
+    :not(.dark) & {
+      color: rgb(var(--color-content-secondary));
+    }
+  }
+  @utility text-content-tertiary {
+    color: rgb(var(--color-content-tertiary));
+    transition: color var(--transition-base);
+  }
+  @utility bg-primary {
+    background-color: rgb(var(--color-bg-primary));
+    transition: background-color var(--transition-base);
+    :not(.dark) & {
+      background-color: rgb(var(--color-bg-inverse));
+    }
+  }
+  @utility bg-secondary {
+    background-color: rgb(var(--color-bg-secondary));
+    transition: background-color var(--transition-base);
+    :not(.dark) & {
+      background-color: rgb(var(--color-bg-inverse-secondary));
+    }
+  }
+  @utility bg-tertiary {
+    background-color: rgb(var(--color-bg-tertiary));
+    transition: background-color var(--transition-base);
+    :not(.dark) & {
+      background-color: rgb(var(--color-bg-inverse));
+    }
+  }
+  @utility border-primary {
+    border-color: rgb(var(--color-border-primary) / 0.25);
+    transition: border-color var(--transition-base);
+    :not(.dark) & {
+      border-color: rgb(var(--color-border-inverse));
+    }
+  }
+  @utility border-secondary {
+    border-color: rgb(var(--color-border-secondary) / 0.3);
+    transition: border-color var(--transition-base);
+    :not(.dark) & {
+      border-color: rgb(var(--color-border-inverse) / 0.6);
+    }
+  }
+  @utility text-interactive-primary {
+    color: rgb(var(--color-interactive-primary));
+  }
+  @utility text-interactive-secondary {
+    color: rgb(var(--color-interactive-secondary));
+  }
+  @utility bg-interactive-primary {
+    background-color: rgb(var(--color-interactive-primary));
+  }
+  @utility bg-interactive-secondary {
+    background-color: rgb(var(--color-interactive-secondary));
+  }
+  @utility text-status-success {
+    color: rgb(var(--color-status-success));
+  }
+  @utility text-status-warning {
+    color: rgb(var(--color-status-warning));
+  }
+  @utility bg-status-success {
+    background-color: rgb(var(--color-status-success));
+  }
+  @utility bg-status-warning {
+    background-color: rgb(var(--color-status-warning));
+  }
+}

@@ -600,9 +600,10 @@
   - [x] Move keyframes to `animations/keyframes.css`
     ✅ **COMPLETED** - All @property definitions and animation keyframes have been extracted from `global.css` to their respective modular files. Build tested, no regressions. Task completed in ~10 min.
 - [ ] **4.5.9** Extract base styles
-  - [ ] Move HTML/body resets to `base/reset.css`
-  - [ ] Move typography defaults to `base/reset.css`
-  - [ ] Move focus defaults to `base/reset.css`
+  - [x] Move HTML/body resets to `base/reset.css`
+  - [x] Move typography defaults to `base/reset.css`
+  - [x] Move focus defaults to `base/reset.css`
+    ✅ **COMPLETED** - All base styles (HTML/body resets, typography defaults, focus styles, reduced motion, legacy variables) have been extracted from `global.css` to `base/reset.css`. Build tested, no regressions. Task completed in ~10 min.
 - [ ] **4.5.10** Update main global.css with imports
   ```css
   /* CSS-first Tailwind v4 configuration */

@@ -1,0 +1,96 @@
+
+/**
+ * Registered Custom Properties
+ *
+ * Purpose:
+ *   Defines all @property custom property registrations for animation, color-mix, and transform tokens.
+ *   Enables performant, type-safe, and animatable CSS variables for use in keyframes and utilities.
+ *
+ * Tokens/Variables Registered:
+ *   - --animation-duration, --animation-duration-fast, --animation-duration-slow
+ *   - --transform-translate-x, --transform-translate-y, --transform-scale
+ *   - --animation-opacity, --glow-shadow-size, --glow-shadow-opacity
+ *   - --color-mix-opacity, and others as needed for animation/transition
+ *
+ * Migration Notes:
+ *   - Task 4.5.8: Extracted from global.css for modularization.
+ *   - Follows Tailwind v4 best practices: use @property for animatable variables.
+ *
+ * Usage/Contribution:
+ *   - Register new custom properties here before using them in keyframes or utilities.
+ *   - Use descriptive names and document their purpose.
+ *   - Reference these tokens in theme/animations.css and animations/keyframes.css as needed.
+ *
+ * @see theme/animations.css, animations/keyframes.css for usage
+ */
+
+/* Animation duration properties */
+@property --animation-duration {
+  syntax: '<time>';
+  initial-value: 300ms;
+  inherits: false;
+}
+
+@property --animation-duration-fast {
+  syntax: '<time>';
+  initial-value: 150ms;
+  inherits: false;
+}
+
+@property --animation-duration-slow {
+  syntax: '<time>';
+  initial-value: 500ms;
+  inherits: false;
+}
+
+/* Transform properties for smoother animations */
+@property --transform-translate-y {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: false;
+}
+
+@property --transform-translate-x {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: false;
+}
+
+@property --transform-scale {
+  syntax: '<number>';
+  initial-value: 1;
+  inherits: false;
+}
+
+@property --transform-rotate {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Opacity for fade animations */
+@property --animation-opacity {
+  syntax: '<number>';
+  initial-value: 1;
+  inherits: false;
+}
+
+/* Shadow properties for glow effects */
+@property --glow-shadow-size {
+  syntax: '<length>';
+  initial-value: 20px;
+  inherits: false;
+}
+
+@property --glow-shadow-opacity {
+  syntax: '<number>';
+  initial-value: 0.2;
+  inherits: false;
+}
+
+/* Color mixing properties */
+@property --color-mix-opacity {
+  syntax: '<percentage>';
+  initial-value: 100%;
+  inherits: false;
+}

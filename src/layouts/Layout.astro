@@ -64,16 +64,16 @@ const {
               Navigation
             </h3>
             <nav class="flex flex-col space-y-2 text-secondary">
-              <a href="/roadmap" class="hover:text-accent transition-colors"
+              <a href="/roadmap" class="hover:text-accent transition-theme"
                 >Research Roadmap</a
               >
-              <a href="/projects" class="hover:text-accent transition-colors"
+              <a href="/projects" class="hover:text-accent transition-theme"
                 >Projects</a
               >
-              <a href="/literature" class="hover:text-accent transition-colors"
+              <a href="/literature" class="hover:text-accent transition-theme"
                 >Literature</a
               >
-              <a href="/contact" class="hover:text-accent transition-colors"
+              <a href="/contact" class="hover:text-accent transition-theme"
                 >Contact</a
               >
             </nav>
@@ -89,7 +89,7 @@ const {
               <a
                 href="https://github.com/"
                 aria-label="GitHub"
-                class="text-secondary hover:text-primary transition-colors"
+                class="text-secondary hover:text-primary transition-theme"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +106,7 @@ const {
               <a
                 href="https://twitter.com/"
                 aria-label="Twitter/X"
-                class="text-secondary hover:text-primary transition-colors"
+                class="text-secondary hover:text-primary transition-theme"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +123,7 @@ const {
               <a
                 href="https://linkedin.com/"
                 aria-label="LinkedIn"
-                class="text-secondary hover:text-primary transition-colors"
+                class="text-secondary hover:text-primary transition-theme"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +170,7 @@ const {
     </style>
 
     <script>
-      // Theme toggle functionality
+      // Theme toggle functionality using Tailwind's dark mode convention
       const getTheme = () => {
         if (
           typeof localStorage !== "undefined" &&
@@ -186,20 +186,20 @@ const {
 
       const theme = getTheme();
 
-      if (theme === "light") {
-        document.documentElement.classList.add("light-theme");
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove("light-theme");
+        document.documentElement.classList.remove("dark");
       }
 
       window.localStorage.setItem("theme", theme);
 
       const handleToggleClick = () => {
         const element = document.documentElement;
-        element.classList.toggle("light-theme");
+        element.classList.toggle("dark");
 
-        const isLight = element.classList.contains("light-theme");
-        localStorage.setItem("theme", isLight ? "light" : "dark");
+        const isDark = element.classList.contains("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
       };
 
       // Ensure DOM is fully loaded before adding event listeners

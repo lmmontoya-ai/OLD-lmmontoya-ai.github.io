@@ -1,0 +1,71 @@
+
+/**
+ * Animation Keyframes
+ *
+ * Purpose:
+ *   Contains all @keyframes definitions for project-wide and component-specific animations.
+ *   Enables reusable, theme-aware, and performant animations using registered custom properties.
+ *
+ * Tokens/Variables Used:
+ *   - --animation-opacity, --transform-translate-y, --transform-scale, --glow-shadow-size
+ *   - All animation-related tokens from theme/animations.css and animations/properties.css
+ *
+ * Migration Notes:
+ *   - Task 4.5.8: Extracted from global.css for modularization.
+ *   - Follows Tailwind v4 best practices: modular keyframes, uses registered custom properties.
+ *
+ * Usage/Contribution:
+ *   - Add new @keyframes here for project-wide or component-specific animations.
+ *   - Use only registered custom properties for animatable values.
+ *   - Document new keyframes in design-system.md if used across multiple components.
+ *
+ * @see theme/animations.css, animations/properties.css for token definitions
+ */
+
+@keyframes fadeIn {
+  0% { --animation-opacity: 0; opacity: var(--animation-opacity); }
+  100% { --animation-opacity: 1; opacity: var(--animation-opacity); }
+}
+
+@keyframes slideUp {
+  0% {
+    --transform-translate-y: 20px;
+    --animation-opacity: 0;
+    transform: translateY(var(--transform-translate-y));
+    opacity: var(--animation-opacity);
+  }
+  100% {
+    --transform-translate-y: 0px;
+    --animation-opacity: 1;
+    transform: translateY(var(--transform-translate-y));
+    opacity: var(--animation-opacity);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    --transform-scale: 0.95;
+    --animation-opacity: 0;
+    transform: scale(var(--transform-scale));
+    opacity: var(--animation-opacity);
+  }
+  100% {
+    --transform-scale: 1;
+    --animation-opacity: 1;
+    transform: scale(var(--transform-scale));
+    opacity: var(--animation-opacity);
+  }
+}
+
+@keyframes glow {
+  0% {
+    --glow-shadow-size: 20px;
+    --glow-shadow-opacity: 0.2;
+    box-shadow: 0 0 var(--glow-shadow-size) rgba(59, 130, 246, var(--glow-shadow-opacity));
+  }
+  100% {
+    --glow-shadow-size: 40px;
+    --glow-shadow-opacity: 0.4;
+    box-shadow: 0 0 var(--glow-shadow-size) rgba(59, 130, 246, var(--glow-shadow-opacity));
+  }
+}

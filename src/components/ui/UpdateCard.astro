@@ -1,32 +1,86 @@
 ---
 import { formatRelativeDate } from "../../utils/dateUtils";
 import { iconPaths } from "../../utils/iconPaths";
+import {
+  updateCardVariants,
+  updateCardIconVariants,
+  updateCardTagVariants,
+  updateCardTitleVariants,
+  cn,
+  type UpdateCardVariants,
+} from "../../utils/variants";
 
 // src/components/ui/UpdateCard.astro
 // Reusable component for displaying latest update cards with consistent styling
+// Now using class-variance-authority for variant management
 
-interface Props {
+interface Props extends UpdateCardVariants {
   title: string;
   date: string;
   tag: string;
   description?: string;
   href: string;
   icon: "roadmap" | "project" | "literature";
-  variant: "milestone" | "project" | "resource";
+  class?: string;
 }
 
-const { title, date, tag, description, href, icon, variant } = Astro.props;
+const {
+  title,
+  date,
+  tag,
+  description,
+  href,
+  icon,
+  variant = "milestone",
+  class: className = "",
+} = Astro.props;
+
+// Generate classes using CVA
+const cardClasses = cn(updateCardVariants({ variant }), className);
+const iconClasses = cn(updateCardIconVariants({ variant }));
+const tagClasses = cn(updateCardTagVariants({ variant }));
+const titleClasses = cn(updateCardTitleVariants({ variant }));
+
+// Define accent color class based on variant for the left border
+const accentColorClass = {
+  milestone: "bg-accent-milestone",
+  project: "bg-accent-project",
+  resource: "bg-accent-resource",
+}[variant || "milestone"];
+
+// Define hover background color class based on variant
+const hoverBgColorClass = {
+  milestone: "bg-accent-milestone-hover",
+  project: "bg-accent-project-hover",
+  resource: "bg-accent-resource-hover",
+}[variant || "milestone"];
 ---
 
-<a
-  href={href}
-  class={`update-card update-card-${variant} group block transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2`}
->
-  <div class="flex items-center gap-3">
-    <div class={`update-icon update-icon-${variant} flex-shrink-0`}>
+<a href={href} class={cardClasses}>
+  <!-- Subtle hover background -->
+  <div
+    class={cn(
+      "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200",
+      hoverBgColorClass
+    )}
+  >
+  </div>
+
+  <!-- Left border indicator -->
+  <div
+    class={cn(
+      "absolute left-0 top-0 bottom-0 w-0.5 rounded-r-sm transform scale-y-0 origin-center transition-transform duration-300 ease-out group-hover:scale-y-100",
+      accentColorClass
+    )}
+  >
+  </div>
+
+  <div class="flex items-center gap-3 relative z-10">
+    {/* Added relative z-10 to ensure content is above hover background */}
+    <div class={iconClasses}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4"
+        class={cn("h-4 w-4")}
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -38,26 +92,27 @@ const { title, date, tag, description, href, icon, variant } = Astro.props;
     </div>
 
     <div class="min-w-0 flex-1">
-      <div class={`update-tag update-tag-${variant}`}>
-        {tag}
+      <div class={tagClasses}>
+        <span class={cn()}>
+          {tag}
+        </span>
       </div>
 
-      <h4
-        class="font-semibold text-themed-text mb-1.5 font-sans leading-tight group-hover:text-accent transition-colors duration-200 text-base"
-      >
+      <h4 class={titleClasses}>
+        {/* Title will now correctly inherit hover color via CVA variant */}
         {title}
       </h4>
 
       {
         description && (
-          <p class="text-themed-text-secondary text-sm mb-2 leading-relaxed font-body line-clamp-2">
+          <p class="text-content-secondary text-sm mb-2 leading-relaxed font-body line-clamp-2">
             {description}
           </p>
         )
       }
 
       <div
-        class="text-xs text-themed-text-secondary font-mono opacity-75 group-hover:opacity-100 transition-opacity duration-200"
+        class="text-xs text-content-secondary font-mono opacity-75 group-hover:opacity-100 transition-opacity duration-200"
       >
         <time datetime={date} class="tabular-nums font-medium">
           {date}

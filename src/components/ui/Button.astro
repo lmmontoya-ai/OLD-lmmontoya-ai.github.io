@@ -1,15 +1,14 @@
 ---
 // src/components/ui/Button.astro
 // Reusable button component with primary/secondary variants and consistent styling
+// Now using class-variance-authority for variant management
 
-interface Props {
+import { buttonVariants, cn, type ButtonVariants } from "../../utils/variants";
+
+interface Props extends ButtonVariants {
   href?: string;
-  variant?: "primary" | "secondary" | "outline";
-  size?: "sm" | "md" | "lg";
   class?: string;
-  rounded?: boolean;
   ariaLabel?: string;
-  fullWidth?: boolean;
   type?: "button" | "submit" | "reset";
 }
 
@@ -17,52 +16,24 @@ const {
   href,
   variant = "primary",
   size = "md",
-  class: className = "",
-  rounded = false,
-  ariaLabel,
   fullWidth = false,
+  rounded = false,
+  class: className = "",
+  ariaLabel,
   type = "button",
 } = Astro.props;
 
-// Base classes
-const baseClasses =
-  "inline-flex items-center justify-center font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent/40";
-
-// Size classes
-const sizeClasses = {
-  sm: "text-sm px-3 py-1.5",
-  md: "px-5 py-2.5",
-  lg: "text-lg px-6 py-3",
-}[size];
-
-// Variant classes
-const variantClasses = {
-  primary:
-    "bg-gradient-to-r from-accent to-highlight text-white hover:shadow-md hover:translate-y-[-1px]",
-  secondary:
-    "bg-accent/10 text-accent hover:bg-accent/15 hover:translate-y-[-1px]",
-  outline:
-    "border border-neutral/20 text-secondary hover:border-accent/30 hover:text-primary hover:translate-y-[-1px]",
-}[variant];
-
-// Optional classes
-const roundedClasses = rounded ? "rounded-full" : "rounded-lg";
-const widthClasses = fullWidth ? "w-full" : "";
-
-// Combine all classes
-const classes = [
-  baseClasses,
-  sizeClasses,
-  variantClasses,
-  roundedClasses,
-  widthClasses,
-  className,
-]
-  .filter(Boolean)
-  .join(" ");
+// Generate classes using CVA
+const classes = cn(
+  buttonVariants({ variant, size, fullWidth, rounded }),
+  className
+);
 
 // Determine which element to render
 const Element = href ? "a" : "button";
+
+// Check if this is a primary variant for special styling
+const isPrimary = variant === "primary";
 ---
 
 <Element
@@ -75,5 +46,20 @@ const Element = href ? "a" : "button";
     ? { rel: href.startsWith("http") ? "noopener noreferrer" : undefined }
     : {}}
 >
-  <slot />
+  {isPrimary && (
+    <!-- Theme-aware background for primary buttons using modern CSS variables -->
+    <div class="absolute inset-0 bg-interactive-secondary"></div>
+  )}
+  {isPrimary && (
+    <!-- Hover glow effect for primary buttons using modern utilities -->
+    <div
+      class="absolute inset-0 transition-spring opacity-0 hover:opacity-100 hover-glow"
+      style="box-shadow: var(--shadow-glow-highlight), var(--shadow-lg);"
+    ></div>
+  )}
+
+  <!-- Button content - Added flex and items-center to keep text and icons on same line -->
+  <span class="relative z-10 flex items-center">
+    <slot />
+  </span>
 </Element>

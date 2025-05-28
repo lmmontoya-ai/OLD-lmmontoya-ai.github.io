@@ -12,6 +12,25 @@ pnpm create astro@latest -- --template basics
 
 ![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
 
+Astro is a modern static site generator that allows you to build fast websites with your favorite UI components and libraries. This project is configured with [Tailwind CSS v4](https://tailwindcss.com/blog/tailwindcss-v4-alpha) for styling, utilizing its new Just-in-Time (JIT) engine and modular CSS capabilities.
+
+## Tailwind CSS v4 Setup
+
+This project uses Tailwind CSS v4, which is currently in alpha. The setup involves:
+
+1.  **Installation**: Tailwind CSS is included as a dev dependency in `package.json`.
+2.  **Configuration**:
+    *   `tailwind.config.mjs`: Main Tailwind configuration file. (This file might not exist yet if we are using the default configuration or PostCSS-based configuration for v4 alpha).
+    *   `postcss.config.cjs`: PostCSS configuration, which processes Tailwind CSS.
+    *   `src/styles/global.css`: The entry point for global styles, importing modular CSS files.
+3.  **Modular CSS**: Styles are organized into a modular structure under `src/styles/`. This includes:
+    *   `base/`: Base styles and resets.
+    *   `theme/`: Theme-specific styles (colors, typography, spacing, etc.).
+    *   `utilities/`: Utility classes and custom components.
+    *   `animations/`: Animation keyframes and properties.
+
+Refer to `TAILWIND_V4_MIGRATION_TRACKER.md` for detailed migration notes and `TAILWIND_PATTERNS.md` for usage patterns and best practices with the new v4 features.
+
 ## 🚀 Project Structure
 
 Inside of your Astro project, you'll see the following folders and files:

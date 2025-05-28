@@ -1,0 +1,122 @@
+
+/**
+ * Semantic Color Utilities
+ *
+ * Purpose:
+ *   Provides theme-aware color utility classes for text, background, and borders using CSS variables.
+ *   Ensures consistent color usage across the portfolio, supporting both light and dark themes.
+ *
+ * Tokens/Variables Used:
+ *   - --color-content-primary, --color-content-secondary, --color-content-tertiary
+ *   - --color-bg-primary, --color-bg-secondary, --color-bg-tertiary
+ *   - --color-interactive-primary, --color-interactive-hover, --color-interactive-focus
+ *   - --color-status-success, --color-status-warning, --color-status-error
+ *   - --color-border-primary, --color-border-secondary, --color-border-accent
+ *   - All tokens defined in theme/colors.css
+ *
+ * Migration Notes:
+ *   - Task 4.5.3: Extracted from global.css as part of Tailwind v4 modularization.
+ *   - Follows Tailwind v4 best practices: @utility, no nesting, uses CSS variables for theme switching.
+ *   - Modern/semantic utilities only; legacy/compatibility utilities are in legacy-compat.css.
+ *
+ * Usage/Contribution:
+ *   - Use these utilities for all new color-related styling in components.
+ *   - Do not add legacy or non-semantic utilities here.
+ *   - For new tokens, update theme/colors.css and document usage in SEMANTIC_COLORS.md.
+ *
+ * @see SEMANTIC_COLORS.md for naming and usage guidelines
+ * @see theme/colors.css for token definitions
+ */
+
+/* ========================================
+   SEMANTIC COLOR UTILITIES
+   Theme-aware color utilities using CSS variables
+   Tailwind v4 compatible - NO NESTING in @utility
+   ======================================== */
+
+/* === TEXT COLOR UTILITIES === */
+/* Theme-aware text colors */
+
+@utility text-content-primary {
+  color: rgb(var(--color-content-primary));
+  transition: color var(--transition-base);
+}
+
+@utility text-content-secondary {
+  color: rgb(var(--color-content-secondary));
+  transition: color var(--transition-base);
+}
+
+@utility text-content-tertiary {
+  color: rgb(var(--color-content-tertiary));
+  transition: color var(--transition-base);
+}
+
+/* === BACKGROUND COLOR UTILITIES === */
+/* Theme-aware background colors */
+
+@utility bg-primary {
+  background-color: rgb(var(--color-bg-primary));
+  transition: background-color var(--transition-base);
+}
+
+@utility bg-secondary {
+  background-color: rgb(var(--color-bg-secondary));
+  transition: background-color var(--transition-base);
+}
+
+@utility bg-tertiary {
+  background-color: rgb(var(--color-bg-tertiary));
+  transition: background-color var(--transition-base);
+}
+
+/* === BORDER COLOR UTILITIES === */
+/* Theme-aware border colors */
+
+@utility border-primary {
+  border-color: rgb(var(--color-border-primary) / 0.25);
+  transition: border-color var(--transition-base);
+}
+
+@utility border-secondary {
+  border-color: rgb(var(--color-border-secondary) / 0.3);
+  transition: border-color var(--transition-base);
+}
+
+/* === INTERACTIVE COLOR UTILITIES === */
+/* Interactive element colors */
+
+@utility text-interactive-primary {
+  color: rgb(var(--color-interactive-primary));
+}
+
+@utility text-interactive-secondary {
+  color: rgb(var(--color-interactive-secondary));
+}
+
+@utility bg-interactive-primary {
+  background-color: rgb(var(--color-interactive-primary));
+}
+
+@utility bg-interactive-secondary {
+  background-color: rgb(var(--color-interactive-secondary));
+}
+
+/* === STATUS COLOR UTILITIES === */
+/* Status and state colors */
+
+@utility text-status-success {
+  color: rgb(var(--color-status-success));
+}
+
+@utility text-status-warning {
+  color: rgb(var(--color-status-warning));
+}
+
+@utility bg-status-success {
+  background-color: rgb(var(--color-status-success));
+}
+
+@utility bg-status-warning {
+  background-color: rgb(var(--color-status-warning));
+}

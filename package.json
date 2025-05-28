@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "lmmontoya-ai-portfolio",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^4.2.6",
     "@astrojs/react": "^4.2.7",
     "@tailwindcss/postcss": "^4.1.7",
@@ -17,7 +18,8 @@
     "@types/react-dom": "^19.1.5",
     "@use-gesture/react": "^10.3.1",
     "astro": "^5.7.13",
-    "autoprefixer": "^10.4.21",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "d3-force": "^3.0.0",
     "fuse.js": "^7.1.0",
     "nanostores": "^1.0.1",
@@ -25,6 +27,12 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-spring": "^10.0.0",
-    "tailwindcss": "^4.1.7"
+    "tailwindcss": "^4.1.7",
+    "typescript": "^5.8.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide"
+    ]
   }
 }

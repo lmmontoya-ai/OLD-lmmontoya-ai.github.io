@@ -4,20 +4,20 @@
 
 <button
   id="themeToggle"
-  class="w-11 h-11 flex items-center justify-center rounded-full bg-card-bg/80 backdrop-blur-sm cursor-pointer transition-all duration-300 ml-4 relative overflow-hidden group hover:-translate-y-0.5 hover:scale-105 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+  class="relative inline-flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300 ease-in-out bg-surface/50 hover:bg-surface/80 backdrop-blur-sm text-themed-secondary hover:text-themed transform-gpu scale-95 hover:scale-105 hover:shadow-md focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
   title="Toggle dark/light mode"
   aria-label="Toggle dark/light mode"
 >
   <!-- Hover gradient background -->
   <div
-    class="absolute inset-0 rounded-full bg-gradient-to-br from-accent/10 to-highlight/10 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+    class="absolute inset-0 rounded-full bg-gradient-to-br from-accent/10 to-highlight/10 opacity-0 transition-theme-opacity group-hover:opacity-100"
   >
   </div>
 
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="sun-icon"
-    class="hidden w-5 h-5 text-themed-text transition-all duration-200 relative z-10"
+    class="hidden w-5 h-5 text-themed-text relative z-10"
     width="24"
     height="24"
     viewBox="0 0 24 24"
@@ -36,7 +36,7 @@
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="moon-icon"
-    class="hidden w-5 h-5 text-themed-text transition-all duration-200 relative z-10"
+    class="hidden w-5 h-5 text-themed-text relative z-10"
     width="24"
     height="24"
     viewBox="0 0 24 24"
@@ -56,13 +56,13 @@
 <script>
   // Icon visibility based on current theme
   const updateIconVisibility = () => {
-    const isLight = document.documentElement.classList.contains("light-theme");
+    const isDark = document.documentElement.classList.contains("dark");
     const sunIcon = document.getElementById("sun-icon");
     const moonIcon = document.getElementById("moon-icon");
 
     if (sunIcon && moonIcon) {
-      sunIcon.classList.toggle("hidden", !isLight);
-      moonIcon.classList.toggle("hidden", isLight);
+      sunIcon.classList.toggle("hidden", isDark);
+      moonIcon.classList.toggle("hidden", !isDark);
     }
   };
 

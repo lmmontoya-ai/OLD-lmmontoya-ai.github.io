@@ -1,0 +1,101 @@
+/**
+ * Theme Colors
+ *
+ * Core color tokens for the Luis Miguel Montoya portfolio.
+ * Uses Tailwind v4 @theme syntax with semantic naming and automatic theme switching.
+ *
+ * Color Categories:
+ * - Brand: Primary brand identity colors
+ * - Content: Text and content colors with theme awareness
+ * - Background: Surface and layout background colors
+ * - Interactive: Button, link, and interactive element colors
+ * - Status: State communication colors (success, warning, error)
+ * - Border: Border and outline colors
+ * - Accent: Component-specific accent colors (UpdateCard variants)
+ * - Legacy: Backward compatibility colors
+ *
+ * @see SEMANTIC_COLORS.md for detailed usage guidelines
+ */
+
+@theme {
+  /* === CORE BRAND COLORS === */
+  --color-brand-primary: 59 130 246;    /* Blue - main brand color */
+  --color-brand-secondary: 212 175 55;  /* Gold - accent brand color */
+
+  /* === CONTENT COLORS === */
+  --color-content-primary: 248 250 252;    /* Main text (white in dark, navy in light) */
+  --color-content-secondary: 203 213 225;  /* Secondary text */
+  --color-content-tertiary: 148 163 184;   /* Muted text */
+  --color-content-inverse: 28 42 77;       /* Text for light backgrounds */
+
+  /* === BACKGROUND COLORS === */
+  --color-bg-primary: 15 27 43;           /* Main background */
+  --color-bg-secondary: 30 41 59;         /* Card/surface background */
+  --color-bg-tertiary: 11 20 31;          /* Footer/deeper background */
+  --color-bg-inverse: 248 250 253;        /* Light theme background */
+  --color-bg-inverse-secondary: 255 255 255; /* Light theme cards */
+
+  /* === INTERACTIVE COLORS === */
+  --color-interactive-primary: 59 130 246;     /* Primary buttons, links */
+  --color-interactive-secondary: 212 175 55;   /* Secondary buttons, highlights */
+  --color-interactive-hover: 77 139 247;       /* Hover states */
+  --color-interactive-focus: 59 130 246;       /* Focus rings */
+  --color-interactive-disabled: 100 116 139;   /* Disabled states */
+
+  /* === STATUS COLORS === */
+  --color-status-success: 34 197 94;      /* Success states, completed items */
+  --color-status-warning: 249 115 22;     /* Warning states, in-progress items */
+  --color-status-error: 239 68 68;        /* Error states */
+  --color-status-info: 59 130 246;        /* Info states */
+
+  /* === BORDER COLORS === */
+  --color-border-primary: 100 116 139;    /* Default borders */
+  --color-border-secondary: 51 65 85;     /* Subtle borders */
+  --color-border-accent: 59 130 246;      /* Accent borders */
+  --color-border-inverse: 228 231 235;    /* Light theme borders */
+
+  /* === UPDATE CARD ACCENT COLORS === */
+  --color-accent-milestone: 212 175 55;   /* Gold - Matches brand-secondary */
+  --color-accent-project: 59 130 246;     /* Blue - Matches brand-primary */
+  --color-accent-resource: 34 197 94;     /* Green - Matches status-success */
+
+  /* Light theme equivalents for UpdateCard accents */
+  --color-accent-milestone-light: 208 124 92; /* Existing highlight-light */
+  --color-accent-project-light: 77 139 247;   /* Existing accent-light */
+  --color-accent-resource-light: 28 141 76;   /* Existing success-light */
+
+  /* === LEGACY COMPATIBILITY COLORS === */
+  /* These maintain compatibility with existing components */
+  --color-primary: 15 23 42;
+  --color-primary-light: 28 42 77;
+  --color-secondary: 51 65 85;
+  --color-secondary-light: 74 74 74;
+  --color-accent: 59 130 246;
+  --color-accent-light: 77 139 247;
+  --color-highlight: 212 175 55;
+  --color-highlight-light: 208 124 92;
+  --color-surface: 30 41 59;
+  --color-surface-light: 124 111 156;
+  --color-success: 34 197 94;
+  --color-success-light: 28 141 76;
+  --color-progress: 249 115 22;
+  --color-progress-light: 234 88 12;
+  --color-neutral: 148 163 184;
+  --color-neutral-light: 228 231 235;
+  --color-background: 15 27 43;
+  --color-background-light: 248 250 253;
+  --color-text: 248 250 252;
+  --color-text-secondary: 203 213 225;
+  --color-text-light: 28 42 77;
+  --color-text-secondary-light: 74 74 74;
+  --color-border: 100 116 139;
+  --color-border-light: 228 231 235;
+  --color-card: 30 41 59;
+  --color-card-light: 255 255 255;
+  --color-footer: 11 20 31;
+  --color-footer-light: 248 250 253;
+  --color-grid: 255 255 255;
+  --color-grid-light: 228 231 235;
+  --color-hero-gradient-start: 19 38 60;
+  --color-hero-gradient-end: 11 20 31;
+}

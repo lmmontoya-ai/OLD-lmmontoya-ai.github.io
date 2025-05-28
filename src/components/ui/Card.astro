@@ -1,8 +1,11 @@
 ---
 // src/components/ui/Card.astro
 // Reusable card component with consistent styling and hover effects
+// Now using class-variance-authority for variant management
 
-interface Props {
+import { cardVariants, cn, type CardVariants } from "../../utils/variants";
+
+interface Props extends CardVariants {
   title: string;
   description?: string;
   href?: string;
@@ -10,7 +13,7 @@ interface Props {
   date?: string;
   imageSrc?: string;
   imageAlt?: string;
-  featured?: boolean;
+  class?: string;
 }
 
 const {
@@ -20,25 +23,45 @@ const {
   tag,
   date,
   imageSrc,
-  imageAlt = "",
+  imageAlt,
   featured = false,
+  class: className = "",
 } = Astro.props;
 
 const CardWrapper = href ? "a" : "div";
-const wrapperClasses = `card bg-white rounded-2xl overflow-hidden ${featured ? "border-l-4 border-l-accent" : "border border-neutral/10"} ${href ? "hover:shadow-md hover:translate-y-[-2px] transition-all duration-300 group" : ""}`;
+const finalImageAlt = imageAlt || title; // Default imageAlt to title for accessibility
+
+// Generate classes using CVA
+const classes = cn(
+  cardVariants({
+    interactive: !!href,
+    featured,
+  }),
+  className
+);
 ---
 
-<CardWrapper href={href} class={wrapperClasses}>
+<CardWrapper href={href} class={classes}>
+  <!-- Gradient border effect (recreating ::before pseudo-element) -->
+  {
+    href && (
+      <div
+        class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+        style={`background: linear-gradient(135deg, rgb(var(--color-interactive-primary) / 0.1) 0%, transparent 50%, rgb(var(--color-interactive-secondary) / 0.1) 100%); padding: 1px; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: xor;`}
+      />
+    )
+  }
+
   {
     imageSrc && (
-      <div class="relative h-48 overflow-hidden">
+      <div class="relative h-48 overflow-hidden -m-8 mb-6 lg:-m-10 lg:mb-8">
         <img
           src={imageSrc}
-          alt={imageAlt}
+          alt={finalImageAlt}
           class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {featured && (
-          <div class="absolute bottom-0 left-0 bg-accent text-white text-xs font-medium px-3 py-1">
+          <div class="absolute bottom-0 left-0 bg-interactive-primary text-content-inverse text-xs font-medium px-3 py-1">
             Featured
           </div>
         )}
@@ -46,30 +69,34 @@ const wrapperClasses = `card bg-white rounded-2xl overflow-hidden ${featured ? "
     )
   }
 
-  <div class="p-6">
+  <div class="relative z-10">
     {
       tag && (
         <div class="mb-3">
-          <span class="text-xs font-medium bg-accent/5 text-accent px-2 py-1 rounded-md inline-block">
+          <span class="text-xs font-medium bg-interactive-primary/5 text-interactive-primary px-2 py-1 rounded-md inline-block">
             {tag}
           </span>
         </div>
       )
     }
 
-    {date && <div class="text-secondary text-sm mb-2 font-mono">{date}</div>}
+    {
+      date && (
+        <div class="text-content-secondary text-sm mb-2 font-mono">{date}</div>
+      )
+    }
 
     <h3
-      class="text-xl font-semibold mb-3 text-primary group-hover:text-accent transition-colors duration-300"
+      class="text-xl font-semibold mb-3 text-content-primary group-hover:text-interactive-primary transition-colors duration-200"
     >
       {title}
     </h3>
 
-    {description && <p class="text-secondary mb-4">{description}</p>}
+    {description && <p class="text-content-secondary mb-4">{description}</p>}
 
     {
       href && (
-        <div class="flex items-center mt-4 text-accent font-medium text-sm">
+        <div class="flex items-center mt-4 text-interactive-primary font-medium text-sm">
           <span class="mr-2">Read more</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -90,10 +117,3 @@ const wrapperClasses = `card bg-white rounded-2xl overflow-hidden ${featured ? "
     }
   </div>
 </CardWrapper>
-
-<style>
-  .card {
-    box-shadow: 0 1px 3px 0 rgba(16, 30, 54, 0.05);
-    isolation: isolate;
-  }
-</style>

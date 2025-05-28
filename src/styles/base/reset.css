@@ -1,0 +1,127 @@
+
+/**
+ * Base Styles (Reset)
+ *
+ * Purpose:
+ *   Provides CSS reset, base typography, box-sizing, and accessibility defaults for the portfolio.
+ *   Ensures a consistent baseline across browsers and devices, following Tailwind v4 and modern CSS best practices.
+ *
+ * Tokens/Variables Used:
+ *   - --font-size-base, --line-height-base, --tracking-tight, --tracking-wide
+ *   - --font-body, --color-text, --color-background
+ *   - --shadow-*-light (legacy), --transition-base
+ *   - All relevant tokens from theme/typography.css, theme/colors.css, theme/shadows.css
+ *
+ * Migration Notes:
+ *   - Task 4.5.9: Extracted from global.css for modularization.
+ *   - Legacy variables retained for compatibility; prefer @theme tokens for new code.
+ *   - Follows Tailwind v4 best practices for base layer organization.
+ *
+ * Usage/Contribution:
+ *   - Use this file for all base resets and typography defaults.
+ *   - Add new base styles here if needed for global consistency.
+ *   - Prefer @theme tokens for new variables and document in design-system.md.
+ *
+ * @see theme/typography.css, theme/colors.css, theme/shadows.css for token definitions
+ */
+
+@layer base {
+  :root {
+    /* Legacy compatibility variables - prefer @theme variables for new code */
+    --font-size-base: 16px;
+    --line-height-base: 1.6;
+    --tracking-tight: -0.025em;
+    --tracking-wide: 0.025em;
+
+    /* Legacy shadow variables - use @theme shadow-* for new code */
+    --shadow-sm-light: 0 3px 6px 0 rgba(28, 42, 77, 0.15), 0 2px 4px -1px rgba(28, 42, 77, 0.12);
+    --shadow-md-light: 0 6px 12px -2px rgba(28, 42, 77, 0.18), 0 3px 6px -2px rgba(28, 42, 77, 0.15);
+    --shadow-lg-light: 0 12px 32px -4px rgba(28, 42, 77, 0.22), 0 6px 12px -4px rgba(28, 42, 77, 0.18);
+    --shadow-xl-light: 0 20px 40px -8px rgba(28, 42, 77, 0.26), 0 12px 20px -8px rgba(28, 42, 77, 0.22);
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --font-size-base: 18px;
+      --line-height-base: 1.7;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: var(--font-size-base);
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: rgb(var(--color-text));
+    background-color: rgb(var(--color-background));
+    line-height: var(--line-height-base, 1.6);
+    transition: background-color var(--transition-base),
+      color var(--transition-base);
+    font-feature-settings: "kern" 1, "liga" 1, "cv02" 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: var(--tracking-tight);
+    color: rgb(var(--color-text));
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: 2.75rem;
+    line-height: 1.1;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    font-weight: 650;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  code,
+  pre {
+    font-family: var(--font-mono);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-accent));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

@@ -1,0 +1,113 @@
+
+/**
+ * Legacy Compatibility Utilities
+ *
+ * Purpose:
+ *   Provides backward compatibility for legacy theme-aware utility classes (text-themed*, bg-themed*, etc.).
+ *   Ensures older components and styles continue to function after Tailwind v4 migration.
+ *
+ * Tokens/Variables Used:
+ *   - --color-content-primary, --color-content-secondary, --color-content-inverse
+ *   - --color-bg-primary, --color-bg-inverse
+ *   - --color-interactive-secondary
+ *   - All relevant tokens from theme/colors.css
+ *
+ * Migration Notes:
+ *   - Task 4.5.4: Extracted from global.css for modularization.
+ *   - Modernized to use CSS variables and v4 best practices.
+ *   - For new code, use semantic utilities from semantic-colors.css instead.
+ *
+ * Usage/Contribution:
+ *   - Only use these utilities for legacy or compatibility purposes.
+ *   - Do not add new utilities here; prefer semantic utilities for new work.
+ *   - Update theme/colors.css if new tokens are needed for legacy support.
+ *
+ * @see semantic-colors.css for modern utilities
+ * @see theme/colors.css for token definitions
+ */
+
+/* === TEXT THEMED UTILITIES === */
+@utility text-themed {
+  color: rgb(var(--color-content-primary));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-content-inverse));
+  }
+}
+
+@utility text-themed-secondary {
+  color: rgb(var(--color-content-secondary));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-content-secondary));
+  }
+}
+
+@utility text-highlight-themed {
+  color: rgb(var(--color-interactive-secondary));
+  transition: color var(--transition-base);
+}
+
+/* === BACKGROUND THEMED UTILITIES === */
+@utility bg-themed {
+  background-color: rgb(var(--color-bg-primary));
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-inverse));
+  }
+}
+
+@utility bg-card-themed {
+  background-color: rgb(var(--color-bg-secondary) / 0.8);
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-inverse-secondary));
+  }
+}
+
+/* === BORDER THEMED UTILITIES === */
+@utility border-themed {
+  border-color: rgb(var(--color-border-primary) / 0.25);
+  transition: border-color var(--transition-base);
+
+  :not(.dark) & {
+    border-color: rgb(var(--color-border-inverse));
+  }
+}
+
+/* === SHADOW THEMED UTILITIES === */
+@utility shadow-themed-sm {
+  box-shadow: var(--shadow-sm);
+
+  :not(.dark) & {
+    box-shadow: var(--shadow-sm-light);
+  }
+}
+
+@utility shadow-themed-md {
+  box-shadow: var(--shadow-md);
+
+  :not(.dark) & {
+    box-shadow: var(--shadow-md-light);
+  }
+}
+
+@utility shadow-themed-lg {
+  box-shadow: var(--shadow-lg);
+
+  :not(.dark) & {
+    box-shadow: var(--shadow-lg-light);
+  }
+}
+
+@utility shadow-themed-xl {
+  box-shadow: var(--shadow-xl);
+
+  :not(.dark) & {
+    box-shadow: var(--shadow-xl-light);
+  }
+}

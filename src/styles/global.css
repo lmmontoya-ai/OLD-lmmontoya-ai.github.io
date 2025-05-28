@@ -86,138 +86,19 @@
 /* === CASCADE LAYER ORGANIZATION === */
 @layer theme, base, components, utilities;
 
+/* Main entry point for global styles */
 @import "tailwindcss";
+@import "./theme/index.css";
+@import "./utilities/semantic-colors.css";
+@import "./utilities/legacy-compat.css";
+@import "./utilities/modern-layout.css";
+@import "./utilities/interactive.css";
+@import "./utilities/components.css";
+@import "./base/reset.css";
+@import "./animations/keyframes.css";
+@import "./animations/properties.css";
 
-@layer theme {
-@theme {
-  /* === CORE BRAND COLORS === */
-  --color-brand-primary: 59 130 246;    /* Blue - main brand color */
-  --color-brand-secondary: 212 175 55;  /* Gold - accent brand color */
-
-  /* === CONTENT COLORS === */
-  --color-content-primary: 248 250 252;    /* Main text (white in dark, navy in light) */
-  --color-content-secondary: 203 213 225;  /* Secondary text */
-  --color-content-tertiary: 148 163 184;   /* Muted text */
-  --color-content-inverse: 28 42 77;       /* Text for light backgrounds */
-
-  /* === BACKGROUND COLORS === */
-  --color-bg-primary: 15 27 43;           /* Main background */
-  --color-bg-secondary: 30 41 59;         /* Card/surface background */
-  --color-bg-tertiary: 11 20 31;          /* Footer/deeper background */
-  --color-bg-inverse: 248 250 253;        /* Light theme background */
-  --color-bg-inverse-secondary: 255 255 255; /* Light theme cards */
-
-  /* === INTERACTIVE COLORS === */
-  --color-interactive-primary: 59 130 246;     /* Primary buttons, links */
-  --color-interactive-secondary: 212 175 55;   /* Secondary buttons, highlights */
-  --color-interactive-hover: 77 139 247;       /* Hover states */
-  --color-interactive-focus: 59 130 246;       /* Focus rings */
-  --color-interactive-disabled: 100 116 139;   /* Disabled states */
-
-  /* === STATUS COLORS === */
-  --color-status-success: 34 197 94;      /* Success states, completed items */
-  --color-status-warning: 249 115 22;     /* Warning states, in-progress items */
-  --color-status-error: 239 68 68;        /* Error states */
-  --color-status-info: 59 130 246;        /* Info states */
-
-  /* === BORDER COLORS === */
-  --color-border-primary: 100 116 139;    /* Default borders */
-  --color-border-secondary: 51 65 85;     /* Subtle borders */
-  --color-border-accent: 59 130 246;      /* Accent borders */
-  --color-border-inverse: 228 231 235;    /* Light theme borders */
-
-  /* === UPDATE CARD ACCENT COLORS === */
-  --color-accent-milestone: 212 175 55;   /* Gold - Matches brand-secondary */
-  --color-accent-project: 59 130 246;     /* Blue - Matches brand-primary */
-  --color-accent-resource: 34 197 94;     /* Green - Matches status-success */
-
-  /* Light theme equivalents for UpdateCard accents if needed */
-  /* For now, assuming they work or will be handled by general light theme text color changes */
-  --color-accent-milestone-light: 208 124 92; /* Existing highlight-light */
-  --color-accent-project-light: 77 139 247;   /* Existing accent-light */
-  --color-accent-resource-light: 28 141 76;  /* Existing success-light */
-
-  /* === LEGACY COMPATIBILITY COLORS === */
-  /* These maintain compatibility with existing components */
-    --color-primary: 15 23 42;
-  --color-primary-light: 28 42 77;
-    --color-secondary: 51 65 85;
-  --color-secondary-light: 74 74 74;
-    --color-accent: 59 130 246;
-  --color-accent-light: 77 139 247;
-    --color-highlight: 212 175 55;
-  --color-highlight-light: 208 124 92;
-    --color-surface: 30 41 59;
-  --color-surface-light: 124 111 156;
-    --color-success: 34 197 94;
-  --color-success-light: 28 141 76;
-    --color-progress: 249 115 22;
-  --color-progress-light: 234 88 12;
-    --color-neutral: 148 163 184;
-  --color-neutral-light: 228 231 235;
-    --color-background: 15 27 43;
-  --color-background-light: 248 250 253;
-    --color-text: 248 250 252;
-    --color-text-secondary: 203 213 225;
-  --color-text-light: 28 42 77;
-  --color-text-secondary-light: 74 74 74;
-    --color-border: 100 116 139;
-  --color-border-light: 228 231 235;
-  --color-card: 30 41 59;
-  --color-card-light: 255 255 255;
-  --color-footer: 11 20 31;
-  --color-footer-light: 248 250 253;
-  --color-grid: 255 255 255;
-  --color-grid-light: 228 231 235;
-  --color-hero-gradient-start: 19 38 60;
-  --color-hero-gradient-end: 11 20 31;
-
-  /* === TYPOGRAPHY === */
-  /* Note: Using Tailwind's built-in typography scale instead of custom variables for better performance */
-
-  /* === SPACING === */
-  /* Note: Using Tailwind's built-in spacing scale for better performance and consistency */
-  /* Only keeping custom semantic spacing values that are actively used */
-
-  /* === SHADOWS === */
-  /* Dark theme shadows (default) */
-  --shadow-xs: 0 1px 3px 0 rgba(0, 0, 0, 0.6);
-  --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.7), 0 1px 3px -1px rgba(0, 0, 0, 0.7);
-  --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.7), 0 2px 6px -2px rgba(0, 0, 0, 0.7);
-  --shadow-lg: 0 12px 20px -3px rgba(0, 0, 0, 0.8), 0 6px 10px -4px rgba(0, 0, 0, 0.7);
-  --shadow-xl: 0 24px 32px -5px rgba(0, 0, 0, 0.9), 0 12px 16px -6px rgba(0, 0, 0, 0.8);
-  --shadow-2xl: 0 32px 48px -8px rgba(0, 0, 0, 0.95), 0 20px 32px -8px rgba(0, 0, 0, 0.9);
-
-  /* Light theme shadows */
-  --shadow-xs-light: 0 1px 3px 0 rgba(28, 42, 77, 0.12);
-  --shadow-sm-light: 0 3px 6px 0 rgba(28, 42, 77, 0.15), 0 2px 4px -1px rgba(28, 42, 77, 0.12);
-  --shadow-md-light: 0 6px 12px -2px rgba(28, 42, 77, 0.18), 0 3px 6px -2px rgba(28, 42, 77, 0.15);
-  --shadow-lg-light: 0 12px 32px -4px rgba(28, 42, 77, 0.22), 0 6px 12px -4px rgba(28, 42, 77, 0.18);
-  --shadow-xl-light: 0 20px 40px -8px rgba(28, 42, 77, 0.26), 0 12px 20px -8px rgba(28, 42, 77, 0.22);
-  --shadow-2xl-light: 0 32px 64px -12px rgba(28, 42, 77, 0.3), 0 20px 40px -12px rgba(28, 42, 77, 0.26);
-
-  /* Glow effects */
-  --shadow-glow-accent: 0 0 20px rgba(59, 130, 246, 0.2);
-  --shadow-glow-accent-lg: 0 0 40px rgba(59, 130, 246, 0.3);
-  --shadow-glow-highlight: 0 0 20px rgba(212, 175, 55, 0.2);
-  --shadow-glow-highlight-lg: 0 0 40px rgba(212, 175, 55, 0.3);
-  --shadow-glow-success: 0 0 20px rgba(34, 197, 94, 0.2);
-  --shadow-glow-success-lg: 0 0 40px rgba(34, 197, 94, 0.3);
-
-  /* Component-specific shadows */
-  --shadow-button: 0 2px 4px 0 rgba(0, 0, 0, 0.7), 0 1px 3px -1px rgba(0, 0, 0, 0.7);
-  --shadow-button-hover: 0 12px 20px -3px rgba(0, 0, 0, 0.8), 0 6px 10px -4px rgba(0, 0, 0, 0.7);
-  --shadow-card: 0 2px 4px 0 rgba(0, 0, 0, 0.7), 0 1px 3px -1px rgba(0, 0, 0, 0.7);
-  --shadow-card-hover: 0 24px 32px -5px rgba(0, 0, 0, 0.9), 0 12px 16px -6px rgba(0, 0, 0, 0.8);
-  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  --shadow-none: 0 0 #0000;
-
-  /* === ESSENTIAL SHADOWS === */
-  /* Only keeping shadows that are actively used in components */
-  --shadow-lg: 0 12px 20px -3px rgba(0, 0, 0, 0.8), 0 6px 10px -4px rgba(0, 0, 0, 0.7);
-  --shadow-glow-highlight: 0 0 20px rgba(212, 175, 55, 0.2);
-}
-}
+/* Existing global styles will be migrated to modular files in 4.5.2+ */
 
 /* === ESSENTIAL ANIMATION UTILITIES === */
 /* Only keeping utilities that are actually used or likely to be needed */

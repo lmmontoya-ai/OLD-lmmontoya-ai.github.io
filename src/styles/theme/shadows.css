@@ -1,0 +1,48 @@
+/**
+ * Theme Shadows
+ *
+ * Shadow system with dark/light theme variants and component-specific shadows.
+ * Uses registered custom properties for enhanced performance and animation capabilities.
+ *
+ * Shadow Categories:
+ * - Standard shadows: xs, sm, md, lg, xl, 2xl with theme variants
+ * - Glow effects: Accent, highlight, success glows
+ * - Component shadows: Button, card, and interaction states
+ *
+ * @see Tailwind v4 documentation for shadow usage patterns
+ */
+
+@theme {
+  /* === SHADOWS === */
+  /* Dark theme shadows (default) */
+  --shadow-xs: 0 1px 3px 0 rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.7), 0 1px 3px -1px rgba(0, 0, 0, 0.7);
+  --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.7), 0 2px 6px -2px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 12px 20px -3px rgba(0, 0, 0, 0.8), 0 6px 10px -4px rgba(0, 0, 0, 0.7);
+  --shadow-xl: 0 24px 32px -5px rgba(0, 0, 0, 0.9), 0 12px 16px -6px rgba(0, 0, 0, 0.8);
+  --shadow-2xl: 0 32px 48px -8px rgba(0, 0, 0, 0.95), 0 20px 32px -8px rgba(0, 0, 0, 0.9);
+
+  /* Light theme shadows */
+  --shadow-xs-light: 0 1px 3px 0 rgba(28, 42, 77, 0.12);
+  --shadow-sm-light: 0 3px 6px 0 rgba(28, 42, 77, 0.15), 0 2px 4px -1px rgba(28, 42, 77, 0.12);
+  --shadow-md-light: 0 6px 12px -2px rgba(28, 42, 77, 0.18), 0 3px 6px -2px rgba(28, 42, 77, 0.15);
+  --shadow-lg-light: 0 12px 32px -4px rgba(28, 42, 77, 0.22), 0 6px 12px -4px rgba(28, 42, 77, 0.18);
+  --shadow-xl-light: 0 20px 40px -8px rgba(28, 42, 77, 0.26), 0 12px 20px -8px rgba(28, 42, 77, 0.22);
+  --shadow-2xl-light: 0 32px 64px -12px rgba(28, 42, 77, 0.3), 0 20px 40px -12px rgba(28, 42, 77, 0.26);
+
+  /* Glow effects */
+  --shadow-glow-accent: 0 0 20px rgba(59, 130, 246, 0.2);
+  --shadow-glow-accent-lg: 0 0 40px rgba(59, 130, 246, 0.3);
+  --shadow-glow-highlight: 0 0 20px rgba(212, 175, 55, 0.2);
+  --shadow-glow-highlight-lg: 0 0 40px rgba(212, 175, 55, 0.3);
+  --shadow-glow-success: 0 0 20px rgba(34, 197, 94, 0.2);
+  --shadow-glow-success-lg: 0 0 40px rgba(34, 197, 94, 0.3);
+
+  /* Component-specific shadows */
+  --shadow-button: 0 2px 4px 0 rgba(0, 0, 0, 0.7), 0 1px 3px -1px rgba(0, 0, 0, 0.7);
+  --shadow-button-hover: 0 12px 20px -3px rgba(0, 0, 0, 0.8), 0 6px 10px -4px rgba(0, 0, 0, 0.7);
+  --shadow-card: 0 2px 4px 0 rgba(0, 0, 0, 0.7), 0 1px 3px -1px rgba(0, 0, 0, 0.7);
+  --shadow-card-hover: 0 24px 32px -5px rgba(0, 0, 0, 0.9), 0 12px 16px -6px rgba(0, 0, 0, 0.8);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-none: 0 0 #0000;
+}

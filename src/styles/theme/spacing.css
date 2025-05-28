@@ -1,0 +1,38 @@
+/**
+ * Theme Spacing
+ *
+ * Spacing system following design-system.md specifications.
+ * Uses Tailwind v4's built-in spacing scale for optimal performance.
+ *
+ * Note: This file intentionally uses Tailwind's default spacing scale
+ * rather than defining custom values, following v4 best practices for
+ * better performance and consistency.
+ *
+ * Custom spacing tokens should only be added when they don't exist
+ * in Tailwind's default scale.
+ *
+ * @see design-system.md for spacing guidelines
+ * @see Tailwind v4 spacing documentation
+ */
+
+@theme {
+  /* === SPACING === */
+  /* Note: Using Tailwind's built-in spacing scale for better performance and consistency */
+  /* Only keeping custom semantic spacing values that are actively used */
+
+  /* Border radius scale - custom values for this project */
+  --radius-xs: 0.125rem;   /* 2px */
+  --radius-sm: 0.25rem;    /* 4px */
+  --radius-md: 0.375rem;   /* 6px */
+  --radius-lg: 0.5rem;     /* 8px */
+  --radius-xl: 0.75rem;    /* 12px */
+  --radius-2xl: 1rem;      /* 16px */
+  --radius-3xl: 1.5rem;    /* 24px */
+
+  /* Custom spacing values - only if needed beyond Tailwind's 0.5, 1, 1.5, 2, 2.5, 3, etc. scale */
+  /* Currently using Tailwind's spacing scale: space-0 through space-96, space-px */
+
+  /* Section spacing - using Tailwind's scale */
+  /* Container spacing - using Tailwind's scale */
+  /* Component spacing - using Tailwind's scale */
+}

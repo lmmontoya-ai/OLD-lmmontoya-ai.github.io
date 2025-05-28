@@ -1,0 +1,6 @@
+/* Theme Aggregator: Imports all theme modules */
+@import "./colors.css";
+@import "./typography.css";
+@import "./spacing.css";
+@import "./shadows.css";
+@import "./animations.css";

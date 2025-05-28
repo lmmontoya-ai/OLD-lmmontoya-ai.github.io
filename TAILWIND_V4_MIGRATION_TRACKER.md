@@ -577,10 +577,10 @@
   **Actual Time: 25 min** - Followed Tailwind v4 best practices, build/dev server working perfectly
 - [x] **4.5.3** Extract semantic color utilities
   ✅ **COMPLETED** - All text-content-*, bg-*, border-*, and status color utilities were moved from `global.css` to `utilities/semantic-colors.css` as a dedicated @layer(utilities) file. Imports in `global.css` were already correct. Build tested and no regressions found. **Actual Time: 18 min**
-- [ ] **4.5.4** Extract legacy compatibility utilities
-  - [ ] Move text-themed* utilities to `utilities/legacy-compat.css`
-  - [ ] Move bg-themed* utilities to `utilities/legacy-compat.css`
-  - [ ] Move shadow-themed-* utilities to `utilities/legacy-compat.css`
+- [x] **4.5.4** Extract legacy compatibility utilities ✅ *(~20 min)*
+  - [x] Move text-themed* utilities to `utilities/legacy-compat.css`
+  - [x] Move bg-themed* utilities to `utilities/legacy-compat.css`
+  - [x] Move shadow-themed-* utilities to `utilities/legacy-compat.css`
 - [ ] **4.5.5** Extract modern layout utilities
   - [ ] Move logical properties to `utilities/modern-layout.css`
   - [ ] Move RTL support utilities to `utilities/modern-layout.css`

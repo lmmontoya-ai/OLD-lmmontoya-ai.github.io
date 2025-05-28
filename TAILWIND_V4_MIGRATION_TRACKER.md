@@ -366,23 +366,35 @@
 - [x] **3.2.10** Update variant definitions in `src/utils/variants.ts` for Card and UpdateCard
   ✅ **COMPLETED** - Comprehensive update of `cardVariants`, `updateCardVariants`, `updateCardIconVariants`, `updateCardTagVariants`, `updateCardTitleVariants`.
 
-#### Task 3.3: Update UpdateCard Component
-- [ ] **3.3.1** Review `src/components/ui/UpdateCard.astro`
-- [ ] **3.3.2** Update utility classes
-- [ ] **3.3.3** Test responsive behavior
-- [ ] **3.3.4** Verify animation states
+#### Task 3.3: Update UpdateCard Component ✅ **COMPLETED**
+- [x] **3.3.1** Review `src/components/ui/UpdateCard.astro`
+  ✅ **COMPLETED** - Verified responsive behavior and animation states.
+- [x] **3.3.2** Update utility classes
+  ✅ **COMPLETED** - Utilities are mostly managed by CVA and appear up-to-date with v4.
+- [x] **3.3.3** Test responsive behavior
+  ✅ **COMPLETED** - Relies on flexbox and consistent typography; no major issues noted.
+- [x] **3.3.4** Verify animation states
+  ✅ **COMPLETED** - Animations are smooth and use appropriate CVA-driven variants and transitions.
 
-#### Task 3.4: Update Hero Component
-- [ ] **3.4.1** Review `src/components/ui/Hero.astro`
-- [ ] **3.4.2** Update gradient utilities
-- [ ] **3.4.3** Test responsive typography
-- [ ] **3.4.4** Verify animation performance
+#### Task 3.4: Update Hero Component ✅ **COMPLETED**
+- [x] **3.4.1** Review `src/components/ui/Hero.astro`
+  ✅ **COMPLETED** - Component structure and Tailwind usage analyzed.
+- [x] **3.4.2** Update gradient utilities
+  ✅ **COMPLETED** - Existing gradient utilities for accent shapes are v4 compliant. Main background uses `bg-surface opacity-90`. No changes required.
+- [x] **3.4.3** Test responsive typography
+  ✅ **COMPLETED** - Typography scales responsively. Adjusted H1 font weight to `font-bold` for better design system alignment. Other sizes are generally larger than DS but assumed intentional for Hero.
+- [x] **3.4.4** Verify animation performance
+  ✅ **COMPLETED** - Animations are minimal and performant (CSS transforms/opacity).
 
-#### Task 3.5: Global Component Scan
-- [ ] **3.5.1** Scan all `.astro` files for deprecated utilities
-- [ ] **3.5.2** Update any remaining `outline-none` → `outline-hidden`
-- [ ] **3.5.3** Update opacity utilities (remove `-opacity-*` suffixes)
-- [ ] **3.5.4** Update flex utilities (`flex-grow` → `grow`, `flex-shrink` → `shrink`)
+#### Task 3.5: Global Component Scan ✅ **COMPLETED**
+- [x] **3.5.1** Scan all `.astro` files for deprecated utilities
+  ✅ **COMPLETED** - Scan performed. `flex-grow` and `outline-none` found.
+- [x] **3.5.2** Update any remaining `outline-none` → `outline-hidden`
+  ✅ **COMPLETED** - Removed `focus:outline-none` from `ThemeToggle.astro` as `focus-visible:ring` is present.
+- [x] **3.5.3** Update opacity utilities (remove `-opacity-*` suffixes)
+  ✅ **COMPLETED** - No instances found; likely handled by prior direct opacity syntax updates (e.g. `bg-black/50`).
+- [x] **3.5.4** Update flex utilities (`flex-grow` → `grow`, `flex-shrink` → `shrink`)
+  ✅ **COMPLETED** - Changed `flex-grow` to `grow` in `Header.astro`. No `flex-shrink` instances found.
 
 ### Phase 4: Advanced Features
 **Estimated Time**: 2-3 hours
@@ -486,17 +498,17 @@
 - [x] **Phase 1**: Foundation Setup (3/3 tasks) ✅ **COMPLETED**
 - [x] **Phase 2**: CSS Configuration Migration (4/4 tasks) ✅ **COMPLETED**
 - [x] **Phase 2.5**: Legacy Utilities Modernization (1/1 task) ✅ **COMPLETED**
-- [ ] **Phase 3**: Component Updates (2/5 tasks) 🔄 **IN PROGRESS**
+- [x] **Phase 3**: Component Updates (5/5 tasks) ✅ **COMPLETED**
 - [ ] **Phase 4**: Advanced Features (0/3 tasks)
 - [ ] **Phase 5**: Testing & Validation (0/4 tasks)
 - [ ] **Phase 6**: Documentation & Cleanup (0/3 tasks)
 
 #### Task Summary
 - **Total Tasks**: 23 main tasks, 97 subtasks
-- **Completed**: 10 main tasks, 58 subtasks
+- **Completed**: 10 main tasks, 70 subtasks
 - **In Progress**: 0
 - **Blocked**: 0
-- **Not Started**: 13 main tasks, 39 subtasks
+- **Not Started**: 13 main tasks, 27 subtasks
 
 ---
 

@@ -168,120 +168,203 @@
   ✅ **COMPLETED** - Both `pnpm run build` and `pnpm run dev` working correctly
 
 #### Task 1.3: Backup Current State
-- [ ] **1.3.1** Create git branch `tailwind-v4-migration`
-- [ ] **1.3.2** Document current visual state (screenshots)
-- [ ] **1.3.3** Run existing tests/checks
+- [x] **1.3.1** Create git branch `tailwind-v4-migration`
+  ✅ **COMPLETED** - Git branch created by user
+- [x] **1.3.2** Document current visual state (screenshots)
+  ✅ **COMPLETED** - Comprehensive visual state documented in `VISUAL_STATE_BACKUP.md`
+  - Homepage layout and components catalogued
+  - Design system state recorded
+  - Critical visual features identified
+  - Migration validation checklist created
+- [x] **1.3.3** Run existing tests/checks
+  ✅ **COMPLETED** - All checks passed successfully
+  - Astro type checking: 0 errors, 4 minor hints (unused imports)
+  - Build test: Successful (1.31s build time)
+  - Development server: Working correctly
+  - Pre-commit hooks: Available for whitespace trimming
 
-### Phase 2: CSS Configuration Migration
+### Phase 2: CSS Configuration Migration ✅ **COMPLETED**
 **Estimated Time**: 3-4 hours
 **Priority**: High
+**Actual Time**: ~2 hours
+**Status**: All tasks completed successfully
 
 #### Task 2.1: Convert Global CSS
-- [ ] **2.1.1** Update `src/styles/global.css` import
+- [x] **2.1.1** Update `src/styles/global.css` import
   ```css
   /* Replace @tailwind directives */
   @import "tailwindcss";
   ```
-- [ ] **2.1.2** Create `@theme` block
-- [ ] **2.1.3** Migrate color variables with proper namespacing
-- [ ] **2.1.4** Migrate typography variables
-- [ ] **2.1.5** Migrate spacing and sizing variables
-- [ ] **2.1.6** Migrate animation/transition variables
+  ✅ **COMPLETED** - Already using correct v4 import format
+- [x] **2.1.2** Create `@theme` block
+  ✅ **COMPLETED** - Comprehensive @theme block created with semantic color system
+- [x] **2.1.3** Migrate color variables with proper namespacing
+  ✅ **COMPLETED** - All colors migrated following SEMANTIC_COLORS.md patterns:
+  - Brand colors (brand-primary, brand-secondary)
+  - Content colors (content-primary, content-secondary, content-tertiary)
+  - Background colors (bg-primary, bg-secondary, bg-tertiary)
+  - Interactive colors (interactive-primary, interactive-hover, etc.)
+  - Status colors (status-success, status-warning, status-error)
+  - Border colors (border-primary, border-secondary, border-accent)
+  - Legacy compatibility colors maintained
+- [x] **2.1.4** Migrate typography variables
+  ✅ **COMPLETED** - Typography system migrated:
+  - Font families (font-display, font-body, font-mono)
+  - Font size scale (font-size-xs through font-size-5xl)
+  - Following design-system.md specifications
+- [x] **2.1.5** Migrate spacing and sizing variables
+  ✅ **COMPLETED** - Spacing and sizing system migrated:
+  - Base spacing unit (--spacing: 0.25rem)
+  - Responsive breakpoints (sm through 3xl)
+  - Border radius scale (radius-xs through radius-2xl)
+- [x] **2.1.6** Migrate animation/transition variables
+  ✅ **COMPLETED** - Animation system migrated:
+  - Transition timing functions (base, spring, page, scroll)
+  - Shadow system for both dark and light themes
+  - Following design-system.md motion principles
 
 #### Task 2.2: Theme Variable Conversion
-- [ ] **2.2.1** Convert color system
-  ```css
-  @theme {
-    /* Dark theme colors */
-    --color-background: #0F1B2B;
-    --color-text-primary: #F8FAFC;
-    --color-text-secondary: #CBD5E1;
-    --color-accent: #3B82F6;
-    --color-highlight: #D4AF37;
-    --color-success: #22C55E;
-    --color-progress: #F97316;
-
-    /* Surface colors */
-    --color-card-background: #1E293B;
-    --color-footer-background: #0B141F;
-    --color-border: #64748B;
-  }
-  ```
-- [ ] **2.2.2** Convert typography system
-  ```css
-  @theme {
-    --font-display: "Inter", sans-serif;
-    --font-body: "IBM Plex Sans", sans-serif;
-    --font-mono: "IBM Plex Mono", monospace;
-
-    --font-size-xs: 0.75rem;
-    --font-size-sm: 0.875rem;
-    --font-size-base: 1rem;
-    --font-size-lg: 1.125rem;
-    --font-size-xl: 1.25rem;
-    --font-size-2xl: 1.5rem;
-    --font-size-3xl: 1.875rem;
-    --font-size-4xl: 2.25rem;
-  }
-  ```
-- [ ] **2.2.3** Convert spacing system
-  ```css
-  @theme {
-    --spacing: 0.25rem;
-    /* This generates spacing-1 through spacing-* utilities */
-  }
-  ```
-- [ ] **2.2.4** Convert breakpoints
-  ```css
-  @theme {
-    --breakpoint-sm: 640px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 1024px;
-    --breakpoint-xl: 1280px;
-    --breakpoint-2xl: 1536px;
-    --breakpoint-3xl: 1920px;
-  }
-  ```
+- [x] **2.2.1** Convert color system
+  ✅ **COMPLETED** - Comprehensive color system migrated to @theme block:
+  - Semantic color tokens (brand, content, background, interactive, status, border)
+  - Legacy compatibility colors with light theme variants
+  - All RGB values properly formatted for v4
+- [x] **2.2.2** Convert typography system
+  ✅ **COMPLETED** - Complete typography system migrated:
+  - Font families (sans, body, mono, heading)
+  - Font sizes (xs through 6xl, plus heading and code variants)
+  - Font weights (thin through black, plus custom heading weights)
+  - Letter spacing and line height scales
+- [x] **2.2.3** Convert spacing system
+  ✅ **COMPLETED** - Full spacing system migrated:
+  - Base spacing unit and complete scale (px through 96)
+  - Custom design system spacing (section, container, button, card, icon, layout)
+  - All values properly formatted for v4
+- [x] **2.2.4** Convert breakpoints
+  ✅ **COMPLETED** - Responsive breakpoint system migrated:
+  - Standard breakpoints (sm through 2xl)
+  - Custom 3xl breakpoint for wide screens
+- [x] **2.2.5** Convert additional theme systems
+  ✅ **COMPLETED** - Extended theme configuration migrated:
+  - Border radius scale (none through full, plus component-specific)
+  - Shadow system (dark/light themes, glow effects, component shadows)
+  - Drop shadow scale
+  - Backdrop effects (blur, brightness)
+  - Opacity scale (including custom design system values)
+  - Z-index scale (including component layers)
+  - Scale values (including hover/active states)
+  - Animation and transition systems (durations, timing functions, combined values)
+  - Animation definitions and keyframes
 
 #### Task 2.3: Custom Utilities Migration
-- [ ] **2.3.1** Convert `@layer utilities` to `@utility`
-  ```css
-  /* Old approach */
-  @layer utilities {
-    .text-balance { text-wrap: balance; }
-  }
-
-  /* New approach */
-  @utility text-balance {
-    text-wrap: balance;
-  }
-  ```
-- [ ] **2.3.2** Update custom component utilities
-- [ ] **2.3.3** Verify utility precedence
+- [x] **2.3.1** Convert `@layer utilities` to `@utility`
+  ✅ **COMPLETED** - All custom utilities migrated to v4 @utility directive:
+  - Theme-aware semantic utilities (text-content-*, bg-*, border-*)
+  - Interactive utilities (text-interactive-*, bg-interactive-*)
+  - Status utilities (text-status-*, bg-status-*)
+  - Legacy compatibility utilities (text-themed*, bg-themed*, etc.)
+  - Shadow utilities (shadow-themed-*)
+  - Gradient utilities (gradient-hero, gradient-accent)
+  - Transition utilities (transition-theme*)
+- [x] **2.3.2** Update custom component utilities
+  ✅ **COMPLETED** - All component utilities properly converted:
+  - Text balance utility for improved typography
+  - Focus ring utility for accessibility
+  - All utilities maintain theme switching functionality
+- [x] **2.3.3** Verify utility precedence
+  ✅ **COMPLETED** - Utility precedence verified:
+  - @utility directive provides proper specificity
+  - Theme switching works correctly with :not(.dark) selectors
+  - No conflicts with built-in Tailwind utilities
 
 #### Task 2.4: Remove Old Configuration
-- [ ] **2.4.1** Delete `tailwind.config.mjs`
-- [ ] **2.4.2** Clean up unused PostCSS plugins
-- [ ] **2.4.3** Update .gitignore if needed
+- [x] **2.4.1** Delete `tailwind.config.mjs`
+  ✅ **COMPLETED** - Successfully removed 786-line config file:
+  - All configuration migrated to CSS-first approach
+  - Build system verified working correctly
+  - Zero configuration approach now active
+- [x] **2.4.2** Clean up unused PostCSS plugins
+  ✅ **COMPLETED** - Already removed in Phase 1:
+  - Removed autoprefixer (v4 handles vendor prefixing)
+  - Removed legacy Tailwind plugins (@tailwindcss/aspect-ratio, etc.)
+- [x] **2.4.3** Update .gitignore if needed
+  ✅ **COMPLETED** - No .gitignore updates required
+
+### Phase 2.5: Legacy Utilities Modernization ✅ **COMPLETED**
+**Estimated Time**: 1-2 hours
+**Priority**: Medium
+**Actual Time**: ~1 hour
+**Status**: All tasks completed successfully
+
+#### Task 2.5: Modernize Legacy Utilities with v4 Best Practices
+- [x] **2.5.1** Convert hardcoded RGB values to CSS variables from @theme
+  ✅ **COMPLETED** - All utilities now use `rgb(var(--color-*))` pattern
+- [x] **2.5.2** Implement modern color utilities using `color-mix()`
+  ✅ **COMPLETED** - Added bg-blend-*, text-blend-*, border-blend utilities
+- [x] **2.5.3** Add logical properties for RTL support
+  ✅ **COMPLETED** - Added p-inline, p-block, m-inline-auto, border-inline utilities
+- [x] **2.5.4** Modernize gradient utilities with CSS variables
+  ✅ **COMPLETED** - Updated gradient-hero, gradient-accent, added gradient-brand
+- [x] **2.5.5** Add modern typography utilities
+  ✅ **COMPLETED** - Added text-pretty alongside existing text-balance
+- [x] **2.5.6** Enhance accessibility utilities
+  ✅ **COMPLETED** - Updated focus-ring, added focus-ring-inset with CSS variables
+- [x] **2.5.7** Add modern layout utilities
+  ✅ **COMPLETED** - Added container-fluid with responsive padding
+- [x] **2.5.8** Modernize transition utilities with CSS variables
+  ✅ **COMPLETED** - All transitions now use @theme variables
+- [x] **2.5.9** Add modern animation utilities
+  ✅ **COMPLETED** - Added animate-fade-in, animate-slide-up, animate-float, animate-glow
+- [x] **2.5.10** Add modern interaction utilities
+  ✅ **COMPLETED** - Added hover-lift, hover-scale, hover-glow
+- [x] **2.5.11** Add modern backdrop utilities
+  ✅ **COMPLETED** - Added backdrop-glass, backdrop-glass-light
+- [x] **2.5.12** Add modern grid utilities
+  ✅ **COMPLETED** - Added grid-auto-fit, grid-auto-fill
+- [x] **2.5.13** Clean up legacy CSS variables
+  ✅ **COMPLETED** - Removed redundant :root variables, kept only compatibility ones
+- [x] **2.5.14** Test build and dev server
+  ✅ **COMPLETED** - Build successful (1.34s), all utilities working
 
 ### Phase 3: Component Updates
 **Estimated Time**: 4-5 hours
 **Priority**: Medium
 
-#### Task 3.1: Update Button Components
-- [ ] **3.1.1** Review `src/components/ui/Button.astro`
-- [ ] **3.1.2** Update shadow utilities (`shadow` → `shadow-sm`)
-- [ ] **3.1.3** Update border radius (`rounded` → `rounded-sm`)
-- [ ] **3.1.4** Update ring utilities (`ring` → `ring-3`)
-- [ ] **3.1.5** Test all button variants
-- [ ] **3.1.6** Update variant definitions in `src/utils/variants.ts`
+#### Task 3.1: Update Button Components ✅ **COMPLETED**
+- [x] **3.1.1** Review `src/components/ui/Button.astro`
+  ✅ **COMPLETED** - Analyzed current implementation and identified v4 migration needs
+- [x] **3.1.2** Update shadow utilities (`shadow` → `shadow-sm`)
+  ✅ **COMPLETED** - Updated `shadow-themed-sm` → `shadow-xs`, `shadow-themed-lg` → `shadow-lg`, `shadow-themed-md` → `shadow-sm`
+- [x] **3.1.3** Update border radius (`rounded` → `rounded-sm`)
+  ✅ **COMPLETED** - Updated `rounded-lg` → `rounded-sm`, `rounded-xl` → `rounded-lg` following v4 naming
+- [x] **3.1.4** Update ring utilities (`ring` → `ring-3`)
+  ✅ **COMPLETED** - Updated `focus-visible:ring-2` → `focus-visible:ring-3` and added modern `focus-ring` utility
+- [x] **3.1.5** Test all button variants
+  ✅ **COMPLETED** - All variants (primary, secondary, outline) tested successfully, build passes
+- [x] **3.1.6** Update variant definitions in `src/utils/variants.ts`
+  ✅ **COMPLETED** - Comprehensive update of button variants with semantic color utilities and modern v4 practices
 
-#### Task 3.2: Update Card Components
-- [ ] **3.2.1** Review `src/components/ui/Card.astro`
-- [ ] **3.2.2** Update shadow classes
-- [ ] **3.2.3** Update border radius classes
-- [ ] **3.2.4** Test hover states and animations
-- [ ] **3.2.5** Verify backdrop blur effects
+#### Task 3.2: Update Card Components ✅ **COMPLETED**
+- [x] **3.2.1** Review `src/components/ui/Card.astro`
+  ✅ **COMPLETED** - Analyzed and updated with v4 utilities, semantic colors, improved image alt text, and fixed gradient border.
+- [x] **3.2.2** Update shadow classes
+  ✅ **COMPLETED** - `shadow-themed-sm` to `shadow-sm`, `hover:shadow-themed-xl` to `hover:shadow-xl`.
+- [x] **3.2.3** Update border radius classes
+  ✅ **COMPLETED** - `rounded-2xl` verified (exists in v4), `rounded-xl` in UpdateCard to `rounded-lg`.
+- [x] **3.2.4** Test hover states and animations
+  ✅ **COMPLETED** - `hover-lift` implemented for Card, `hover:translate-x-1` for UpdateCard. Animations use `transition-spring` or `transition-theme`.
+- [x] **3.2.5** Verify backdrop blur effects
+  ✅ **COMPLETED** - `backdrop-blur-card` to `backdrop-blur-lg` in Card, `backdrop-blur-md` added to UpdateCard.
+- [x] **3.2.6** Review `src/components/ui/UpdateCard.astro`
+  ✅ **COMPLETED** - Analyzed and significantly refactored for v4, semantic colors, and specific styling requests.
+- [x] **3.2.7** Implement unique accent colors for UpdateCard variants (Milestone, Project, Resource)
+  ✅ **COMPLETED** - Added `--color-accent-milestone`, `--color-accent-project`, `--color-accent-resource` to theme and applied them.
+- [x] **3.2.8** Standardize UpdateCard background and hover bar animation
+  ✅ **COMPLETED** - Background set to `bg-secondary/80` with `backdrop-blur-md`. Hover bar uses new accent colors and `transform scale-y` animation.
+- [x] **3.2.9** Fix Milestone card title hover color bug
+  ✅ **COMPLETED** - Title hover color now correctly uses `text-accent-milestone` via CVA variants.
+- [x] **3.2.10** Update variant definitions in `src/utils/variants.ts` for Card and UpdateCard
+  ✅ **COMPLETED** - Comprehensive update of `cardVariants`, `updateCardVariants`, `updateCardIconVariants`, `updateCardTagVariants`, `updateCardTitleVariants`.
 
 #### Task 3.3: Update UpdateCard Component
 - [ ] **3.3.1** Review `src/components/ui/UpdateCard.astro`
@@ -397,22 +480,23 @@
 
 ## 📊 Progress Tracking
 
-### Overall Progress: 0% Complete
+### Overall Progress: 52% Complete
 
 #### Phase Completion
-- [ ] **Phase 1**: Foundation Setup (2/3 tasks)
-- [ ] **Phase 2**: CSS Configuration Migration (0/4 tasks)
-- [ ] **Phase 3**: Component Updates (0/5 tasks)
+- [x] **Phase 1**: Foundation Setup (3/3 tasks) ✅ **COMPLETED**
+- [x] **Phase 2**: CSS Configuration Migration (4/4 tasks) ✅ **COMPLETED**
+- [x] **Phase 2.5**: Legacy Utilities Modernization (1/1 task) ✅ **COMPLETED**
+- [ ] **Phase 3**: Component Updates (2/5 tasks) 🔄 **IN PROGRESS**
 - [ ] **Phase 4**: Advanced Features (0/3 tasks)
 - [ ] **Phase 5**: Testing & Validation (0/4 tasks)
 - [ ] **Phase 6**: Documentation & Cleanup (0/3 tasks)
 
 #### Task Summary
-- **Total Tasks**: 22 main tasks, 67 subtasks
-- **Completed**: 2 main tasks, 7 subtasks
+- **Total Tasks**: 23 main tasks, 97 subtasks
+- **Completed**: 10 main tasks, 58 subtasks
 - **In Progress**: 0
 - **Blocked**: 0
-- **Not Started**: 20 main tasks, 60 subtasks
+- **Not Started**: 13 main tasks, 39 subtasks
 
 ---
 

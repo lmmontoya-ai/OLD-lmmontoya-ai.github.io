@@ -47,18 +47,17 @@ const isPrimary = variant === "primary";
     : {}}
 >
   {isPrimary && (
-    <!-- Theme-aware background for primary buttons -->
-    <div class="absolute inset-0 dark:block hidden" style="background-color: rgb(212 175 55);"></div>
-    <div class="absolute inset-0 dark:hidden block" style="background-color: rgb(208 124 92);"></div>
+    <!-- Theme-aware background for primary buttons using modern CSS variables -->
+    <div class="absolute inset-0 bg-interactive-secondary"></div>
   )}
   {isPrimary && (
-    <!-- Hover glow effect for primary buttons -->
-    <div 
-      class="absolute inset-0 transition-all duration-spring opacity-0 hover:opacity-100"
-      style="box-shadow: var(--glow-highlight), var(--shadow-lg);"
+    <!-- Hover glow effect for primary buttons using modern utilities -->
+    <div
+      class="absolute inset-0 transition-spring opacity-0 hover:opacity-100 hover-glow"
+      style="box-shadow: var(--shadow-glow-highlight), var(--shadow-lg);"
     ></div>
   )}
-  
+
   <!-- Button content - Added flex and items-center to keep text and icons on same line -->
   <span class="relative z-10 flex items-center">
     <slot />

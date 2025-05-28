@@ -1,44 +1,952 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    /* Essential CSS variables for compatibility with existing styles */
-    /* These will be gradually replaced with Tailwind utilities */
+@theme {
+  /* === CORE BRAND COLORS === */
+  --color-brand-primary: 59 130 246;    /* Blue - main brand color */
+  --color-brand-secondary: 212 175 55;  /* Gold - accent brand color */
 
-    /* Dark theme colors (default) */
+  /* === CONTENT COLORS === */
+  --color-content-primary: 248 250 252;    /* Main text (white in dark, navy in light) */
+  --color-content-secondary: 203 213 225;  /* Secondary text */
+  --color-content-tertiary: 148 163 184;   /* Muted text */
+  --color-content-inverse: 28 42 77;       /* Text for light backgrounds */
+
+  /* === BACKGROUND COLORS === */
+  --color-bg-primary: 15 27 43;           /* Main background */
+  --color-bg-secondary: 30 41 59;         /* Card/surface background */
+  --color-bg-tertiary: 11 20 31;          /* Footer/deeper background */
+  --color-bg-inverse: 248 250 253;        /* Light theme background */
+  --color-bg-inverse-secondary: 255 255 255; /* Light theme cards */
+
+  /* === INTERACTIVE COLORS === */
+  --color-interactive-primary: 59 130 246;     /* Primary buttons, links */
+  --color-interactive-secondary: 212 175 55;   /* Secondary buttons, highlights */
+  --color-interactive-hover: 77 139 247;       /* Hover states */
+  --color-interactive-focus: 59 130 246;       /* Focus rings */
+  --color-interactive-disabled: 100 116 139;   /* Disabled states */
+
+  /* === STATUS COLORS === */
+  --color-status-success: 34 197 94;      /* Success states, completed items */
+  --color-status-warning: 249 115 22;     /* Warning states, in-progress items */
+  --color-status-error: 239 68 68;        /* Error states */
+  --color-status-info: 59 130 246;        /* Info states */
+
+  /* === BORDER COLORS === */
+  --color-border-primary: 100 116 139;    /* Default borders */
+  --color-border-secondary: 51 65 85;     /* Subtle borders */
+  --color-border-accent: 59 130 246;      /* Accent borders */
+  --color-border-inverse: 228 231 235;    /* Light theme borders */
+
+  /* === UPDATE CARD ACCENT COLORS === */
+  --color-accent-milestone: 212 175 55;   /* Gold - Matches brand-secondary */
+  --color-accent-project: 59 130 246;     /* Blue - Matches brand-primary */
+  --color-accent-resource: 34 197 94;     /* Green - Matches status-success */
+
+  /* Light theme equivalents for UpdateCard accents if needed */
+  /* For now, assuming they work or will be handled by general light theme text color changes */
+  --color-accent-milestone-light: 208 124 92; /* Existing highlight-light */
+  --color-accent-project-light: 77 139 247;   /* Existing accent-light */
+  --color-accent-resource-light: 28 141 76;  /* Existing success-light */
+
+  /* === LEGACY COMPATIBILITY COLORS === */
+  /* These maintain compatibility with existing components */
     --color-primary: 15 23 42;
+  --color-primary-light: 28 42 77;
     --color-secondary: 51 65 85;
+  --color-secondary-light: 74 74 74;
     --color-accent: 59 130 246;
+  --color-accent-light: 77 139 247;
     --color-highlight: 212 175 55;
+  --color-highlight-light: 208 124 92;
     --color-surface: 30 41 59;
+  --color-surface-light: 124 111 156;
     --color-success: 34 197 94;
+  --color-success-light: 28 141 76;
     --color-progress: 249 115 22;
+  --color-progress-light: 234 88 12;
     --color-neutral: 148 163 184;
+  --color-neutral-light: 228 231 235;
     --color-background: 15 27 43;
+  --color-background-light: 248 250 253;
     --color-text: 248 250 252;
     --color-text-secondary: 203 213 225;
-    --color-text-secondary-alpha: 1;
+  --color-text-light: 28 42 77;
+  --color-text-secondary-light: 74 74 74;
     --color-border: 100 116 139;
-    --color-border-alpha: 0.25;
-    --color-card-bg: 30 41 59;
-    --color-footer-bg: 11 20 31;
+  --color-border-light: 228 231 235;
+  --color-card: 30 41 59;
+  --color-card-light: 255 255 255;
+  --color-footer: 11 20 31;
+  --color-footer-light: 248 250 253;
+  --color-grid: 255 255 255;
+  --color-grid-light: 228 231 235;
+  --color-hero-gradient-start: 19 38 60;
+  --color-hero-gradient-end: 11 20 31;
 
-    /* Typography and motion */
+  /* === TYPOGRAPHY === */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-heading: "Inter", system-ui, sans-serif;
+
+  /* Font sizes following design system scale */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-base-lg: 1.125rem; /* 18px */
+  --font-size-md: 1rem;         /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 1.875rem;    /* 30px */
+  --font-size-4xl: 2.25rem;     /* 36px */
+  --font-size-5xl: 2.75rem;     /* 44px */
+  --font-size-6xl: 3.75rem;     /* 60px */
+  --font-size-heading-1: 2.75rem; /* 44px */
+  --font-size-heading-2: 2.25rem; /* 36px */
+  --font-size-heading-3: 1.75rem; /* 28px */
+  --font-size-heading-4: 1.25rem; /* 20px */
+  --font-size-code: 0.875rem;   /* 14px */
+  --font-size-caption: 0.6875rem; /* 11px */
+
+  /* Font weights */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+  --font-weight-heading: 600;
+  --font-weight-heading-bold: 700;
+  --font-weight-heading-medium: 650;
+
+  /* Letter spacing */
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+
+  /* Line heights */
+  --line-height-none: 1;
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.2;
+  --line-height-normal: 1.3;
+  --line-height-relaxed: 1.4;
+  --line-height-loose: 1.5;
+  --line-height-extra-loose: 1.6;
+  --line-height-super-loose: 1.7;
+  --line-height-base: 1.6;
+  --line-height-base-lg: 1.7;
+
+  /* === SPACING === */
+  --spacing: 0.25rem; /* Base spacing unit (4px) */
+  --spacing-px: 1px;
+  --spacing-0: 0px;
+  --spacing-0_5: 0.125rem;
+  --spacing-1: 0.25rem;
+  --spacing-1_5: 0.375rem;
+  --spacing-2: 0.5rem;
+  --spacing-2_5: 0.625rem;
+  --spacing-3: 0.75rem;
+  --spacing-3_5: 0.875rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-7: 1.75rem;
+  --spacing-8: 2rem;
+  --spacing-9: 2.25rem;
+  --spacing-10: 2.5rem;
+  --spacing-11: 2.75rem;
+  --spacing-12: 3rem;
+  --spacing-14: 3.5rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  --spacing-28: 7rem;
+  --spacing-32: 8rem;
+  --spacing-36: 9rem;
+  --spacing-40: 10rem;
+  --spacing-44: 11rem;
+  --spacing-48: 12rem;
+  --spacing-52: 13rem;
+  --spacing-56: 14rem;
+  --spacing-60: 15rem;
+  --spacing-64: 16rem;
+  --spacing-72: 18rem;
+  --spacing-80: 20rem;
+  --spacing-96: 24rem;
+
+  /* Custom spacing for design system */
+  --spacing-section-sm: 5rem;
+  --spacing-section-lg: 7rem;
+  --spacing-container-sm: 1rem;
+  --spacing-container-md: 1.5rem;
+  --spacing-container-lg: 2rem;
+  --spacing-container-xl: 2.5rem;
+  --spacing-button-sm: 0.75rem;
+  --spacing-button-md: 1rem;
+  --spacing-button-lg: 1.25rem;
+  --spacing-card-sm: 1.5rem;
+  --spacing-card-md: 2rem;
+  --spacing-card-lg: 2.5rem;
+  --spacing-icon-sm: 1.5rem;
+  --spacing-icon-md: 2rem;
+  --spacing-icon-lg: 2.5rem;
+  --spacing-header: 4rem;
+  --spacing-footer: 3rem;
+  --spacing-sidebar: 16rem;
+  --spacing-content: 48rem;
+
+  /* === BREAKPOINTS === */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-3xl: 1920px;
+
+  /* === BORDER RADIUS === */
+  --radius-none: 0px;
+  --radius-sm: 0.125rem;
+  --radius: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+  --radius-full: 9999px;
+  --radius-button: 0.75rem;
+  --radius-card: 1.25rem;
+  --radius-icon: 0.625rem;
+
+  /* === SHADOWS === */
+  /* Dark theme shadows (default) */
+  --shadow-xs: 0 1px 3px 0 rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.7), 0 1px 3px -1px rgba(0, 0, 0, 0.7);
+  --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.7), 0 2px 6px -2px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 12px 20px -3px rgba(0, 0, 0, 0.8), 0 6px 10px -4px rgba(0, 0, 0, 0.7);
+  --shadow-xl: 0 24px 32px -5px rgba(0, 0, 0, 0.9), 0 12px 16px -6px rgba(0, 0, 0, 0.8);
+  --shadow-2xl: 0 32px 48px -8px rgba(0, 0, 0, 0.95), 0 20px 32px -8px rgba(0, 0, 0, 0.9);
+
+  /* Light theme shadows */
+  --shadow-xs-light: 0 1px 3px 0 rgba(28, 42, 77, 0.12);
+  --shadow-sm-light: 0 3px 6px 0 rgba(28, 42, 77, 0.15), 0 2px 4px -1px rgba(28, 42, 77, 0.12);
+  --shadow-md-light: 0 6px 12px -2px rgba(28, 42, 77, 0.18), 0 3px 6px -2px rgba(28, 42, 77, 0.15);
+  --shadow-lg-light: 0 12px 32px -4px rgba(28, 42, 77, 0.22), 0 6px 12px -4px rgba(28, 42, 77, 0.18);
+  --shadow-xl-light: 0 20px 40px -8px rgba(28, 42, 77, 0.26), 0 12px 20px -8px rgba(28, 42, 77, 0.22);
+  --shadow-2xl-light: 0 32px 64px -12px rgba(28, 42, 77, 0.3), 0 20px 40px -12px rgba(28, 42, 77, 0.26);
+
+  /* Glow effects */
+  --shadow-glow-accent: 0 0 20px rgba(59, 130, 246, 0.2);
+  --shadow-glow-accent-lg: 0 0 40px rgba(59, 130, 246, 0.3);
+  --shadow-glow-highlight: 0 0 20px rgba(212, 175, 55, 0.2);
+  --shadow-glow-highlight-lg: 0 0 40px rgba(212, 175, 55, 0.3);
+  --shadow-glow-success: 0 0 20px rgba(34, 197, 94, 0.2);
+  --shadow-glow-success-lg: 0 0 40px rgba(34, 197, 94, 0.3);
+
+  /* Component-specific shadows */
+  --shadow-button: 0 2px 4px 0 rgba(0, 0, 0, 0.7), 0 1px 3px -1px rgba(0, 0, 0, 0.7);
+  --shadow-button-hover: 0 12px 20px -3px rgba(0, 0, 0, 0.8), 0 6px 10px -4px rgba(0, 0, 0, 0.7);
+  --shadow-card: 0 2px 4px 0 rgba(0, 0, 0, 0.7), 0 1px 3px -1px rgba(0, 0, 0, 0.7);
+  --shadow-card-hover: 0 24px 32px -5px rgba(0, 0, 0, 0.9), 0 12px 16px -6px rgba(0, 0, 0, 0.8);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-none: 0 0 #0000;
+
+  /* Drop shadows */
+  --drop-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --drop-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.7);
+  --drop-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.8);
+  --drop-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.9);
+  --drop-shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.95);
+  --drop-shadow-none: 0 0 #0000;
+
+  /* === BACKDROP EFFECTS === */
+  --backdrop-blur-none: 0;
+  --backdrop-blur-xs: 2px;
+  --backdrop-blur-sm: 4px;
+  --backdrop-blur-md: 12px;
+  --backdrop-blur-lg: 20px;
+  --backdrop-blur-xl: 32px;
+  --backdrop-blur-2xl: 48px;
+  --backdrop-blur-3xl: 64px;
+  --backdrop-blur-button: 4px;
+  --backdrop-blur-card: 12px;
+  --backdrop-blur-overlay: 20px;
+
+  /* Backdrop brightness */
+  --backdrop-brightness-0: 0;
+  --backdrop-brightness-50: 0.5;
+  --backdrop-brightness-75: 0.75;
+  --backdrop-brightness-90: 0.9;
+  --backdrop-brightness-95: 0.95;
+  --backdrop-brightness-100: 1;
+  --backdrop-brightness-105: 1.05;
+  --backdrop-brightness-110: 1.1;
+  --backdrop-brightness-125: 1.25;
+  --backdrop-brightness-150: 1.5;
+  --backdrop-brightness-200: 2;
+
+  /* === OPACITY === */
+  --opacity-0: 0;
+  --opacity-5: 0.05;
+  --opacity-10: 0.1;
+  --opacity-15: 0.15;
+  --opacity-20: 0.2;
+  --opacity-25: 0.25;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-75: 0.75;
+  --opacity-80: 0.8;
+  --opacity-90: 0.9;
+  --opacity-95: 0.95;
+  --opacity-100: 1;
+  --opacity-grid: 0.1;
+  --opacity-grid-light: 0.4;
+  --opacity-border: 0.25;
+  --opacity-border-light: 1;
+  --opacity-text-secondary: 1;
+  --opacity-text-secondary-light: 1;
+  --opacity-card-bg: 0.8;
+  --opacity-overlay: 0.9;
+
+  /* === Z-INDEX === */
+  --z-0: 0;
+  --z-10: 10;
+  --z-20: 20;
+  --z-30: 30;
+  --z-40: 40;
+  --z-50: 50;
+  --z-auto: auto;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal: 1040;
+  --z-popover: 1050;
+  --z-tooltip: 1060;
+  --z-toast: 1070;
+
+  /* === SCALE === */
+  --scale-0: 0;
+  --scale-50: 0.5;
+  --scale-75: 0.75;
+  --scale-90: 0.9;
+  --scale-95: 0.95;
+  --scale-100: 1;
+  --scale-102: 1.02;
+  --scale-103: 1.03;
+  --scale-105: 1.05;
+  --scale-110: 1.1;
+  --scale-125: 1.25;
+  --scale-150: 1.5;
+  --scale-hover: 1.05;
+  --scale-active: 0.98;
+
+  /* === ANIMATION & TRANSITIONS === */
+  --transition-duration-0: 0ms;
+  --transition-duration-75: 75ms;
+  --transition-duration-100: 100ms;
+  --transition-duration-150: 150ms;
+  --transition-duration-200: 200ms;
+  --transition-duration-300: 300ms;
+  --transition-duration-500: 500ms;
+  --transition-duration-700: 700ms;
+  --transition-duration-1000: 1000ms;
+  --transition-duration-base: 200ms;
+  --transition-duration-page: 150ms;
+  --transition-duration-scroll: 500ms;
+  --transition-duration-spring: 300ms;
+  --transition-duration-fast: 100ms;
+  --transition-duration-slow: 700ms;
+  --transition-duration-theme: 200ms;
+
+  /* Timing functions */
+  --transition-timing-linear: linear;
+  --transition-timing-in: cubic-bezier(0.4, 0, 1, 1);
+  --transition-timing-out: cubic-bezier(0, 0, 0.2, 1);
+  --transition-timing-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-timing-base: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-timing-page: ease;
+  --transition-timing-scroll: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-timing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-timing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-timing-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Combined transition values */
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-page: 150ms ease;
+  --transition-scroll: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === ANIMATIONS === */
+  --animate-none: none;
+  --animate-spin: spin 1s linear infinite;
+  --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-bounce: bounce 1s infinite;
+  --animate-fade-in: fadeIn 0.5s ease-in-out;
+  --animate-fade-out: fadeOut 0.5s ease-in-out;
+  --animate-slide-up: slideUp 0.5s ease-out;
+  --animate-slide-down: slideDown 0.5s ease-out;
+  --animate-slide-left: slideLeft 0.5s ease-out;
+  --animate-slide-right: slideRight 0.5s ease-out;
+  --animate-scale-in: scaleIn 0.3s ease-out;
+  --animate-scale-out: scaleOut 0.3s ease-in;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+  --animate-shimmer: shimmer 2s linear infinite;
+}
+
+/* === KEYFRAMES === */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+  0% { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideLeft {
+  0% { transform: translateX(20px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideRight {
+  0% { transform: translateX(-20px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scaleOut {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
+  100% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.4); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes pulse {
+  50% { opacity: 0.5; }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* === MODERN V4 UTILITIES === */
+/* Using CSS variables from @theme and v4 best practices */
+
+@utility text-content-primary {
+  color: rgb(var(--color-content-primary));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-content-inverse));
+  }
+}
+
+@utility text-content-secondary {
+  color: rgb(var(--color-content-secondary));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-content-secondary));
+  }
+}
+
+@utility text-content-tertiary {
+  color: rgb(var(--color-content-tertiary));
+  transition: color var(--transition-base);
+}
+
+@utility bg-primary {
+  background-color: rgb(var(--color-bg-primary));
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-inverse));
+  }
+}
+
+@utility bg-secondary {
+  background-color: rgb(var(--color-bg-secondary));
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-inverse-secondary));
+  }
+}
+
+@utility bg-tertiary {
+  background-color: rgb(var(--color-bg-tertiary));
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-inverse));
+  }
+}
+
+@utility border-primary {
+  border-color: rgb(var(--color-border-primary) / 0.25);
+  transition: border-color var(--transition-base);
+
+  :not(.dark) & {
+    border-color: rgb(var(--color-border-inverse));
+  }
+}
+
+@utility border-secondary {
+  border-color: rgb(var(--color-border-secondary) / 0.3);
+  transition: border-color var(--transition-base);
+
+  :not(.dark) & {
+    border-color: rgb(var(--color-border-inverse) / 0.6);
+  }
+}
+
+@utility text-interactive-primary {
+  color: rgb(var(--color-interactive-primary));
+}
+
+@utility text-interactive-secondary {
+  color: rgb(var(--color-interactive-secondary));
+}
+
+@utility bg-interactive-primary {
+  background-color: rgb(var(--color-interactive-primary));
+}
+
+@utility bg-interactive-secondary {
+  background-color: rgb(var(--color-interactive-secondary));
+}
+
+@utility text-status-success {
+  color: rgb(var(--color-status-success));
+}
+
+@utility text-status-warning {
+  color: rgb(var(--color-status-warning));
+}
+
+@utility bg-status-success {
+  background-color: rgb(var(--color-status-success));
+}
+
+@utility bg-status-warning {
+  background-color: rgb(var(--color-status-warning));
+}
+
+/* === LEGACY COMPATIBILITY UTILITIES === */
+/* Modernized with CSS variables - use semantic utilities above for new code */
+
+@utility text-themed {
+  color: rgb(var(--color-content-primary));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-content-inverse));
+  }
+}
+
+@utility text-themed-secondary {
+  color: rgb(var(--color-content-secondary));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-content-secondary));
+  }
+}
+
+@utility text-highlight-themed {
+  color: rgb(var(--color-interactive-secondary));
+  transition: color var(--transition-base);
+}
+
+@utility bg-themed {
+  background-color: rgb(var(--color-bg-primary));
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-inverse));
+  }
+}
+
+@utility bg-card-themed {
+  background-color: rgb(var(--color-bg-secondary) / 0.8);
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-inverse-secondary));
+  }
+}
+
+@utility border-themed {
+  border-color: rgb(var(--color-border-primary) / 0.25);
+  transition: border-color var(--transition-base);
+
+  :not(.dark) & {
+    border-color: rgb(var(--color-border-inverse));
+  }
+}
+
+@utility shadow-themed-sm {
+  box-shadow: var(--shadow-sm);
+
+  :not(.dark) & {
+    box-shadow: var(--shadow-sm-light);
+  }
+}
+
+@utility shadow-themed-md {
+  box-shadow: var(--shadow-md);
+
+  :not(.dark) & {
+    box-shadow: var(--shadow-md-light);
+  }
+}
+
+@utility shadow-themed-lg {
+  box-shadow: var(--shadow-lg);
+
+  :not(.dark) & {
+    box-shadow: var(--shadow-lg-light);
+  }
+}
+
+@utility shadow-themed-xl {
+  box-shadow: var(--shadow-xl);
+
+  :not(.dark) & {
+    box-shadow: var(--shadow-xl-light);
+  }
+}
+
+/* === MODERN GRADIENT UTILITIES === */
+@utility gradient-hero {
+  background: linear-gradient(135deg, rgb(var(--color-hero-gradient-start)) 0%, rgb(var(--color-hero-gradient-end)) 100%);
+}
+
+@utility gradient-accent {
+  background: linear-gradient(135deg, rgb(var(--color-interactive-primary)) 0%, rgb(var(--color-interactive-secondary)) 100%);
+}
+
+@utility gradient-brand {
+  background: linear-gradient(135deg, rgb(var(--color-brand-primary)) 0%, rgb(var(--color-brand-secondary)) 100%);
+}
+
+/* === MODERN TYPOGRAPHY UTILITIES === */
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+/* === MODERN ACCESSIBILITY UTILITIES === */
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid rgb(var(--color-interactive-focus));
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+@utility focus-ring-inset {
+  &:focus-visible {
+    outline: 2px solid rgb(var(--color-interactive-focus));
+    outline-offset: -2px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* === MODERN LAYOUT UTILITIES === */
+@utility container-fluid {
+  width: 100%;
+  max-width: none;
+  margin-inline: auto;
+  padding-inline: var(--spacing-container-sm);
+
+  @media (min-width: 640px) {
+    padding-inline: var(--spacing-container-md);
+  }
+
+  @media (min-width: 1024px) {
+    padding-inline: var(--spacing-container-lg);
+  }
+
+  @media (min-width: 1280px) {
+    padding-inline: var(--spacing-container-xl);
+  }
+}
+
+/* === MODERN TRANSITION UTILITIES === */
+@utility transition-theme {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: var(--transition-timing-base);
+  transition-duration: var(--transition-duration-theme);
+}
+
+@utility transition-theme-all {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, opacity;
+  transition-timing-function: var(--transition-timing-base);
+  transition-duration: var(--transition-duration-theme);
+}
+
+@utility transition-theme-opacity {
+  transition-property: opacity;
+  transition-timing-function: var(--transition-timing-base);
+  transition-duration: var(--transition-duration-theme);
+}
+
+@utility transition-theme-transform {
+  transition-property: transform, color, background-color;
+  transition-timing-function: var(--transition-timing-base);
+  transition-duration: var(--transition-duration-theme);
+}
+
+@utility transition-spring {
+  transition: all var(--transition-spring);
+}
+
+@utility transition-smooth {
+  transition: all var(--transition-duration-base) var(--transition-timing-smooth);
+}
+
+/* === MODERN ANIMATION UTILITIES === */
+@utility animate-fade-in {
+  animation: var(--animate-fade-in);
+}
+
+@utility animate-slide-up {
+  animation: var(--animate-slide-up);
+}
+
+@utility animate-float {
+  animation: var(--animate-float);
+}
+
+@utility animate-glow {
+  animation: var(--animate-glow);
+}
+
+/* === MODERN INTERACTION UTILITIES === */
+@utility hover-lift {
+  transition: transform var(--transition-spring);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@utility hover-scale {
+  transition: transform var(--transition-base);
+
+  &:hover {
+    transform: scale(var(--scale-hover));
+  }
+}
+
+@utility hover-glow {
+  transition: box-shadow var(--transition-base);
+
+  &:hover {
+    box-shadow: var(--shadow-glow-accent);
+  }
+}
+
+/* === MODERN COLOR UTILITIES (v4 Features) === */
+@utility bg-blend-primary {
+  background-color: color-mix(in srgb, rgb(var(--color-bg-primary)) 80%, transparent);
+}
+
+@utility bg-blend-secondary {
+  background-color: color-mix(in srgb, rgb(var(--color-bg-secondary)) 60%, transparent);
+}
+
+@utility text-blend-primary {
+  color: color-mix(in srgb, rgb(var(--color-content-primary)) 90%, transparent);
+}
+
+@utility border-blend {
+  border-color: color-mix(in srgb, rgb(var(--color-border-primary)) 40%, transparent);
+}
+
+/* === LOGICAL PROPERTIES (v4 RTL Support) === */
+@utility p-inline {
+  padding-inline: var(--spacing-4);
+}
+
+@utility p-block {
+  padding-block: var(--spacing-4);
+}
+
+@utility m-inline-auto {
+  margin-inline: auto;
+}
+
+@utility border-inline {
+  border-inline: 1px solid rgb(var(--color-border-primary) / 0.25);
+}
+
+@utility border-block-start {
+  border-block-start: 1px solid rgb(var(--color-border-primary) / 0.25);
+}
+
+/* === MODERN BACKDROP UTILITIES === */
+@utility backdrop-glass {
+  backdrop-filter: blur(var(--backdrop-blur-md)) brightness(var(--backdrop-brightness-110));
+  background-color: rgb(var(--color-bg-secondary) / 0.8);
+}
+
+@utility backdrop-glass-light {
+  backdrop-filter: blur(var(--backdrop-blur-sm)) brightness(var(--backdrop-brightness-105));
+  background-color: rgb(var(--color-bg-primary) / 0.6);
+}
+
+/* === MODERN GRID UTILITIES === */
+@utility grid-auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-width, 250px), 1fr));
+}
+
+@utility grid-auto-fill {
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-min-width, 250px), 1fr));
+}
+
+/* === UPDATE CARD ACCENT UTILITIES (THEME-AWARE) === */
+/* Milestone Accent */
+@utility text-accent-milestone {
+  color: rgb(var(--color-accent-milestone));
+  transition: color var(--transition-base);
+  :not(.dark) & {
+    color: rgb(var(--color-accent-milestone-light));
+  }
+}
+@utility bg-accent-milestone {
+  background-color: rgb(var(--color-accent-milestone));
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-milestone-light));
+  }
+}
+@utility bg-accent-milestone-hover {
+  background-color: rgb(var(--color-accent-milestone) / 0.05);
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-milestone-light) / 0.05);
+  }
+}
+
+/* Project Accent */
+@utility text-accent-project {
+  color: rgb(var(--color-accent-project));
+  transition: color var(--transition-base);
+  :not(.dark) & {
+    color: rgb(var(--color-accent-project-light));
+  }
+}
+@utility bg-accent-project {
+  background-color: rgb(var(--color-accent-project));
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-project-light));
+  }
+}
+@utility bg-accent-project-hover {
+  background-color: rgb(var(--color-accent-project) / 0.05);
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-project-light) / 0.05);
+  }
+}
+
+/* Resource Accent */
+@utility text-accent-resource {
+  color: rgb(var(--color-accent-resource));
+  transition: color var(--transition-base);
+  :not(.dark) & {
+    color: rgb(var(--color-accent-resource-light));
+  }
+}
+@utility bg-accent-resource {
+  background-color: rgb(var(--color-accent-resource));
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-resource-light));
+  }
+}
+@utility bg-accent-resource-hover {
+  background-color: rgb(var(--color-accent-resource) / 0.05);
+  transition: background-color var(--transition-base);
+  :not(.dark) & {
+    background-color: rgb(var(--color-accent-resource-light) / 0.05);
+  }
+}
+
+@layer base {
+  :root {
+    /* Legacy compatibility variables - prefer @theme variables for new code */
     --font-size-base: 16px;
     --line-height-base: 1.6;
     --tracking-tight: -0.025em;
     --tracking-wide: 0.025em;
-    --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-spring: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    /* Shadows for dark theme */
-    --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.7),
-      0 1px 3px -1px rgba(0, 0, 0, 0.7);
-    --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.7),
-      0 2px 6px -2px rgba(0, 0, 0, 0.7);
-    --shadow-lg: 0 12px 20px -3px rgba(0, 0, 0, 0.8),
-      0 6px 10px -4px rgba(0, 0, 0, 0.7);
-    --glow-highlight: 0 0 20px rgba(212, 175, 55, 0.2);
+    /* Legacy shadow variables - use @theme shadow-* for new code */
+    --shadow-sm-light: 0 3px 6px 0 rgba(28, 42, 77, 0.15), 0 2px 4px -1px rgba(28, 42, 77, 0.12);
+    --shadow-md-light: 0 6px 12px -2px rgba(28, 42, 77, 0.18), 0 3px 6px -2px rgba(28, 42, 77, 0.15);
+    --shadow-lg-light: 0 12px 32px -4px rgba(28, 42, 77, 0.22), 0 6px 12px -4px rgba(28, 42, 77, 0.18);
+    --shadow-xl-light: 0 20px 40px -8px rgba(28, 42, 77, 0.26), 0 12px 20px -8px rgba(28, 42, 77, 0.22);
   }
 
   @media (min-width: 1024px) {
@@ -48,41 +956,13 @@
     }
   }
 
-  :root:not(.dark) {
-    /* Light theme color overrides */
-    --color-primary: 28 42 77;
-    --color-secondary: 74 74 74;
-    --color-accent: 77 139 247;
-    --color-highlight: 208 124 92;
-    --color-surface: 124 111 156;
-    --color-success: 28 141 76;
-    --color-progress: 234 88 12;
-    --color-neutral: 228 231 235;
-    --color-background: 248 250 253;
-    --color-text: 28 42 77;
-    --color-text-secondary: 74 74 74;
-    --color-border: 228 231 235;
-    --color-border-alpha: 1;
-    --color-card-bg: 255 255 255;
-    --color-footer-bg: 248 250 253;
-
-    /* Light theme shadows */
-    --shadow-sm: 0 3px 6px 0 rgba(28, 42, 77, 0.15),
-      0 2px 4px -1px rgba(28, 42, 77, 0.12);
-    --shadow-md: 0 6px 12px -2px rgba(28, 42, 77, 0.18),
-      0 3px 6px -2px rgba(28, 42, 77, 0.15);
-    --shadow-lg: 0 12px 32px -4px rgba(28, 42, 77, 0.22),
-      0 6px 12px -4px rgba(28, 42, 77, 0.18);
-    --glow-highlight: var(--shadow-md);
-  }
-
   html {
     scroll-behavior: smooth;
     font-size: var(--font-size-base);
   }
 
   body {
-    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-family: var(--font-body);
     color: rgb(var(--color-text));
     background-color: rgb(var(--color-background));
     line-height: var(--line-height-base, 1.6);
@@ -97,7 +977,7 @@
   h4,
   h5,
   h6 {
-    font-family: "Inter", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-weight: 600;
     letter-spacing: var(--tracking-tight);
     color: rgb(var(--color-text));
@@ -130,9 +1010,8 @@
 
   code,
   pre {
-    font-family: "IBM Plex Mono", monospace;
+    font-family: var(--font-mono);
   }
-
 
   :focus-visible {
     outline: 2px solid rgb(var(--color-accent));

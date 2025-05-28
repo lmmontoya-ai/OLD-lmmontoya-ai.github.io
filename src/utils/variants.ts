@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
   return clsx(inputs);
 }
 
-// Button component variants
+// Button component variants - Updated for Tailwind v4
 export const buttonVariants = cva(
   // Base classes - common to all button variants
   [
@@ -22,26 +22,26 @@ export const buttonVariants = cva(
     "tracking-tight",
     "relative",
     "overflow-hidden",
-    "transition-all",
-    "duration-spring",
+    "transition-spring", // Using modern transition utility
     "focus:outline-none",
-    "focus-visible:ring-2",
+    "focus-visible:ring-3", // v4 requires explicit ring width
     "focus-visible:ring-offset-2",
+    "focus-ring", // Using modern focus ring utility
   ],
   {
     variants: {
       variant: {
         primary: [
           // Background and text (background set via inline style for CSS variable)
-          "text-slate-900",
+          "text-content-inverse", // Using semantic color utility
           "border",
           "border-transparent",
-          "shadow-themed-sm",
+          "shadow-xs", // v4 shadow naming (shadow-sm → shadow-xs)
           "focus-visible:ring-amber-500",
           // Hover effects
-          "hover:-translate-y-0.5",
+          "hover-lift", // Using modern hover utility
           "hover:brightness-105",
-          "hover:shadow-themed-lg",
+          "hover:shadow-lg", // v4 shadow naming
           // Active state
           "active:-translate-y-px",
           "active:transition-all",
@@ -50,35 +50,35 @@ export const buttonVariants = cva(
         secondary: [
           // Background and text
           "bg-transparent",
-          "text-white",
+          "text-content-primary", // Using semantic color utility
           "border-2",
-          "border-white/50",
-          "backdrop-blur-button",
+          "border-content-primary/50", // Using semantic color with opacity
+          "backdrop-blur-xs", // v4 backdrop naming (sm → xs)
           "focus-visible:ring-blue-500",
           // Hover effects
-          "hover:text-blue-500",
-          "hover:border-blue-500",
-          "hover:bg-blue-500/5",
+          "hover:text-interactive-primary", // Using semantic color utility
+          "hover:border-interactive-primary", // Using semantic color utility
+          "hover:bg-interactive-primary/5",
           "hover:-translate-y-px",
-          "hover:shadow-themed-md",
+          "hover:shadow-sm", // v4 shadow naming (shadow-themed-md → shadow-sm)
         ],
         outline: [
           // Background and text
           "bg-transparent",
-          "text-themed-secondary",
+          "text-content-secondary", // Using semantic color utility
           "border",
-          "border-slate-500/20",
+          "border-border-primary/20", // Using semantic color utility
           "focus-visible:ring-blue-500",
           // Hover effects
-          "hover:border-blue-500/30",
-          "hover:text-themed",
+          "hover:border-interactive-primary/30", // Using semantic color utility
+          "hover:text-content-primary", // Using semantic color utility
           "hover:-translate-y-px",
         ],
       },
       size: {
-        sm: ["text-sm", "px-3", "py-1.5", "rounded-lg"],
-        md: ["px-4", "py-2", "rounded-lg"],
-        lg: ["text-lg", "px-6", "py-3", "rounded-xl"],
+        sm: ["text-sm", "px-3", "py-1.5", "rounded-sm"], // v4 border radius (rounded-lg → rounded-sm)
+        md: ["px-4", "py-2", "rounded-sm"], // v4 border radius (rounded-lg → rounded-sm)
+        lg: ["text-lg", "px-6", "py-3", "rounded-lg"], // v4 border radius (rounded-xl → rounded-lg)
       },
       fullWidth: {
         true: "w-full",
@@ -105,15 +105,14 @@ export const cardVariants = cva(
     "relative",
     "overflow-hidden",
     "rounded-2xl",
-    "transition-all",
-    "duration-spring",
+    "transition-spring",
     // Background and backdrop
-    "bg-card-themed/80",
-    "backdrop-blur-card",
+    "bg-secondary/80",
+    "backdrop-blur-lg",
     // Border and shadow
     "border",
-    "border-themed",
-    "shadow-themed-sm",
+    "border-primary",
+    "shadow-sm",
     // Padding
     "p-8",
     "lg:p-10",
@@ -123,14 +122,14 @@ export const cardVariants = cva(
       interactive: {
         true: [
           "group",
-          "hover:-translate-y-1",
-          "hover:shadow-themed-xl",
-          "hover:border-blue-500/20",
+          "hover-lift",
+          "hover:shadow-xl",
+          "hover:border-interactive-primary/20",
         ],
         false: "",
       },
       featured: {
-        true: ["border-l-4", "border-l-blue-500"],
+        true: ["border-l-4", "border-l-interactive-primary"],
         false: "",
       },
     },
@@ -150,23 +149,21 @@ export const updateCardVariants = cva(
     "group",
     "p-4",
     "px-5",
-    "rounded-xl",
+    "rounded-lg",         // v4: rounded-xl to rounded-lg
     "m-px",
-    "transition-all",
-    "duration-theme",
-    "focus-visible:outline",
-    "focus-visible:outline-2",
-    "focus-visible:outline-blue-500",
-    "focus-visible:outline-offset-2",
+    "transition-spring",   // Changed from transition-theme for smoother movement
+    "focus-ring",         // Using modern focus-ring utility
     // Hover effects
     "hover:translate-x-1",
+    "bg-secondary/80", // Matching background from the image provided by user
+    "backdrop-blur-md" // Adding blur consistent with the image
   ],
   {
     variants: {
       variant: {
-        milestone: "", // Special handling with inline styles for theme awareness
-        project: "hover:bg-blue-500/3",
-        resource: "hover:bg-emerald-500/3",
+        milestone: "hover:bg-accent-milestone-hover", // Use new theme-aware hover utility
+        project: "hover:bg-accent-project-hover",   // Use new theme-aware hover utility
+        resource: "hover:bg-accent-resource-hover",  // Use new theme-aware hover utility
       },
     },
     defaultVariants: {
@@ -186,15 +183,14 @@ export const updateCardIconVariants = cva(
     "h-9",
     "flex-shrink-0",
     "relative",
-    "transition-all",
-    "duration-theme",
+    "transition-theme", // Using modern transition utility
   ],
   {
     variants: {
       variant: {
-        milestone: "", // Will be set with inline styles for theme awareness
-        project: "text-blue-500",
-        resource: "text-emerald-500",
+        milestone: "text-accent-milestone", // Use new theme-aware text utility
+        project: "text-accent-project",     // Use new theme-aware text utility
+        resource: "text-accent-resource",  // Use new theme-aware text utility
       },
     },
     defaultVariants: {
@@ -214,15 +210,14 @@ export const updateCardTagVariants = cva(
     "uppercase",
     "inline-block",
     "mb-1.5",
-    "transition-all",
-    "duration-theme",
+    "transition-theme", // Using modern transition utility
   ],
   {
     variants: {
       variant: {
-        milestone: "", // Will be set with inline styles for theme awareness
-        project: "text-blue-500",
-        resource: "text-emerald-500",
+        milestone: "text-accent-milestone", // Use new theme-aware text utility
+        project: "text-accent-project",     // Use new theme-aware text utility
+        resource: "text-accent-resource",  // Use new theme-aware text utility
       },
     },
     defaultVariants: {
@@ -236,18 +231,18 @@ export const updateCardTitleVariants = cva(
   // Base classes for titles
   [
     "font-semibold",
-    "text-themed",
     "mb-1.5",
     "font-sans",
     "leading-tight",
     "text-base",
+    "transition-theme" // Added transition for title color change
   ],
   {
     variants: {
       variant: {
-        milestone: "group-hover:text-blue-500", // Special handling for milestone
-        project: "group-hover:text-blue-500",
-        resource: "group-hover:text-emerald-500",
+        milestone: "text-accent-milestone group-hover:brightness-110", // Use new theme-aware text utility
+        project: "text-accent-project group-hover:brightness-110",     // Use new theme-aware text utility
+        resource: "text-accent-resource group-hover:brightness-110",  // Use new theme-aware text utility
       },
     },
     defaultVariants: {

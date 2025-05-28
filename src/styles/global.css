@@ -179,17 +179,7 @@
 
 
 /* === MODERN GRADIENT UTILITIES === */
-@utility gradient-hero {
-  background: linear-gradient(135deg, rgb(var(--color-hero-gradient-start)) 0%, rgb(var(--color-hero-gradient-end)) 100%);
-}
-
-@utility gradient-accent {
-  background: linear-gradient(135deg, rgb(var(--color-interactive-primary)) 0%, rgb(var(--color-interactive-secondary)) 100%);
-}
-
-@utility gradient-brand {
-  background: linear-gradient(135deg, rgb(var(--color-brand-primary)) 0%, rgb(var(--color-brand-secondary)) 100%);
-}
+/* Moved to utilities/components.css (now uses .gradient-* class syntax) */
 
 /* === MODERN TYPOGRAPHY UTILITIES === */
 @utility text-balance {
@@ -210,12 +200,7 @@
 /* Moved to utilities/interactive.css */
 
 /* === ESSENTIAL ANIMATION UTILITIES === */
-/* These use theme variables from @theme block - only keeping used ones */
-
-/* Not currently in use but available for future components */
-@utility animate-fade-in {
-  animation: var(--animate-fade-in);
-}
+/* Moved to utilities/components.css (now uses .animate-* class syntax) */
 
 /* === ESSENTIAL INTERACTION UTILITIES === */
 /* Moved to utilities/interactive.css */

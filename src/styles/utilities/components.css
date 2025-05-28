@@ -1,1 +1,30 @@
+/*
+ * COMPONENT-SPECIFIC UTILITIES (Task 4.5.7)
+ * Extracted from global.css as part of Tailwind v4 modularization.
+ * These utilities are used by specific components (e.g., UpdateCard, Card, Hero, etc.)
+ * and are not general-purpose or legacy/semantic utilities.
+ *
+ * Follows Tailwind v4 and modern CSS best practices.
+ *
+ * Migration Note: Only actively used, non-legacy, non-semantic, non-interactive utilities are included here.
+ */
+
+/* === MODERN GRADIENT UTILITIES === */
+.gradient-hero {
+  background: linear-gradient(135deg, rgb(var(--color-hero-gradient-start)) 0%, rgb(var(--color-hero-gradient-end)) 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, rgb(var(--color-interactive-primary)) 0%, rgb(var(--color-interactive-secondary)) 100%);
+}
+
+.gradient-brand {
+  background: linear-gradient(135deg, rgb(var(--color-brand-primary)) 0%, rgb(var(--color-brand-secondary)) 100%);
+}
+
+/* === ESSENTIAL ANIMATION UTILITIES === */
+/* Not currently in use but available for future components */
+.animate-fade-in {
+  animation: var(--animate-fade-in);
+}
 /* Component-Specific Utilities: Button, Card, UpdateCard, etc. */

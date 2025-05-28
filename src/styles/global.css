@@ -1,6 +1,19 @@
 @import "tailwindcss";
 
-@theme {
+/*
+ * Tailwind CSS v4 Cascade Layer Order
+ * This ensures optimal specificity and predictable overrides.
+ * Order: theme → base → components → utilities
+ */
+@layer theme, base, components, utilities;
+
+/*
+ * =============================
+ * THEME LAYER: Design Tokens
+ * =============================
+ */
+@layer theme {
+  @theme {
   /* === CORE BRAND COLORS === */
   --color-brand-primary: 59 130 246;    /* Blue - main brand color */
   --color-brand-secondary: 212 175 55;  /* Gold - accent brand color */
@@ -403,9 +416,14 @@
   --animate-float: float 3s ease-in-out infinite;
   --animate-glow: glow 2s ease-in-out infinite alternate;
   --animate-shimmer: shimmer 2s linear infinite;
+  }
 }
 
-/* === KEYFRAMES === */
+/*
+ * =============================
+ * KEYFRAMES (Global, not layered)
+ * =============================
+ */
 @keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -484,456 +502,453 @@
   }
 }
 
-/* === MODERN V4 UTILITIES === */
-/* Using CSS variables from @theme and v4 best practices */
+/*
+ * =============================
+ * UTILITIES LAYER: Custom Utilities
+ * =============================
+ */
+@layer utilities {
+  @utility text-content-primary {
+    color: rgb(var(--color-content-primary));
+    transition: color var(--transition-base);
 
-@utility text-content-primary {
-  color: rgb(var(--color-content-primary));
-  transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-content-inverse));
+    :not(.dark) & {
+      color: rgb(var(--color-content-inverse));
+    }
   }
-}
 
-@utility text-content-secondary {
-  color: rgb(var(--color-content-secondary));
-  transition: color var(--transition-base);
-
-  :not(.dark) & {
+  @utility text-content-secondary {
     color: rgb(var(--color-content-secondary));
+    transition: color var(--transition-base);
+
+    :not(.dark) & {
+      color: rgb(var(--color-content-secondary));
+    }
   }
-}
 
-@utility text-content-tertiary {
-  color: rgb(var(--color-content-tertiary));
-  transition: color var(--transition-base);
-}
-
-@utility bg-primary {
-  background-color: rgb(var(--color-bg-primary));
-  transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-bg-inverse));
+  @utility text-content-tertiary {
+    color: rgb(var(--color-content-tertiary));
+    transition: color var(--transition-base);
   }
-}
 
-@utility bg-secondary {
-  background-color: rgb(var(--color-bg-secondary));
-  transition: background-color var(--transition-base);
+  @utility bg-primary {
+    background-color: rgb(var(--color-bg-primary));
+    transition: background-color var(--transition-base);
 
-  :not(.dark) & {
-    background-color: rgb(var(--color-bg-inverse-secondary));
+    :not(.dark) & {
+      background-color: rgb(var(--color-bg-inverse));
+    }
   }
-}
 
-@utility bg-tertiary {
-  background-color: rgb(var(--color-bg-tertiary));
-  transition: background-color var(--transition-base);
+  @utility bg-secondary {
+    background-color: rgb(var(--color-bg-secondary));
+    transition: background-color var(--transition-base);
 
-  :not(.dark) & {
-    background-color: rgb(var(--color-bg-inverse));
+    :not(.dark) & {
+      background-color: rgb(var(--color-bg-inverse-secondary));
+    }
   }
-}
 
-@utility border-primary {
-  border-color: rgb(var(--color-border-primary) / 0.25);
-  transition: border-color var(--transition-base);
+  @utility bg-tertiary {
+    background-color: rgb(var(--color-bg-tertiary));
+    transition: background-color var(--transition-base);
 
-  :not(.dark) & {
-    border-color: rgb(var(--color-border-inverse));
+    :not(.dark) & {
+      background-color: rgb(var(--color-bg-inverse));
+    }
   }
-}
 
-@utility border-secondary {
-  border-color: rgb(var(--color-border-secondary) / 0.3);
-  transition: border-color var(--transition-base);
+  @utility border-primary {
+    border-color: rgb(var(--color-border-primary) / 0.25);
+    transition: border-color var(--transition-base);
 
-  :not(.dark) & {
-    border-color: rgb(var(--color-border-inverse) / 0.6);
+    :not(.dark) & {
+      border-color: rgb(var(--color-border-inverse));
+    }
   }
-}
 
-@utility text-interactive-primary {
-  color: rgb(var(--color-interactive-primary));
-}
+  @utility border-secondary {
+    border-color: rgb(var(--color-border-secondary) / 0.3);
+    transition: border-color var(--transition-base);
 
-@utility text-interactive-secondary {
-  color: rgb(var(--color-interactive-secondary));
-}
-
-@utility bg-interactive-primary {
-  background-color: rgb(var(--color-interactive-primary));
-}
-
-@utility bg-interactive-secondary {
-  background-color: rgb(var(--color-interactive-secondary));
-}
-
-@utility text-status-success {
-  color: rgb(var(--color-status-success));
-}
-
-@utility text-status-warning {
-  color: rgb(var(--color-status-warning));
-}
-
-@utility bg-status-success {
-  background-color: rgb(var(--color-status-success));
-}
-
-@utility bg-status-warning {
-  background-color: rgb(var(--color-status-warning));
-}
-
-/* === LEGACY COMPATIBILITY UTILITIES === */
-/* Modernized with CSS variables - use semantic utilities above for new code */
-
-@utility text-themed {
-  color: rgb(var(--color-content-primary));
-  transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-content-inverse));
+    :not(.dark) & {
+      border-color: rgb(var(--color-border-inverse) / 0.6);
+    }
   }
-}
 
-@utility text-themed-secondary {
-  color: rgb(var(--color-content-secondary));
-  transition: color var(--transition-base);
+  @utility text-interactive-primary {
+    color: rgb(var(--color-interactive-primary));
+  }
 
-  :not(.dark) & {
+  @utility text-interactive-secondary {
+    color: rgb(var(--color-interactive-secondary));
+  }
+
+  @utility bg-interactive-primary {
+    background-color: rgb(var(--color-interactive-primary));
+  }
+
+  @utility bg-interactive-secondary {
+    background-color: rgb(var(--color-interactive-secondary));
+  }
+
+  @utility text-status-success {
+    color: rgb(var(--color-status-success));
+  }
+
+  @utility text-status-warning {
+    color: rgb(var(--color-status-warning));
+  }
+
+  @utility bg-status-success {
+    background-color: rgb(var(--color-status-success));
+  }
+
+  @utility bg-status-warning {
+    background-color: rgb(var(--color-status-warning));
+  }
+
+  @utility text-themed {
+    color: rgb(var(--color-content-primary));
+    transition: color var(--transition-base);
+
+    :not(.dark) & {
+      color: rgb(var(--color-content-inverse));
+    }
+  }
+
+  @utility text-themed-secondary {
     color: rgb(var(--color-content-secondary));
+    transition: color var(--transition-base);
+
+    :not(.dark) & {
+      color: rgb(var(--color-content-secondary));
+    }
+  }
+
+  @utility text-highlight-themed {
+    color: rgb(var(--color-interactive-secondary));
+    transition: color var(--transition-base);
+  }
+
+  @utility bg-themed {
+    background-color: rgb(var(--color-bg-primary));
+    transition: background-color var(--transition-base);
+
+    :not(.dark) & {
+      background-color: rgb(var(--color-bg-inverse));
+    }
+  }
+
+  @utility bg-card-themed {
+    background-color: rgb(var(--color-bg-secondary) / 0.8);
+    transition: background-color var(--transition-base);
+
+    :not(.dark) & {
+      background-color: rgb(var(--color-bg-inverse-secondary));
+    }
+  }
+
+  @utility border-themed {
+    border-color: rgb(var(--color-border-primary) / 0.25);
+    transition: border-color var(--transition-base);
+
+    :not(.dark) & {
+      border-color: rgb(var(--color-border-inverse));
+    }
+  }
+
+  @utility shadow-themed-sm {
+    box-shadow: var(--shadow-sm);
+
+    :not(.dark) & {
+      box-shadow: var(--shadow-sm-light);
+    }
+  }
+
+  @utility shadow-themed-md {
+    box-shadow: var(--shadow-md);
+
+    :not(.dark) & {
+      box-shadow: var(--shadow-md-light);
+    }
+  }
+
+  @utility shadow-themed-lg {
+    box-shadow: var(--shadow-lg);
+
+    :not(.dark) & {
+      box-shadow: var(--shadow-lg-light);
+    }
+  }
+
+  @utility shadow-themed-xl {
+    box-shadow: var(--shadow-xl);
+
+    :not(.dark) & {
+      box-shadow: var(--shadow-xl-light);
+    }
+  }
+
+  @utility gradient-hero {
+    background: linear-gradient(135deg, rgb(var(--color-hero-gradient-start)) 0%, rgb(var(--color-hero-gradient-end)) 100%);
+  }
+
+  @utility gradient-accent {
+    background: linear-gradient(135deg, rgb(var(--color-interactive-primary)) 0%, rgb(var(--color-interactive-secondary)) 100%);
+  }
+
+  @utility gradient-brand {
+    background: linear-gradient(135deg, rgb(var(--color-brand-primary)) 0%, rgb(var(--color-brand-secondary)) 100%);
+  }
+
+  @utility text-balance {
+    text-wrap: balance;
+  }
+
+  @utility text-pretty {
+    text-wrap: pretty;
+  }
+
+  @utility focus-ring {
+    &:focus-visible {
+      outline: 2px solid rgb(var(--color-interactive-focus));
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  @utility focus-ring-inset {
+    &:focus-visible {
+      outline: 2px solid rgb(var(--color-interactive-focus));
+      outline-offset: -2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  @utility container-fluid {
+    width: 100%;
+    max-width: none;
+    margin-inline: auto;
+    padding-inline: var(--spacing-container-sm);
+
+    @media (min-width: 640px) {
+      padding-inline: var(--spacing-container-md);
+    }
+
+    @media (min-width: 1024px) {
+      padding-inline: var(--spacing-container-lg);
+    }
+
+    @media (min-width: 1280px) {
+      padding-inline: var(--spacing-container-xl);
+    }
+  }
+
+  @utility transition-theme {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: var(--transition-timing-base);
+    transition-duration: var(--transition-duration-theme);
+  }
+
+  @utility transition-theme-all {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, opacity;
+    transition-timing-function: var(--transition-timing-base);
+    transition-duration: var(--transition-duration-theme);
+  }
+
+  @utility transition-theme-opacity {
+    transition-property: opacity;
+    transition-timing-function: var(--transition-timing-base);
+    transition-duration: var(--transition-duration-theme);
+  }
+
+  @utility transition-theme-transform {
+    transition-property: transform, color, background-color;
+    transition-timing-function: var(--transition-timing-base);
+    transition-duration: var(--transition-duration-theme);
+  }
+
+  @utility transition-spring {
+    transition: all var(--transition-spring);
+  }
+
+  @utility transition-smooth {
+    transition: all var(--transition-duration-base) var(--transition-timing-smooth);
+  }
+
+  @utility animate-fade-in {
+    animation: var(--animate-fade-in);
+  }
+
+  @utility animate-slide-up {
+    animation: var(--animate-slide-up);
+  }
+
+  @utility animate-float {
+    animation: var(--animate-float);
+  }
+
+  @utility animate-glow {
+    animation: var(--animate-glow);
+  }
+
+  @utility hover-lift {
+    transition: transform var(--transition-spring);
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  @utility hover-scale {
+    transition: transform var(--transition-base);
+
+    &:hover {
+      transform: scale(var(--scale-hover));
+    }
+  }
+
+  @utility hover-glow {
+    transition: box-shadow var(--transition-base);
+
+    &:hover {
+      box-shadow: var(--shadow-glow-accent);
+    }
+  }
+
+  @utility bg-blend-primary {
+    background-color: color-mix(in srgb, rgb(var(--color-bg-primary)) 80%, transparent);
+  }
+
+  @utility bg-blend-secondary {
+    background-color: color-mix(in srgb, rgb(var(--color-bg-secondary)) 60%, transparent);
+  }
+
+  @utility text-blend-primary {
+    color: color-mix(in srgb, rgb(var(--color-content-primary)) 90%, transparent);
+  }
+
+  @utility border-blend {
+    border-color: color-mix(in srgb, rgb(var(--color-border-primary)) 40%, transparent);
+  }
+
+  @utility p-inline {
+    padding-inline: var(--spacing-4);
+  }
+
+  @utility p-block {
+    padding-block: var(--spacing-4);
+  }
+
+  @utility m-inline-auto {
+    margin-inline: auto;
+  }
+
+  @utility border-inline {
+    border-inline: 1px solid rgb(var(--color-border-primary) / 0.25);
+  }
+
+  @utility border-block-start {
+    border-block-start: 1px solid rgb(var(--color-border-primary) / 0.25);
+  }
+
+  @utility backdrop-glass {
+    backdrop-filter: blur(var(--backdrop-blur-md)) brightness(var(--backdrop-brightness-110));
+    background-color: rgb(var(--color-bg-secondary) / 0.8);
+  }
+
+  @utility backdrop-glass-light {
+    backdrop-filter: blur(var(--backdrop-blur-sm)) brightness(var(--backdrop-brightness-105));
+    background-color: rgb(var(--color-bg-primary) / 0.6);
+  }
+
+  @utility grid-auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-width, 250px), 1fr));
+  }
+
+  @utility grid-auto-fill {
+    grid-template-columns: repeat(auto-fill, minmax(var(--grid-min-width, 250px), 1fr));
+  }
+
+  @utility text-accent-milestone {
+    color: rgb(var(--color-accent-milestone));
+    transition: color var(--transition-base);
+    :not(.dark) & {
+      color: rgb(var(--color-accent-milestone-light));
+    }
+  }
+
+  @utility bg-accent-milestone {
+    background-color: rgb(var(--color-accent-milestone));
+    transition: background-color var(--transition-base);
+    :not(.dark) & {
+      background-color: rgb(var(--color-accent-milestone-light));
+    }
+  }
+
+  @utility bg-accent-milestone-hover {
+    background-color: rgb(var(--color-accent-milestone) / 0.05);
+    transition: background-color var(--transition-base);
+    :not(.dark) & {
+      background-color: rgb(var(--color-accent-milestone-light) / 0.05);
+    }
+  }
+
+  @utility text-accent-project {
+    color: rgb(var(--color-accent-project));
+    transition: color var(--transition-base);
+    :not(.dark) & {
+      color: rgb(var(--color-accent-project-light));
+    }
+  }
+
+  @utility bg-accent-project {
+    background-color: rgb(var(--color-accent-project));
+    transition: background-color var(--transition-base);
+    :not(.dark) & {
+      background-color: rgb(var(--color-accent-project-light));
+    }
+  }
+
+  @utility bg-accent-project-hover {
+    background-color: rgb(var(--color-accent-project) / 0.05);
+    transition: background-color var(--transition-base);
+    :not(.dark) & {
+      background-color: rgb(var(--color-accent-project-light) / 0.05);
+    }
+  }
+
+  @utility text-accent-resource {
+    color: rgb(var(--color-accent-resource));
+    transition: color var(--transition-base);
+    :not(.dark) & {
+      color: rgb(var(--color-accent-resource-light));
+    }
+  }
+
+  @utility bg-accent-resource {
+    background-color: rgb(var(--color-accent-resource));
+    transition: background-color var(--transition-base);
+    :not(.dark) & {
+      background-color: rgb(var(--color-accent-resource-light));
+    }
+  }
+
+  @utility bg-accent-resource-hover {
+    background-color: rgb(var(--color-accent-resource) / 0.05);
+    transition: background-color var(--transition-base);
+    :not(.dark) & {
+      background-color: rgb(var(--color-accent-resource-light) / 0.05);
+    }
   }
 }
 
-@utility text-highlight-themed {
-  color: rgb(var(--color-interactive-secondary));
-  transition: color var(--transition-base);
-}
-
-@utility bg-themed {
-  background-color: rgb(var(--color-bg-primary));
-  transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-bg-inverse));
-  }
-}
-
-@utility bg-card-themed {
-  background-color: rgb(var(--color-bg-secondary) / 0.8);
-  transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-bg-inverse-secondary));
-  }
-}
-
-@utility border-themed {
-  border-color: rgb(var(--color-border-primary) / 0.25);
-  transition: border-color var(--transition-base);
-
-  :not(.dark) & {
-    border-color: rgb(var(--color-border-inverse));
-  }
-}
-
-@utility shadow-themed-sm {
-  box-shadow: var(--shadow-sm);
-
-  :not(.dark) & {
-    box-shadow: var(--shadow-sm-light);
-  }
-}
-
-@utility shadow-themed-md {
-  box-shadow: var(--shadow-md);
-
-  :not(.dark) & {
-    box-shadow: var(--shadow-md-light);
-  }
-}
-
-@utility shadow-themed-lg {
-  box-shadow: var(--shadow-lg);
-
-  :not(.dark) & {
-    box-shadow: var(--shadow-lg-light);
-  }
-}
-
-@utility shadow-themed-xl {
-  box-shadow: var(--shadow-xl);
-
-  :not(.dark) & {
-    box-shadow: var(--shadow-xl-light);
-  }
-}
-
-/* === MODERN GRADIENT UTILITIES === */
-@utility gradient-hero {
-  background: linear-gradient(135deg, rgb(var(--color-hero-gradient-start)) 0%, rgb(var(--color-hero-gradient-end)) 100%);
-}
-
-@utility gradient-accent {
-  background: linear-gradient(135deg, rgb(var(--color-interactive-primary)) 0%, rgb(var(--color-interactive-secondary)) 100%);
-}
-
-@utility gradient-brand {
-  background: linear-gradient(135deg, rgb(var(--color-brand-primary)) 0%, rgb(var(--color-brand-secondary)) 100%);
-}
-
-/* === MODERN TYPOGRAPHY UTILITIES === */
-@utility text-balance {
-  text-wrap: balance;
-}
-
-@utility text-pretty {
-  text-wrap: pretty;
-}
-
-/* === MODERN ACCESSIBILITY UTILITIES === */
-@utility focus-ring {
-  &:focus-visible {
-    outline: 2px solid rgb(var(--color-interactive-focus));
-    outline-offset: 2px;
-    border-radius: var(--radius-sm);
-  }
-}
-
-@utility focus-ring-inset {
-  &:focus-visible {
-    outline: 2px solid rgb(var(--color-interactive-focus));
-    outline-offset: -2px;
-    border-radius: var(--radius-sm);
-  }
-}
-
-/* === MODERN LAYOUT UTILITIES === */
-@utility container-fluid {
-  width: 100%;
-  max-width: none;
-  margin-inline: auto;
-  padding-inline: var(--spacing-container-sm);
-
-  @media (min-width: 640px) {
-    padding-inline: var(--spacing-container-md);
-  }
-
-  @media (min-width: 1024px) {
-    padding-inline: var(--spacing-container-lg);
-  }
-
-  @media (min-width: 1280px) {
-    padding-inline: var(--spacing-container-xl);
-  }
-}
-
-/* === MODERN TRANSITION UTILITIES === */
-@utility transition-theme {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: var(--transition-timing-base);
-  transition-duration: var(--transition-duration-theme);
-}
-
-@utility transition-theme-all {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, opacity;
-  transition-timing-function: var(--transition-timing-base);
-  transition-duration: var(--transition-duration-theme);
-}
-
-@utility transition-theme-opacity {
-  transition-property: opacity;
-  transition-timing-function: var(--transition-timing-base);
-  transition-duration: var(--transition-duration-theme);
-}
-
-@utility transition-theme-transform {
-  transition-property: transform, color, background-color;
-  transition-timing-function: var(--transition-timing-base);
-  transition-duration: var(--transition-duration-theme);
-}
-
-@utility transition-spring {
-  transition: all var(--transition-spring);
-}
-
-@utility transition-smooth {
-  transition: all var(--transition-duration-base) var(--transition-timing-smooth);
-}
-
-/* === MODERN ANIMATION UTILITIES === */
-@utility animate-fade-in {
-  animation: var(--animate-fade-in);
-}
-
-@utility animate-slide-up {
-  animation: var(--animate-slide-up);
-}
-
-@utility animate-float {
-  animation: var(--animate-float);
-}
-
-@utility animate-glow {
-  animation: var(--animate-glow);
-}
-
-/* === MODERN INTERACTION UTILITIES === */
-@utility hover-lift {
-  transition: transform var(--transition-spring);
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-}
-
-@utility hover-scale {
-  transition: transform var(--transition-base);
-
-  &:hover {
-    transform: scale(var(--scale-hover));
-  }
-}
-
-@utility hover-glow {
-  transition: box-shadow var(--transition-base);
-
-  &:hover {
-    box-shadow: var(--shadow-glow-accent);
-  }
-}
-
-/* === MODERN COLOR UTILITIES (v4 Features) === */
-@utility bg-blend-primary {
-  background-color: color-mix(in srgb, rgb(var(--color-bg-primary)) 80%, transparent);
-}
-
-@utility bg-blend-secondary {
-  background-color: color-mix(in srgb, rgb(var(--color-bg-secondary)) 60%, transparent);
-}
-
-@utility text-blend-primary {
-  color: color-mix(in srgb, rgb(var(--color-content-primary)) 90%, transparent);
-}
-
-@utility border-blend {
-  border-color: color-mix(in srgb, rgb(var(--color-border-primary)) 40%, transparent);
-}
-
-/* === LOGICAL PROPERTIES (v4 RTL Support) === */
-@utility p-inline {
-  padding-inline: var(--spacing-4);
-}
-
-@utility p-block {
-  padding-block: var(--spacing-4);
-}
-
-@utility m-inline-auto {
-  margin-inline: auto;
-}
-
-@utility border-inline {
-  border-inline: 1px solid rgb(var(--color-border-primary) / 0.25);
-}
-
-@utility border-block-start {
-  border-block-start: 1px solid rgb(var(--color-border-primary) / 0.25);
-}
-
-/* === MODERN BACKDROP UTILITIES === */
-@utility backdrop-glass {
-  backdrop-filter: blur(var(--backdrop-blur-md)) brightness(var(--backdrop-brightness-110));
-  background-color: rgb(var(--color-bg-secondary) / 0.8);
-}
-
-@utility backdrop-glass-light {
-  backdrop-filter: blur(var(--backdrop-blur-sm)) brightness(var(--backdrop-brightness-105));
-  background-color: rgb(var(--color-bg-primary) / 0.6);
-}
-
-/* === MODERN GRID UTILITIES === */
-@utility grid-auto-fit {
-  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-width, 250px), 1fr));
-}
-
-@utility grid-auto-fill {
-  grid-template-columns: repeat(auto-fill, minmax(var(--grid-min-width, 250px), 1fr));
-}
-
-/* === UPDATE CARD ACCENT UTILITIES (THEME-AWARE) === */
-/* Milestone Accent */
-@utility text-accent-milestone {
-  color: rgb(var(--color-accent-milestone));
-  transition: color var(--transition-base);
-  :not(.dark) & {
-    color: rgb(var(--color-accent-milestone-light));
-  }
-}
-@utility bg-accent-milestone {
-  background-color: rgb(var(--color-accent-milestone));
-  transition: background-color var(--transition-base);
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-milestone-light));
-  }
-}
-@utility bg-accent-milestone-hover {
-  background-color: rgb(var(--color-accent-milestone) / 0.05);
-  transition: background-color var(--transition-base);
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-milestone-light) / 0.05);
-  }
-}
-
-/* Project Accent */
-@utility text-accent-project {
-  color: rgb(var(--color-accent-project));
-  transition: color var(--transition-base);
-  :not(.dark) & {
-    color: rgb(var(--color-accent-project-light));
-  }
-}
-@utility bg-accent-project {
-  background-color: rgb(var(--color-accent-project));
-  transition: background-color var(--transition-base);
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-project-light));
-  }
-}
-@utility bg-accent-project-hover {
-  background-color: rgb(var(--color-accent-project) / 0.05);
-  transition: background-color var(--transition-base);
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-project-light) / 0.05);
-  }
-}
-
-/* Resource Accent */
-@utility text-accent-resource {
-  color: rgb(var(--color-accent-resource));
-  transition: color var(--transition-base);
-  :not(.dark) & {
-    color: rgb(var(--color-accent-resource-light));
-  }
-}
-@utility bg-accent-resource {
-  background-color: rgb(var(--color-accent-resource));
-  transition: background-color var(--transition-base);
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-resource-light));
-  }
-}
-@utility bg-accent-resource-hover {
-  background-color: rgb(var(--color-accent-resource) / 0.05);
-  transition: background-color var(--transition-base);
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-resource-light) / 0.05);
-  }
-}
-
+/*
+ * =============================
+ * BASE LAYER: Global Element Styles
+ * =============================
+ */
 @layer base {
   :root {
     /* Legacy compatibility variables - prefer @theme variables for new code */
@@ -1035,7 +1050,18 @@
   }
 }
 
+/*
+ * =============================
+ * COMPONENTS LAYER: Component Styles
+ * =============================
+ */
 @layer components {
+  /*
+   * COMPONENTS LAYER
+   * Reserved for component-level styles (e.g., .prose, .icon-base) if needed.
+   * Use @apply only for elements you cannot style with utilities.
+   * Most styling is handled by Tailwind utility classes or CVA variants.
+   */
   /* All custom utility classes previously here have been removed. */
   /* Styling is now handled by Tailwind's utility classes directly in components */
   /* or through the Tailwind theme configuration in tailwind.config.mjs. */

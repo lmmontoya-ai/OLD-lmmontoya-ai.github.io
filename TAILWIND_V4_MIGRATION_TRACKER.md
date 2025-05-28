@@ -590,10 +590,11 @@
   - [x] Move focus-* utilities to `utilities/interactive.css`
   - [x] Move transition-* utilities to `utilities/interactive.css`
   - [x] Move UpdateCard accent utilities with hover states to `utilities/interactive.css`
-- [ ] **4.5.7** Extract component-specific utilities
-  - [ ] Move UpdateCard accent utilities to `utilities/components.css`
-  - [ ] Move gradient utilities to `utilities/components.css`
-  - [ ] Move backdrop utilities to `utilities/components.css`
+- [x] **4.5.7** Extract component-specific utilities ✅ *(~15 min)*
+  - [x] Move UpdateCard accent utilities to `utilities/components.css`
+  - [x] Move gradient utilities to `utilities/components.css`
+  - [x] Move backdrop utilities to `utilities/components.css`
+    ✅ **COMPLETED** - All component-specific utilities (gradients, animation helpers, UpdateCard accents, and backdrops) have been moved from `global.css` to `utilities/components.css` and converted to standard class syntax. Build tested, no regressions. Task completed in ~15 min.
 - [ ] **4.5.8** Extract animation system
   - [ ] Move registered properties to `animations/properties.css`
   - [ ] Move keyframes to `animations/keyframes.css`

@@ -450,6 +450,103 @@
 - [ ] **4.3.3** Test theme persistence
 - [ ] **4.3.4** Verify accessibility in both themes
 
+#### Task 4.4: Refactor Global CSS to Modular Structure
+**Estimated Time**: 2-3 hours
+**Priority**: High
+**Reason**: Current global.css is 1000+ lines making it difficult to maintain
+
+- [ ] **4.4.1** Create directory structure for modular CSS
+  ```
+  src/styles/
+  ├── global.css                 # Main entry point
+  ├── theme/
+  │   ├── colors.css            # Color tokens
+  │   ├── typography.css        # Font families, sizes, weights
+  │   ├── spacing.css           # Spacing scale
+  │   ├── shadows.css           # Shadow system
+  │   ├── animations.css        # Animation tokens
+  │   └── index.css             # Theme aggregator
+  ├── utilities/
+  │   ├── semantic-colors.css   # Theme-aware color utilities
+  │   ├── legacy-compat.css     # Legacy compatibility utilities
+  │   ├── modern-layout.css     # Logical properties, RTL support
+  │   ├── interactive.css       # Hover, focus, animation utilities
+  │   └── components.css        # Component-specific utilities
+  ├── base/
+  │   └── reset.css             # Base styles, typography defaults
+  └── animations/
+      ├── keyframes.css         # Animation keyframes
+      └── properties.css        # Registered custom properties
+  ```
+- [ ] **4.4.2** Extract theme configuration to separate files
+  - [ ] Move core brand colors to `theme/colors.css`
+  - [ ] Move typography settings to `theme/typography.css`
+  - [ ] Move spacing scale to `theme/spacing.css`
+  - [ ] Move shadow system to `theme/shadows.css`
+  - [ ] Move animation tokens to `theme/animations.css`
+  - [ ] Create theme aggregator in `theme/index.css`
+- [ ] **4.4.3** Extract semantic color utilities
+  - [ ] Move text-content-* utilities to `utilities/semantic-colors.css`
+  - [ ] Move bg-* semantic utilities to `utilities/semantic-colors.css`
+  - [ ] Move border-* semantic utilities to `utilities/semantic-colors.css`
+  - [ ] Move status color utilities to `utilities/semantic-colors.css`
+- [ ] **4.4.4** Extract legacy compatibility utilities
+  - [ ] Move text-themed* utilities to `utilities/legacy-compat.css`
+  - [ ] Move bg-themed* utilities to `utilities/legacy-compat.css`
+  - [ ] Move shadow-themed-* utilities to `utilities/legacy-compat.css`
+- [ ] **4.4.5** Extract modern layout utilities
+  - [ ] Move logical properties to `utilities/modern-layout.css`
+  - [ ] Move RTL support utilities to `utilities/modern-layout.css`
+  - [ ] Move container and grid utilities to `utilities/modern-layout.css`
+- [ ] **4.4.6** Extract interactive utilities
+  - [ ] Move hover-* utilities to `utilities/interactive.css`
+  - [ ] Move focus-* utilities to `utilities/interactive.css`
+  - [ ] Move transition-* utilities to `utilities/interactive.css`
+  - [ ] Move animate-* utilities to `utilities/interactive.css`
+- [ ] **4.4.7** Extract component-specific utilities
+  - [ ] Move UpdateCard accent utilities to `utilities/components.css`
+  - [ ] Move gradient utilities to `utilities/components.css`
+  - [ ] Move backdrop utilities to `utilities/components.css`
+- [ ] **4.4.8** Extract animation system
+  - [ ] Move registered properties to `animations/properties.css`
+  - [ ] Move keyframes to `animations/keyframes.css`
+- [ ] **4.4.9** Extract base styles
+  - [ ] Move HTML/body resets to `base/reset.css`
+  - [ ] Move typography defaults to `base/reset.css`
+  - [ ] Move focus defaults to `base/reset.css`
+- [ ] **4.4.10** Update main global.css with imports
+  ```css
+  /* CSS-first Tailwind v4 configuration */
+  @import "tailwindcss";
+
+  /* Cascade layer organization */
+  @layer theme, base, components, utilities;
+
+  /* Modular imports */
+  @import "./theme/index.css" layer(theme);
+  @import "./base/reset.css" layer(base);
+  @import "./animations/properties.css";
+  @import "./animations/keyframes.css";
+  @import "./utilities/semantic-colors.css" layer(utilities);
+  @import "./utilities/legacy-compat.css" layer(utilities);
+  @import "./utilities/modern-layout.css" layer(utilities);
+  @import "./utilities/interactive.css" layer(utilities);
+  @import "./utilities/components.css" layer(utilities);
+  ```
+- [ ] **4.4.11** Add file documentation headers
+  - [ ] Add description comments to each CSS file
+  - [ ] Document token usage in theme files
+  - [ ] Add migration notes where relevant
+- [ ] **4.4.12** Test modular structure
+  - [ ] Verify build still works
+  - [ ] Check all utilities are available
+  - [ ] Test hot reload with new structure
+  - [ ] Verify no performance regression
+- [ ] **4.4.13** Update development documentation
+  - [ ] Document new file structure in README
+  - [ ] Add CSS architecture guide
+  - [ ] Update contribution guidelines
+
 ### Phase 5: Testing & Validation
 **Estimated Time**: 3-4 hours
 **Priority**: High
@@ -521,23 +618,23 @@
 
 ## 📊 Progress Tracking
 
-### Overall Progress: 52% Complete
+### Overall Progress: 50% Complete
 
 #### Phase Completion
 - [x] **Phase 1**: Foundation Setup (3/3 tasks) ✅ **COMPLETED**
 - [x] **Phase 2**: CSS Configuration Migration (4/4 tasks) ✅ **COMPLETED**
 - [x] **Phase 2.5**: Legacy Utilities Modernization (1/1 task) ✅ **COMPLETED**
 - [x] **Phase 3**: Component Updates (5/5 tasks) ✅ **COMPLETED**
-- [ ] **Phase 4**: Advanced Features (0/3 tasks)
+- [ ] **Phase 4**: Advanced Features (1/4 tasks) - **IN PROGRESS**
 - [ ] **Phase 5**: Testing & Validation (0/4 tasks)
 - [ ] **Phase 6**: Documentation & Cleanup (0/3 tasks)
 
 #### Task Summary
-- **Total Tasks**: 23 main tasks, 97 subtasks
+- **Total Tasks**: 24 main tasks, 110 subtasks
 - **Completed**: 10 main tasks, 70 subtasks
-- **In Progress**: 0
+- **In Progress**: 1 main task (Task 4.4)
 - **Blocked**: 0
-- **Not Started**: 13 main tasks, 27 subtasks
+- **Not Started**: 13 main tasks, 40 subtasks
 
 ---
 
@@ -545,14 +642,19 @@
 
 ### Migration Decisions
 - **Build System**: Using Vite plugin for better performance
-- **CSS Organization**: Single global.css file for theme configuration
+- **CSS Organization**: Single global.css file for theme configuration (to be refactored in Task 4.4)
 - **Backward Compatibility**: Not maintaining v3 compatibility
 - **Browser Support**: Targeting modern browsers only (Safari 16.4+, Chrome 111+, Firefox 128+)
+- **Modular CSS**: Decided to refactor 1000+ line global.css into modular structure for better maintainability
 
 ### Key Learnings
 - [ ] Document any unexpected issues
 - [ ] Note performance improvements observed
 - [ ] Record any breaking changes not covered in official docs
+
+### Recent Updates
+- **January 2025**: Added Task 4.4 to refactor global.css into modular structure due to maintainability concerns with 1000+ line file
+- **January 2025**: Completed audit revealed missing hover utilities for UpdateCard variants that need to be added
 
 ---
 
@@ -576,10 +678,10 @@
 ## ✅ Completion Checklist
 
 ### Pre-Migration
-- [ ] Current state documented
-- [ ] Backup created
-- [ ] Team notified
-- [ ] Timeline confirmed
+- [x] Current state documented
+- [x] Backup created
+- [x] Team notified
+- [x] Timeline confirmed
 
 ### Post-Migration
 - [ ] All tests passing
@@ -591,5 +693,5 @@
 ---
 
 **Last Updated**: January 2025
-**Next Review**: After Phase 1 completion
+**Next Review**: After Task 4.4 completion
 **Migration Lead**: Development Team

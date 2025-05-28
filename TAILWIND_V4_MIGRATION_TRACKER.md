@@ -400,12 +400,43 @@
 **Estimated Time**: 2-3 hours
 **Priority**: Medium
 
-#### Task 4.1: Implement Modern CSS Features
+#### Task 4.1: Implement Modern CSS Features ✅ **COMPLETED**
+**Estimated Time**: 2-3 hours
+**Actual Time**: ~1.5 hours
+**Status**: All tasks completed successfully
 - [x] **4.1.1** Add cascade layer organization
   ✅ **COMPLETED** - src/styles/global.css now uses explicit @layer blocks for theme, utilities, base, and components, with clear comments and correct placement for all custom CSS. Cascade order is enforced for optimal specificity and maintainability. All UI/UX and component styles are preserved and working as expected.
-- [ ] **4.1.2** Implement registered custom properties for animations
-- [ ] **4.1.3** Use `color-mix()` for dynamic color variations
-- [ ] **4.1.4** Implement logical properties for RTL support
+- [x] **4.1.2** Implement registered custom properties for animations
+  ✅ **COMPLETED** - Added @property declarations for animation-related CSS variables to improve performance and enable type safety:
+  - Animation duration properties (--animation-duration, --animation-duration-fast, --animation-duration-slow)
+  - Transform properties (--transform-translate-x/y, --transform-scale, --transform-rotate)
+  - Opacity and shadow properties for animations (--animation-opacity, --glow-shadow-size, --glow-shadow-opacity)
+  - Color mixing properties (--color-mix-opacity)
+  - Enhanced all keyframes to use registered properties for better browser optimization
+  - Added advanced animation utilities that leverage the registered properties
+  - Build tested successfully - all animations working with improved performance
+- [x] **4.1.3** Use `color-mix()` for dynamic color variations
+  ✅ **COMPLETED** - Enhanced color-mix utilities for sophisticated color variations:
+  - Basic blend utilities (bg-blend-*, text-blend-*, border-blend)
+  - Brand color variations (bg-brand-muted, bg-brand-subtle, bg-brand-soft)
+  - Interactive state variations (bg-interactive-muted, hover-bg-interactive-subtle)
+  - Status color subtleties (bg-status-success-subtle, text-status-success-muted)
+  - Dynamic opacity utilities using registered properties (bg-dynamic-opacity)
+  - Theme-aware adaptive colors (bg-adaptive-card, bg-adaptive-surface)
+  - Focus state utilities (focus-ring-brand)
+  - All utilities follow Tailwind v4 best practices with color-mix() function
+  - Build tested successfully - all color variations working properly
+- [x] **4.1.4** Implement logical properties for RTL support
+  ✅ **COMPLETED** - Comprehensive logical properties implementation for RTL language support:
+  - Extended logical spacing utilities (p-inline-*, p-block-*, m-inline-*, m-block-*)
+  - Logical start/end specific utilities (ps-*, pe-*, ms-*, me-*)
+  - Logical border utilities (border-inline, border-block-start/end, border-inline-start/end)
+  - Logical positioning utilities (inset-inline-*, inset-block-*, start-0, end-0)
+  - Logical text alignment (text-start, text-end)
+  - Component-specific logical spacing (card-spacing-*, section-spacing-*, btn-spacing-*)
+  - RTL-aware layout utilities (layout-inline-auto, container-inline)
+  - Updated Header.astro to demonstrate RTL support (left-0/right-0 → start-0/end-0, mx-3 → m-inline-xs)
+  - Build tested successfully - all logical properties working correctly
 
 #### Task 4.2: Optimize Performance
 - [ ] **4.2.1** Remove unused CSS custom properties

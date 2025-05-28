@@ -15,7 +15,7 @@ const {
   seeAllText = "See All",
 } = Astro.props;
 
-// Container classes using Tailwind utilities - maximum shadows without movement
+// Container classes using Tailwind utilities - reduced shadows
 const containerClasses = [
   "w-full",
   "h-full",
@@ -23,8 +23,8 @@ const containerClasses = [
   "flex-col",
   "rounded-2xl",
   "overflow-hidden",
-  "shadow-2xl",
-  "dark:shadow-xl shadow-2xl-light",
+  "shadow-md",
+  "dark:shadow-sm shadow-sm-light",
   "transition-all",
   "duration-spring",
   "backdrop-blur-overlay",

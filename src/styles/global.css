@@ -14,7 +14,10 @@
 
 /* Moved all @property definitions to animations/properties.css */
 
-/* === CASCADE LAYER ORGANIZATION === */
+/* CSS-first Tailwind v4 configuration */
+@import "tailwindcss";
+
+/* Cascade layer organization */
 @layer theme, base, components, utilities;
 
 /* Main entry point for global styles */
@@ -94,13 +97,7 @@
 /* Moved to utilities/components.css (now uses .gradient-* class syntax) */
 
 /* === MODERN TYPOGRAPHY UTILITIES === */
-@utility text-balance {
-  text-wrap: balance;
-}
-
-@utility text-pretty {
-  text-wrap: pretty;
-}
+/* Moved to utilities/components.css or handled by Tailwind v4 built-in classes */
 
 /* === MODERN ACCESSIBILITY UTILITIES === */
 /* Moved to utilities/interactive.css */
@@ -122,17 +119,7 @@
 /* Keeping section minimal as Tailwind v4 provides most color functionality built-in */
 
 /* Essential color-mix utility for theme adaptation - future use */
-@utility bg-adaptive-card {
-  background-color: color-mix(in srgb, rgb(var(--color-bg-secondary)) 85%, rgb(var(--color-brand-primary)) 15%);
-}
-
-@utility bg-adaptive-surface {
-  background-color: color-mix(in srgb, rgb(var(--color-bg-primary)) 90%, rgb(var(--color-content-primary)) 10%);
-}
-
-@utility text-adaptive-emphasis {
-  color: color-mix(in srgb, rgb(var(--color-content-primary)) 95%, rgb(var(--color-brand-primary)) 5%);
-}
+/* Moved to utilities/components.css or handled by Tailwind v4 built-in classes */
 
 /* === LOGICAL PROPERTIES (v4 RTL Support) === */
 /* Moved to utilities/modern-layout.css */

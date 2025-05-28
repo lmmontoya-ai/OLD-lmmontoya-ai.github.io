@@ -16,86 +16,99 @@
  *
  * @see SEMANTIC_COLORS.md for detailed usage guidelines
  */
-
 @theme {
-  /* === CORE BRAND COLORS === */
-  --color-brand-primary: 59 130 246;    /* Blue - main brand color */
-  --color-brand-secondary: 212 175 55;  /* Gold - accent brand color */
+  /* === ENHANCED BRAND COLORS === */
+  --color-brand-primary: 59 130 246;    /* Blue - consistent across themes */
+  --color-brand-secondary: 212 175 55;  /* Gold - consistent across themes */
 
   /* === CONTENT COLORS === */
-  --color-content-primary: 248 250 252;    /* Main text (white in dark, navy in light) */
-  --color-content-secondary: 203 213 225;  /* Secondary text */
-  --color-content-tertiary: 148 163 184;   /* Muted text */
-  --color-content-inverse: 28 42 77;       /* Text for light backgrounds */
+  /* Dark theme (default) */
+  --color-content-primary: 248 250 252;    /* Main text - soft white */
+  --color-content-secondary: 203 213 225;  /* Secondary text - light slate */
+  --color-content-tertiary: 148 163 184;   /* Muted text - slate */
+  --color-content-inverse: 28 42 77;       /* For light backgrounds */
+
+  /* Light theme variants */
+  --color-content-primary-light: 28 42 77;     /* Deep navy for readability */
+  --color-content-secondary-light: 51 65 85;   /* Darker slate for secondary text */
+  --color-content-tertiary-light: 100 116 139; /* Medium slate for muted text */
+  --color-content-inverse-light: 248 250 252;  /* White for dark backgrounds */
 
   /* === BACKGROUND COLORS === */
-  --color-bg-primary: 15 27 43;           /* Main background */
-  --color-bg-secondary: 30 41 59;         /* Card/surface background */
-  --color-bg-tertiary: 11 20 31;          /* Footer/deeper background */
-  --color-bg-inverse: 248 250 253;        /* Light theme background */
-  --color-bg-inverse-secondary: 255 255 255; /* Light theme cards */
+  /* Dark theme (default) */
+  --color-bg-primary: 15 27 43;           /* Deep navy main background */
+  --color-bg-secondary: 30 41 59;         /* Lighter navy for cards */
+  --color-bg-tertiary: 11 20 31;          /* Darkest navy for footer */
+  --color-bg-surface: 30 41 59;           /* Surface/card background */
+
+  /* Light theme variants */
+  --color-bg-primary-light: 248 250 253;     /* Soft white main background */
+  --color-bg-secondary-light: 255 255 255;   /* Pure white for cards */
+  --color-bg-tertiary-light: 241 245 249;    /* Very light slate for footer */
+  --color-bg-surface-light: 255 255 255;     /* Pure white surface */
 
   /* === INTERACTIVE COLORS === */
-  --color-interactive-primary: 59 130 246;     /* Primary buttons, links */
-  --color-interactive-secondary: 212 175 55;   /* Secondary buttons, highlights */
-  --color-interactive-hover: 77 139 247;       /* Hover states */
-  --color-interactive-focus: 59 130 246;       /* Focus rings */
-  --color-interactive-disabled: 100 116 139;   /* Disabled states */
+  /* These work well in both themes */
+  --color-interactive-primary: 59 130 246;     /* Blue - primary actions */
+  --color-interactive-secondary: 212 175 55;   /* Gold - secondary actions */
+  --color-interactive-hover: 37 99 235;        /* Darker blue for hover */
+  --color-interactive-focus: 59 130 246;       /* Blue for focus rings */
+  --color-interactive-disabled: 156 163 175;   /* Gray for disabled states */
+
+  /* Light theme variants for better contrast */
+  --color-interactive-primary-light: 37 99 235;    /* Slightly darker blue */
+  --color-interactive-secondary-light: 180 83 9;   /* Warmer orange instead of gold */
+  --color-interactive-hover-light: 29 78 216;      /* Even darker blue for hover */
 
   /* === STATUS COLORS === */
-  --color-status-success: 34 197 94;      /* Success states, completed items */
-  --color-status-warning: 249 115 22;     /* Warning states, in-progress items */
-  --color-status-error: 239 68 68;        /* Error states */
-  --color-status-info: 59 130 246;        /* Info states */
+  --color-status-success: 34 197 94;      /* Green - success states */
+  --color-status-warning: 249 115 22;     /* Orange - warning states */
+  --color-status-error: 239 68 68;        /* Red - error states */
+  --color-status-info: 59 130 246;        /* Blue - info states */
+
+  /* Light theme variants for better contrast */
+  --color-status-success-light: 22 163 74;    /* Darker green */
+  --color-status-warning-light: 234 88 12;    /* Darker orange */
+  --color-status-error-light: 220 38 38;      /* Darker red */
+  --color-status-info-light: 37 99 235;       /* Darker blue */
 
   /* === BORDER COLORS === */
-  --color-border-primary: 100 116 139;    /* Default borders */
-  --color-border-secondary: 51 65 85;     /* Subtle borders */
-  --color-border-accent: 59 130 246;      /* Accent borders */
-  --color-border-inverse: 228 231 235;    /* Light theme borders */
+  /* Dark theme */
+  --color-border-primary: 100 116 139;    /* Slate for main borders */
+  --color-border-secondary: 51 65 85;     /* Darker slate for subtle borders */
+  --color-border-accent: 59 130 246;      /* Blue for accent borders */
+
+  /* Light theme variants */
+  --color-border-primary-light: 226 232 240;    /* Light slate */
+  --color-border-secondary-light: 241 245 249;  /* Very light slate */
+  --color-border-accent-light: 59 130 246;      /* Same blue, good contrast */
 
   /* === UPDATE CARD ACCENT COLORS === */
-  --color-accent-milestone: 212 175 55;   /* Gold - Matches brand-secondary */
-  --color-accent-project: 59 130 246;     /* Blue - Matches brand-primary */
-  --color-accent-resource: 34 197 94;     /* Green - Matches status-success */
+  /* Dark theme */
+  --color-accent-milestone: 212 175 55;   /* Gold - milestones */
+  --color-accent-project: 59 130 246;     /* Blue - projects */
+  --color-accent-resource: 34 197 94;     /* Green - resources */
 
-  /* Light theme equivalents for UpdateCard accents */
-  --color-accent-milestone-light: 208 124 92; /* Existing highlight-light */
-  --color-accent-project-light: 77 139 247;   /* Existing accent-light */
-  --color-accent-resource-light: 28 141 76;   /* Existing success-light */
+  /* Light theme variants */
+  --color-accent-milestone-light: 180 83 9;     /* Warmer orange-brown */
+  --color-accent-project-light: 37 99 235;      /* Darker blue */
+  --color-accent-resource-light: 22 163 74;     /* Darker green */
 
-  /* === LEGACY COMPATIBILITY COLORS === */
-  /* These maintain compatibility with existing components */
-  --color-primary: 15 23 42;
-  --color-primary-light: 28 42 77;
-  --color-secondary: 51 65 85;
-  --color-secondary-light: 74 74 74;
-  --color-accent: 59 130 246;
-  --color-accent-light: 77 139 247;
-  --color-highlight: 212 175 55;
-  --color-highlight-light: 208 124 92;
-  --color-surface: 30 41 59;
-  --color-surface-light: 124 111 156;
-  --color-success: 34 197 94;
-  --color-success-light: 28 141 76;
-  --color-progress: 249 115 22;
-  --color-progress-light: 234 88 12;
-  --color-neutral: 148 163 184;
-  --color-neutral-light: 228 231 235;
-  --color-background: 15 27 43;
-  --color-background-light: 248 250 253;
-  --color-text: 248 250 252;
-  --color-text-secondary: 203 213 225;
-  --color-text-light: 28 42 77;
-  --color-text-secondary-light: 74 74 74;
-  --color-border: 100 116 139;
-  --color-border-light: 228 231 235;
-  --color-card: 30 41 59;
-  --color-card-light: 255 255 255;
-  --color-footer: 11 20 31;
-  --color-footer-light: 248 250 253;
-  --color-grid: 255 255 255;
-  --color-grid-light: 228 231 235;
-  --color-hero-gradient-start: 19 38 60;
-  --color-hero-gradient-end: 11 20 31;
+  /* === SHADOW COLORS === */
+  /* Dark theme shadows */
+  --shadow-color-dark: 0 0 0;             /* Pure black for dark theme */
+  --shadow-opacity-dark: 0.7;             /* Higher opacity for visibility */
+
+  /* Light theme shadows */
+  --shadow-color-light: 28 42 77;         /* Navy for light theme shadows */
+  --shadow-opacity-light: 0.1;            /* Lower opacity for subtlety */
+
+  /* === GRID AND PATTERN COLORS === */
+  /* Dark theme */
+  --color-grid: 255 255 255;              /* White grid lines */
+  --color-grid-opacity: 0.02;             /* Very subtle */
+
+  /* Light theme */
+  --color-grid-light: 148 163 184;        /* Slate grid lines */
+  --color-grid-opacity-light: 0.1;        /* Slightly more visible */
 }

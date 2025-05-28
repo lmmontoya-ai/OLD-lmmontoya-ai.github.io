@@ -27,96 +27,264 @@
  * @see SEMANTIC_COLORS.md for naming and usage guidelines
  * @see theme/colors.css for token definitions
  */
+/**
+ * Complete Theme-Aware Semantic Color Utilities
+ *
+ * This replaces your existing semantic-colors.css with full light/dark theme support.
+ * Uses the enhanced color palette to ensure perfect theme switching.
+ */
 
 /* ========================================
-   SEMANTIC COLOR UTILITIES
-   Theme-aware color utilities using CSS variables
-   Tailwind v4 compatible - NO NESTING in @utility
+   THEME-AWARE SEMANTIC COLOR UTILITIES
+   Complete light/dark theme implementation
    ======================================== */
 
 /* === TEXT COLOR UTILITIES === */
-/* Theme-aware text colors */
 
 @utility text-content-primary {
   color: rgb(var(--color-content-primary));
   transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-content-primary-light));
+  }
 }
 
 @utility text-content-secondary {
   color: rgb(var(--color-content-secondary));
   transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-content-secondary-light));
+  }
 }
 
 @utility text-content-tertiary {
   color: rgb(var(--color-content-tertiary));
   transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-content-tertiary-light));
+  }
+}
+
+@utility text-content-inverse {
+  color: rgb(var(--color-content-inverse));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-content-inverse-light));
+  }
 }
 
 /* === BACKGROUND COLOR UTILITIES === */
-/* Theme-aware background colors */
 
 @utility bg-primary {
   background-color: rgb(var(--color-bg-primary));
   transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-primary-light));
+  }
 }
 
 @utility bg-secondary {
   background-color: rgb(var(--color-bg-secondary));
   transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-secondary-light));
+  }
 }
 
 @utility bg-tertiary {
   background-color: rgb(var(--color-bg-tertiary));
   transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-tertiary-light));
+  }
+}
+
+@utility bg-surface {
+  background-color: rgb(var(--color-bg-surface));
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-surface-light));
+  }
 }
 
 /* === BORDER COLOR UTILITIES === */
-/* Theme-aware border colors */
 
 @utility border-primary {
   border-color: rgb(var(--color-border-primary) / 0.25);
   transition: border-color var(--transition-base);
+
+  :not(.dark) & {
+    border-color: rgb(var(--color-border-primary-light));
+  }
 }
 
 @utility border-secondary {
   border-color: rgb(var(--color-border-secondary) / 0.3);
   transition: border-color var(--transition-base);
+
+  :not(.dark) & {
+    border-color: rgb(var(--color-border-secondary-light));
+  }
+}
+
+@utility border-accent {
+  border-color: rgb(var(--color-border-accent));
+  transition: border-color var(--transition-base);
+
+  :not(.dark) & {
+    border-color: rgb(var(--color-border-accent-light));
+  }
 }
 
 /* === INTERACTIVE COLOR UTILITIES === */
-/* Interactive element colors */
 
 @utility text-interactive-primary {
   color: rgb(var(--color-interactive-primary));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-interactive-primary-light));
+  }
 }
 
 @utility text-interactive-secondary {
   color: rgb(var(--color-interactive-secondary));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-interactive-secondary-light));
+  }
 }
 
 @utility bg-interactive-primary {
   background-color: rgb(var(--color-interactive-primary));
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-interactive-primary-light));
+  }
 }
 
 @utility bg-interactive-secondary {
   background-color: rgb(var(--color-interactive-secondary));
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-interactive-secondary-light));
+  }
 }
 
 /* === STATUS COLOR UTILITIES === */
-/* Status and state colors */
 
 @utility text-status-success {
   color: rgb(var(--color-status-success));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-status-success-light));
+  }
 }
 
 @utility text-status-warning {
   color: rgb(var(--color-status-warning));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-status-warning-light));
+  }
+}
+
+@utility text-status-error {
+  color: rgb(var(--color-status-error));
+  transition: color var(--transition-base);
+
+  :not(.dark) & {
+    color: rgb(var(--color-status-error-light));
+  }
 }
 
 @utility bg-status-success {
   background-color: rgb(var(--color-status-success));
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-status-success-light));
+  }
 }
 
 @utility bg-status-warning {
   background-color: rgb(var(--color-status-warning));
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-status-warning-light));
+  }
+}
+
+/* === ENHANCED SHADOW UTILITIES === */
+
+@utility shadow-themed-sm {
+  box-shadow: 0 2px 4px 0 rgba(var(--shadow-color-dark), var(--shadow-opacity-dark));
+  transition: box-shadow var(--transition-base);
+
+  :not(.dark) & {
+    box-shadow: 0 1px 3px 0 rgba(var(--shadow-color-light), var(--shadow-opacity-light));
+  }
+}
+
+@utility shadow-themed-md {
+  box-shadow: 0 4px 8px -1px rgba(var(--shadow-color-dark), var(--shadow-opacity-dark));
+  transition: box-shadow var(--transition-base);
+
+  :not(.dark) & {
+    box-shadow: 0 4px 6px -1px rgba(var(--shadow-color-light), 0.1), 0 2px 4px -1px rgba(var(--shadow-color-light), 0.06);
+  }
+}
+
+@utility shadow-themed-lg {
+  box-shadow: 0 12px 20px -3px rgba(var(--shadow-color-dark), 0.8);
+  transition: box-shadow var(--transition-base);
+
+  :not(.dark) & {
+    box-shadow: 0 10px 15px -3px rgba(var(--shadow-color-light), 0.1), 0 4px 6px -2px rgba(var(--shadow-color-light), 0.05);
+  }
+}
+
+@utility shadow-themed-xl {
+  box-shadow: 0 24px 32px -5px rgba(var(--shadow-color-dark), 0.9);
+  transition: box-shadow var(--transition-base);
+
+  :not(.dark) & {
+    box-shadow: 0 20px 25px -5px rgba(var(--shadow-color-light), 0.1), 0 10px 10px -5px rgba(var(--shadow-color-light), 0.04);
+  }
+}
+
+/* === BACKDROP BLUR UTILITIES === */
+
+@utility backdrop-blur-themed {
+  backdrop-filter: blur(12px);
+  background-color: rgb(var(--color-bg-secondary) / 0.8);
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-secondary-light) / 0.8);
+  }
+}
+
+@utility backdrop-blur-overlay {
+  backdrop-filter: blur(12px);
+  background-color: rgb(var(--color-bg-surface) / 0.4);
+  transition: background-color var(--transition-base);
+
+  :not(.dark) & {
+    background-color: rgb(var(--color-bg-surface-light) / 0.7);
+  }
 }

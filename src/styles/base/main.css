@@ -4,10 +4,10 @@ body {
   background-color: rgb(var(--color-surface-primary));
   color: rgb(var(--color-text-primary));
   transition: background-color 300ms ease, color 300ms ease;
-  /* Subtle texture for depth - further increased visibility for light theme */
+  /* Subtle texture for depth - adjusted for off-white background */
   background-image:
-    linear-gradient(to right, rgb(var(--color-interactive-blue) / 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-interactive-blue) / 0.08) 1px, transparent 1px);
+    linear-gradient(to right, rgb(var(--color-interactive-blue) / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-interactive-blue) / 0.06) 1px, transparent 1px);
   background-size: 3rem 3rem;
   background-attachment: fixed; /* Makes the background grid static */
 }

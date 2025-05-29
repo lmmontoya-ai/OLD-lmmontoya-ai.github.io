@@ -13,14 +13,15 @@
   --color-text-secondary: 51 65 85;
   --color-text-tertiary: 100 116 139;
 
-  --color-surface-primary: 248 250 253;
-  --color-surface-secondary: 255 255 255;
-  --color-surface-tertiary: 241 245 249;
+  --color-surface-primary: 235 235 235; /* Muted off-white, less bright */
+  --color-surface-secondary: 248 248 248; /* Softer white */
+  --color-surface-tertiary: 235 235 235; /* Darker tertiary for better hierarchy */
 
   --color-interactive-blue: 77 139 247;
-  --color-interactive-gold: 180 83 9;
+  --color-interactive-gold: 245 158 11;
+  --color-interactive-gold-contrast: 30 41 59; /* Dark text for gold background */
 
-  --color-accent-milestone: 180 83 9;
+  --color-accent-milestone: 245 158 11;
   --color-accent-project: 37 99 235;
   --color-accent-resource: 22 163 74;
 
@@ -28,8 +29,8 @@
   --color-status-warning: 234 88 12;
   --color-status-error: 220 38 38;
 
-  --color-border-primary: 226 232 240;
-  --color-border-subtle: 241 245 249;
+  --color-border-primary: 200 200 200; /* Darker for better visibility on muted background */
+  --color-border-subtle: 210 210 210; /* More visible on the less bright theme */
 
   --color-shadow-rgb: 28 42 77; /* For light theme shadows */
 }
@@ -46,6 +47,7 @@ html.dark {
 
   --color-interactive-blue: 59 130 246;
   --color-interactive-gold: 212 175 55;
+  --color-interactive-gold-contrast: 30 41 59; /* Dark text for gold background */
 
   --color-accent-milestone: 212 175 55;
   --color-accent-project: 59 130 246;

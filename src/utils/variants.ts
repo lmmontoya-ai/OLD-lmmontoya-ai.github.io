@@ -33,10 +33,9 @@ export const buttonVariants = cva(
           "border",
           "border-transparent",
           "shadow-themed-sm",
-          "hover:brightness-105",
-          "hover:-translate-y-0.5",
+          "transition-spring",
           "hover:shadow-themed-md",
-          "active:translate-y-0",
+          "focus-ring",
         ],
         secondary: [
           "bg-transparent",
@@ -47,8 +46,9 @@ export const buttonVariants = cva(
           "hover:text-interactive-blue",
           "hover:border-interactive-blue",
           "hover:bg-interactive-blue/5",
-          "hover:-translate-y-0.5",
+          "transition-spring",
           "hover:shadow-themed-sm",
+          "focus-ring",
         ],
         outline: [
           "bg-transparent",
@@ -57,7 +57,17 @@ export const buttonVariants = cva(
           "border-subtle",
           "hover:border-interactive-blue",
           "hover:text-primary",
-          "hover:-translate-y-0.5",
+          "transition-spring",
+          "focus-ring",
+        ],
+        roadmap: [
+          "border",
+          "border-transparent",
+          "shadow-themed-sm",
+          "transition-spring",
+          "hover:shadow-themed-md",
+          "font-semibold",
+          "focus-ring",
         ],
       },
       size: {
@@ -122,7 +132,7 @@ export const cardVariants = cva(
   }
 );
 
-// UpdateCard component variants - Using semantic utilities
+// UpdateCard component variants - Using semantic utilities with enhanced spring animations
 export const updateCardVariants = cva(
   [
     "update-card",
@@ -132,11 +142,11 @@ export const updateCardVariants = cva(
     "p-4",
     "px-5",
     "rounded-lg",
-    "transition-spring",
+    "transition-spring", // Using spring transition for smooth animations
     "focus-ring",
     "bg-surface-secondary/50",
     "backdrop-blur-sm",
-    "hover:translate-x-1",
+    "hover:translate-x-1", // This will be overridden by the CSS, but kept for fallback
   ],
   {
     variants: {
@@ -165,7 +175,7 @@ export const updateCardVariants = cva(
   }
 );
 
-// Icon variants for UpdateCard - Using semantic utilities
+// Icon variants for UpdateCard - Using semantic utilities with enhanced animations
 export const updateCardIconVariants = cva(
   [
     "flex",
@@ -174,7 +184,9 @@ export const updateCardIconVariants = cva(
     "w-9",
     "h-9",
     "flex-shrink-0",
-    "transition-theme",
+    "transition-spring", // Spring animation for smooth icon interactions
+    "group-hover:scale-110", // Subtle scale on hover
+    "group-hover:rotate-3", // Slight rotation for playfulness
   ],
   {
     variants: {
@@ -218,7 +230,7 @@ export const updateCardTagVariants = cva(
   }
 );
 
-// Title variants for UpdateCard - Using semantic utilities
+// Title variants for UpdateCard - Using semantic utilities with enhanced hover effects
 export const updateCardTitleVariants = cva(
   [
     "font-semibold",
@@ -227,7 +239,8 @@ export const updateCardTitleVariants = cva(
     "leading-tight",
     "text-base",
     "text-primary",
-    "transition-theme",
+    "transition-spring", // Spring transition for smooth color changes
+    "group-hover:translate-x-1", // Subtle slide on hover
   ],
   {
     variants: {

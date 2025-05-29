@@ -11,7 +11,7 @@ const currentPath = Astro.url.pathname;
 
 <header
   id="site-header"
-  class="fixed top-0 left-0 right-0 z-50 h-14 bg-surface/95 backdrop-blur-lg border-b border-primary transition-theme"
+  class="fixed top-0 left-0 right-0 z-50 h-14 backdrop-blur-lg border-b border-primary transition-theme"
 >
   <!-- Bottom gradient border -->
   <div
@@ -22,22 +22,22 @@ const currentPath = Astro.url.pathname;
     <!-- Brand/Motto -->
     <a
       href="/"
-      class="font-sans font-semibold text-lg tracking-tight group relative"
+      class="font-sans font-semibold text-lg tracking-tight group relative header-brand"
     >
       <span
-        class="block text-sm md:text-sm font-bold mt-0.5 font-mono text-interactive-gold group-hover:text-interactive-blue transition-theme"
+        class="block text-sm md:text-sm font-bold mt-0.9 font-mono group-hover:text-interactive-blue transition-spring"
       >
         Understand to Align
       </span>
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center gap-2 h-full">
+    <nav class="hidden md:flex items-center gap-1 h-full">
       <NavLink href="/roadmap" currentPath={currentPath}> Roadmap </NavLink>
 
       <!-- Nav link divider -->
       <div
-        class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-50"
+        class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-100"
       ></div>
 
       <NavLink href="/projects" currentPath={currentPath}> Projects </NavLink>
@@ -53,9 +53,12 @@ const currentPath = Astro.url.pathname;
       <div
         class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"
       ></div>
-
-      <NavLink href="/contact" currentPath={currentPath}> Contact </NavLink>
-
+      <NavLink href="/contact" currentPath={currentPath}>
+        Contact
+      </NavLink>
+      <div
+        class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"
+      ></div>
       <ThemeToggle />
     </nav>
 
@@ -301,4 +304,10 @@ const currentPath = Astro.url.pathname;
       }
     });
   </script>
+
+  <style>
+    .header-brand:hover {
+      color: rgb(77, 139, 247) !important;
+    }
+  </style>
 </header>

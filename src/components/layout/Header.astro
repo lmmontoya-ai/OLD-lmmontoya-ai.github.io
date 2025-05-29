@@ -36,29 +36,23 @@ const currentPath = Astro.url.pathname;
       <NavLink href="/roadmap" currentPath={currentPath}> Roadmap </NavLink>
 
       <!-- Nav link divider -->
-      <div
-        class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-100"
-      ></div>
+      <div class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-100"></div>
 
       <NavLink href="/projects" currentPath={currentPath}> Projects </NavLink>
 
-      <div
-        class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-50"
-      ></div>
+      <div class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-50"></div>
 
-      <NavLink href="/literature" currentPath={currentPath}>
-        Literature
-      </NavLink>
+      <NavLink href="/literature" currentPath={currentPath}> Literature </NavLink>
 
-      <div
-        class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"
-      ></div>
-      <NavLink href="/contact" currentPath={currentPath}>
-        Contact
-      </NavLink>
-      <div
-        class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"
-      ></div>
+      <div class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-50"></div>
+
+      <NavLink href="/blog" currentPath={currentPath}> Blog </NavLink>
+
+      <div class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"></div>
+
+      <NavLink href="/contact" currentPath={currentPath}> Contact </NavLink>
+
+      <div class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"></div>
       <ThemeToggle />
     </nav>
 
@@ -115,118 +109,48 @@ const currentPath = Astro.url.pathname;
     </button>
 
     <nav class="flex flex-col gap-6 text-lg grow">
-      <NavLink
-        href="/roadmap"
-        currentPath={currentPath}
-        variant="mobile"
-        class="group"
-      >
-        <span
-          class="text-primary group-hover:text-interactive-blue transition-theme font-medium"
-          >Roadmap</span
-        >
-        <div
-          class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-4 h-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+
+      <NavLink href="/roadmap" currentPath={currentPath} variant="mobile" class="group">
+        <span class="text-primary group-hover:text-interactive-blue transition-theme font-medium">Roadmap</span>
+        <div class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
         </div>
       </NavLink>
 
-      <NavLink
-        href="/projects"
-        currentPath={currentPath}
-        variant="mobile"
-        class="group"
-      >
-        <span
-          class="text-primary group-hover:text-interactive-blue transition-theme font-medium"
-          >Projects</span
-        >
-        <div
-          class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-4 h-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+      <NavLink href="/projects" currentPath={currentPath} variant="mobile" class="group">
+        <span class="text-primary group-hover:text-interactive-blue transition-theme font-medium">Projects</span>
+        <div class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
         </div>
       </NavLink>
 
-      <NavLink
-        href="/literature"
-        currentPath={currentPath}
-        variant="mobile"
-        class="group"
-      >
-        <span
-          class="text-primary group-hover:text-interactive-blue transition-theme font-medium"
-          >Literature</span
-        >
-        <div
-          class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-4 h-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+      <NavLink href="/literature" currentPath={currentPath} variant="mobile" class="group">
+        <span class="text-primary group-hover:text-interactive-blue transition-theme font-medium">Literature</span>
+        <div class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
         </div>
       </NavLink>
 
-      <NavLink
-        href="/contact"
-        currentPath={currentPath}
-        variant="mobile"
-        class="group"
-      >
-        <span
-          class="text-primary group-hover:text-interactive-blue transition-theme font-medium"
-          >Contact</span
-        >
-        <div
-          class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-4 h-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+      <NavLink href="/blog" currentPath={currentPath} variant="mobile" class="group">
+        <span class="text-primary group-hover:text-interactive-blue transition-theme font-medium">Blog</span>
+        <div class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </div>
+      </NavLink>
+
+      <NavLink href="/contact" currentPath={currentPath} variant="mobile" class="group">
+        <span class="text-primary group-hover:text-interactive-blue transition-theme font-medium">Contact</span>
+        <div class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
           </svg>
         </div>
       </NavLink>

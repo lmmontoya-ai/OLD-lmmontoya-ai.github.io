@@ -1,0 +1,227 @@
+---
+// src/components/layout/Footer.astro
+// Modern footer component with elegant design matching the app's aesthetic
+// Features: gradient branding, hover effects, social links, responsive layout
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+// Footer section classes using semantic utilities
+const footerClasses = [
+  "relative",
+  "z-10",
+  "border-t",
+  "border-primary",
+  "py-12",
+  "lg:py-16",
+  "bg-surface-tertiary",
+  "backdrop-blur-sm",
+  className,
+].join(" ");
+
+// Navigation links with consistent structure
+const navigationLinks = [
+  { href: "/roadmap", label: "Research Roadmap" },
+  { href: "/projects", label: "Projects" },
+  { href: "/literature", label: "Literature" },
+  { href: "/contact", label: "Contact" },
+];
+
+// Social links with proper accessibility
+const socialLinks = [
+  {
+    href: "https://github.com/",
+    label: "GitHub",
+    icon: "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z",
+  },
+  {
+    href: "https://twitter.com/",
+    label: "Twitter/X",
+    icon: "M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z",
+  },
+  {
+    href: "https://linkedin.com/",
+    label: "LinkedIn",
+    icon: "M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z",
+  },
+];
+---
+
+<footer class={footerClasses}>
+  <!-- Subtle background pattern -->
+  <div
+    class="absolute inset-0 bg-grid-fine opacity-[0.015] dark:opacity-[0.025] pointer-events-none"
+  ></div>
+
+  <div class="container mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24 relative">
+    <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+      <!-- Brand Section -->
+      <div class="space-y-4">
+        <div class="footer-brand group">
+          <h2
+            class="font-sans font-semibold text-xl lg:text-2xl tracking-tight mb-2 transition-theme"
+          >
+            <span
+              class="text-transparent bg-clip-text gradient-brand bg-gradient-to-r from-interactive-blue to-interactive-gold group-hover:from-interactive-gold group-hover:to-interactive-blue transition-theme"
+            >
+              Luis Miguel Montoya
+            </span>
+          </h2>
+          <div
+            class="h-0.5 w-12 bg-gradient-to-r from-interactive-blue to-interactive-gold opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all duration-300 ease-out"
+          ></div>
+        </div>
+        <p class="text-secondary text-sm lg:text-base max-w-xs leading-relaxed">
+          Documenting my journey from Physicist-Data Scientist to AI interpretability
+          researcher. Exploring the path to understanding artificial minds.
+        </p>
+      </div>
+
+      <!-- Navigation Section -->
+      <div class="space-y-4">
+        <h3
+          class="text-primary font-medium mb-4 text-sm lg:text-base uppercase tracking-wider font-mono"
+        >
+          Navigation
+        </h3>
+        <nav class="flex flex-col space-y-3">
+          {
+            navigationLinks.map((link) => (
+              <a
+                href={link.href}
+                class="footer-nav-link group flex items-center text-secondary hover:text-interactive-blue transition-theme text-sm lg:text-base"
+              >
+                <span class="relative">
+                  {link.label}
+                  <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-interactive-blue transform origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 ml-2 opacity-0 group-hover:opacity-70 group-hover:translate-x-1 transition-all duration-300 ease-out"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+
+      <!-- Connect Section -->
+      <div class="space-y-4">
+        <h3
+          class="text-primary font-medium mb-4 text-sm lg:text-base uppercase tracking-wider font-mono"
+        >
+          Connect
+        </h3>
+        <div class="flex space-x-4">
+          {
+            socialLinks.map((social) => (
+              <a
+                href={social.href}
+                aria-label={social.label}
+                class="footer-social-link group relative inline-flex items-center justify-center w-11 h-11 rounded-xl bg-surface-secondary hover:bg-surface-primary text-secondary hover:text-primary transition-theme focus-ring overflow-hidden"
+              >
+                {/* Background gradient on hover */}
+                <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-interactive-blue/5 to-interactive-gold/5 opacity-0 group-hover:opacity-100 transition-theme" />
+
+                {/* Icon */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  class="relative z-10 transition-transform duration-300 ease-out group-hover:scale-110"
+                >
+                  <path d={social.icon} />
+                </svg>
+
+                {/* Ripple effect on click */}
+                <div class="absolute inset-0 rounded-xl bg-interactive-blue/20 scale-0 transition-transform duration-300 ease-out opacity-0 group-active:scale-100 group-active:opacity-100" />
+              </a>
+            ))
+          }
+        </div>
+
+        <!-- Additional contact info -->
+        <div class="pt-4 border-t border-subtle">
+          <p class="text-tertiary text-xs lg:text-sm font-mono">
+            <span class="opacity-60">Built with</span>
+            <span class="text-interactive-blue mx-1">Astro</span>
+            <span class="opacity-60">&</span>
+            <span class="text-interactive-gold mx-1">Tailwind</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright Section -->
+    <div
+      class="mt-12 pt-8 border-t border-subtle flex justify-center items-center"
+    >
+      <p class="text-tertiary text-xs lg:text-sm font-mono text-center">
+        <span class="opacity-60">©</span>
+        <time class="tabular-nums mx-1">{new Date().getFullYear()}</time>
+        <span class="opacity-60">Luis Miguel Montoya. All rights reserved.</span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* Enhanced footer-specific animations */
+  .footer-brand {
+    cursor: default;
+  }
+
+  .footer-nav-link {
+    position: relative;
+  }
+
+  .footer-social-link:hover {
+    transform: translateY(-1px);
+  }
+
+  .footer-social-link:active {
+    transform: translateY(0);
+  }
+
+  /* Ensure proper spacing for footer height calculation */
+  footer {
+    --footer-height-sm: 12rem;
+    --footer-height-lg: 14rem;
+  }
+
+  @media (min-width: 1024px) {
+    footer {
+      --footer-height-sm: var(--footer-height-lg);
+    }
+  }
+
+  /* Enhanced gradient animation */
+  .gradient-brand {
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease-in-out infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+</style>

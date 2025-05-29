@@ -5,6 +5,17 @@
 /* Configure dark mode to use class-based switching */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* === LAYOUT CUSTOM PROPERTIES === */
+/* Footer height calculations for main content spacing */
+:root {
+  --footer-height: 12rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --footer-height: 14rem;
+  }
+}
 
 /* Theme layer: design tokens using standard Tailwind approach */
 @import "./theme/colors.css" layer(theme);

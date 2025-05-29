@@ -1,0 +1,112 @@
+---
+// src/pages/index.astro
+// Landing page with simplified hero featuring latest content cards
+
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/ui/Hero.astro";
+import Card from "../../components/ui/Card.astro";
+import Button from "../../components/ui/Button.astro";
+import UpdateCard from "../../components/ui/UpdateCard.astro";
+import UpdatesContainer from "../../components/ui/UpdatesContainer.astro";
+import { formatRelativeDate } from "../../utils/dateUtils";
+
+// Sample data for latest content (one from each section)
+const latestRoadmap = {
+  title: "Mechanistic Interpretability Fundamentals",
+  date: "2024-02-15",
+  tag: "Latest Milestone",
+  description: "Core concepts in circuit analysis and feature visualization.",
+  href: "/roadmap/mech-interp-fundamentals",
+};
+
+const latestProject = {
+  title: "Attention Head Attribution in LLMs",
+  description:
+    "Developed novel metrics for quantifying attention head contributions to factual recall.",
+  tag: "Latest Project",
+  date: "2024-03-15",
+  href: "/projects/attention-attribution",
+};
+
+const latestLiterature = {
+  title: "Mechanistic Interpretability: Current Progress",
+  description:
+    "A comprehensive overview of the state of mechanistic interpretability research.",
+  tag: "Latest Resource",
+  date: "2024-01-10",
+  href: "/literature/mech-interp-survey",
+};
+---
+
+<Layout title="Luis Miguel Montoya — Understand to Align">
+  <Hero>
+    <!-- Vertical stack of latest content cards -->
+    <UpdatesContainer>
+      <!-- Roadmap card -->
+      <UpdateCard
+        title={latestRoadmap.title}
+        date={latestRoadmap.date}
+        tag={latestRoadmap.tag}
+        description={latestRoadmap.description}
+        href={latestRoadmap.href}
+        icon="roadmap"
+        variant="milestone"
+      />
+
+      <!-- Project card -->
+      <UpdateCard
+        title={latestProject.title}
+        date={latestProject.date}
+        tag={latestProject.tag}
+        description={latestProject.description}
+        href={latestProject.href}
+        icon="project"
+        variant="project"
+      />
+
+      <!-- Literature card -->
+      <UpdateCard
+        title={latestLiterature.title}
+        date={latestLiterature.date}
+        tag={latestLiterature.tag}
+        description={latestLiterature.description}
+        href={latestLiterature.href}
+        icon="literature"
+        variant="resource"
+      />
+    </UpdatesContainer>
+  </Hero>
+
+  <!-- Contact CTA -->
+  <section class="py-20 bg-gradient-to-r from-accent/5 to-highlight/5 relative">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-semibold text-primary mb-4">
+        Let's Connect
+      </h2>
+      <p class="text-secondary text-lg mb-8 max-w-2xl mx-auto">
+        Interested in collaborating on AI interpretability research or
+        discussing ideas? I'm always open to connecting with fellow researchers
+        and practitioners.
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Get in Touch
+      </Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .bg-grid-pattern {
+    background-image: linear-gradient(
+        to right,
+        rgba(var(--color-primary), 0.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(var(--color-primary), 0.05) 1px,
+        transparent 1px
+      );
+    background-size: 2rem 2rem;
+  }
+</style>

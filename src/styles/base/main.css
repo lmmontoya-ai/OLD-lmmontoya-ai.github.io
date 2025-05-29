@@ -4,15 +4,18 @@ body {
   background-color: rgb(var(--color-surface-primary));
   color: rgb(var(--color-text-primary));
   transition: background-color 300ms ease, color 300ms ease;
-  /* Subtle texture for depth - increased opacity for light theme */
+  /* Subtle texture for depth - further increased visibility for light theme */
   background-image:
-    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.08) 1px, transparent 1px);
+    linear-gradient(to right, rgb(var(--color-interactive-blue) / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-interactive-blue) / 0.08) 1px, transparent 1px);
   background-size: 3rem 3rem;
+  background-attachment: fixed; /* Makes the background grid static */
 }
 
 html.dark body {
+  /* Increased visibility for dark theme grid using a lighter border color */
   background-image:
-    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.02) 1px, transparent 1px);
+    linear-gradient(to right, rgb(var(--color-border-primary) / 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-primary) / 0.15) 1px, transparent 1px);
+  /* The background-size and background-attachment are inherited from the body rule, no need to repeat */
 }

@@ -5,23 +5,6 @@
 /* Configure dark mode to use class-based switching */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Base body styles with grid background */
-body {
-  background-color: rgb(var(--color-surface-primary));
-  color: rgb(var(--color-text-primary));
-  transition: background-color 300ms ease, color 300ms ease;
-  /* Subtle texture for depth */
-  background-image:
-    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.03) 1px, transparent 1px);
-  background-size: 3rem 3rem;
-}
-
-html.dark body {
-  background-image:
-    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.02) 1px, transparent 1px);
-}
 
 /* Theme layer: design tokens using standard Tailwind approach */
 @import "./theme/colors.css" layer(theme);

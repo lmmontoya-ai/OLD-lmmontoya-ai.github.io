@@ -136,10 +136,7 @@ export const updateCardVariants = cva(
     "focus-ring",
     "bg-surface-secondary/50",
     "backdrop-blur-sm",
-    "border",
-    "border-subtle",
     "hover:translate-x-1",
-    "hover:shadow-themed-sm",
   ],
   {
     variants: {
@@ -147,22 +144,18 @@ export const updateCardVariants = cva(
         milestone: [
           "update-card-milestone",
           "hover-milestone",
-          "hover:border-milestone/30"
         ],
         project: [
           "update-card-project",
           "hover-project",
-          "hover:border-project/30"
         ],
         resource: [
           "update-card-resource",
           "hover-resource",
-          "hover:border-resource/30"
         ],
         literature: [
           "update-card-literature",
           "hover-resource",
-          "hover:border-resource/30"
         ]
       },
     },

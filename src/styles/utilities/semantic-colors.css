@@ -20,7 +20,7 @@
 
 /* === INTERACTIVE TEXT COLORS === */
 @utility text-interactive-blue {
-  color: rgb(var(--color-interactive-blue));
+  color: rgb(var(--color-interactive-blue)) !important;
 }
 
 @utility text-interactive-gold {
@@ -128,8 +128,8 @@
 
 .transition-theme {
   transition-property: color, background-color, border-color, opacity, transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+  transition-timing-function: var(--ease-out-smooth);
+  transition-duration: var(--duration-fast);
 }
 
 .transition-spring {

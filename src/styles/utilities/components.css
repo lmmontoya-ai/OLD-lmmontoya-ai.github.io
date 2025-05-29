@@ -145,3 +145,12 @@
   background-color: rgb(var(--color-accent-resource));
   color: rgb(var(--color-text-primary)); /* Text on green should be light */
 }
+
+/* === CONTAINER SURFACES === */
+.container-background {
+  background-color: rgb(var(--color-surface-secondary) / 0.8); /* 80% opacity for main container */
+}
+
+.container-header-background {
+  background-color: rgb(var(--color-surface-secondary) / 0.1); /* Subtle overlay for container header */
+}

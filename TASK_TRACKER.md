@@ -34,4 +34,4 @@ This document tracks the progress of each PRD task for the Unified Content Syste
 ---
 **Next Task:** Task 2.3: Create Table of Contents Component (`src/components/post/TableOfContents.astro`)
 
-> _Note: Tasks 2.1 and 2.2 complete! ✅ Ready to proceed to Task 2.3: Table of Contents Component._
+> _Note: Tasks 2.1 and 2.2 complete! ✅ Sidebar component fixed and ready. Ready to proceed to Task 2.3: Table of Contents Component._

@@ -132,9 +132,9 @@ const backLink = getBackLink(post);
         Actions
       </h3>
       <div class="space-y-2">
-        {post.data.repository && (
+        {(post.data.project?.links?.github || post.data.github_link) && (
           <a
-            href={post.data.repository}
+            href={post.data.project?.links?.github || post.data.github_link}
             target="_blank"
             rel="noopener noreferrer"
             class="flex items-center gap-2 text-sm text-content-secondary hover:text-content-primary transition-colors"
@@ -145,9 +145,9 @@ const backLink = getBackLink(post);
             View Repository
           </a>
         )}
-        {post.data.demo && (
+        {post.data.project?.links?.demo && (
           <a
-            href={post.data.demo}
+            href={post.data.project.links.demo}
             target="_blank"
             rel="noopener noreferrer"
             class="flex items-center gap-2 text-sm text-content-secondary hover:text-content-primary transition-colors"
@@ -156,6 +156,32 @@ const backLink = getBackLink(post);
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
             </svg>
             Live Demo
+          </a>
+        )}
+        {post.data.project?.links?.paper && (
+          <a
+            href={post.data.project.links.paper}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-2 text-sm text-content-secondary hover:text-content-primary transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            View Paper
+          </a>
+        )}
+        {post.data.project?.links?.website && (
+          <a
+            href={post.data.project.links.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-2 text-sm text-content-secondary hover:text-content-primary transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+            </svg>
+            Visit Website
           </a>
         )}
         <button

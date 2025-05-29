@@ -21,6 +21,8 @@ const postsCollection = defineCollection({
 
     // Optional core fields
     tags: z.array(z.string()).optional(),
+    readingTime: z.number().optional(), // Computed reading time in minutes
+    wordCount: z.number().optional(), // Total word count
 
     // Roadmap-specific fields
     roadmap: z.object({
@@ -112,6 +114,11 @@ export async function computeReadingTime(content: string): Promise<number> {
   const words = content.trim().split(/\s+/).length;
   const minutes = words / 200;
   return Math.ceil(minutes);
+}
+
+// Helper function to compute word count
+export function computeWordCount(content: string): number {
+  return content.trim().split(/\s+/).length;
 }
 
 // Helper function to extract headings from markdown content

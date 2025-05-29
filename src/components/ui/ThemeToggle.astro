@@ -96,8 +96,8 @@
         localStorage.setItem("theme", "dark");
       }
 
-      // Update icon visibility
-      setTimeout(() => this.updateIconVisibility(), 50);
+      // Update icon visibility immediately
+      this.updateIconVisibility();
     }
 
     updateIconVisibility() {
@@ -169,17 +169,18 @@
       opacity 0.3s ease;
   }
 
-  /* Initial state - sun visible in light mode, moon visible in dark mode */
-  :not(.dark) #sun-icon {
+  /* Initial state - ensure icons are properly positioned from the start */
+  #sun-icon {
     transform: rotate(0deg) scale(1);
     opacity: 1;
   }
 
-  :not(.dark) #moon-icon {
+  #moon-icon {
     transform: rotate(-180deg) scale(0);
     opacity: 0;
   }
 
+  /* Dark mode states */
   .dark #sun-icon {
     transform: rotate(180deg) scale(0);
     opacity: 0;

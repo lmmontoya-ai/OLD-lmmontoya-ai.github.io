@@ -28,6 +28,35 @@ const {
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Theme initialization script - must run before body renders to prevent flash -->
+    <script>
+      (function() {
+        // Get theme from localStorage or system preference
+        function getTheme() {
+          if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+            return localStorage.getItem("theme");
+          }
+          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            return "dark";
+          }
+          return "light";
+        }
+
+        // Apply theme immediately
+        const theme = getTheme();
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+
+        // Store in localStorage
+        if (typeof localStorage !== "undefined") {
+          localStorage.setItem("theme", theme || "light");
+        }
+      })();
+    </script>
   </head>
   <body class="bg-surface text-primary transition-theme">
     <!-- Subtle grid overlay for technical aesthetic -->
@@ -155,38 +184,16 @@ const {
     </style>
 
     <script>
-      // Simplified theme toggle using standard Tailwind dark mode approach
-      function initTheme() {
-        // Get theme from localStorage or system preference
-        const getTheme = () => {
-          if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-            return localStorage.getItem("theme");
-          }
-          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            return "dark";
-          }
-          return "light";
-        };
-
-        // Apply theme
-        const theme = getTheme();
+      // Re-apply theme on Astro page transitions
+      document.addEventListener("astro:page-load", function() {
+        // Get theme from localStorage
+        const theme = localStorage.getItem("theme") || "light";
         if (theme === "dark") {
           document.documentElement.classList.add("dark");
         } else {
           document.documentElement.classList.remove("dark");
         }
-
-        // Store in localStorage
-        if (typeof localStorage !== "undefined") {
-          localStorage.setItem("theme", theme ?? "light");
-        }
-      }
-
-      // Initialize theme immediately to prevent flash
-      initTheme();
-
-      // Reinitialize on page transitions (for Astro)
-      document.addEventListener("astro:page-load", initTheme);
+      });
     </script>
   </body>
 </html>

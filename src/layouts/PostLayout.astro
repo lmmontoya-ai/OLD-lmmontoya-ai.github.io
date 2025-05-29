@@ -1,6 +1,7 @@
 ---
 import Layout from './Layout.astro';
 import Sidebar from '../components/post/Sidebar.astro';
+import TableOfContents from '../components/post/TableOfContents.astro';
 import { getRelatedPosts, getBreadcrumbs } from '../utils/content';
 import type { Post } from '../utils/content';
 
@@ -37,11 +38,8 @@ const layoutClasses = {
 
 const contentWidth = layoutClasses[post.data.display?.layout || 'default'];
 
-// Filter to only show h2 and h3 for TOC
-const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
-
 // Show TOC if enabled and there are headings
-const showToc = post.data.display?.showToc !== false && tocHeadings.length > 0;
+const showToc = post.data.display?.showToc !== false && headings.filter(h => h.depth === 2 || h.depth === 3).length > 0;
 
 // Accent color CSS classes
 const accentClasses = {
@@ -249,27 +247,10 @@ const sidebarAccentClass = accentClasses[accentColor];
   <!-- Mobile TOC (Fixed bottom sheet) -->
   {showToc && (
     <div class="lg:hidden fixed bottom-0 left-0 right-0 z-50">
-      <div class="bg-bg-secondary backdrop-blur-lg border-t border-border-primary p-4">
-        <h3 class="text-sm font-mono font-medium text-content-tertiary uppercase tracking-wider mb-3">
-          Contents
-        </h3>
-        <nav>
-          <ul class="flex gap-4 overflow-x-auto">
-            {tocHeadings.map((heading) => (
-              <li class="shrink-0">
-                <a
-                  href={`#${heading.slug}`}
-                  class="block text-sm text-content-secondary hover:text-content-primary transition-colors whitespace-nowrap"
-                  data-toc-link
-                  data-heading-id={heading.slug}
-                >
-                  {heading.text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+      <TableOfContents
+        headings={headings}
+        variant="mobile"
+      />
     </div>
   )}
 </Layout>

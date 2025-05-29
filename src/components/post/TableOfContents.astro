@@ -1,0 +1,172 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+  variant?: 'sidebar' | 'mobile';
+  title?: string;
+  className?: string;
+}
+
+const {
+  headings,
+  variant = 'sidebar',
+  title = variant === 'mobile' ? 'Contents' : 'On this page',
+  className = ''
+} = Astro.props;
+
+// Filter to only show h2 and h3 for TOC
+const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+
+// Don't render if no headings
+if (tocHeadings.length === 0) {
+  return null;
+}
+
+// Variant-specific classes
+const containerClasses = {
+  sidebar: 'bg-bg-secondary/50 backdrop-blur-sm rounded-xl border border-border-secondary p-6',
+  mobile: 'bg-bg-secondary backdrop-blur-lg border-t border-border-primary p-4'
+};
+
+const titleClasses = {
+  sidebar: 'text-sm font-mono font-medium text-content-tertiary uppercase tracking-wider mb-4',
+  mobile: 'text-sm font-mono font-medium text-content-tertiary uppercase tracking-wider mb-3'
+};
+
+const listClasses = {
+  sidebar: 'space-y-2',
+  mobile: 'flex gap-4 overflow-x-auto'
+};
+
+const itemClasses = {
+  sidebar: '',
+  mobile: 'shrink-0'
+};
+
+const linkClasses = {
+  sidebar: 'block text-sm text-content-secondary hover:text-content-primary transition-colors',
+  mobile: 'block text-sm text-content-secondary hover:text-content-primary transition-colors whitespace-nowrap'
+};
+---
+
+<div class={`${containerClasses[variant]} ${className}`}>
+  <h3 class={titleClasses[variant]}>
+    {title}
+  </h3>
+  <nav>
+    <ul class={listClasses[variant]}>
+      {tocHeadings.map((heading) => (
+        <li class={itemClasses[variant]}>
+          <a
+            href={`#${heading.slug}`}
+            class={`${linkClasses[variant]} ${
+              variant === 'sidebar' && heading.depth === 3 ? 'pl-4 text-xs' : ''
+            }`}
+            data-toc-link
+            data-heading-id={heading.slug}
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</div>
+
+<script>
+  // Add smooth scrolling and active state management
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocLinks = document.querySelectorAll('[data-toc-link]');
+    const headings = document.querySelectorAll('h2, h3');
+
+    // Smooth scroll to heading
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('data-heading-id');
+        if (targetId) {
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+
+            // Update URL without triggering scroll
+            history.pushState(null, '', `#${targetId}`);
+          }
+        }
+      });
+    });
+
+    // Intersection Observer for active state
+    let activeId = '';
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          activeId = entry.target.id;
+          updateActiveLink();
+        }
+      });
+    }, {
+      rootMargin: '-20% 0% -60% 0%'
+    });
+
+    // Observe all headings
+    headings.forEach((heading) => {
+      if (heading.id) {
+        observer.observe(heading);
+      }
+    });
+
+    function updateActiveLink() {
+      tocLinks.forEach((link) => {
+        const headingId = link.getAttribute('data-heading-id');
+        const isActive = headingId === activeId;
+
+        if (isActive) {
+          link.classList.add('text-content-primary', 'font-medium');
+          link.classList.remove('text-content-secondary');
+        } else {
+          link.classList.remove('text-content-primary', 'font-medium');
+          link.classList.add('text-content-secondary');
+        }
+      });
+    }
+
+    // Handle initial active state based on URL hash
+    const initialHash = window.location.hash.slice(1);
+    if (initialHash) {
+      activeId = initialHash;
+      updateActiveLink();
+    }
+  });
+</script>
+
+<style>
+  /* Ensure smooth scrolling behavior */
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar for mobile TOC */
+  nav ul::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  nav ul::-webkit-scrollbar-track {
+    background: rgba(var(--color-border-secondary), 0.1);
+    border-radius: 2px;
+  }
+
+  nav ul::-webkit-scrollbar-thumb {
+    background: rgba(var(--color-content-tertiary), 0.3);
+    border-radius: 2px;
+  }
+
+  nav ul::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--color-content-tertiary), 0.5);
+  }
+</style>

@@ -3,6 +3,7 @@
 // Sidebar component for post layout with navigation, search, and TOC
 
 import type { Post } from '../../utils/content';
+import TableOfContents from './TableOfContents.astro';
 
 interface Props {
   post: Post;
@@ -24,9 +25,6 @@ const accentClasses = {
 } as const;
 
 const sidebarAccentClass = accentClasses[accentColor as keyof typeof accentClasses] || accentClasses.blue;
-
-// Filter headings for TOC (depth 2-3)
-const tocHeadings = showToc ? headings.filter(h => h.depth >= 2 && h.depth <= 3) : [];
 
 // Determine back link based on post type
 const getBackLink = (post: Post) => {
@@ -73,30 +71,11 @@ const backLink = getBackLink(post);
     </div>
 
     <!-- Table of Contents -->
-    {tocHeadings.length > 0 && (
-      <div class="bg-bg-secondary/50 backdrop-blur-sm rounded-xl border border-border-secondary p-6">
-        <h3 class="text-sm font-mono font-medium text-content-tertiary uppercase tracking-wider mb-4">
-          On this page
-        </h3>
-        <nav>
-          <ul class="space-y-2">
-            {tocHeadings.map((heading) => (
-              <li>
-                <a
-                  href={`#${heading.slug}`}
-                  class={`block text-sm text-content-secondary hover:text-content-primary transition-colors ${
-                    heading.depth === 3 ? 'pl-4 text-xs' : ''
-                  }`}
-                  data-toc-link
-                  data-heading-id={heading.slug}
-                >
-                  {heading.text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+    {showToc && (
+      <TableOfContents
+        headings={headings}
+        variant="sidebar"
+      />
     )}
 
     <!-- Quick Navigation -->

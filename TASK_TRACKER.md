@@ -9,7 +9,7 @@ This document tracks the progress of each PRD task for the Unified Content Syste
 ## Phase 2 - Layout Components
 - [x] Task 2.1: Create Unified Post Layout (`src/layouts/PostLayout.astro`)
 - [x] Task 2.2: Create Sidebar Component (`src/components/post/Sidebar.astro`)
-- [ ] Task 2.3: Create Table of Contents Component (`src/components/post/TableOfContents.astro`)
+- [x] Task 2.3: Create Table of Contents Component (`src/components/post/TableOfContents.astro`)
 - [ ] Task 2.4: Create Post Header Component (`src/components/post/PostHeader.astro`)
 - [ ] Task 2.5: Create Post Footer Component (`src/components/post/PostFooter.astro`)
 
@@ -32,6 +32,6 @@ This document tracks the progress of each PRD task for the Unified Content Syste
 - [ ] Task 7.1: Create Author Guide (`docs/content-authoring-guide.md`)
 
 ---
-**Next Task:** Task 2.3: Create Table of Contents Component (`src/components/post/TableOfContents.astro`)
+**Next Task:** Task 2.4: Create Post Header Component (`src/components/post/PostHeader.astro`)
 
-> _Note: Tasks 2.1 and 2.2 complete! ✅ Sidebar component fixed and ready. Ready to proceed to Task 2.3: Table of Contents Component._
+> _Note: Task 2.3 complete! ✅ Table of Contents component created with sidebar and mobile variants, active state management, and smooth scrolling. Extracted TOC functionality from both Sidebar and PostLayout into reusable component. Ready to proceed to Task 2.4: Post Header Component._

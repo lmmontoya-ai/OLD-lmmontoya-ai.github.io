@@ -13,7 +13,7 @@
  * Migration Notes:
  *   - Task 4.5.5: Extracted from global.css for modularization.
  *   - Follows Tailwind v4 best practices: @utility, logical properties, and responsive design.
- *   - Only modern, non-legacy utilities included; legacy utilities are in legacy-compat.css.
+ *   - Only modern, non-legacy utilities included; all legacy utilities have been migrated to semantic utilities.
  *
  * Usage/Contribution:
  *   - Use these utilities for all new layout and container styling.

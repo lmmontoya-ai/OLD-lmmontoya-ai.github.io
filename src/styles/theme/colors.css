@@ -1,101 +1,64 @@
 /**
- * Theme Colors
+ * Theme Colors - Semantic Tokens with Standard Dark Mode
  *
- * Core color tokens for the Luis Miguel Montoya portfolio.
- * Uses Tailwind v4 @theme syntax with semantic naming and automatic theme switching.
- *
- * Color Categories:
- * - Brand: Primary brand identity colors
- * - Content: Text and content colors with theme awareness
- * - Background: Surface and layout background colors
- * - Interactive: Button, link, and interactive element colors
- * - Status: State communication colors (success, warning, error)
- * - Border: Border and outline colors
- * - Accent: Component-specific accent colors (UpdateCard variants)
- * - Legacy: Backward compatibility colors
- *
- * @see SEMANTIC_COLORS.md for detailed usage guidelines
+ * Uses Tailwind v4 @theme to define semantic color tokens.
+ * Dark mode overrides are applied via a separate html.dark ruleset.
  */
 
 @theme {
-  /* === CORE BRAND COLORS === */
-  --color-brand-primary: 59 130 246;    /* Blue - main brand color */
-  --color-brand-secondary: 212 175 55;  /* Gold - accent brand color */
+  /* === SEMANTIC COLOR SYSTEM === */
 
-  /* === CONTENT COLORS === */
-  --color-content-primary: 248 250 252;    /* Main text (white in dark, navy in light) */
-  --color-content-secondary: 203 213 225;  /* Secondary text */
-  --color-content-tertiary: 148 163 184;   /* Muted text */
-  --color-content-inverse: 28 42 77;       /* Text for light backgrounds */
+  /* Base color definitions (Light Theme by default) */
+  --color-text-primary: 28 42 77;
+  --color-text-secondary: 51 65 85;
+  --color-text-tertiary: 100 116 139;
 
-  /* === BACKGROUND COLORS === */
-  --color-bg-primary: 15 27 43;           /* Main background */
-  --color-bg-secondary: 30 41 59;         /* Card/surface background */
-  --color-bg-tertiary: 11 20 31;          /* Footer/deeper background */
-  --color-bg-inverse: 248 250 253;        /* Light theme background */
-  --color-bg-inverse-secondary: 255 255 255; /* Light theme cards */
+  --color-surface-primary: 235 235 235; /* Muted off-white, less bright */
+  --color-surface-secondary: 248 248 248; /* Softer white */
+  --color-surface-tertiary: 235 235 235; /* Darker tertiary for better hierarchy */
 
-  /* === INTERACTIVE COLORS === */
-  --color-interactive-primary: 59 130 246;     /* Primary buttons, links */
-  --color-interactive-secondary: 212 175 55;   /* Secondary buttons, highlights */
-  --color-interactive-hover: 77 139 247;       /* Hover states */
-  --color-interactive-focus: 59 130 246;       /* Focus rings */
-  --color-interactive-disabled: 100 116 139;   /* Disabled states */
+  --color-interactive-blue: 77 139 247;
+  --color-interactive-gold: 245 158 11;
+  --color-interactive-gold-contrast: 30 41 59; /* Dark text for gold background */
 
-  /* === STATUS COLORS === */
-  --color-status-success: 34 197 94;      /* Success states, completed items */
-  --color-status-warning: 249 115 22;     /* Warning states, in-progress items */
-  --color-status-error: 239 68 68;        /* Error states */
-  --color-status-info: 59 130 246;        /* Info states */
+  --color-accent-milestone: 245 158 11;
+  --color-accent-project: 37 99 235;
+  --color-accent-resource: 22 163 74;
 
-  /* === BORDER COLORS === */
-  --color-border-primary: 100 116 139;    /* Default borders */
-  --color-border-secondary: 51 65 85;     /* Subtle borders */
-  --color-border-accent: 59 130 246;      /* Accent borders */
-  --color-border-inverse: 228 231 235;    /* Light theme borders */
+  --color-status-success: 22 163 74;
+  --color-status-warning: 234 88 12;
+  --color-status-error: 220 38 38;
 
-  /* === UPDATE CARD ACCENT COLORS === */
-  --color-accent-milestone: 212 175 55;   /* Gold - Matches brand-secondary */
-  --color-accent-project: 59 130 246;     /* Blue - Matches brand-primary */
-  --color-accent-resource: 34 197 94;     /* Green - Matches status-success */
+  --color-border-primary: 200 200 200; /* Darker for better visibility on muted background */
+  --color-border-subtle: 210 210 210; /* More visible on the less bright theme */
 
-  /* Light theme equivalents for UpdateCard accents */
-  --color-accent-milestone-light: 208 124 92; /* Existing highlight-light */
-  --color-accent-project-light: 77 139 247;   /* Existing accent-light */
-  --color-accent-resource-light: 28 141 76;   /* Existing success-light */
+  --color-shadow-rgb: 28 42 77; /* For light theme shadows */
+}
 
-  /* === LEGACY COMPATIBILITY COLORS === */
-  /* These maintain compatibility with existing components */
-  --color-primary: 15 23 42;
-  --color-primary-light: 28 42 77;
-  --color-secondary: 51 65 85;
-  --color-secondary-light: 74 74 74;
-  --color-accent: 59 130 246;
-  --color-accent-light: 77 139 247;
-  --color-highlight: 212 175 55;
-  --color-highlight-light: 208 124 92;
-  --color-surface: 30 41 59;
-  --color-surface-light: 124 111 156;
-  --color-success: 34 197 94;
-  --color-success-light: 28 141 76;
-  --color-progress: 249 115 22;
-  --color-progress-light: 234 88 12;
-  --color-neutral: 148 163 184;
-  --color-neutral-light: 228 231 235;
-  --color-background: 15 27 43;
-  --color-background-light: 248 250 253;
-  --color-text: 248 250 252;
+/* Dark Theme Overrides */
+html.dark {
+  --color-text-primary: 248 250 252;
   --color-text-secondary: 203 213 225;
-  --color-text-light: 28 42 77;
-  --color-text-secondary-light: 74 74 74;
-  --color-border: 100 116 139;
-  --color-border-light: 228 231 235;
-  --color-card: 30 41 59;
-  --color-card-light: 255 255 255;
-  --color-footer: 11 20 31;
-  --color-footer-light: 248 250 253;
-  --color-grid: 255 255 255;
-  --color-grid-light: 228 231 235;
-  --color-hero-gradient-start: 19 38 60;
-  --color-hero-gradient-end: 11 20 31;
+  --color-text-tertiary: 148 163 184;
+
+  --color-surface-primary: 15 27 43;
+  --color-surface-secondary: 30 41 59;
+  --color-surface-tertiary: 11 20 31;
+
+  --color-interactive-blue: 59 130 246;
+  --color-interactive-gold: 212 175 55;
+  --color-interactive-gold-contrast: 30 41 59; /* Dark text for gold background */
+
+  --color-accent-milestone: 212 175 55;
+  --color-accent-project: 59 130 246;
+  --color-accent-resource: 34 197 94;
+
+  --color-status-success: 34 197 94;
+  --color-status-warning: 249 115 22;
+  --color-status-error: 239 68 68;
+
+  --color-border-primary: 100 116 139;
+  --color-border-subtle: 51 65 85;
+
+  --color-shadow-rgb: 0 0 0; /* For dark theme shadows */
 }

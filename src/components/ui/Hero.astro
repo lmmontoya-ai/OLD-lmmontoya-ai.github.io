@@ -21,15 +21,15 @@ const {
   <!-- Background elements -->
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <!-- Subtle gradient overlays -->
-    <div class="absolute inset-0 bg-surface opacity-90"></div>
+    <div class="absolute inset-0 bg-surface-primary opacity-90"></div>
 
     <!-- Abstract shapes representing AI/ML concepts -->
     <div
-      class="absolute top-1/3 right-[15%] w-64 h-64 rounded-full bg-gradient-to-r from-accent/5 to-highlight/10 blur-3xl"
+      class="absolute top-1/3 right-[15%] w-64 h-64 rounded-full bg-gradient-to-r from-interactive-blue/5 to-interactive-gold/10 blur-3xl"
     >
     </div>
     <div
-      class="absolute bottom-1/3 left-[20%] w-72 h-72 rounded-full bg-gradient-to-r from-highlight/5 to-accent/10 blur-3xl"
+      class="absolute bottom-1/3 left-[20%] w-72 h-72 rounded-full bg-gradient-to-r from-interactive-gold/5 to-interactive-blue/10 blur-3xl"
     >
     </div>
 
@@ -81,11 +81,11 @@ const {
       <div class="max-w-2xl lg:max-w-xl">
         <!-- Tagline -->
         <div
-          class="inline-flex items-center mb-6 px-3 py-1 rounded-full bg-accent/5 border border-accent/10 text-accent text-sm font-medium"
+          class="inline-flex items-center mb-6 px-3 py-1 rounded-full text-interactive-gold text-sm font-medium hero-banner animate-hero-banner"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 mr-2"
+            class="h-4 w-4 mr-2 animate-hero-icon"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -103,62 +103,66 @@ const {
 
         <!-- Main heading with gradient -->
         <h1
-          class="text-5xl md:text-6xl xl:text-7xl font-sans font-bold mb-6 leading-[1.1]"
+          class="text-5xl md:text-6xl xl:text-7xl font-sans font-bold mb-6 leading-[1.1] animate-hero-title"
         >
-          <span class="text-themed"
+          <span class="text-primary animate-hero-name-first"
             >Luis Miguel <br class="hidden sm:block" /></span
           >
-          <span class="text-highlight-themed">Montoya</span>
+          <span class="text-interactive-blue animate-hero-name-second">Montoya</span>
         </h1>
 
         <!-- Motto/tagline -->
         <p
-          class="text-xl md:text-2xl text-themed font-normal tracking-[0.02em] mb-4"
+          class="text-xl md:text-2xl text-primary font-medium tracking-[0.02em] mb-4 animate-hero-subtitle"
         >
           {title}
         </p>
 
         <!-- Subtitle -->
-        <p class="text-lg text-themed-secondary mb-8 leading-relaxed font-body">
+        <p class="text-lg text-secondary mb-8 leading-relaxed font-body font-medium animate-hero-description">
           {subtitle}
         </p>
 
-        <!-- Call to action buttons -->
+        <!-- Call to action buttons with modern animations -->
         <div class="flex flex-col sm:flex-row sm:justify-start gap-4 mb-8">
           <!-- Primary button: View Roadmap -->
-          <Button href="/roadmap" variant="primary" size="md" class="group">
-            <span class="relative z-10">View Roadmap</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300 relative z-10"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+          <Button href="/roadmap" variant="roadmap" size="md" class="hero-button-primary group">
+            <span class="relative z-10 flex items-center">
+              View Roadmap
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 ml-2 transition-spring group-hover:translate-x-1 group-hover:scale-110 relative z-10"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
                 stroke-width="2"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-            </svg>
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </span>
           </Button>
 
           <!-- Secondary button: Explore Projects -->
-          <Button href="/projects" variant="secondary" size="md" class="group">
-            <span class="relative z-10">Explore Projects</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300 relative z-10"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+          <Button href="/projects" variant="secondary" size="md" class="hero-button-secondary group">
+            <span class="relative z-10 flex items-center">
+              Explore Projects
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 ml-2 transition-spring group-hover:translate-x-1 group-hover:scale-110 relative z-10"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
                 stroke-width="2"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-            </svg>
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </span>
           </Button>
         </div>
       </div>
@@ -175,3 +179,269 @@ const {
     </div>
   </div>
 </section>
+
+
+
+<style>
+  /* === HERO BUTTON ANIMATIONS === */
+  /* Modern, elegant button animations matching ThemeToggle quality */
+
+  :global(.hero-button-primary) {
+    position: relative;
+    overflow: hidden;
+    transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  :global(.hero-button-primary:hover) {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.25),
+                0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  :global(.hero-button-primary:active) {
+    transform: translateY(-1px) scale(0.98);
+    transition: all 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  :global(.hero-button-secondary) {
+    position: relative;
+    overflow: hidden;
+    transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  :global(.hero-button-secondary:hover) {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(77, 139, 247, 0.2),
+                0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  :global(.hero-button-secondary:active) {
+    transform: translateY(-1px) scale(0.98);
+    transition: all 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Enhanced focus styles for accessibility */
+  :global(.hero-button-primary:focus-visible),
+  :global(.hero-button-secondary:focus-visible) {
+    outline: 2px solid rgb(77, 139, 247);
+    outline-offset: 3px;
+    transform: translateY(-1px);
+  }
+
+  /* Dark theme adjustments */
+  :global(html.dark .hero-button-primary:hover) {
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25),
+                0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  :global(html.dark .hero-button-secondary:hover) {
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2),
+                0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Enhanced icon animations */
+  :global(.hero-button-primary svg),
+  :global(.hero-button-secondary svg) {
+    transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  :global(.hero-button-primary:hover svg),
+  :global(.hero-button-secondary:hover svg) {
+    transform: translateX(4px) scale(1.1);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  }
+
+  /* Button content glow effect on hover */
+  :global(.hero-button-primary:hover span),
+  :global(.hero-button-secondary:hover span) {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  }
+
+  /* Hero banner styling */
+  .hero-banner {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .hero-banner:hover {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.08));
+    border-color: rgba(212, 175, 55, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+  }
+
+  :global(html.dark) .hero-banner {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.03));
+    border-color: rgba(212, 175, 55, 0.15);
+  }
+
+  :global(html.dark) .hero-banner:hover {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.05));
+    border-color: rgba(212, 175, 55, 0.25);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+  }
+
+  /* Smooth entrance animation for buttons */
+  :global(.hero-button-primary),
+  :global(.hero-button-secondary) {
+    animation: slideUpFade 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+  }
+
+  :global(.hero-button-secondary) {
+    animation-delay: 0.5s;
+  }
+
+  @keyframes slideUpFade {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* === HERO TEXT ANIMATIONS === */
+  /* Elegant staggered entrance animations for hero content */
+
+  .animate-hero-banner {
+    animation: heroFadeSlideIn 0.8s cubic-bezier(0.25, 1, 0.5, 0.8) 0.1s both;
+  }
+
+  .animate-hero-icon {
+    animation: heroIconSpin 1.2s cubic-bezier(0.34, 1.56, 0.64, 0.8) 0.3s both;
+  }
+
+  .animate-hero-title {
+    animation: heroTitleReveal 1s cubic-bezier(0.25, 1, 0.5, 0.8) 0.2s both;
+  }
+
+  .animate-hero-name-first {
+    animation: heroNameSlide 0.9s cubic-bezier(0.34, 1.56, 0.64, 0.8) 0.4s both;
+  }
+
+  .animate-hero-name-second {
+    animation: heroNameSlide 0.9s cubic-bezier(0.34, 1.56, 0.64, 0.8) 0.6s both;
+  }
+
+  .animate-hero-subtitle {
+    animation: heroSubtitleFade 0.8s cubic-bezier(0.25, 1, 0.5, 0.8) 0.7s both;
+  }
+
+  .animate-hero-description {
+    animation: heroDescriptionSlide 0.8s cubic-bezier(0.25, 1, 0.5, 0.8) 0.9s both;
+  }
+
+  /* Hero banner entrance with subtle bounce */
+  @keyframes heroFadeSlideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Icon subtle spin with spring easing */
+  @keyframes heroIconSpin {
+    0% {
+      opacity: 0;
+      transform: rotate(-45deg) scale(0.8);
+    }
+    60% {
+      transform: rotate(5deg) scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  /* Title reveal with fade and scale */
+  @keyframes heroTitleReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Name slide with spring bounce */
+  @keyframes heroNameSlide {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px) scale(0.95);
+    }
+    60% {
+      transform: translateX(2px) scale(1.02);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  /* Subtitle fade with subtle movement */
+  @keyframes heroSubtitleFade {
+    0% {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Description slide with gentle easing */
+  @keyframes heroDescriptionSlide {
+    0% {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Enhanced hover states for animated elements */
+  .animate-hero-banner:hover {
+    transform: translateY(-1px) scale(1.02);
+    transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .animate-hero-title:hover .animate-hero-name-second {
+    color: rgb(var(--color-interactive-blue));
+    text-shadow: 0 0 20px rgb(var(--color-interactive-blue) / 0.3);
+    transition: all 300ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Responsive animation adjustments */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-hero-banner,
+    .animate-hero-icon,
+    .animate-hero-title,
+    .animate-hero-name-first,
+    .animate-hero-name-second,
+    .animate-hero-subtitle,
+    .animate-hero-description {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Dark theme glow enhancements */
+  :global(html.dark) .animate-hero-title:hover .animate-hero-name-second {
+    text-shadow: 0 0 25px rgb(var(--color-interactive-blue) / 0.4);
+  }
+</style>

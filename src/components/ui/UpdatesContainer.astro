@@ -1,7 +1,7 @@
 ---
 // src/components/ui/UpdatesContainer.astro
 // Container component for latest updates section
-// Now using pure Tailwind utilities with enhanced floating effects
+// Refactored to use themed utilities for background, shadow, and text.
 
 interface Props {
   title?: string;
@@ -15,7 +15,7 @@ const {
   seeAllText = "See All",
 } = Astro.props;
 
-// Container classes using Tailwind utilities - maximum shadows without movement
+// Container classes using themed utilities
 const containerClasses = [
   "w-full",
   "h-full",
@@ -23,42 +23,37 @@ const containerClasses = [
   "flex-col",
   "rounded-2xl",
   "overflow-hidden",
-  "shadow-2xl",
-  "dark:shadow-xl shadow-2xl-light",
+  "shadow-themed-md", // Use themed shadow
   "transition-all",
-  "duration-spring",
-  "backdrop-blur-overlay",
+  "duration-spring", // Already uses a defined animation property
+  "backdrop-blur-themed", // Use themed backdrop blur
+  "container-background", // Use new themed background utility
 ].join(" ");
 
-// Header classes using Tailwind utilities - removed border
+// Header classes using themed utilities
 const headerClasses = [
   "flex",
   "justify-between",
   "items-center",
   "p-4",
   "px-5",
+  "container-header-background", // Use new themed header background utility
 ].join(" ");
 ---
 
-<div
-  class={containerClasses}
-  style="background: linear-gradient(135deg, rgb(var(--color-card) / 0.4) 0%, rgb(var(--color-card) / 0.2) 100%);"
->
-  <div
-    class={headerClasses}
-    style="background: linear-gradient(135deg, rgb(var(--color-card) / 0.05) 0%, rgb(var(--color-card) / 0.02) 100%);"
-  >
-    <h3 class="font-semibold text-themed text-lg font-sans tracking-tight">
+<div class={containerClasses}>
+  <div class={headerClasses}>
+    <h3 class="font-semibold text-primary text-lg font-sans tracking-tight">
       {title}
     </h3>
     <a
       href={seeAllHref}
-      class="text-themed hover:text-blue-500 text-sm flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 group font-mono font-medium relative"
+      class="text-primary hover:text-interactive-blue text-sm flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-interactive-blue focus-visible:outline-offset-2 group font-mono font-medium relative transition-theme"
     >
       {seeAllText}
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4 ml-1.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-theme-transform ease-out"
+        class="h-4 w-4 ml-1.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-transform duration-300 ease-out"
         viewBox="0 0 20 20"
         fill="currentColor"
       >
@@ -68,7 +63,7 @@ const headerClasses = [
           clip-rule="evenodd"></path>
       </svg>
       <span
-        class="absolute -bottom-1 left-0 w-full h-0.5 bg-blue-500 transform origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"
+        class="absolute -bottom-1 left-0 w-full h-0.5 bg-interactive-blue transform origin-left scale-x-0 transition-underline-themed group-hover:scale-x-100"
       ></span>
     </a>
   </div>

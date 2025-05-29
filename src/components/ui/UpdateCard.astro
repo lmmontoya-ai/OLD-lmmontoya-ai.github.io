@@ -1,4 +1,8 @@
 ---
+// src/components/ui/UpdateCard.astro
+// Example of UpdateCard using the new semantic color system
+// Much more readable than the original!
+
 import { formatRelativeDate } from "../../utils/dateUtils";
 import { iconPaths } from "../../utils/iconPaths";
 import {
@@ -9,10 +13,6 @@ import {
   cn,
   type UpdateCardVariants,
 } from "../../utils/variants";
-
-// src/components/ui/UpdateCard.astro
-// Reusable component for displaying latest update cards with consistent styling
-// Now using class-variance-authority for variant management
 
 interface Props extends UpdateCardVariants {
   title: string;
@@ -35,52 +35,30 @@ const {
   class: className = "",
 } = Astro.props;
 
-// Generate classes using CVA
+// Generate classes using CVA with semantic utilities
 const cardClasses = cn(updateCardVariants({ variant }), className);
 const iconClasses = cn(updateCardIconVariants({ variant }));
 const tagClasses = cn(updateCardTagVariants({ variant }));
 const titleClasses = cn(updateCardTitleVariants({ variant }));
 
-// Define accent color class based on variant for the left border
-const accentColorClass = {
-  milestone: "bg-accent-milestone",
-  project: "bg-accent-project",
-  resource: "bg-accent-resource",
-}[variant || "milestone"];
-
-// Define hover background color class based on variant
-const hoverBgColorClass = {
-  milestone: "bg-accent-milestone-hover",
-  project: "bg-accent-project-hover",
-  resource: "bg-accent-resource-hover",
-}[variant || "milestone"];
+// borderColorClass is no longer needed for the ::before element approach
+// const borderColorClass = {
+//   milestone: "bg-milestone",
+//   project: "bg-project",
+//   resource: "bg-resource",
+// }[variant || "milestone"];
 ---
 
 <a href={href} class={cardClasses}>
-  <!-- Subtle hover background -->
-  <div
-    class={cn(
-      "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200",
-      hoverBgColorClass
-    )}
-  >
-  </div>
-
-  <!-- Left border indicator -->
-  <div
-    class={cn(
-      "absolute left-0 top-0 bottom-0 w-0.5 rounded-r-sm transform scale-y-0 origin-center transition-transform duration-300 ease-out group-hover:scale-y-100",
-      accentColorClass
-    )}
-  >
-  </div>
+  <!-- The ::before pseudo-element from .update-card (components.css) will now handle the left border -->
+  <!-- Removed the div-based left border indicator -->
 
   <div class="flex items-center gap-3 relative z-10">
-    {/* Added relative z-10 to ensure content is above hover background */}
+    <!-- Icon with semantic color -->
     <div class={iconClasses}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class={cn("h-4 w-4")}
+        class="h-4 w-4"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -92,27 +70,27 @@ const hoverBgColorClass = {
     </div>
 
     <div class="min-w-0 flex-1">
+      <!-- Tag with semantic color -->
       <div class={tagClasses}>
-        <span class={cn()}>
-          {tag}
-        </span>
+        <span>{tag}</span>
       </div>
 
+      <!-- Title with semantic color and hover effect -->
       <h4 class={titleClasses}>
-        {/* Title will now correctly inherit hover color via CVA variant */}
         {title}
       </h4>
 
       {
         description && (
-          <p class="text-content-secondary text-sm mb-2 leading-relaxed font-body line-clamp-2">
+          <p class="text-secondary text-sm mb-2 leading-relaxed font-body font-medium line-clamp-2">
             {description}
           </p>
         )
       }
 
+      <!-- Date info with semantic colors -->
       <div
-        class="text-xs text-content-secondary font-mono opacity-75 group-hover:opacity-100 transition-opacity duration-200"
+        class="text-xs text-tertiary font-mono opacity-75 group-hover:opacity-100 transition-theme"
       >
         <time datetime={date} class="tabular-nums font-medium">
           {date}

@@ -1,4 +1,3 @@
-
 /**
  * Component-Specific Utilities
  *
@@ -58,3 +57,335 @@
   transition: transform var(--animation-duration) ease-out;
 }
 /* Component-Specific Utilities: Button, Card, UpdateCard, etc. */
+
+/* === UPDATE CARD ACCENTS === */
+/* Base style for all update cards with elegant spring animations */
+.update-card {
+  position: relative; /* For pseudo-element positioning */
+  padding-left: 12px; /* Create space for the ::before element */
+  min-height: 50px;   /* Ensure card has some height for ::before to span */
+  z-index: 0;         /* Establish a stacking context */
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1); /* Spring animation */
+  overflow: hidden; /* To ensure pseudo-element doesn't overflow card bounds */
+}
+
+.update-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: rgb(var(--color-accent-milestone)); /* Default fallback color */
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1); /* Spring animation */
+  z-index: 1; /* Render above card's direct content */
+  border-radius: 0 2px 2px 0; /* Subtle rounding */
+}
+
+.update-card:hover {
+  transform: translateY(-1px) scale(1.005); /* Reduced movement - only vertical lift and subtle scale */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04); /* Subtle shadow lift */
+}
+
+/* Remove counter-transform as we're using subtle card movement */
+
+.update-card:hover::before {
+  width: 4px; /* Slightly thicker border on hover */
+  /* Glow effect is now handled by specific card type rules */
+}
+
+.update-card:active {
+  transform: translateY(0) scale(1.002); /* Subtle press effect - reduced movement */
+  transition: all 150ms cubic-bezier(0.25, 1, 0.5, 1); /* Faster response on press */
+}
+
+/* Milestone Update Card */
+.update-card-milestone::before {
+  background-color: rgb(var(--color-accent-milestone)) !important;
+}
+
+/* Project Update Card */
+.update-card-project::before {
+  background-color: rgb(var(--color-accent-project)) !important;
+}
+
+/* Resource Update Card */
+.update-card-resource::before {
+  background-color: rgb(var(--color-accent-resource)) !important;
+}
+
+/* Literature Update Card (uses Resource accent color) */
+.update-card-literature::before {
+  background-color: rgb(var(--color-accent-resource)) !important;
+}
+
+/* Hover glow effects for each card type */
+.update-card-milestone:hover::before {
+  box-shadow: 0 0 12px 2px rgb(var(--color-accent-milestone) / 0.4);
+}
+
+.update-card-project:hover::before {
+  box-shadow: 0 0 12px 2px rgb(var(--color-accent-project) / 0.4);
+}
+
+.update-card-resource:hover::before,
+.update-card-literature:hover::before {
+  box-shadow: 0 0 12px 2px rgb(var(--color-accent-resource) / 0.4);
+}
+
+/* === TAG ACCENTS === */
+/* Base styling for tags - apply this along with a color variant */
+.tag-base {
+  display: inline-block;
+  padding: 0.1875rem 0.375rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  border-radius: 0.25rem;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+/* Milestone Tag */
+.tag-milestone {
+  background-color: rgb(var(--color-accent-milestone));
+  color: rgb(var(--color-surface-secondary)); /* Assuming text on gold bg should be dark/light depending on theme */
+}
+
+.dark .tag-milestone {
+ color: rgb(var(--color-text-primary)); /* Text on dark gold should be light */
+}
+
+/* Project Tag */
+.tag-project {
+  background-color: rgb(var(--color-accent-project));
+  color: rgb(var(--color-text-primary)); /* Text on blue should be light */
+}
+
+/* Resource Tag */
+.tag-resource {
+  background-color: rgb(var(--color-accent-resource));
+  color: rgb(var(--color-text-primary)); /* Text on green should be light */
+}
+
+/* === CONTAINER SURFACES === */
+.container-background {
+  background-color: rgb(var(--color-surface-secondary)); /* Pure secondary surface for clear separation */
+  border: 1px solid rgb(var(--color-border-subtle)); /* Subtle border for definition */
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1); /* Spring transition */
+}
+
+.container-background:hover {
+  border-color: rgb(var(--color-border-primary)); /* Slightly more visible border on hover */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); /* Very subtle shadow for depth */
+}
+
+.container-header-background {
+  background-color: rgb(var(--color-surface-tertiary) / 0.5); /* Subtle header distinction */
+  border-bottom: 1px solid rgb(var(--color-border-subtle)); /* Clean separation line */
+}
+
+/* Dark theme adjustments for containers */
+:global(html.dark) .container-background {
+  background-color: rgb(var(--color-surface-secondary));
+  border-color: rgb(var(--color-border-primary));
+}
+
+:global(html.dark) .container-background:hover {
+  border-color: rgb(var(--color-border-primary));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+:global(html.dark) .container-header-background {
+  background-color: rgb(var(--color-surface-tertiary) / 0.3);
+  border-bottom-color: rgb(var(--color-border-primary));
+}
+
+/* === HERO BUTTON ANIMATIONS === */
+/* Modern, elegant button animations matching ThemeToggle quality */
+
+.hero-button-primary {
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-spring);
+}
+
+.hero-button-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(var(--color-interactive-gold), 0.25),
+              0 4px 12px rgba(var(--color-shadow-rgb), 0.15);
+}
+
+.hero-button-primary:active {
+  transform: translateY(-1px) scale(0.98);
+  transition: var(--transition-fast);
+}
+
+.hero-button-secondary {
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-spring);
+}
+
+.hero-button-secondary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(var(--color-interactive-blue), 0.2),
+              0 4px 12px rgba(var(--color-shadow-rgb), 0.15);
+}
+
+.hero-button-secondary:active {
+  transform: translateY(-1px) scale(0.98);
+  transition: var(--transition-fast);
+}
+
+/* Animated gradient backgrounds */
+.hero-button-gradient-roadmap {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgb(var(--color-interactive-gold)) 0%,
+    rgb(var(--color-interactive-gold)) 50%,
+    rgb(var(--color-accent-milestone)) 100%
+  );
+  opacity: 0;
+  transition: var(--transition-spring);
+  z-index: 1;
+}
+
+.hero-button-primary:hover .hero-button-gradient-roadmap {
+  opacity: 0.1;
+  animation: gradientShift 2s ease-in-out infinite alternate;
+}
+
+.hero-button-gradient-secondary {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgb(var(--color-interactive-blue)) 0%,
+    rgb(var(--color-accent-project)) 50%,
+    rgb(var(--color-interactive-blue)) 100%
+  );
+  opacity: 0;
+  transition: var(--transition-spring);
+  z-index: 1;
+}
+
+.hero-button-secondary:hover .hero-button-gradient-secondary {
+  opacity: 0.08;
+  animation: gradientShift 2s ease-in-out infinite alternate;
+}
+
+/* Ripple effect for click feedback */
+.hero-button-ripple {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0);
+  transition: var(--transition-fast);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero-button-primary:active .hero-button-ripple {
+  opacity: 1;
+  transform: scale(1);
+  animation: rippleEffect 0.6s ease-out;
+}
+
+.hero-button-secondary:active .hero-button-ripple {
+  opacity: 1;
+  transform: scale(1);
+  animation: rippleEffect 0.6s ease-out;
+}
+
+/* Enhanced focus styles for accessibility */
+.hero-button-primary:focus-visible,
+.hero-button-secondary:focus-visible {
+  outline: 2px solid rgb(var(--color-interactive-blue));
+  outline-offset: 3px;
+  transform: translateY(-1px);
+}
+
+/* === HERO BUTTON KEYFRAMES === */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    background-position: 100% 50%;
+    filter: hue-rotate(10deg);
+  }
+}
+
+@keyframes rippleEffect {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+/* === ENHANCED UPDATE CARD ANIMATIONS === */
+
+/* Dark theme adjustments for update cards */
+:global(html.dark) .update-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25), 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced focus states for accessibility */
+.update-card:focus-visible {
+  outline: 2px solid rgb(var(--color-interactive-blue));
+  outline-offset: 3px;
+  transform: translateX(3px) translateY(-0.5px);
+}
+
+/* Smooth content animations */
+.update-card .transition-spring {
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Enhanced icon glow effect on hover */
+.update-card:hover svg {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* Subtle text glow on hover for better readability */
+.update-card:hover .text-primary {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Dark theme text glow */
+:global(html.dark) .update-card:hover .text-primary {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+/* Staggered entrance animations for update cards */
+.update-card {
+  animation: slideInFromLeft 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.update-card:nth-child(1) { animation-delay: 0.1s; }
+.update-card:nth-child(2) { animation-delay: 0.2s; }
+.update-card:nth-child(3) { animation-delay: 0.3s; }
+.update-card:nth-child(4) { animation-delay: 0.4s; }
+.update-card:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px) translateY(10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}

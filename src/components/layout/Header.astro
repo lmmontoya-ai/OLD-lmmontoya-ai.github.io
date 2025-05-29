@@ -1,8 +1,7 @@
 ---
 // src/components/layout/Header.astro
-// Site header with navigation, distinctive brand styling and hover effects
+// Header using semantic color utilities - much more readable!
 
-import { Image } from "astro:assets";
 import ThemeToggle from "../ui/ThemeToggle.astro";
 import NavLink from "../ui/NavLink.astro";
 
@@ -12,55 +11,54 @@ const currentPath = Astro.url.pathname;
 
 <header
   id="site-header"
-  class="fixed top-0 start-0 end-0 z-50 transition-theme-all h-14 shadow-lg bg-primary/95 backdrop-blur-lg"
+  class="fixed top-0 left-0 right-0 z-50 h-14 backdrop-blur-lg border-b border-primary transition-theme"
 >
   <!-- Bottom gradient border -->
   <div
-    class="absolute inset-inline-0 -bottom-px h-px bg-gradient-to-r from-transparent via-interactive-primary/40 to-transparent transition-theme-opacity"
-  >
-  </div>
+    class="absolute left-0 right-0 -bottom-px h-px bg-gradient-to-r from-transparent via-interactive-blue/40 to-transparent"
+  ></div>
 
   <div class="container mx-auto px-6 py-2 flex items-center justify-between">
     <!-- Brand/Motto -->
     <a
       href="/"
-      class="font-sans font-semibold text-lg tracking-tight group relative"
+      class="font-sans font-semibold text-lg tracking-tight group relative header-brand"
     >
       <span
-        class="block text-m md:text-m font-bold mt-0.5 font-mono transition-theme group-hover:text-interactive-primary text-highlight-themed"
+        class="block text-sm md:text-sm font-bold mt-0.9 font-mono group-hover:text-interactive-blue transition-spring"
       >
         Understand to Align
       </span>
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center gap-2 h-full">
+    <nav class="hidden md:flex items-center gap-1 h-full">
       <NavLink href="/roadmap" currentPath={currentPath}> Roadmap </NavLink>
 
       <!-- Nav link divider -->
       <div
-        class="inline-block w-px h-4 m-inline-xs opacity-20 transition-theme-opacity bg-gradient-to-b from-transparent via-content-primary to-transparent"
-      >
-      </div>
+        class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-100"
+      ></div>
 
       <NavLink href="/projects" currentPath={currentPath}> Projects </NavLink>
 
       <div
-        class="inline-block w-px h-4 m-inline-xs opacity-20 transition-theme-opacity bg-gradient-to-b from-transparent via-content-primary to-transparent"
-      >
-      </div>
+        class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-50"
+      ></div>
 
       <NavLink href="/literature" currentPath={currentPath}>
         Literature
       </NavLink>
 
       <div
-        class="inline-block w-px h-4 mx-3 opacity-20 transition-theme-opacity bg-gradient-to-b from-transparent via-content-primary to-transparent"
-      >
-      </div>
-
-      <NavLink href="/contact" currentPath={currentPath}> Contact </NavLink>
-
+        class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"
+      ></div>
+      <NavLink href="/contact" currentPath={currentPath}>
+        Contact
+      </NavLink>
+      <div
+        class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"
+      ></div>
       <ThemeToggle />
     </nav>
 
@@ -69,7 +67,7 @@ const currentPath = Astro.url.pathname;
       <ThemeToggle />
       <button
         id="menu-toggle"
-        class="flex items-center justify-center w-10 h-10 rounded-lg text-content-secondary hover:text-interactive-primary transition-theme"
+        class="flex items-center justify-center w-10 h-10 rounded-lg text-secondary hover:text-interactive-blue transition-theme"
         aria-label="Toggle menu"
         aria-expanded="false"
       >
@@ -93,12 +91,12 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile Navigation Drawer -->
   <div
     id="mobile-menu"
-    class="md:hidden fixed inset-0 z-40 transform translate-x-full transition-transform duration-300 ease-in-out pt-20 pb-8 px-6 bg-primary/95 backdrop-blur-lg flex flex-col"
+    class="md:hidden fixed inset-0 z-40 transform translate-x-full transition-transform duration-300 ease-in-out pt-20 pb-8 px-6 bg-surface/95 backdrop-blur-lg flex flex-col"
   >
     <!-- Close button -->
     <button
       id="close-menu"
-      class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full text-content-secondary hover:text-interactive-primary transition-theme"
+      class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full text-secondary hover:text-interactive-blue transition-theme"
       aria-label="Close menu"
     >
       <svg
@@ -124,11 +122,11 @@ const currentPath = Astro.url.pathname;
         class="group"
       >
         <span
-          class="group-hover:text-interactive-primary transition-theme font-medium"
+          class="text-primary group-hover:text-interactive-blue transition-theme font-medium"
           >Roadmap</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-interactive-primary/10 flex items-center justify-center text-interactive-primary opacity-75 group-hover:opacity-100 transition-theme-opacity"
+          class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -153,11 +151,11 @@ const currentPath = Astro.url.pathname;
         class="group"
       >
         <span
-          class="group-hover:text-interactive-primary transition-theme font-medium"
+          class="text-primary group-hover:text-interactive-blue transition-theme font-medium"
           >Projects</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-interactive-primary/10 flex items-center justify-center text-interactive-primary opacity-75 group-hover:opacity-100 transition-theme-opacity"
+          class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -182,11 +180,11 @@ const currentPath = Astro.url.pathname;
         class="group"
       >
         <span
-          class="group-hover:text-interactive-primary transition-theme font-medium"
+          class="text-primary group-hover:text-interactive-blue transition-theme font-medium"
           >Literature</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-interactive-primary/10 flex items-center justify-center text-interactive-primary opacity-75 group-hover:opacity-100 transition-theme-opacity"
+          class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -211,11 +209,11 @@ const currentPath = Astro.url.pathname;
         class="group"
       >
         <span
-          class="group-hover:text-interactive-primary transition-theme font-medium"
+          class="text-primary group-hover:text-interactive-blue transition-theme font-medium"
           >Contact</span
         >
         <div
-          class="w-6 h-6 rounded-full bg-interactive-primary/10 flex items-center justify-center text-interactive-primary opacity-75 group-hover:opacity-100 transition-theme-opacity"
+          class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -236,7 +234,7 @@ const currentPath = Astro.url.pathname;
       <div class="mt-auto w-full text-center">
         <a
           href="/projects"
-          class="inline-flex items-center justify-center w-full py-3 px-6 rounded-lg font-mono font-medium text-sm bg-gradient-to-r from-interactive-primary to-interactive-secondary text-white transform transition-theme-transform hover:scale-105"
+          class="inline-flex items-center justify-center w-full py-3 px-6 rounded-lg font-mono font-medium text-sm bg-gradient-primary text-white transform transition-theme hover:scale-105"
         >
           View All Projects
           <svg
@@ -259,15 +257,15 @@ const currentPath = Astro.url.pathname;
     <!-- Brand in mobile menu -->
     <div class="mt-12 text-center">
       <div
-        class="text-content-secondary font-sans font-semibold text-lg tracking-tight opacity-80"
+        class="text-secondary font-sans font-semibold text-lg tracking-tight opacity-80"
       >
         <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-interactive-primary to-interactive-secondary inline-block"
+          class="text-transparent bg-clip-text bg-gradient-primary inline-block"
         >
           Luis Miguel Montoya
         </span>
         <span
-          class="block text-sm font-normal mt-1 font-mono text-interactive-secondary"
+          class="block text-sm font-normal mt-1 font-mono text-interactive-gold"
         >
           Understand to Align
         </span>
@@ -306,4 +304,10 @@ const currentPath = Astro.url.pathname;
       }
     });
   </script>
+
+  <style>
+    .header-brand:hover {
+      color: rgb(77, 139, 247) !important;
+    }
+  </style>
 </header>

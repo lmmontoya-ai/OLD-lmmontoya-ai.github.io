@@ -1,6 +1,5 @@
 // src/utils/variants.ts
-// Component variant utilities using class-variance-authority
-// Centralizes variant logic and removes conditional class logic from components
+// Semantic component variants using custom color tokens
 
 import { cva, type VariantProps } from "class-variance-authority";
 import { clsx, type ClassValue } from "clsx";
@@ -10,75 +9,71 @@ export function cn(...inputs: ClassValue[]) {
   return clsx(inputs);
 }
 
-// Button component variants - Updated for Tailwind v4
+// Button component variants - Using semantic color utilities
 export const buttonVariants = cva(
-  // Base classes - common to all button variants
   [
     "inline-flex",
     "items-center",
     "justify-center",
     "font-semibold",
-    "font-heading",
     "tracking-tight",
     "relative",
     "overflow-hidden",
-    "transition-spring", // Using modern transition utility
-    "focus:outline-none",
-    "focus-visible:ring-3", // v4 requires explicit ring width
-    "focus-visible:ring-offset-2",
-    "focus-ring", // Using modern focus ring utility
+    "transition-theme",
+    "focus-ring",
+    "disabled:opacity-50",
+    "disabled:pointer-events-none",
   ],
   {
     variants: {
       variant: {
         primary: [
-          // Background and text (background set via inline style for CSS variable)
-          "text-content-inverse", // Using semantic color utility
+          "bg-interactive-blue",
+          "text-white",
           "border",
           "border-transparent",
-          "shadow-xs", // v4 shadow naming (shadow-sm → shadow-xs)
-          "focus-visible:ring-amber-500",
-          // Hover effects
-          "hover-lift", // Using modern hover utility
-          "hover:brightness-105",
-          "hover:shadow-lg", // v4 shadow naming
-          // Active state
-          "active:-translate-y-px",
-          "active:transition-all",
-          "active:duration-100",
+          "shadow-themed-sm",
+          "transition-spring",
+          "hover:shadow-themed-md",
+          "focus-ring",
         ],
         secondary: [
-          // Background and text
           "bg-transparent",
-          "text-content-primary", // Using semantic color utility
+          "text-primary",
           "border-2",
-          "border-content-primary/50", // Using semantic color with opacity
-          "backdrop-blur-xs", // v4 backdrop naming (sm → xs)
-          "focus-visible:ring-blue-500",
-          // Hover effects
-          "hover:text-interactive-primary", // Using semantic color utility
-          "hover:border-interactive-primary", // Using semantic color utility
-          "hover:bg-interactive-primary/5",
-          "hover:-translate-y-px",
-          "hover:shadow-sm", // v4 shadow naming (shadow-themed-md → shadow-sm)
+          "border-primary",
+          "backdrop-blur-sm",
+          "hover:text-interactive-blue",
+          "hover:border-interactive-blue",
+          "hover:bg-interactive-blue/5",
+          "transition-spring",
+          "hover:shadow-themed-sm",
+          "focus-ring",
         ],
         outline: [
-          // Background and text
           "bg-transparent",
-          "text-content-secondary", // Using semantic color utility
+          "text-secondary",
           "border",
-          "border-border-primary/20", // Using semantic color utility
-          "focus-visible:ring-blue-500",
-          // Hover effects
-          "hover:border-interactive-primary/30", // Using semantic color utility
-          "hover:text-content-primary", // Using semantic color utility
-          "hover:-translate-y-px",
+          "border-subtle",
+          "hover:border-interactive-blue",
+          "hover:text-primary",
+          "transition-spring",
+          "focus-ring",
+        ],
+        roadmap: [
+          "border",
+          "border-transparent",
+          "shadow-themed-sm",
+          "transition-spring",
+          "hover:shadow-themed-md",
+          "font-semibold",
+          "focus-ring",
         ],
       },
       size: {
-        sm: ["text-sm", "px-3", "py-1.5", "rounded-sm"], // v4 border radius (rounded-lg → rounded-sm)
-        md: ["px-4", "py-2", "rounded-sm"], // v4 border radius (rounded-lg → rounded-sm)
-        lg: ["text-lg", "px-6", "py-3", "rounded-lg"], // v4 border radius (rounded-xl → rounded-lg)
+        sm: ["text-sm", "px-3", "py-1.5", "rounded-md"],
+        md: ["px-4", "py-2", "rounded-lg"],
+        lg: ["text-lg", "px-6", "py-3", "rounded-lg"],
       },
       fullWidth: {
         true: "w-full",
@@ -98,22 +93,18 @@ export const buttonVariants = cva(
   }
 );
 
-// Card component variants
+// Card component variants - Using semantic utilities
 export const cardVariants = cva(
-  // Base classes - common to all card variants
   [
     "relative",
     "overflow-hidden",
     "rounded-2xl",
     "transition-spring",
-    // Background and backdrop
-    "bg-secondary/80",
-    "backdrop-blur-lg",
-    // Border and shadow
+    "bg-surface-secondary",
+    "backdrop-blur-sm",
     "border",
     "border-primary",
-    "shadow-sm",
-    // Padding
+    "shadow-themed-sm",
     "p-8",
     "lg:p-10",
   ],
@@ -122,14 +113,15 @@ export const cardVariants = cva(
       interactive: {
         true: [
           "group",
-          "hover-lift",
-          "hover:shadow-xl",
-          "hover:border-interactive-primary/20",
+          "hover:-translate-y-1",
+          "hover:shadow-themed-lg",
+          "hover:border-interactive-blue/20",
+          "cursor-pointer",
         ],
         false: "",
       },
       featured: {
-        true: ["border-l-4", "border-l-interactive-primary"],
+        true: ["border-l-4", "border-l-interactive-blue"],
         false: "",
       },
     },
@@ -140,30 +132,41 @@ export const cardVariants = cva(
   }
 );
 
-// UpdateCard component variants
+// UpdateCard component variants - Using semantic utilities with enhanced spring animations
 export const updateCardVariants = cva(
-  // Base classes - common to all update card variants
   [
+    "update-card",
     "relative",
     "block",
     "group",
     "p-4",
     "px-5",
-    "rounded-lg",         // v4: rounded-xl to rounded-lg
-    "m-px",
-    "transition-spring",   // Changed from transition-theme for smoother movement
-    "focus-ring",         // Using modern focus-ring utility
-    // Hover effects
-    "hover:translate-x-1",
-    "bg-secondary/80", // Matching background from the image provided by user
-    "backdrop-blur-md" // Adding blur consistent with the image
+    "rounded-lg",
+    "transition-spring", // Using spring transition for smooth animations
+    "focus-ring",
+    "bg-surface-secondary/50",
+    "backdrop-blur-sm",
+    // Removed hover:translate-x-1 to prevent text movement - movement is handled by CSS transform
   ],
   {
     variants: {
       variant: {
-        milestone: "hover:bg-accent-milestone-hover", // Use new theme-aware hover utility
-        project: "hover:bg-accent-project-hover",   // Use new theme-aware hover utility
-        resource: "hover:bg-accent-resource-hover",  // Use new theme-aware hover utility
+        milestone: [
+          "update-card-milestone",
+          "hover-milestone",
+        ],
+        project: [
+          "update-card-project",
+          "hover-project",
+        ],
+        resource: [
+          "update-card-resource",
+          "hover-resource",
+        ],
+        literature: [
+          "update-card-literature",
+          "hover-resource",
+        ]
       },
     },
     defaultVariants: {
@@ -172,9 +175,8 @@ export const updateCardVariants = cva(
   }
 );
 
-// Icon container variants for UpdateCard
+// Icon variants for UpdateCard - Using semantic utilities with enhanced animations
 export const updateCardIconVariants = cva(
-  // Base classes for icon containers
   [
     "flex",
     "items-center",
@@ -182,15 +184,17 @@ export const updateCardIconVariants = cva(
     "w-9",
     "h-9",
     "flex-shrink-0",
-    "relative",
-    "transition-theme", // Using modern transition utility
+    "transition-spring", // Spring animation for smooth icon interactions
+    "group-hover:scale-110", // Subtle scale on hover
+    "group-hover:rotate-3", // Slight rotation for playfulness
   ],
   {
     variants: {
       variant: {
-        milestone: "text-accent-milestone", // Use new theme-aware text utility
-        project: "text-accent-project",     // Use new theme-aware text utility
-        resource: "text-accent-resource",  // Use new theme-aware text utility
+        milestone: ["text-milestone"],
+        project: ["text-project"],
+        resource: ["text-resource"],
+        literature: ["text-resource"],
       },
     },
     defaultVariants: {
@@ -199,25 +203,25 @@ export const updateCardIconVariants = cva(
   }
 );
 
-// Tag variants for UpdateCard
+// Tag variants for UpdateCard - Using semantic utilities
 export const updateCardTagVariants = cva(
-  // Base classes for tags
   [
     "font-mono",
-    "text-caption",
+    "text-xs",
     "font-medium",
     "tracking-wide",
     "uppercase",
     "inline-block",
     "mb-1.5",
-    "transition-theme", // Using modern transition utility
+    "transition-theme",
   ],
   {
     variants: {
       variant: {
-        milestone: "text-accent-milestone", // Use new theme-aware text utility
-        project: "text-accent-project",     // Use new theme-aware text utility
-        resource: "text-accent-resource",  // Use new theme-aware text utility
+        milestone: ["text-milestone"],
+        project: ["text-project"],
+        resource: ["text-resource"],
+        literature: ["text-resource"],
       },
     },
     defaultVariants: {
@@ -226,23 +230,25 @@ export const updateCardTagVariants = cva(
   }
 );
 
-// Title hover variants for UpdateCard
+// Title variants for UpdateCard - Using semantic utilities with enhanced hover effects
 export const updateCardTitleVariants = cva(
-  // Base classes for titles
   [
     "font-semibold",
     "mb-1.5",
     "font-sans",
     "leading-tight",
     "text-base",
-    "transition-theme" // Added transition for title color change
+    "text-primary",
+    "transition-spring", // Spring transition for smooth color changes
+    "group-hover:translate-x-1", // Subtle slide on hover
   ],
   {
     variants: {
       variant: {
-        milestone: "text-accent-milestone group-hover:brightness-110", // Use new theme-aware text utility
-        project: "text-accent-project group-hover:brightness-110",     // Use new theme-aware text utility
-        resource: "text-accent-resource group-hover:brightness-110",  // Use new theme-aware text utility
+        milestone: ["group-hover:text-milestone"],
+        project: ["group-hover:text-project"],
+        resource: ["group-hover:text-resource"],
+        literature: ["group-hover:text-resource"],
       },
     },
     defaultVariants: {
@@ -255,10 +261,6 @@ export const updateCardTitleVariants = cva(
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
 export type CardVariants = VariantProps<typeof cardVariants>;
 export type UpdateCardVariants = VariantProps<typeof updateCardVariants>;
-export type UpdateCardIconVariants = VariantProps<
-  typeof updateCardIconVariants
->;
+export type UpdateCardIconVariants = VariantProps<typeof updateCardIconVariants>;
 export type UpdateCardTagVariants = VariantProps<typeof updateCardTagVariants>;
-export type UpdateCardTitleVariants = VariantProps<
-  typeof updateCardTitleVariants
->;
+export type UpdateCardTitleVariants = VariantProps<typeof updateCardTitleVariants>;

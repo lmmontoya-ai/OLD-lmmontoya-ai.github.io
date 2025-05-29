@@ -146,7 +146,7 @@ export const updateCardVariants = cva(
     "focus-ring",
     "bg-surface-secondary/50",
     "backdrop-blur-sm",
-    "hover:translate-x-1", // This will be overridden by the CSS, but kept for fallback
+    // Removed hover:translate-x-1 to prevent text movement - movement is handled by CSS transform
   ],
   {
     variants: {

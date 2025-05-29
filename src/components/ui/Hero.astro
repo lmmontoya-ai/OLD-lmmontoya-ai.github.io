@@ -81,11 +81,11 @@ const {
       <div class="max-w-2xl lg:max-w-xl">
         <!-- Tagline -->
         <div
-          class="inline-flex items-center mb-6 px-3 py-1 rounded-full text-interactive-gold text-sm font-medium hero-banner"
+          class="inline-flex items-center mb-6 px-3 py-1 rounded-full text-interactive-gold text-sm font-medium hero-banner animate-hero-banner"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 mr-2"
+            class="h-4 w-4 mr-2 animate-hero-icon"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -103,23 +103,23 @@ const {
 
         <!-- Main heading with gradient -->
         <h1
-          class="text-5xl md:text-6xl xl:text-7xl font-sans font-bold mb-6 leading-[1.1]"
+          class="text-5xl md:text-6xl xl:text-7xl font-sans font-bold mb-6 leading-[1.1] animate-hero-title"
         >
-          <span class="text-primary"
+          <span class="text-primary animate-hero-name-first"
             >Luis Miguel <br class="hidden sm:block" /></span
           >
-          <span class="text-interactive-blue">Montoya</span>
+          <span class="text-interactive-blue animate-hero-name-second">Montoya</span>
         </h1>
 
         <!-- Motto/tagline -->
         <p
-          class="text-xl md:text-2xl text-primary font-medium tracking-[0.02em] mb-4"
+          class="text-xl md:text-2xl text-primary font-medium tracking-[0.02em] mb-4 animate-hero-subtitle"
         >
           {title}
         </p>
 
         <!-- Subtitle -->
-        <p class="text-lg text-secondary mb-8 leading-relaxed font-body font-medium">
+        <p class="text-lg text-secondary mb-8 leading-relaxed font-body font-medium animate-hero-description">
           {subtitle}
         </p>
 
@@ -302,5 +302,146 @@ const {
       opacity: 1;
       transform: translateY(0) scale(1);
     }
+  }
+
+  /* === HERO TEXT ANIMATIONS === */
+  /* Elegant staggered entrance animations for hero content */
+
+  .animate-hero-banner {
+    animation: heroFadeSlideIn 0.8s cubic-bezier(0.25, 1, 0.5, 0.8) 0.1s both;
+  }
+
+  .animate-hero-icon {
+    animation: heroIconSpin 1.2s cubic-bezier(0.34, 1.56, 0.64, 0.8) 0.3s both;
+  }
+
+  .animate-hero-title {
+    animation: heroTitleReveal 1s cubic-bezier(0.25, 1, 0.5, 0.8) 0.2s both;
+  }
+
+  .animate-hero-name-first {
+    animation: heroNameSlide 0.9s cubic-bezier(0.34, 1.56, 0.64, 0.8) 0.4s both;
+  }
+
+  .animate-hero-name-second {
+    animation: heroNameSlide 0.9s cubic-bezier(0.34, 1.56, 0.64, 0.8) 0.6s both;
+  }
+
+  .animate-hero-subtitle {
+    animation: heroSubtitleFade 0.8s cubic-bezier(0.25, 1, 0.5, 0.8) 0.7s both;
+  }
+
+  .animate-hero-description {
+    animation: heroDescriptionSlide 0.8s cubic-bezier(0.25, 1, 0.5, 0.8) 0.9s both;
+  }
+
+  /* Hero banner entrance with subtle bounce */
+  @keyframes heroFadeSlideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Icon subtle spin with spring easing */
+  @keyframes heroIconSpin {
+    0% {
+      opacity: 0;
+      transform: rotate(-45deg) scale(0.8);
+    }
+    60% {
+      transform: rotate(5deg) scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  /* Title reveal with fade and scale */
+  @keyframes heroTitleReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Name slide with spring bounce */
+  @keyframes heroNameSlide {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px) scale(0.95);
+    }
+    60% {
+      transform: translateX(2px) scale(1.02);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  /* Subtitle fade with subtle movement */
+  @keyframes heroSubtitleFade {
+    0% {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Description slide with gentle easing */
+  @keyframes heroDescriptionSlide {
+    0% {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Enhanced hover states for animated elements */
+  .animate-hero-banner:hover {
+    transform: translateY(-1px) scale(1.02);
+    transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .animate-hero-title:hover .animate-hero-name-second {
+    color: rgb(var(--color-interactive-blue));
+    text-shadow: 0 0 20px rgb(var(--color-interactive-blue) / 0.3);
+    transition: all 300ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Responsive animation adjustments */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-hero-banner,
+    .animate-hero-icon,
+    .animate-hero-title,
+    .animate-hero-name-first,
+    .animate-hero-name-second,
+    .animate-hero-subtitle,
+    .animate-hero-description {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Dark theme glow enhancements */
+  :global(html.dark) .animate-hero-title:hover .animate-hero-name-second {
+    text-shadow: 0 0 25px rgb(var(--color-interactive-blue) / 0.4);
   }
 </style>

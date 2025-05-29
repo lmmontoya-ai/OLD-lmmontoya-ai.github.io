@@ -2,6 +2,7 @@
 import Layout from './Layout.astro';
 import Sidebar from '../components/post/Sidebar.astro';
 import TableOfContents from '../components/post/TableOfContents.astro';
+import PostHeader from '../components/post/PostHeader.astro';
 import { getRelatedPosts, getBreadcrumbs } from '../utils/content';
 import type { Post } from '../utils/content';
 
@@ -99,70 +100,11 @@ const sidebarAccentClass = accentClasses[accentColor];
 
           <!-- Main content area -->
           <main class={`flex-1 min-w-0 ${contentWidth} mx-auto`}>
-            <!-- Post Header -->
-            <header class="mb-12">
-              <!-- Type badges -->
-              <div class="flex flex-wrap gap-2 mb-6">
-                {post.data.types.map((type) => (
-                  <span class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium capitalize ${accentClasses[accentColor]} bg-current/10 text-current border border-current/20`}>
-                    {type}
-                  </span>
-                ))}
-
-                {post.data.status === 'in-progress' && (
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-status-warning/10 text-status-warning border border-status-warning/20">
-                    <div class="w-1.5 h-1.5 rounded-full bg-current animate-pulse"></div>
-                    In Progress
-                  </span>
-                )}
-              </div>
-
-              <!-- Title -->
-              <h1 class="text-4xl md:text-5xl font-sans font-bold text-content-primary leading-tight mb-4">
-                {post.data.title}
-              </h1>
-
-              <!-- Excerpt -->
-              <p class="text-xl text-content-secondary leading-relaxed mb-6">
-                {post.data.excerpt}
-              </p>
-
-              <!-- Metadata bar -->
-              <div class="flex flex-wrap items-center gap-4 text-sm text-content-tertiary font-mono">
-                <time datetime={post.data.date.toISOString()} class="flex items-center gap-1.5">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                  </svg>
-                  <span class="opacity-80">{post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                </time>
-
-                {post.data.readingTime && (
-                  <>
-                    <span class="opacity-60">•</span>
-                    <span class="opacity-80">{post.data.readingTime} min read</span>
-                  </>
-                )}
-
-                {post.data.wordCount && (
-                  <>
-                    <span class="opacity-60">•</span>
-                    <span class="opacity-80">{post.data.wordCount.toLocaleString()} words</span>
-                  </>
-                )}
-              </div>
-
-              <!-- Hero image -->
-              {post.data.media?.hero && (
-                <div class="mt-8 -mx-6 md:-mx-12 lg:-mx-16">
-                  <img
-                    src={post.data.media.hero}
-                    alt={post.data.title}
-                    class="w-full h-64 md:h-80 lg:h-96 object-cover rounded-lg"
-                    loading="eager"
-                  />
-                </div>
-              )}
-            </header>
+            <!-- Post Header Component -->
+            <PostHeader
+              post={post}
+              accentColor={accentColor}
+            />
 
             <!-- Article content -->
             <article class="prose prose-lg max-w-none prose-headings:text-content-primary prose-p:text-content-secondary prose-a:text-brand-primary prose-strong:text-content-primary prose-code:text-content-primary prose-pre:bg-bg-secondary prose-pre:border prose-pre:border-border-secondary">

@@ -1,7 +1,7 @@
 ---
 // src/components/ui/Button.astro
-// Reusable button component with primary/secondary variants and consistent styling
-// Now using class-variance-authority for variant management
+// Example of Button using the new semantic color system
+// Much cleaner and more readable!
 
 import { buttonVariants, cn, type ButtonVariants } from "../../utils/variants";
 
@@ -23,7 +23,7 @@ const {
   type = "button",
 } = Astro.props;
 
-// Generate classes using CVA
+// Generate classes using CVA with semantic utilities
 const classes = cn(
   buttonVariants({ variant, size, fullWidth, rounded }),
   className
@@ -42,24 +42,47 @@ const isPrimary = variant === "primary";
   aria-label={ariaLabel}
   type={!href ? type : undefined}
   {...href ? { target: href.startsWith("http") ? "_blank" : undefined } : {}}
-  {...href
-    ? { rel: href.startsWith("http") ? "noopener noreferrer" : undefined }
-    : {}}
+  {...href ? { rel: href.startsWith("http") ? "noopener noreferrer" : undefined } : {}}
 >
   {isPrimary && (
-    <!-- Theme-aware background for primary buttons using modern CSS variables -->
-    <div class="absolute inset-0 bg-interactive-secondary"></div>
+    <!-- Theme-aware background using semantic color -->
+    <div class="absolute inset-0 bg-interactive-blue"></div>
   )}
+
   {isPrimary && (
-    <!-- Hover glow effect for primary buttons using modern utilities -->
+    <!-- Hover glow effect using semantic colors -->
     <div
-      class="absolute inset-0 transition-spring opacity-0 hover:opacity-100 hover-glow"
-      style="box-shadow: var(--shadow-glow-highlight), var(--shadow-lg);"
+      class="absolute inset-0 transition-spring opacity-0 hover:opacity-100"
+      style="box-shadow: 0 0 20px rgb(var(--color-interactive-blue) / 0.3), 0 4px 8px rgba(0, 0, 0, 0.1);"
     ></div>
   )}
 
-  <!-- Button content - Added flex and items-center to keep text and icons on same line -->
+  <!-- Button content -->
   <span class="relative z-10 flex items-center">
     <slot />
   </span>
 </Element>
+
+<!--
+Usage Examples:
+
+Primary Button:
+<Button variant="primary" size="md">
+  Submit Form
+</Button>
+
+Secondary Button:
+<Button variant="secondary" size="lg">
+  Cancel
+</Button>
+
+Link Button:
+<Button href="/projects" variant="outline">
+  View Projects
+</Button>
+
+The semantic classes make it much clearer what each style represents:
+- bg-interactive-blue instead of a hex color
+- text-primary instead of text-content-primary
+- border-primary instead of border-primary/25 with opacity calculations
+-->

@@ -1,25 +1,23 @@
 ---
-// Enhanced ThemeToggle.astro
-// Improved theme toggle with better visual feedback and animations
+// Simplified ThemeToggle.astro using semantic color utilities - much more readable!
 ---
 
 <button
   id="themeToggle"
-  class="relative inline-flex items-center justify-center w-11 h-11 rounded-xl transition-theme-all bg-secondary/50 hover:bg-secondary/80 backdrop-blur-md text-content-secondary hover:text-interactive-primary transform-gpu hover:scale-105 focus-ring group overflow-hidden"
+  class="relative inline-flex items-center justify-center w-11 h-11 rounded-xl bg-surface-secondary hover:bg-surface-tertiary text-secondary hover:text-primary transition-theme focus-ring group overflow-hidden"
   title="Toggle dark/light mode"
   aria-label="Toggle dark/light mode"
 >
   <!-- Background gradient on hover -->
   <div
-    class="absolute inset-0 rounded-xl bg-gradient-to-br from-interactive-primary/5 to-interactive-secondary/5 opacity-0 transition-theme-opacity group-hover:opacity-100"
-  >
-  </div>
+    class="absolute inset-0 rounded-xl bg-gradient-to-br from-interactive-blue/5 to-interactive-gold/5 opacity-0 group-hover:opacity-100 transition-theme"
+  ></div>
 
   <!-- Sun icon for light mode -->
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="sun-icon"
-    class="absolute w-5 h-5 transition-theme-all transform-gpu"
+    class="absolute w-5 h-5 transition-theme"
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -35,7 +33,7 @@
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="moon-icon"
-    class="absolute w-5 h-5 transition-theme-all transform-gpu"
+    class="absolute w-5 h-5 transition-theme"
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -44,22 +42,15 @@
     <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
   </svg>
 
-  <!-- Visual indicator ring -->
-  <div
-    class="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-interactive-primary/20 transition-theme-all"
-  >
-  </div>
-
   <!-- Ripple effect on click -->
   <div
     id="ripple-effect"
-    class="absolute inset-0 rounded-xl bg-interactive-primary/20 scale-0 transition-transform duration-300 ease-out opacity-0"
-  >
-  </div>
+    class="absolute inset-0 rounded-xl bg-interactive-blue/20 scale-0 transition-transform duration-300 ease-out opacity-0"
+  ></div>
 </button>
 
 <script>
-  // Enhanced theme toggle with improved animations and state management
+  // Simplified theme toggle using standard Tailwind dark mode
   class ThemeToggle {
     private button: HTMLElement | null;
     private sunIcon: HTMLElement | null;
@@ -94,31 +85,19 @@
       // Create ripple effect
       this.createRippleEffect();
 
-      // Toggle the theme
+      // Toggle the theme using standard Tailwind approach
       const isDark = document.documentElement.classList.contains("dark");
-      const newTheme = isDark ? "light" : "dark";
 
-      // Add transition class to body for smooth theme transition
-      document.body.style.transition =
-        "background-color 0.3s ease, color 0.3s ease";
-
-      // Update DOM
-      if (newTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
+      if (isDark) {
         document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      } else {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
       }
 
-      // Save to localStorage
-      localStorage.setItem("theme", newTheme);
-
-      // Update icon visibility with animation
+      // Update icon visibility
       setTimeout(() => this.updateIconVisibility(), 50);
-
-      // Remove transition after theme change completes
-      setTimeout(() => {
-        document.body.style.transition = "";
-      }, 300);
     }
 
     updateIconVisibility() {
@@ -165,7 +144,7 @@
     }
   }
 
-  // Initialize theme toggle when DOM is ready
+  // Initialize theme toggle
   function initThemeToggle() {
     new ThemeToggle();
   }
@@ -211,9 +190,9 @@
     opacity: 1;
   }
 
-  /* Button hover effects */
+  /* Button hover effects using semantic colors */
   #themeToggle:hover {
-    box-shadow: 0 4px 12px rgba(var(--color-interactive-primary), 0.15);
+    box-shadow: 0 4px 12px rgb(var(--color-interactive-blue) / 0.15);
   }
 
   .dark #themeToggle:hover {

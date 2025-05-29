@@ -1,22 +1,43 @@
-/* global.css — Tailwind v4 CSS-first configuration */
+/* global.css — Tailwind v4 CSS-first configuration with simplified theming */
 
 @import "tailwindcss";
 
-/* Theme layer: design tokens, colors, typography, spacing, shadows, etc. */
-@import "./theme/index.css" layer(theme);
+/* Configure dark mode to use class-based switching */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Base body styles with grid background */
+body {
+  background-color: rgb(var(--color-surface-primary));
+  color: rgb(var(--color-text-primary));
+  transition: background-color 300ms ease, color 300ms ease;
+  /* Subtle texture for depth */
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.03) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+}
+
+html.dark body {
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.02) 1px, transparent 1px);
+}
+
+/* Theme layer: design tokens using standard Tailwind approach */
+@import "./theme/colors.css" layer(theme);
+@import "./theme/typography.css" layer(theme);
+@import "./theme/spacing.css" layer(theme);
+@import "./theme/shadows.css" layer(theme);
+@import "./theme/animations.css" layer(theme);
 
 /* Base layer: normalize/reset styles */
 @import "./base/reset.css" layer(base);
+@import "./base/main.css" layer(base);
 
-/* Theme-driven animations */
+/* Animation properties and keyframes */
 @import "./animations/properties.css" layer(theme);
-@import "./animations/keyframes.css"   layer(theme);
+@import "./animations/keyframes.css" layer(theme);
 
-/* ————————————————————————————————
-   Custom utilities: keep these imports
-   at the top-level so @utility stays valid
-   ———————————————————————————————— */
+/* Utilities: only essential custom utilities */
 @import "./utilities/semantic-colors.css";
-@import "./utilities/modern-layout.css";
-@import "./utilities/interactive.css";
 @import "./utilities/components.css";

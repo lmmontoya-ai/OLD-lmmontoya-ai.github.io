@@ -1,0 +1,18 @@
+/* src/styles/base/main.css */
+/* Base body styles with grid background */
+body {
+  background-color: rgb(var(--color-surface-primary));
+  color: rgb(var(--color-text-primary));
+  transition: background-color 300ms ease, color 300ms ease;
+  /* Subtle texture for depth - increased opacity for light theme */
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.08) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+}
+
+html.dark body {
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.02) 1px, transparent 1px);
+}

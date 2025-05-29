@@ -1,290 +1,231 @@
-
 /**
- * Semantic Color Utilities
+ * Semantic Color Utilities - Readable & Maintainable
  *
- * Purpose:
- *   Provides theme-aware color utility classes for text, background, and borders using CSS variables.
- *   Ensures consistent color usage across the portfolio, supporting both light and dark themes.
- *
- * Tokens/Variables Used:
- *   - --color-content-primary, --color-content-secondary, --color-content-tertiary
- *   - --color-bg-primary, --color-bg-secondary, --color-bg-tertiary
- *   - --color-interactive-primary, --color-interactive-hover, --color-interactive-focus
- *   - --color-status-success, --color-status-warning, --color-status-error
- *   - --color-border-primary, --color-border-secondary, --color-border-accent
- *   - All tokens defined in theme/colors.css
- *
- * Migration Notes:
- *   - Task 4.5.3: Extracted from global.css as part of Tailwind v4 modularization.
- *   - Follows Tailwind v4 best practices: @utility, no nesting, uses CSS variables for theme switching.
- *   - Modern/semantic utilities only; all legacy/compatibility utilities have been migrated.
- *
- * Usage/Contribution:
- *   - Use these utilities for all new color-related styling in components.
- *   - Do not add legacy or non-semantic utilities here.
- *   - For new tokens, update theme/colors.css and document usage in SEMANTIC_COLORS.md.
- *
- * @see SEMANTIC_COLORS.md for naming and usage guidelines
- * @see theme/colors.css for token definitions
+ * Creates semantic utility classes using custom color tokens.
+ * Theme switching is handled by the definitions in theme/colors.css.
  */
-/**
- * Complete Theme-Aware Semantic Color Utilities
- *
- * This replaces your existing semantic-colors.css with full light/dark theme support.
- * Uses the enhanced color palette to ensure perfect theme switching.
- */
-
-/* ========================================
-   THEME-AWARE SEMANTIC COLOR UTILITIES
-   Complete light/dark theme implementation
-   ======================================== */
 
 /* === TEXT COLOR UTILITIES === */
-
-@utility text-content-primary {
-  color: rgb(var(--color-content-primary));
-  transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-content-primary-light));
-  }
+@utility text-primary {
+  color: rgb(var(--color-text-primary));
 }
 
-@utility text-content-secondary {
-  color: rgb(var(--color-content-secondary));
-  transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-content-secondary-light));
-  }
+@utility text-secondary {
+  color: rgb(var(--color-text-secondary));
 }
 
-@utility text-content-tertiary {
-  color: rgb(var(--color-content-tertiary));
-  transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-content-tertiary-light));
-  }
+@utility text-tertiary {
+  color: rgb(var(--color-text-tertiary));
 }
 
-@utility text-content-inverse {
-  color: rgb(var(--color-content-inverse));
-  transition: color var(--transition-base);
+/* === INTERACTIVE TEXT COLORS === */
+@utility text-interactive-blue {
+  color: rgb(var(--color-interactive-blue));
+}
 
-  :not(.dark) & {
-    color: rgb(var(--color-content-inverse-light));
-  }
+@utility text-interactive-gold {
+  color: rgb(var(--color-interactive-gold));
+}
+
+/* === ACCENT TEXT COLORS === */
+@utility text-milestone {
+  color: rgb(var(--color-accent-milestone));
+}
+
+@utility text-project {
+  color: rgb(var(--color-accent-project));
+}
+
+@utility text-resource {
+  color: rgb(var(--color-accent-resource));
 }
 
 /* === BACKGROUND COLOR UTILITIES === */
-
-@utility bg-primary {
-  background-color: rgb(var(--color-bg-primary));
-  transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-bg-primary-light));
-  }
+@utility bg-surface-primary {
+  background-color: rgb(var(--color-surface-primary));
 }
 
-@utility bg-secondary {
-  background-color: rgb(var(--color-bg-secondary));
-  transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-bg-secondary-light));
-  }
+@utility bg-surface-secondary {
+  background-color: rgb(var(--color-surface-secondary));
 }
 
-@utility bg-tertiary {
-  background-color: rgb(var(--color-bg-tertiary));
-  transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-bg-tertiary-light));
-  }
+@utility bg-surface-tertiary {
+  background-color: rgb(var(--color-surface-tertiary));
 }
 
-@utility bg-surface {
-  background-color: rgb(var(--color-bg-surface));
-  transition: background-color var(--transition-base);
+/* === INTERACTIVE BACKGROUND COLORS === */
+@utility bg-interactive-blue {
+  background-color: rgb(var(--color-interactive-blue));
+}
 
-  :not(.dark) & {
-    background-color: rgb(var(--color-bg-surface-light));
-  }
+@utility bg-interactive-gold {
+  background-color: rgb(var(--color-interactive-gold));
 }
 
 /* === BORDER COLOR UTILITIES === */
-
 @utility border-primary {
-  border-color: rgb(var(--color-border-primary) / 0.25);
-  transition: border-color var(--transition-base);
-
-  :not(.dark) & {
-    border-color: rgb(var(--color-border-primary-light));
-  }
+  border-color: rgb(var(--color-border-primary));
 }
 
-@utility border-secondary {
-  border-color: rgb(var(--color-border-secondary) / 0.3);
-  transition: border-color var(--transition-base);
-
-  :not(.dark) & {
-    border-color: rgb(var(--color-border-secondary-light));
-  }
+@utility border-subtle {
+  border-color: rgb(var(--color-border-subtle));
 }
 
-@utility border-accent {
-  border-color: rgb(var(--color-border-accent));
-  transition: border-color var(--transition-base);
-
-  :not(.dark) & {
-    border-color: rgb(var(--color-border-accent-light));
-  }
+/* === HOVER BACKGROUND UTILITIES === */
+@utility hover-milestone {
+  transition: background-color 300ms ease;
 }
 
-/* === INTERACTIVE COLOR UTILITIES === */
-
-@utility text-interactive-primary {
-  color: rgb(var(--color-interactive-primary));
-  transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-interactive-primary-light));
-  }
+.hover-milestone:hover {
+  background-color: rgb(var(--color-accent-milestone) / 0.1);
 }
 
-@utility text-interactive-secondary {
-  color: rgb(var(--color-interactive-secondary));
-  transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-interactive-secondary-light));
-  }
+@utility hover-project {
+  transition: background-color 300ms ease;
 }
 
-@utility bg-interactive-primary {
-  background-color: rgb(var(--color-interactive-primary));
-  transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-interactive-primary-light));
-  }
+.hover-project:hover {
+  background-color: rgb(var(--color-accent-project) / 0.1);
 }
 
-@utility bg-interactive-secondary {
-  background-color: rgb(var(--color-interactive-secondary));
-  transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-interactive-secondary-light));
-  }
+@utility hover-resource {
+  transition: background-color 300ms ease;
 }
 
-/* === STATUS COLOR UTILITIES === */
-
-@utility text-status-success {
-  color: rgb(var(--color-status-success));
-  transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-status-success-light));
-  }
+.hover-resource:hover {
+  background-color: rgb(var(--color-accent-resource) / 0.1);
 }
 
-@utility text-status-warning {
-  color: rgb(var(--color-status-warning));
-  transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-status-warning-light));
-  }
+/* === ESSENTIAL NON-COLOR UTILITIES === */
+.gradient-hero {
+  background: linear-gradient(135deg, #13263C 0%, #0B141F 100%);
 }
 
-@utility text-status-error {
-  color: rgb(var(--color-status-error));
-  transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-status-error-light));
-  }
+/* Note: The .dark .gradient-primary rule is kept as it defines a distinct gradient for dark mode */
+.gradient-primary {
+  background: linear-gradient(135deg, rgb(var(--color-interactive-blue)) 0%, rgb(var(--color-interactive-gold)) 100%);
 }
 
-@utility bg-status-success {
-  background-color: rgb(var(--color-status-success));
-  transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-status-success-light));
-  }
+.dark .gradient-primary {
+  background: linear-gradient(135deg, rgb(var(--color-interactive-blue)) 0%, rgb(var(--color-interactive-gold)) 100%);
 }
 
-@utility bg-status-warning {
-  background-color: rgb(var(--color-status-warning));
-  transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-status-warning-light));
-  }
-}
-
-/* === ENHANCED SHADOW UTILITIES === */
-
-@utility shadow-themed-sm {
-  box-shadow: 0 2px 4px 0 rgba(var(--shadow-color-dark), var(--shadow-opacity-dark));
-  transition: box-shadow var(--transition-base);
-
-  :not(.dark) & {
-    box-shadow: 0 1px 3px 0 rgba(var(--shadow-color-light), var(--shadow-opacity-light));
-  }
-}
-
-@utility shadow-themed-md {
-  box-shadow: 0 4px 8px -1px rgba(var(--shadow-color-dark), var(--shadow-opacity-dark));
-  transition: box-shadow var(--transition-base);
-
-  :not(.dark) & {
-    box-shadow: 0 4px 6px -1px rgba(var(--shadow-color-light), 0.1), 0 2px 4px -1px rgba(var(--shadow-color-light), 0.06);
-  }
-}
-
-@utility shadow-themed-lg {
-  box-shadow: 0 12px 20px -3px rgba(var(--shadow-color-dark), 0.8);
-  transition: box-shadow var(--transition-base);
-
-  :not(.dark) & {
-    box-shadow: 0 10px 15px -3px rgba(var(--shadow-color-light), 0.1), 0 4px 6px -2px rgba(var(--shadow-color-light), 0.05);
-  }
-}
-
-@utility shadow-themed-xl {
-  box-shadow: 0 24px 32px -5px rgba(var(--shadow-color-dark), 0.9);
-  transition: box-shadow var(--transition-base);
-
-  :not(.dark) & {
-    box-shadow: 0 20px 25px -5px rgba(var(--shadow-color-light), 0.1), 0 10px 10px -5px rgba(var(--shadow-color-light), 0.04);
-  }
-}
-
-/* === BACKDROP BLUR UTILITIES === */
-
-@utility backdrop-blur-themed {
+.backdrop-blur-themed {
   backdrop-filter: blur(12px);
-  background-color: rgb(var(--color-bg-secondary) / 0.8);
-  transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-bg-secondary-light) / 0.8);
-  }
+  -webkit-backdrop-filter: blur(12px);
 }
 
-@utility backdrop-blur-overlay {
-  backdrop-filter: blur(12px);
-  background-color: rgb(var(--color-bg-surface) / 0.4);
-  transition: background-color var(--transition-base);
+/* Note: The .dark .focus-ring:focus-visible rule is kept as it correctly overrides the focus color */
+.focus-ring:focus-visible {
+  outline: 2px solid rgb(var(--color-interactive-blue));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
-  :not(.dark) & {
-    background-color: rgb(var(--color-bg-surface-light) / 0.7);
-  }
+.dark .focus-ring:focus-visible {
+  outline-color: rgb(var(--color-interactive-blue));
+}
+
+.transition-theme {
+  transition-property: color, background-color, border-color, opacity, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.transition-spring {
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* === GRID PATTERN === */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.3) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+}
+
+.dark .bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.15) 1px, transparent 1px);
+}
+
+/* Fine grid pattern for subtle backgrounds */
+.bg-grid-fine {
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.2) 1px, transparent 1px);
+  background-size: 1rem 1rem;
+}
+
+.dark .bg-grid-fine {
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.1) 1px, transparent 1px);
+}
+
+/* Large grid pattern for sections */
+.bg-grid-large {
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-primary) / 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-primary) / 0.4) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+}
+
+.dark .bg-grid-large {
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-primary) / 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-primary) / 0.2) 1px, transparent 1px);
+}
+
+/* Dot grid pattern for hero sections */
+.bg-dots {
+  background-image: radial-gradient(circle, rgb(var(--color-border-subtle) / 0.3) 1px, transparent 1px);
+  background-size: 1.5rem 1.5rem;
+}
+
+.dark .bg-dots {
+  background-image: radial-gradient(circle, rgb(var(--color-border-subtle) / 0.2) 1px, transparent 1px);
+}
+
+/* Combined grid and dots for technical sections */
+.bg-grid-dots {
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
+    radial-gradient(circle, rgb(var(--color-border-primary) / 0.15) 2px, transparent 2px);
+  background-size: 2rem 2rem, 2rem 2rem, 8rem 8rem;
+}
+
+.dark .bg-grid-dots {
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
+    radial-gradient(circle, rgb(var(--color-border-primary) / 0.1) 2px, transparent 2px);
+}
+
+/* === SHADOW SYSTEM === */
+/* Note: The .dark .shadow-themed-* rules are kept as they correctly override the shadow colors */
+.shadow-themed-sm {
+  box-shadow: 0 1px 3px 0 rgba(var(--color-shadow-rgb), 0.1), 0 1px 2px 0 rgba(var(--color-shadow-rgb), 0.06);
+}
+
+.dark .shadow-themed-sm {
+  box-shadow: 0 2px 4px 0 rgba(var(--color-shadow-rgb), 0.7), 0 1px 3px -1px rgba(var(--color-shadow-rgb), 0.7);
+}
+
+.shadow-themed-md {
+  box-shadow: 0 4px 6px -1px rgba(var(--color-shadow-rgb), 0.1), 0 2px 4px -1px rgba(var(--color-shadow-rgb), 0.06);
+}
+
+.dark .shadow-themed-md {
+  box-shadow: 0 4px 8px -1px rgba(var(--color-shadow-rgb), 0.7), 0 2px 6px -2px rgba(var(--color-shadow-rgb), 0.7);
+}
+
+.shadow-themed-lg {
+  box-shadow: 0 10px 15px -3px rgba(var(--color-shadow-rgb), 0.1), 0 4px 6px -2px rgba(var(--color-shadow-rgb), 0.05);
+}
+
+.dark .shadow-themed-lg {
+  box-shadow: 0 12px 20px -3px rgba(var(--color-shadow-rgb), 0.8), 0 6px 10px -4px rgba(var(--color-shadow-rgb), 0.7);
 }

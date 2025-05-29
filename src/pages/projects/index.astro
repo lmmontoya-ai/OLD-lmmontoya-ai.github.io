@@ -1,0 +1,79 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import UpdateCard from '../../components/ui/UpdateCard.astro';
+import { getPostsByType } from '../../utils/content';
+
+// Get all project posts
+const posts = await getPostsByType('project');
+const sortedPosts = posts.sort((a, b) => {
+  // Sort by date descending, with completed projects first
+  const statusOrder = { 'completed': 0, 'in-progress': 1, 'planned': 2, 'draft': 3 };
+  const aOrder = statusOrder[a.data.status as keyof typeof statusOrder] ?? 3;
+  const bOrder = statusOrder[b.data.status as keyof typeof statusOrder] ?? 3;
+
+  if (aOrder !== bOrder) return aOrder - bOrder;
+  return b.data.date.getTime() - a.data.date.getTime();
+});
+
+// Group by project area
+const projectsByArea = sortedPosts.reduce((acc, post) => {
+  const area = post.data.project?.area || 'Other';
+  if (!acc[area]) acc[area] = [];
+  acc[area].push(post);
+  return acc;
+}, {} as Record<string, typeof posts>);
+
+const areas = Object.keys(projectsByArea).sort();
+---
+
+<Layout
+  title="Projects — Luis Miguel Montoya"
+  description="AI interpretability research projects, tools, and explorations in understanding artificial minds."
+>
+  <div class="min-h-screen pt-20">
+    <div class="container mx-auto px-6 lg:px-16 xl:px-24">
+      <!-- Header -->
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-sans font-bold text-primary mb-4">
+          Projects
+        </h1>
+        <p class="text-xl text-secondary leading-relaxed max-w-3xl">
+          Research projects and tools focused on AI interpretability, alignment research,
+          and building better understanding of neural networks.
+        </p>
+      </header>
+
+      <!-- Projects by area -->
+      <div class="max-w-4xl">
+        {areas.map((area) => (
+          <section class="mb-12">
+            <h2 class="text-2xl font-sans font-semibold text-primary mb-6
+                       sticky top-20 bg-surface-primary/90 backdrop-blur-sm py-2 -mx-2 px-2">
+              {area}
+            </h2>
+
+            <div class="space-y-4">
+              {projectsByArea[area].map((post) => (
+                <UpdateCard
+                  title={post.data.title}
+                  date={post.data.date.toISOString().split('T')[0]}
+                  tag={post.data.status}
+                  description={post.data.excerpt}
+                  href={`/posts/${post.slug}`}
+                  icon="project"
+                  variant="project"
+                />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      {sortedPosts.length === 0 && (
+        <div class="text-center py-12">
+          <p class="text-secondary text-lg">No projects yet. Check back soon!</p>
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>

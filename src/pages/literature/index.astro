@@ -1,0 +1,79 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import UpdateCard from '../../components/ui/UpdateCard.astro';
+import { getPostsByType } from '../../utils/content';
+
+// Get all literature posts
+const posts = await getPostsByType('literature');
+const sortedPosts = posts.sort((a, b) => {
+  // Sort by rating (high to low), then by date (recent first)
+  const aRating = a.data.literature?.rating ?? 0;
+  const bRating = b.data.literature?.rating ?? 0;
+
+  if (aRating !== bRating) return bRating - aRating;
+  return b.data.date.getTime() - a.data.date.getTime();
+});
+
+// Group by literature type
+const literatureByType = sortedPosts.reduce((acc, post) => {
+  const type = post.data.literature?.type || 'Other';
+  if (!acc[type]) acc[type] = [];
+  acc[type].push(post);
+  return acc;
+}, {} as Record<string, typeof posts>);
+
+const typeOrder = ['Paper', 'Book', 'Course', 'Blog', 'Video', 'Other'];
+const orderedTypes = typeOrder.filter(type => literatureByType[type]);
+---
+
+<Layout
+  title="Literature — Luis Miguel Montoya"
+  description="Curated summaries and insights from AI research papers, books, and educational resources."
+>
+  <div class="min-h-screen pt-20">
+    <div class="container mx-auto px-6 lg:px-16 xl:px-24">
+      <!-- Header -->
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-sans font-bold text-primary mb-4">
+          Literature
+        </h1>
+        <p class="text-xl text-secondary leading-relaxed max-w-3xl">
+          Personal summaries and insights from research papers, books, and resources
+          in AI interpretability, alignment, and machine learning.
+        </p>
+      </header>
+
+      <!-- Literature by type -->
+      <div class="max-w-4xl">
+        {orderedTypes.map((type) => (
+          <section class="mb-12">
+            <h2 class="text-2xl font-sans font-semibold text-primary mb-6
+                       sticky top-20 bg-surface-primary/90 backdrop-blur-sm py-2 -mx-2 px-2">
+              {type}s
+            </h2>
+
+            <div class="space-y-4">
+              {literatureByType[type].map((post) => (
+                <UpdateCard
+                  title={post.data.title}
+                  date={post.data.date.toISOString().split('T')[0]}
+                  tag={post.data.literature?.difficulty || 'Intermediate'}
+                  description={post.data.excerpt}
+                  href={`/posts/${post.slug}`}
+                  icon="literature"
+                  variant="resource"
+                />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      {sortedPosts.length === 0 && (
+        <div class="text-center py-12">
+          <p class="text-secondary text-lg">No literature summaries yet. Check back soon!</p>
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>

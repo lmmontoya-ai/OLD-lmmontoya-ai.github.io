@@ -61,7 +61,7 @@ const categoryStyles = {
 
 <footer class="mt-16 pt-12 border-t border-border-secondary">
   <!-- Tags and Category -->
-  {(post.data.tags?.length > 0 || post.data.category) && (
+  {(((post.data.tags ?? []).length > 0) || post.data.category) && (
     <div class="mb-8">
       <h3 class="text-sm font-medium text-content-secondary mb-4 font-mono uppercase tracking-wider">
         Filed Under
@@ -78,7 +78,7 @@ const categoryStyles = {
         )}
 
         <!-- Tags -->
-        {post.data.tags?.map((tag) => (
+        {(post.data.tags ?? []).map((tag) => (
           <a
             href={`/posts?tag=${encodeURIComponent(tag)}`}
             class={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-all duration-200 ${styles.tag}`}

@@ -107,7 +107,11 @@ const sidebarAccentClass = accentClasses[accentColor];
             />
 
             <!-- Article content -->
-            <article class="prose prose-lg max-w-none prose-headings:text-content-primary prose-p:text-content-secondary prose-a:text-brand-primary prose-strong:text-content-primary prose-code:text-content-primary prose-pre:bg-bg-secondary prose-pre:border prose-pre:border-border-secondary">
+            <article
+              class="prose prose-lg max-w-none prose-headings:text-content-primary prose-p:text-content-secondary prose-a:text-brand-primary prose-strong:text-content-primary prose-code:text-content-primary prose-pre:bg-bg-secondary prose-pre:border prose-pre:border-border-secondary"
+              data-post-types={post.data.types.join(',')}
+              data-post-category={post.data.category}
+            >
               <Content />
             </article>
 

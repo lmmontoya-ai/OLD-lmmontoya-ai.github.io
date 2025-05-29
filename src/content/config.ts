@@ -23,6 +23,7 @@ const postsCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     readingTime: z.number().optional(), // Computed reading time in minutes
     wordCount: z.number().optional(), // Total word count
+    lastModified: z.date().optional(), // Last modified date for editorial tracking
 
     // Roadmap-specific fields
     roadmap: z.object({
@@ -84,6 +85,7 @@ const postsCollection = defineCollection({
       metaTitle: z.string().optional(),
       metaDescription: z.string().optional(),
       canonicalUrl: z.string().url().optional(),
+      noIndex: z.boolean().optional(),
     }).optional(),
 
     // Legacy fields for backward compatibility

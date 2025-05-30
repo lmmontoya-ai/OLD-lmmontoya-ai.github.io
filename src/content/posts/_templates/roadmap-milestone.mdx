@@ -1,0 +1,74 @@
+---
+title: "Milestone: Understanding Transformer Architectures"
+slug: "milestone-transformer-architectures"
+date: 2024-03-15
+excerpt: "Deep dive into transformer architecture internals and attention mechanisms."
+types: ["roadmap", "blog"]
+category: "Research"
+tags: ["Transformers", "Deep Learning", "Milestone"]
+status: "in-progress"
+roadmap:
+  phase: 1
+  dependencies: ["milestone-linear-algebra", "milestone-neural-networks"]
+  outcomes:
+    - "Understand multi-head attention mechanism"
+    - "Implement transformer from scratch"
+    - "Analyze attention patterns in real models"
+  timeline: "2 months"
+project:
+  area: "Interpretability"
+  stack: ["Python", "PyTorch", "Jupyter"]
+  links:
+    github: "https://github.com/yourusername/transformer-exploration"
+display:
+  showToc: true
+  accent: "gold"
+---
+
+## Overview
+
+Brief description of what this milestone covers and why it's important.
+
+## Background
+
+### Prerequisites
+- Linear algebra fundamentals
+- Basic neural network understanding
+- Python programming experience
+
+## Progress Log
+
+### Week 1-2: Foundation
+- ✅ Reviewed "Attention is All You Need" paper
+- ✅ Implemented basic attention mechanism
+- 🔄 Working through positional encoding
+
+### Week 3-4: Implementation
+- [ ] Build transformer encoder from scratch
+- [ ] Test on simple sequence tasks
+- [ ] Visualize attention patterns
+
+## Key Learnings
+
+### Attention Mechanism
+The attention mechanism allows the model to focus on different parts of the input...
+
+```python
+def scaled_dot_product_attention(Q, K, V):
+    """Implementation of scaled dot-product attention."""
+    d_k = Q.size(-1)
+    scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_k)
+    weights = F.softmax(scores, dim=-1)
+    return torch.matmul(weights, V), weights
+```
+
+## Resources
+
+- [Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
+- [Attention is All You Need - Original Paper](https://arxiv.org/abs/1706.03762)
+
+## Next Steps
+
+- Move to multi-head attention implementation
+- Study layer normalization placement
+- Begin work on decoder architecture

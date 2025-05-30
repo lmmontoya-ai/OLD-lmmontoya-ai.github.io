@@ -50,7 +50,7 @@
 </button>
 
 <script>
-  // Simplified theme toggle using standard Tailwind dark mode
+  // Enhanced theme toggle with better view transition support
   class ThemeToggle {
     private button: HTMLElement | null;
     private sunIcon: HTMLElement | null;
@@ -144,8 +144,19 @@
     }
   }
 
-  // Initialize theme toggle
+  // Initialize theme toggle with proper cleanup
   function initThemeToggle() {
+    // Ensure theme is correct first
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      if (storedTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    }
+
+    // Then initialize the toggle
     new ThemeToggle();
   }
 
@@ -156,7 +167,7 @@
     initThemeToggle();
   }
 
-  // Also initialize on Astro page transitions
+  // Initialize on Astro view transitions
   document.addEventListener("astro:page-load", initThemeToggle);
 </script>
 

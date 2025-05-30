@@ -1,0 +1,123 @@
+---
+title: "Project: Building an AI Safety Dashboard"
+slug: "project-ai-safety-dashboard"
+date: 2024-03-10
+excerpt: "Interactive dashboard for monitoring AI safety metrics and model behavior across development cycles."
+types: ["project", "blog"]
+category: "Technical"
+tags: ["AI Safety", "Dashboard", "Monitoring", "TypeScript"]
+status: "completed"
+project:
+  area: "Safety"
+  stack: ["TypeScript", "React", "D3.js", "Python", "FastAPI"]
+  collaborators: ["Jane Smith", "Alex Chen"]
+  organization: "AI Safety Institute"
+  links:
+    github: "https://github.com/yourusername/ai-safety-dashboard"
+    demo: "https://safety-dashboard-demo.vercel.app"
+    paper: "https://arxiv.org/abs/2024.safety-metrics"
+media:
+  hero: "/images/projects/safety-dashboard-hero.jpg"
+  thumbnail: "/images/projects/safety-dashboard-thumb.jpg"
+  gallery:
+    - "/images/projects/dashboard-overview.jpg"
+    - "/images/projects/metrics-view.jpg"
+    - "/images/projects/alert-system.jpg"
+display:
+  showToc: true
+  showRelated: true
+  layout: "wide"
+  accent: "green"
+---
+
+## Project Overview
+
+The AI Safety Dashboard provides real-time monitoring and visualization of key safety metrics across AI model development lifecycles.
+
+## Problem Statement
+
+As AI models become more capable, we need better tools to monitor their behavior and identify potential safety issues early in development.
+
+## Solution Architecture
+
+### Frontend
+- **React** with TypeScript for type safety
+- **D3.js** for custom data visualizations
+- **Tailwind CSS** for responsive design
+
+### Backend
+- **FastAPI** for high-performance API endpoints
+- **PostgreSQL** for metric storage
+- **Redis** for real-time data caching
+
+### Key Features
+1. **Real-time Monitoring**: Live updates of safety metrics
+2. **Alert System**: Automated notifications for threshold breaches
+3. **Historical Analysis**: Trend analysis across model versions
+4. **Custom Dashboards**: Configurable views for different teams
+
+## Implementation Details
+
+### Metric Collection Pipeline
+
+```python
+class SafetyMetricCollector:
+    def __init__(self, model_id: str):
+        self.model_id = model_id
+        self.metrics = []
+
+    async def collect_bias_metrics(self):
+        """Collect bias detection metrics."""
+        # Implementation details...
+        pass
+
+    async def collect_alignment_metrics(self):
+        """Collect alignment scoring metrics."""
+        # Implementation details...
+        pass
+```
+
+### Visualization Components
+
+```typescript
+interface MetricVisualizationProps {
+  data: SafetyMetric[];
+  threshold: number;
+  timeRange: TimeRange;
+}
+
+const MetricVisualization: React.FC<MetricVisualizationProps> = ({
+  data,
+  threshold,
+  timeRange
+}) => {
+  // D3.js visualization logic...
+};
+```
+
+## Results & Impact
+
+- **50% faster** detection of safety issues
+- **Reduced false positives** by 30% through better metric design
+- **Adoption by 5 teams** across the organization
+- **Open source release** with 500+ GitHub stars
+
+## Lessons Learned
+
+1. **Real-time updates** are crucial for safety monitoring
+2. **Custom visualizations** often work better than standard charts
+3. **Alert fatigue** is a real issue - threshold tuning is critical
+
+## Future Work
+
+- Integration with more model architectures
+- Enhanced anomaly detection algorithms
+- Mobile app for on-the-go monitoring
+- Multi-language support for international teams
+
+## Resources
+
+- [GitHub Repository](https://github.com/yourusername/ai-safety-dashboard)
+- [Live Demo](https://safety-dashboard-demo.vercel.app)
+- [Research Paper](https://arxiv.org/abs/2024.safety-metrics)
+- [Technical Documentation](https://docs.safety-dashboard.dev)

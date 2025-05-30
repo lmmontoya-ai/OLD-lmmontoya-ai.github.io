@@ -109,8 +109,10 @@ const estimatedReadingTime =
         {formattedDate}
       </time>
 
-      <!-- Reading Time -->
-      <div class="flex items-center gap-1 text-sm text-tertiary">
+      <!-- Reading Time with Arrow -->
+      <div
+        class="flex items-center gap-2 text-sm text-tertiary group-hover:text-interactive-blue transition-theme"
+      >
         <svg
           class="w-4 h-4"
           fill="none"
@@ -124,6 +126,20 @@ const estimatedReadingTime =
             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
         <span>{estimatedReadingTime} min read</span>
+
+        <!-- Integrated Read More Arrow -->
+        <svg
+          class="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"></path>
+        </svg>
       </div>
     </div>
   </div>
@@ -145,23 +161,5 @@ const estimatedReadingTime =
       category === "Update" && "bg-gradient-to-br from-cyan-500/0 to-cyan-500/5"
     )}
   >
-  </div>
-
-  <!-- Read More Arrow -->
-  <div
-    class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-2 transition-all duration-300"
-  >
-    <svg
-      class="w-5 h-5 text-interactive-blue"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M9 5l7 7-7 7"></path>
-    </svg>
   </div>
 </article>

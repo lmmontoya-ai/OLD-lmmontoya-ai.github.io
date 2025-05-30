@@ -1,7 +1,9 @@
 ---
 import "../styles/global.css";
+import "../styles/transitions.css";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
+import { ViewTransitions } from 'astro:transitions';
 
 export interface Props {
   title: string;
@@ -30,36 +32,83 @@ const {
       rel="stylesheet"
     />
 
-    <!-- Theme initialization script - must run before body renders to prevent flash -->
-    <script>
+    <ViewTransitions />
+
+    <!-- Critical theme initialization - prevent flash of wrong theme -->
+    <script is:inline>
+      // This script must run immediately and synchronously to prevent flash
       (function() {
-        // Get theme from localStorage or system preference
-        function getTheme() {
-          if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-            return localStorage.getItem("theme");
+        function getStoredTheme() {
+          if (typeof localStorage !== 'undefined') {
+            return localStorage.getItem('theme');
           }
-          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            return "dark";
-          }
-          return "light";
+          return null;
         }
 
-        // Apply theme immediately
-        const theme = getTheme();
-        if (theme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
+        function getSystemTheme() {
+          if (typeof window !== 'undefined' && window.matchMedia) {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          return 'light';
         }
 
-        // Store in localStorage
-        if (typeof localStorage !== "undefined") {
-          localStorage.setItem("theme", theme || "light");
+        function applyTheme() {
+          // Always check localStorage first, then system preference
+          const storedTheme = getStoredTheme();
+          const theme = storedTheme || getSystemTheme();
+
+          // Apply theme immediately to prevent flash
+          const root = document.documentElement;
+          if (theme === 'dark') {
+            root.classList.add('dark');
+          } else {
+            root.classList.remove('dark');
+          }
+
+          // Only store if not already stored
+          if (typeof localStorage !== 'undefined' && !storedTheme) {
+            localStorage.setItem('theme', theme);
+          }
         }
+
+        // Apply theme immediately on initial load
+        applyTheme();
+
+        // Handle view transitions - preserve theme during navigation
+        document.addEventListener('astro:before-swap', (event) => {
+          // Get current theme before swap
+          const currentTheme = getStoredTheme() || getSystemTheme();
+
+          // Apply to the new document
+          if (currentTheme === 'dark') {
+            event.newDocument.documentElement.classList.add('dark');
+          } else {
+            event.newDocument.documentElement.classList.remove('dark');
+          }
+        });
+
+        // Also ensure theme is applied after swap
+        document.addEventListener('astro:after-swap', applyTheme);
       })();
     </script>
+
+    <!-- Add CSS to prevent any initial flash -->
+    <style>
+      /* Prevent flash of unstyled content during theme transitions */
+      html {
+        color-scheme: light;
+      }
+      html.dark {
+        color-scheme: dark;
+      }
+
+      /* Ensure smooth transitions for theme changes */
+      * {
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      }
+    </style>
   </head>
-  <body class="bg-surface text-primary transition-theme">
+  <body class="bg-surface text-primary">
     <!-- Subtle grid overlay for technical aesthetic -->
     <div
       class="fixed inset-0 bg-grid-pattern opacity-[0.02] dark:opacity-[0.035] pointer-events-none z-0"
@@ -74,18 +123,5 @@ const {
     </main>
 
     <Footer />
-
-    <script>
-      // Re-apply theme on Astro page transitions
-      document.addEventListener("astro:page-load", function() {
-        // Get theme from localStorage
-        const theme = localStorage.getItem("theme") || "light";
-        if (theme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      });
-    </script>
   </body>
 </html>

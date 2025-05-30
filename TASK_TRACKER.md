@@ -18,7 +18,7 @@ This document tracks the progress of each PRD task for the Unified Content Syste
 - [x] Task 3.2: Update Section Index Pages (`src/pages/blog/index.astro`)
 
 ## Phase 4 - Search & Filtering
-- [ ] Task 4.1: Create Search Component (`src/components/ui/SearchInput.astro`)
+- [x] Task 4.1: Create Search Component (`src/components/ui/SearchInput.astro`)
 
 ## Phase 5 - Content Templates
 - [ ] Task 5.1: Create MDX Templates (`src/content/posts/_templates/blog-post.mdx`)
@@ -32,6 +32,6 @@ This document tracks the progress of each PRD task for the Unified Content Syste
 - [ ] Task 7.1: Create Author Guide (`docs/content-authoring-guide.md`)
 
 ---
-**Next Task:** Task 4.1: Create Search Component (`src/components/ui/SearchInput.astro`)
+**Next Task:** Task 5.1: Create MDX Templates (`src/content/posts/_templates/blog-post.mdx`)
 
-> _Note: Task 3.2 complete! ✅ Section index pages created for all content types (blog, projects, literature, roadmap) with proper grouping, sorting, and empty states. Each page uses the unified content system and UpdateCard component for consistent display. Ready to proceed to Task 4.1: Search & Filtering Component._
+> _Note: Task 4.1 complete! ✅ SearchInput component created with Fuse.js integration, keyboard shortcuts (Ctrl/Cmd+K to focus, Escape to clear), and graceful handling of missing API endpoint. Features fuzzy search across title, excerpt, tags, category, and content with proper debouncing and clear functionality. Ready to proceed to Task 5.1: Content Templates._

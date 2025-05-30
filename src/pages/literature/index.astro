@@ -1,11 +1,11 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import UpdateCard from '../../components/ui/UpdateCard.astro';
-import { getPostsByType } from '../../utils/content';
+import Layout from "../../layouts/Layout.astro";
+import LiteratureCard from "../../components/cards/LiteratureCard.astro";
+import { getPostsByType } from "../../utils/content";
 
-// Get all literature posts
-const posts = await getPostsByType('literature');
-const sortedPosts = posts.sort((a, b) => {
+// Fetch and sort literature
+const literature = await getPostsByType("literature");
+const sortedLiterature = literature.sort((a, b) => {
   // Sort by rating (high to low), then by date (recent first)
   const aRating = a.data.literature?.rating ?? 0;
   const bRating = b.data.literature?.rating ?? 0;
@@ -15,65 +15,230 @@ const sortedPosts = posts.sort((a, b) => {
 });
 
 // Group by literature type
-const literatureByType = sortedPosts.reduce((acc, post) => {
-  const type = post.data.literature?.type || 'Other';
-  if (!acc[type]) acc[type] = [];
-  acc[type].push(post);
-  return acc;
-}, {} as Record<string, typeof posts>);
+const literatureByType = sortedLiterature.reduce(
+  (acc, item) => {
+    const type = item.data.literature?.type || "Other";
+    if (!acc[type]) acc[type] = [];
+    acc[type].push(item);
+    return acc;
+  },
+  {} as Record<string, typeof literature>
+);
 
-const typeOrder = ['Paper', 'Book', 'Course', 'Blog', 'Video', 'Other'];
-const orderedTypes = typeOrder.filter(type => literatureByType[type]);
+const typeOrder = ["Paper", "Book", "Course", "Blog", "Video", "Other"];
+const availableTypes = typeOrder.filter((type) => literatureByType[type]);
 ---
 
 <Layout
   title="Literature — Luis Miguel Montoya"
   description="Curated summaries and insights from AI research papers, books, and educational resources."
 >
-  <div class="min-h-screen pt-20">
+  <div class="min-h-screen pt-20 pb-16">
     <div class="container mx-auto px-6 lg:px-16 xl:px-24">
       <!-- Header -->
       <header class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-sans font-bold text-primary mb-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">
           Literature
         </h1>
-        <p class="text-xl text-secondary leading-relaxed max-w-3xl">
-          Personal summaries and insights from research papers, books, and resources
-          in AI interpretability, alignment, and machine learning.
+        <p class="text-xl text-secondary max-w-3xl">
+          Curated summaries and insights from AI research papers, books, and
+          educational resources.
         </p>
       </header>
 
-      <!-- Literature by type -->
-      <div class="max-w-4xl">
-        {orderedTypes.map((type) => (
-          <section class="mb-12">
-            <h2 class="text-2xl font-sans font-semibold text-primary mb-6
-                       sticky top-20 bg-surface-primary/90 backdrop-blur-sm py-2 -mx-2 px-2">
+      <!-- Filter Tabs -->
+      <div class="mb-8 flex gap-2 overflow-x-auto pb-2">
+        <button class="filter-tab active" data-filter="all">
+          All Literature
+          <span class="count">({sortedLiterature.length})</span>
+        </button>
+        {
+          availableTypes.map((type) => (
+            <button class="filter-tab" data-filter={type}>
               {type}s
-            </h2>
-
-            <div class="space-y-4">
-              {literatureByType[type].map((post) => (
-                <UpdateCard
-                  title={post.data.title}
-                  date={post.data.date.toISOString().split('T')[0]}
-                  tag={post.data.literature?.difficulty || 'Intermediate'}
-                  description={post.data.excerpt}
-                  href={`/posts/${post.id}`}
-                  icon="literature"
-                  variant="resource"
-                />
-              ))}
-            </div>
-          </section>
-        ))}
+              <span class="count">({literatureByType[type].length})</span>
+            </button>
+          ))
+        }
       </div>
 
-      {sortedPosts.length === 0 && (
-        <div class="text-center py-12">
-          <p class="text-secondary text-lg">No literature summaries yet. Check back soon!</p>
-        </div>
-      )}
+      <!-- Difficulty Filter -->
+      <div class="mb-8 flex gap-2 flex-wrap">
+        <span class="text-sm text-tertiary font-medium">Difficulty:</span>
+        <button class="difficulty-filter active" data-difficulty="all"
+          >All</button
+        >
+        <button class="difficulty-filter" data-difficulty="Introductory"
+          >Introductory</button
+        >
+        <button class="difficulty-filter" data-difficulty="Intermediate"
+          >Intermediate</button
+        >
+        <button class="difficulty-filter" data-difficulty="Advanced"
+          >Advanced</button
+        >
+      </div>
+
+      <!-- Literature Grid -->
+      <div
+        class="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+        id="literature-grid"
+      >
+        {
+          sortedLiterature.map((item, index) => (
+            <a
+              href={`/posts/${item.id}`}
+              class="block literature-item"
+              data-type={item.data.literature?.type || "Other"}
+              data-difficulty={
+                item.data.literature?.difficulty || "Intermediate"
+              }
+              style={`animation-delay: ${index * 50}ms`}
+            >
+              <LiteratureCard post={item} />
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Empty State -->
+      {
+        sortedLiterature.length === 0 && (
+          <div class="text-center py-16">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4">
+              <svg
+                class="w-8 h-8 text-tertiary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-primary mb-2">
+              No literature yet
+            </h3>
+            <p class="text-secondary">
+              Check back soon for curated research summaries!
+            </p>
+          </div>
+        )
+      }
     </div>
   </div>
+
+  <style>
+    .filter-tab,
+    .difficulty-filter {
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.375rem 0.75rem;
+      background-color: rgb(var(--color-surface-secondary));
+      color: rgb(var(--color-secondary));
+      white-space: nowrap;
+      transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .filter-tab:hover,
+    .difficulty-filter:hover {
+      background-color: rgb(var(--color-surface-tertiary));
+      color: rgb(var(--color-primary));
+    }
+
+    .filter-tab.active,
+    .difficulty-filter.active {
+      background-color: rgb(var(--color-interactive-blue));
+      color: white;
+    }
+
+    .count {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-left: 0.25rem;
+    }
+
+    .literature-item {
+      animation: fadeInUp 0.5s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+
+    .literature-item.hidden {
+      display: none;
+    }
+  </style>
+
+  <script>
+    // Filter functionality
+    const filterButtons = document.querySelectorAll(".filter-tab");
+    const difficultyButtons = document.querySelectorAll(".difficulty-filter");
+    const literatureItems = document.querySelectorAll(".literature-item");
+
+    let currentTypeFilter = "all";
+    let currentDifficultyFilter = "all";
+
+    function filterItems() {
+      literatureItems.forEach((item, index) => {
+        const type = item.getAttribute("data-type");
+        const difficulty = item.getAttribute("data-difficulty");
+
+        const typeMatch =
+          currentTypeFilter === "all" || type === currentTypeFilter;
+        const difficultyMatch =
+          currentDifficultyFilter === "all" ||
+          difficulty === currentDifficultyFilter;
+
+        if (typeMatch && difficultyMatch) {
+          item.classList.remove("hidden");
+          (item as HTMLElement).style.animationDelay = `${index * 50}ms`;
+        } else {
+          item.classList.add("hidden");
+        }
+      });
+    }
+
+    // Type filter
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.getAttribute("data-filter");
+        currentTypeFilter = filter || "all";
+
+        // Update active state
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        filterItems();
+      });
+    });
+
+    // Difficulty filter
+    difficultyButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.getAttribute("data-difficulty");
+        currentDifficultyFilter = filter || "all";
+
+        // Update active state
+        difficultyButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        filterItems();
+      });
+    });
+  </script>
 </Layout>

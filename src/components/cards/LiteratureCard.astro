@@ -1,0 +1,188 @@
+---
+// src/components/cards/LiteratureCard.astro
+import { literatureCardVariants, cn } from "../../utils/variants";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+  class?: string;
+}
+
+const { post, class: className } = Astro.props;
+const { title, excerpt, date, literature } = post.data;
+
+const formattedDate = date.toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+
+const classes = cn(
+  literatureCardVariants({
+    difficulty: literature?.difficulty,
+    type: literature?.type,
+  }),
+  className
+);
+
+// Icon mapping for resource types
+const typeIcons = {
+  Paper: "📄",
+  Book: "📚",
+  Video: "🎥",
+  Blog: "📝",
+  Course: "🎓",
+};
+
+// Generate star rating display
+const renderStars = (rating: number) => {
+  return Array.from({ length: 5 }, (_, i) => i < rating);
+};
+---
+
+<article class={classes}>
+  <!-- Resource Type Icon -->
+  <div class="absolute top-4 right-4">
+    <span class="text-2xl" title={literature?.type}>
+      {
+        literature?.type
+          ? typeIcons[literature.type as keyof typeof typeIcons] || "📄"
+          : "📄"
+      }
+    </span>
+  </div>
+
+  <!-- Difficulty Badge -->
+  {
+    literature?.difficulty && (
+      <div class="absolute top-4 left-4">
+        <span
+          class={cn(
+            "px-2 py-1 text-xs font-medium rounded-full",
+            literature.difficulty === "Introductory" &&
+              "bg-status-success/10 text-status-success",
+            literature.difficulty === "Intermediate" &&
+              "bg-status-warning/10 text-status-warning",
+            literature.difficulty === "Advanced" && "bg-red-500/10 text-red-500"
+          )}
+        >
+          {literature.difficulty}
+        </span>
+      </div>
+    )
+  }
+
+  <!-- Content -->
+  <div class="space-y-3 mt-8">
+    <h3
+      class="text-xl font-semibold text-primary group-hover:text-interactive-blue transition-theme"
+    >
+      {title}
+    </h3>
+
+    <!-- Author Information -->
+    {
+      literature?.authors && literature.authors.length > 0 && (
+        <div class="text-sm text-secondary">
+          <span class="font-medium">Authors:</span>
+          {literature.authors.length > 2
+            ? `${literature.authors.slice(0, 2).join(", ")} +${literature.authors.length - 2} more`
+            : literature.authors.join(", ")}
+        </div>
+      )
+    }
+
+    <!-- Publication Year -->
+    {
+      literature?.year && (
+        <div class="text-sm text-tertiary">
+          <span class="font-medium">Published:</span> {literature.year}
+        </div>
+      )
+    }
+
+    <p class="text-secondary line-clamp-2">
+      {excerpt}
+    </p>
+
+    <!-- Rating -->
+    {
+      literature?.rating && (
+        <div class="flex items-center gap-2">
+          <div class="flex items-center">
+            {renderStars(literature.rating).map((filled, i) => (
+              <svg
+                class={cn(
+                  "w-4 h-4",
+                  filled ? "text-yellow-400 fill-current" : "text-gray-300"
+                )}
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            ))}
+          </div>
+          <span class="text-sm text-tertiary">({literature.rating}/5)</span>
+        </div>
+      )
+    }
+
+    <!-- Recommended For -->
+    {
+      literature?.recommendedFor && literature.recommendedFor.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs text-tertiary font-medium">
+            Recommended for:
+          </span>
+          {literature.recommendedFor.map((audience) => (
+            <span class="px-2 py-1 text-xs bg-surface-tertiary rounded-md text-tertiary">
+              {audience}
+            </span>
+          ))}
+        </div>
+      )
+    }
+
+    <!-- Footer -->
+    <div class="flex items-center justify-between pt-4 border-t border-subtle">
+      <time class="text-sm text-tertiary" datetime={date.toISOString()}>
+        Added {formattedDate}
+      </time>
+
+      <!-- Source Link -->
+      {
+        literature?.source && (
+          <a
+            href={literature.source}
+            target="_blank"
+            rel="noopener"
+            class="flex items-center gap-1 text-tertiary hover:text-primary transition-theme"
+            aria-label="View source"
+            onclick="event.stopPropagation()"
+          >
+            <span class="text-sm">View Source</span>
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          </a>
+        )
+      }
+    </div>
+  </div>
+
+  <!-- Hover gradient effect -->
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-interactive-blue/0 to-interactive-blue/5 opacity-0 group-hover:opacity-100 transition-theme pointer-events-none"
+  >
+  </div>
+</article>

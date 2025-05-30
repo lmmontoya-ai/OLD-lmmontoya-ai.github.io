@@ -1,73 +1,261 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import UpdateCard from '../../components/ui/UpdateCard.astro';
-import { getPostsByType } from '../../utils/content';
+import Layout from "../../layouts/Layout.astro";
+import BlogCard from "../../components/cards/BlogCard.astro";
+import { getPostsByType } from "../../utils/content";
 
-// Get all blog posts
-const posts = await getPostsByType('blog');
-const sortedPosts = posts.sort((a, b) =>
-  b.data.date.getTime() - a.data.date.getTime()
+// Fetch and sort blog posts
+const blogPosts = await getPostsByType("blog");
+const sortedPosts = blogPosts.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
 
-// Group by year
-const postsByYear = sortedPosts.reduce((acc, post) => {
-  const year = post.data.date.getFullYear();
-  if (!acc[year]) acc[year] = [];
-  acc[year].push(post);
-  return acc;
-}, {} as Record<number, typeof posts>);
+// Group by category
+const postsByCategory = sortedPosts.reduce(
+  (acc, post) => {
+    const category = post.data.category;
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(post);
+    return acc;
+  },
+  {} as Record<string, typeof blogPosts>
+);
+
+// Group by year for alternative view
+const postsByYear = sortedPosts.reduce(
+  (acc, post) => {
+    const year = post.data.date.getFullYear();
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(post);
+    return acc;
+  },
+  {} as Record<number, typeof blogPosts>
+);
 
 const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+const categories = Object.keys(postsByCategory).sort();
 ---
 
 <Layout
   title="Blog — Luis Miguel Montoya"
   description="Thoughts on AI interpretability, alignment, and the journey from physics to machine learning."
 >
-  <div class="min-h-screen pt-20">
+  <div class="min-h-screen pt-20 pb-16">
     <div class="container mx-auto px-6 lg:px-16 xl:px-24">
       <!-- Header -->
       <header class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-sans font-bold text-primary mb-4">
-          Blog
-        </h1>
-        <p class="text-xl text-secondary leading-relaxed max-w-3xl">
-          Reflections on AI interpretability research, technical deep-dives, and
-          thoughts on the path to understanding artificial minds.
+        <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">Blog</h1>
+        <p class="text-xl text-secondary max-w-3xl">
+          Thoughts on AI interpretability, alignment, and the journey from
+          physics to machine learning.
         </p>
       </header>
 
-      <!-- Posts by year -->
-      <div class="max-w-4xl">
-        {years.map((year) => (
-          <section class="mb-12">
-            <h2 class="text-2xl font-sans font-semibold text-primary mb-6
-                       sticky top-20 bg-surface-primary/90 backdrop-blur-sm py-2 -mx-2 px-2">
-              {year}
-            </h2>
-
-            <div class="space-y-4">
-              {postsByYear[Number(year)].map((post) => (
-                <UpdateCard
-                  title={post.data.title}
-                  date={post.data.date.toISOString().split('T')[0]}
-                  tag={post.data.category}
-                  description={post.data.excerpt}
-                  href={`/posts/${post.id}`}
-                  icon="project"
-                  variant="project"
-                />
-              ))}
-            </div>
-          </section>
-        ))}
+      <!-- View Toggle -->
+      <div class="mb-8 flex gap-2">
+        <button class="view-toggle active" data-view="category">
+          By Category
+        </button>
+        <button class="view-toggle" data-view="timeline"> Timeline </button>
       </div>
 
-      {sortedPosts.length === 0 && (
-        <div class="text-center py-12">
-          <p class="text-secondary text-lg">No blog posts yet. Check back soon!</p>
-        </div>
-      )}
+      <!-- Category Filter (shown when category view is active) -->
+      <div class="mb-8 flex gap-2 overflow-x-auto pb-2" id="category-filters">
+        <button class="filter-tab active" data-filter="all">
+          All Posts
+          <span class="count">({sortedPosts.length})</span>
+        </button>
+        {
+          categories.map((category) => (
+            <button class="filter-tab" data-filter={category}>
+              {category}
+              <span class="count">({postsByCategory[category].length})</span>
+            </button>
+          ))
+        }
+      </div>
+
+      <!-- Posts Grid -->
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3" id="blog-grid">
+        {
+          sortedPosts.map((post, index) => (
+            <a
+              href={`/posts/${post.id}`}
+              class="block blog-item"
+              data-category={post.data.category}
+              data-year={post.data.date.getFullYear()}
+              style={`animation-delay: ${index * 50}ms`}
+            >
+              <BlogCard post={post} />
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Timeline View (initially hidden) -->
+      <div class="max-w-4xl timeline-view hidden">
+        {
+          years.map((year) => (
+            <section class="mb-12">
+              <h2
+                class="text-2xl font-semibold text-primary mb-6
+                       sticky top-20 bg-surface-primary/90 backdrop-blur-sm py-2 -mx-2 px-2"
+              >
+                {year}
+              </h2>
+
+              <div class="grid gap-6 md:grid-cols-2">
+                {postsByYear[Number(year)].map((post) => (
+                  <a href={`/posts/${post.id}`} class="block">
+                    <BlogCard post={post} />
+                  </a>
+                ))}
+              </div>
+            </section>
+          ))
+        }
+      </div>
+
+      <!-- Empty State -->
+      {
+        sortedPosts.length === 0 && (
+          <div class="text-center py-16">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4">
+              <svg
+                class="w-8 h-8 text-tertiary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-primary mb-2">
+              No blog posts yet
+            </h3>
+            <p class="text-secondary">
+              Check back soon for thoughts and insights!
+            </p>
+          </div>
+        )
+      }
     </div>
   </div>
+
+  <style>
+    .view-toggle,
+    .filter-tab {
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      background-color: rgb(var(--color-surface-secondary));
+      color: rgb(var(--color-secondary));
+      white-space: nowrap;
+      transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .view-toggle:hover,
+    .filter-tab:hover {
+      background-color: rgb(var(--color-surface-tertiary));
+      color: rgb(var(--color-primary));
+    }
+
+    .view-toggle.active,
+    .filter-tab.active {
+      background-color: rgb(var(--color-interactive-blue));
+      color: white;
+    }
+
+    .count {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-left: 0.25rem;
+    }
+
+    .blog-item {
+      animation: fadeInUp 0.5s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+
+    .blog-item.hidden {
+      display: none;
+    }
+
+    .timeline-view.hidden {
+      display: none;
+    }
+  </style>
+
+  <script>
+    // View toggle functionality
+    const viewToggleButtons = document.querySelectorAll(".view-toggle");
+    const categoryFilters = document.getElementById("category-filters");
+    const blogGrid = document.getElementById("blog-grid");
+    const timelineView = document.querySelector(".timeline-view");
+
+    // Filter functionality
+    const filterButtons = document.querySelectorAll(".filter-tab");
+    const blogItems = document.querySelectorAll(".blog-item");
+
+    // View switching
+    viewToggleButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const view = button.getAttribute("data-view");
+
+        // Update active state
+        viewToggleButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        // Switch views
+        if (view === "timeline") {
+          categoryFilters?.classList.add("hidden");
+          blogGrid?.classList.add("hidden");
+          timelineView?.classList.remove("hidden");
+        } else {
+          categoryFilters?.classList.remove("hidden");
+          blogGrid?.classList.remove("hidden");
+          timelineView?.classList.add("hidden");
+        }
+      });
+    });
+
+    // Category filter (only works in category view)
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.getAttribute("data-filter");
+
+        // Update active state
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        // Filter items
+        blogItems.forEach((item, index) => {
+          const category = item.getAttribute("data-category");
+
+          if (filter === "all" || category === filter) {
+            item.classList.remove("hidden");
+            (item as HTMLElement).style.animationDelay = `${index * 50}ms`;
+          } else {
+            item.classList.add("hidden");
+          }
+        });
+      });
+    });
+  </script>
 </Layout>

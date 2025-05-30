@@ -1,0 +1,208 @@
+---
+// src/components/cards/BlogCard.astro
+import { blogCardVariants, cn } from "../../utils/variants";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+  class?: string;
+}
+
+const { post, class: className } = Astro.props;
+const { title, excerpt, date, category, tags, readingTime } = post.data;
+
+const formattedDate = date.toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+
+const classes = cn(blogCardVariants({ category }), className);
+
+// Category icons and colors
+const categoryIcons = {
+  Research: "🔬",
+  Technical: "⚙️",
+  Reflection: "💭",
+  Resource: "📚",
+  Tutorial: "🎓",
+  Update: "📰",
+};
+
+// Estimated reading time (if not provided)
+const estimatedReadingTime =
+  readingTime || Math.max(1, Math.ceil((excerpt?.length || 200) / 200));
+---
+
+<article class={classes}>
+  <!-- Category Badge -->
+  <div class="absolute top-4 right-4">
+    <span
+      class={cn(
+        "px-2 py-1 text-xs font-medium rounded-full flex items-center gap-1",
+        category === "Research" &&
+          "bg-interactive-blue/10 text-interactive-blue",
+        category === "Technical" && "bg-status-success/10 text-status-success",
+        category === "Reflection" &&
+          "bg-interactive-gold/10 text-interactive-gold",
+        category === "Resource" && "bg-status-warning/10 text-status-warning",
+        category === "Tutorial" && "bg-purple-500/10 text-purple-500",
+        category === "Update" && "bg-cyan-500/10 text-cyan-500"
+      )}
+    >
+      <span
+        >{categoryIcons[category as keyof typeof categoryIcons] || "📝"}</span
+      >
+      <span>{category}</span>
+    </span>
+  </div>
+
+  <!-- Content -->
+  <div class="space-y-3">
+    <h3
+      class="text-xl font-semibold text-primary group-hover:text-interactive-blue transition-theme"
+    >
+      {title}
+    </h3>
+
+    <p class="text-secondary line-clamp-2">
+      {excerpt}
+    </p>
+
+    <!-- Tags -->
+    {
+      tags && tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {tags.slice(0, 3).map((tag) => (
+            <span class="px-2 py-1 text-xs bg-surface-tertiary rounded-full text-tertiary hover:bg-surface-primary hover:text-secondary transition-theme">
+              #{tag}
+            </span>
+          ))}
+          {tags.length > 3 && (
+            <span class="px-2 py-1 text-xs text-tertiary">
+              +{tags.length - 3} more
+            </span>
+          )}
+        </div>
+      )
+    }
+
+    <!-- Footer -->
+    <div class="flex items-center justify-between pt-4 border-t border-subtle">
+      <time
+        class="text-sm text-tertiary flex items-center gap-1"
+        datetime={date.toISOString()}
+      >
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          ></path>
+        </svg>
+        {formattedDate}
+      </time>
+
+      <!-- Reading Time -->
+      <div class="flex items-center gap-1 text-sm text-tertiary">
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span>{estimatedReadingTime} min read</span>
+      </div>
+    </div>
+
+    <!-- Engagement Indicators (placeholder for future features) -->
+    <div class="flex items-center gap-4 pt-2 text-xs text-tertiary">
+      <span class="flex items-center gap-1">
+        <svg
+          class="w-3 h-3"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+          ></path>
+        </svg>
+        <span>Views: --</span>
+      </span>
+      <span class="flex items-center gap-1">
+        <svg
+          class="w-3 h-3"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+          ></path>
+        </svg>
+        <span>Likes: --</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Category-specific gradient overlay -->
+  <div
+    class={cn(
+      "absolute inset-0 opacity-0 group-hover:opacity-100 transition-theme pointer-events-none",
+      category === "Research" &&
+        "bg-gradient-to-br from-blue-500/0 to-blue-500/5",
+      category === "Technical" &&
+        "bg-gradient-to-br from-green-500/0 to-green-500/5",
+      category === "Reflection" &&
+        "bg-gradient-to-br from-yellow-500/0 to-yellow-500/5",
+      category === "Resource" &&
+        "bg-gradient-to-br from-orange-500/0 to-orange-500/5",
+      category === "Tutorial" &&
+        "bg-gradient-to-br from-purple-500/0 to-purple-500/5",
+      category === "Update" && "bg-gradient-to-br from-cyan-500/0 to-cyan-500/5"
+    )}
+  >
+  </div>
+
+  <!-- Read More Arrow -->
+  <div
+    class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-2 transition-all duration-300"
+  >
+    <svg
+      class="w-5 h-5 text-interactive-blue"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 5l7 7-7 7"></path>
+    </svg>
+  </div>
+</article>

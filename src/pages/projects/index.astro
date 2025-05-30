@@ -1,13 +1,13 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import UpdateCard from '../../components/ui/UpdateCard.astro';
-import { getPostsByType } from '../../utils/content';
+import Layout from "../../layouts/Layout.astro";
+import ProjectCard from "../../components/cards/ProjectCard.astro";
+import { getPostsByType } from "../../utils/content";
 
-// Get all project posts
-const posts = await getPostsByType('project');
-const sortedPosts = posts.sort((a, b) => {
-  // Sort by date descending, with completed projects first
-  const statusOrder = { 'completed': 0, 'in-progress': 1, 'planned': 2, 'draft': 3 };
+// Fetch and sort projects
+const projects = await getPostsByType("project");
+const sortedProjects = projects.sort((a, b) => {
+  // Sort by status (completed first), then date
+  const statusOrder = { completed: 0, "in-progress": 1, planned: 2 };
   const aOrder = statusOrder[a.data.status as keyof typeof statusOrder] ?? 3;
   const bOrder = statusOrder[b.data.status as keyof typeof statusOrder] ?? 3;
 
@@ -15,13 +15,16 @@ const sortedPosts = posts.sort((a, b) => {
   return b.data.date.getTime() - a.data.date.getTime();
 });
 
-// Group by project area
-const projectsByArea = sortedPosts.reduce((acc, post) => {
-  const area = post.data.project?.area || 'Other';
-  if (!acc[area]) acc[area] = [];
-  acc[area].push(post);
-  return acc;
-}, {} as Record<string, typeof posts>);
+// Group by area
+const projectsByArea = sortedProjects.reduce(
+  (acc, project) => {
+    const area = project.data.project?.area || "Other";
+    if (!acc[area]) acc[area] = [];
+    acc[area].push(project);
+    return acc;
+  },
+  {} as Record<string, typeof projects>
+);
 
 const areas = Object.keys(projectsByArea).sort();
 ---
@@ -30,50 +33,156 @@ const areas = Object.keys(projectsByArea).sort();
   title="Projects — Luis Miguel Montoya"
   description="AI interpretability research projects, tools, and explorations in understanding artificial minds."
 >
-  <div class="min-h-screen pt-20">
+  <div class="min-h-screen pt-20 pb-16">
     <div class="container mx-auto px-6 lg:px-16 xl:px-24">
       <!-- Header -->
       <header class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-sans font-bold text-primary mb-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">
           Projects
         </h1>
-        <p class="text-xl text-secondary leading-relaxed max-w-3xl">
-          Research projects and tools focused on AI interpretability, alignment research,
-          and building better understanding of neural networks.
+        <p class="text-xl text-secondary max-w-3xl">
+          AI interpretability research projects, tools, and explorations in
+          understanding artificial minds.
         </p>
       </header>
 
-      <!-- Projects by area -->
-      <div class="max-w-4xl">
-        {areas.map((area) => (
-          <section class="mb-12">
-            <h2 class="text-2xl font-sans font-semibold text-primary mb-6
-                       sticky top-20 bg-surface-primary/90 backdrop-blur-sm py-2 -mx-2 px-2">
+      <!-- Filter Tabs -->
+      <div class="mb-8 flex gap-2 overflow-x-auto pb-2">
+        <button class="filter-tab active" data-filter="all">
+          All Projects
+          <span class="count">({sortedProjects.length})</span>
+        </button>
+        {
+          Object.entries(projectsByArea).map(([area, items]) => (
+            <button class="filter-tab" data-filter={area}>
               {area}
-            </h2>
-
-            <div class="space-y-4">
-              {projectsByArea[area].map((post) => (
-                <UpdateCard
-                  title={post.data.title}
-                  date={post.data.date.toISOString().split('T')[0]}
-                  tag={post.data.status}
-                  description={post.data.excerpt}
-                  href={`/posts/${post.id}`}
-                  icon="project"
-                  variant="project"
-                />
-              ))}
-            </div>
-          </section>
-        ))}
+              <span class="count">({items.length})</span>
+            </button>
+          ))
+        }
       </div>
 
-      {sortedPosts.length === 0 && (
-        <div class="text-center py-12">
-          <p class="text-secondary text-lg">No projects yet. Check back soon!</p>
-        </div>
-      )}
+      <!-- Projects Grid -->
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3" id="projects-grid">
+        {
+          sortedProjects.map((project, index) => (
+            <a
+              href={`/posts/${project.id}`}
+              class="block project-item"
+              data-area={project.data.project?.area || "Other"}
+              style={`animation-delay: ${index * 50}ms`}
+            >
+              <ProjectCard post={project} />
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Empty State -->
+      {
+        sortedProjects.length === 0 && (
+          <div class="text-center py-16">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4">
+              <svg
+                class="w-8 h-8 text-tertiary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-primary mb-2">
+              No projects yet
+            </h3>
+            <p class="text-secondary">
+              Check back soon for exciting AI research projects!
+            </p>
+          </div>
+        )
+      }
     </div>
   </div>
+
+  <style>
+    .filter-tab {
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      background-color: rgb(var(--color-surface-secondary));
+      color: rgb(var(--color-secondary));
+      white-space: nowrap;
+      transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .filter-tab:hover {
+      background-color: rgb(var(--color-surface-tertiary));
+      color: rgb(var(--color-primary));
+    }
+
+    .filter-tab.active {
+      background-color: rgb(var(--color-interactive-blue));
+      color: white;
+    }
+
+    .count {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-left: 0.25rem;
+    }
+
+    .project-item {
+      animation: fadeInUp 0.5s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+
+    .project-item.hidden {
+      display: none;
+    }
+  </style>
+
+  <script>
+    // Filter functionality
+    const filterButtons = document.querySelectorAll(".filter-tab");
+    const projectItems = document.querySelectorAll(".project-item");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.getAttribute("data-filter");
+
+        // Update active state
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        // Filter items
+        projectItems.forEach((item, index) => {
+          const area = item.getAttribute("data-area");
+
+          if (filter === "all" || area === filter) {
+            item.classList.remove("hidden");
+            (item as HTMLElement).style.animationDelay = `${index * 50}ms`;
+          } else {
+            item.classList.add("hidden");
+          }
+        });
+      });
+    });
+  </script>
 </Layout>

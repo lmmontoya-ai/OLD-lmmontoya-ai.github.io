@@ -101,7 +101,8 @@ const sidebarAccentClass = accentClasses[accentColor];
       }
 
       /* Prevent background transitions on content elements that might cause flickering */
-      p, h1, h2, h3, h4, h5, h6, span, div, article {
+      /* Removed 'div' from this list to allow layout divs to use 'transition-all' for margins */
+      p, h1, h2, h3, h4, h5, h6, span, article {
         transition: color 0.15s ease;
       }
     </style>
@@ -121,9 +122,13 @@ const sidebarAccentClass = accentClasses[accentColor];
 
         <!-- Main container -->
         <div class="relative z-10 pt-16">
-          <!-- Breadcrumbs with margin for fixed sidebar -->
-          <div class="container mx-auto px-6 lg:px-16 xl:px-24 lg:ml-64 mb-4">
-            <Breadcrumbs items={breadcrumbs} />
+          <!-- Breadcrumbs with margin for fixed sidebar, aligned with content -->
+          <div id="breadcrumbs-container" class="lg:ml-64 mb-4 transition-all duration-300 ease-out">
+            <div class="container mx-auto px-6 lg:px-16 xl:px-24">
+              <div class={`${contentWidth} mx-auto`}>
+                <Breadcrumbs items={breadcrumbs} />
+              </div>
+            </div>
           </div>
 
       <!-- Split layout container -->
@@ -138,7 +143,7 @@ const sidebarAccentClass = accentClasses[accentColor];
         />
 
         <!-- Main content area with proper margin for fixed sidebar -->
-        <div class="lg:ml-64">
+        <div id="main-content-area" class="lg:ml-64 transition-all duration-300 ease-out">
           <div class="container mx-auto px-6 lg:px-16 xl:px-24">
             <main class={`${contentWidth} mx-auto`}>
               <!-- Post Header Component -->

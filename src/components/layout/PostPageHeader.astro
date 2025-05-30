@@ -235,41 +235,76 @@ const currentPath = Astro.url.pathname;
       menuToggle?.setAttribute("aria-expanded", "false");
       mobileMenu?.classList.add("translate-x-full");
       document.body.classList.remove("overflow-hidden");
-    });    // Sidebar toggle functionality
-    const sidebarToggle = document.getElementById("sidebar-toggle");
-    const sidebar = document.querySelector('aside[class*="fixed left-0"]');
-    const mainContent = document.querySelector('.lg\\:ml-64');
-
-    let sidebarVisible = true;
-
-    sidebarToggle?.addEventListener("click", () => {
-      sidebarVisible = !sidebarVisible;
-
-      if (sidebar) {
-        if (sidebarVisible) {
-          // Show sidebar
-          sidebar.classList.remove("-translate-x-full");
-          sidebar.classList.add("translate-x-0");
-        } else {
-          // Hide sidebar
-          sidebar.classList.remove("translate-x-0");
-          sidebar.classList.add("-translate-x-full");
-        }
-      }
-
-      if (mainContent) {
-        if (sidebarVisible) {
-          // Restore margin when sidebar is visible
-          mainContent.classList.add("lg:ml-64");
-        } else {
-          // Remove margin when sidebar is hidden
-          mainContent.classList.remove("lg:ml-64");
-        }
-      }
-
-      // Update aria-expanded
-      sidebarToggle.setAttribute("aria-expanded", sidebarVisible.toString());
     });
+
+    // Sidebar toggle functionality - wrapped in DOM ready
+    function initSidebarToggle() {
+      const sidebarToggle = document.getElementById("sidebar-toggle");
+      const sidebar = document.querySelector('aside[class*="fixed left-0"]');
+      // More specific selector for the main content area in PostLayout.astro
+      const mainContentArea = document.getElementById('main-content-area');
+      // More specific selector for breadcrumbs container in PostLayout.astro
+      const breadcrumbsContainer = document.getElementById('breadcrumbs-container');
+
+      let sidebarVisible = true; // Assuming sidebar is visible by default
+
+      sidebarToggle?.addEventListener("click", () => {
+        sidebarVisible = !sidebarVisible;
+
+        console.log('Toggling sidebar. Visible:', sidebarVisible);
+        console.log('Sidebar element:', sidebar);
+        console.log('Main content element:', mainContentArea);
+        console.log('Breadcrumbs element:', breadcrumbsContainer);
+
+        if (sidebar) {
+          sidebar.classList.toggle("translate-x-0", sidebarVisible);
+          sidebar.classList.toggle("-translate-x-full", !sidebarVisible);
+        }
+
+        // Adjust main content area
+        if (mainContentArea) {
+          mainContentArea.classList.toggle("lg:ml-64", sidebarVisible);
+          mainContentArea.classList.toggle("lg:ml-0", !sidebarVisible);
+        }
+
+        // Adjust breadcrumbs container
+        if (breadcrumbsContainer) {
+          breadcrumbsContainer.classList.toggle("lg:ml-64", sidebarVisible);
+          breadcrumbsContainer.classList.toggle("lg:ml-0", !sidebarVisible);
+        }
+
+        // Update aria-expanded
+        sidebarToggle.setAttribute("aria-expanded", sidebarVisible.toString());
+      });
+
+      // Initial state setup based on sidebarVisible
+      // This ensures consistency if the script re-runs or on page load
+      if (sidebar) {
+        sidebar.classList.toggle("translate-x-0", sidebarVisible);
+        sidebar.classList.toggle("-translate-x-full", !sidebarVisible);
+      }
+      if (mainContentArea) {
+        mainContentArea.classList.toggle("lg:ml-64", sidebarVisible);
+        mainContentArea.classList.toggle("lg:ml-0", !sidebarVisible);
+      }
+      if (breadcrumbsContainer) {
+        breadcrumbsContainer.classList.toggle("lg:ml-64", sidebarVisible);
+        breadcrumbsContainer.classList.toggle("lg:ml-0", !sidebarVisible);
+      }
+      if (sidebarToggle) {
+        sidebarToggle.setAttribute("aria-expanded", sidebarVisible.toString());
+      }
+    }
+
+    // Initialize sidebar toggle when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSidebarToggle);
+    } else {
+      initSidebarToggle();
+    }
+
+    // Also initialize on Astro page transitions
+    document.addEventListener('astro:page-load', initSidebarToggle);
 
     // Header opacity on load
     document.addEventListener("DOMContentLoaded", () => {

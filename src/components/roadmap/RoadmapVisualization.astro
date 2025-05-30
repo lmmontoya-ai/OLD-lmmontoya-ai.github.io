@@ -207,17 +207,19 @@ const height = 600;
 
 <style>
   .roadmap-container {
-    @apply relative;
+    position: relative;
   }
 
   .roadmap-scroll {
-    @apply overflow-x-auto overflow-y-hidden;
-    @apply border border-primary rounded-lg;
-    @apply bg-surface-secondary/20;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border: 1px solid rgb(var(--color-border-primary));
+    border-radius: 0.5rem;
+    background-color: rgb(var(--color-surface-secondary) / 0.2);
   }
 
   .roadmap-svg {
-    @apply min-w-full;
+    min-width: 100%;
   }
 
   @keyframes spin-slow {

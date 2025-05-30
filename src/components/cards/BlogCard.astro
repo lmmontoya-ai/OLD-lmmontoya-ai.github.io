@@ -19,76 +19,212 @@ const formattedDate = date.toLocaleDateString("en-US", {
 
 const classes = cn(blogCardVariants({ category }), className);
 
-// Category icons and colors
-const categoryIcons = {
-  Research: "🔬",
-  Technical: "⚙️",
-  Reflection: "💭",
-  Resource: "📚",
-  Tutorial: "🎓",
-  Update: "📰",
-};
-
 // Estimated reading time (if not provided)
 const estimatedReadingTime =
   readingTime || Math.max(1, Math.ceil((excerpt?.length || 200) / 200));
 ---
 
 <article class={classes}>
-  <!-- Category Badge -->
-  <div class="absolute top-4 right-4">
+  <!-- Header Section with Category and Type -->
+  <div class="flex items-start justify-between mb-4">
+    <!-- Category Type with Icon -->
+    <div class="flex items-center gap-2">
+      {
+        category === "Research" && (
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-interactive-blue/10">
+            <svg
+              class="w-4 h-4 text-interactive-blue"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+              />
+            </svg>
+          </div>
+        )
+      }
+      {
+        category === "Technical" && (
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-status-success/10">
+            <svg
+              class="w-4 h-4 text-status-success"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+          </div>
+        )
+      }
+      {
+        category === "Reflection" && (
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-interactive-gold/10">
+            <svg
+              class="w-4 h-4 text-interactive-gold"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+        )
+      }
+      {
+        category === "Resource" && (
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-status-warning/10">
+            <svg
+              class="w-4 h-4 text-status-warning"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+              />
+            </svg>
+          </div>
+        )
+      }
+      {
+        category === "Tutorial" && (
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500/10">
+            <svg
+              class="w-4 h-4 text-purple-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              />
+            </svg>
+          </div>
+        )
+      }
+      {
+        category === "Update" && (
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-cyan-500/10">
+            <svg
+              class="w-4 h-4 text-cyan-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
+              />
+            </svg>
+          </div>
+        )
+      }
+      {
+        !category && (
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-tertiary">
+            <svg
+              class="w-4 h-4 text-tertiary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+              />
+            </svg>
+          </div>
+        )
+      }
+      <div class="flex flex-col">
+        <span class="text-sm font-medium text-primary"
+          >{category || "Post"}</span
+        >
+        <span class="text-xs text-tertiary"
+          >{estimatedReadingTime} min read</span
+        >
+      </div>
+    </div>
+
+    <!-- Reading Time Badge -->
     <span
-      class={cn(
-        "px-2 py-1 text-xs font-medium rounded-full flex items-center gap-1",
-        category === "Research" &&
-          "bg-interactive-blue/10 text-interactive-blue",
-        category === "Technical" && "bg-status-success/10 text-status-success",
-        category === "Reflection" &&
-          "bg-interactive-gold/10 text-interactive-gold",
-        category === "Resource" && "bg-status-warning/10 text-status-warning",
-        category === "Tutorial" && "bg-purple-500/10 text-purple-500",
-        category === "Update" && "bg-cyan-500/10 text-cyan-500"
-      )}
+      class="px-3 py-1 text-xs font-medium rounded-full border bg-surface-tertiary/50 text-tertiary border-surface-primary"
     >
-      <span
-        >{categoryIcons[category as keyof typeof categoryIcons] || "📝"}</span
-      >
-      <span>{category}</span>
+      {formattedDate}
     </span>
   </div>
 
   <!-- Content -->
-  <div class="space-y-3">
+  <div class="flex-1 flex flex-col space-y-3">
     <h3
-      class="text-xl font-semibold text-primary group-hover:text-interactive-blue transition-theme"
+      class="text-xl font-semibold text-primary group-hover:text-interactive-blue transition-theme line-clamp-2"
     >
       {title}
     </h3>
 
-    <p class="text-secondary line-clamp-2">
+    <p class="text-secondary line-clamp-3 leading-relaxed flex-1">
       {excerpt}
     </p>
 
     <!-- Tags -->
     {
       tags && tags.length > 0 && (
-        <div class="flex flex-wrap gap-2">
-          {tags.slice(0, 3).map((tag) => (
-            <span class="px-2 py-1 text-xs bg-surface-tertiary rounded-full text-tertiary hover:bg-surface-primary hover:text-secondary transition-theme">
-              #{tag}
-            </span>
-          ))}
-          {tags.length > 3 && (
-            <span class="px-2 py-1 text-xs text-tertiary">
-              +{tags.length - 3} more
-            </span>
-          )}
+        <div class="space-y-2">
+          <span class="text-xs font-medium text-tertiary uppercase tracking-wide">
+            Topics
+          </span>
+          <div class="flex flex-wrap gap-2">
+            {tags.slice(0, 3).map((tag) => (
+              <span class="px-2 py-1 text-xs bg-surface-tertiary rounded-md text-secondary border border-surface-primary">
+                {tag}
+              </span>
+            ))}
+            {tags.length > 3 && (
+              <span class="px-2 py-1 text-xs text-tertiary">
+                +{tags.length - 3} more
+              </span>
+            )}
+          </div>
         </div>
       )
     }
 
     <!-- Footer -->
-    <div class="flex items-center justify-between pt-4 border-t border-subtle">
+    <div
+      class="flex items-center justify-between pt-4 border-t border-surface-tertiary mt-auto"
+    >
       <time
         class="text-sm text-tertiary flex items-center gap-1"
         datetime={date.toISOString()}
@@ -106,30 +242,16 @@ const estimatedReadingTime =
             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
           ></path>
         </svg>
-        {formattedDate}
+        Published
       </time>
 
-      <!-- Reading Time with Arrow -->
+      <!-- Read More Link -->
       <div
-        class="flex items-center gap-2 text-sm text-tertiary group-hover:text-interactive-blue transition-theme"
+        class="inline-flex items-center gap-1 px-3 py-1.5 text-sm text-interactive-blue hover:text-interactive-blue/80 bg-interactive-blue/10 hover:bg-interactive-blue/20 rounded-lg transition-theme"
       >
+        <span>Read More</span>
         <svg
-          class="w-4 h-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-        <span>{estimatedReadingTime} min read</span>
-
-        <!-- Integrated Read More Arrow -->
-        <svg
-          class="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
+          class="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-300"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -146,20 +268,7 @@ const estimatedReadingTime =
 
   <!-- Category-specific gradient overlay -->
   <div
-    class={cn(
-      "absolute inset-0 opacity-0 group-hover:opacity-100 transition-theme pointer-events-none",
-      category === "Research" &&
-        "bg-gradient-to-br from-blue-500/0 to-blue-500/5",
-      category === "Technical" &&
-        "bg-gradient-to-br from-green-500/0 to-green-500/5",
-      category === "Reflection" &&
-        "bg-gradient-to-br from-yellow-500/0 to-yellow-500/5",
-      category === "Resource" &&
-        "bg-gradient-to-br from-orange-500/0 to-orange-500/5",
-      category === "Tutorial" &&
-        "bg-gradient-to-br from-purple-500/0 to-purple-500/5",
-      category === "Update" && "bg-gradient-to-br from-cyan-500/0 to-cyan-500/5"
-    )}
+    class="absolute inset-0 bg-gradient-to-br from-interactive-blue/0 to-interactive-blue/5 opacity-0 group-hover:opacity-100 transition-theme pointer-events-none rounded-xl"
   >
   </div>
 </article>

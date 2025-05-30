@@ -269,6 +269,9 @@ export const projectCardVariants = cva(
     "border",
     "border-primary",
     "p-6",
+    "min-h-80", // Standardized minimum height for consistent sizing
+    "flex",
+    "flex-col",
     "transition-spring",
     "hover:shadow-themed-lg",
     "hover:border-interactive-blue/30",
@@ -303,6 +306,9 @@ export const literatureCardVariants = cva(
     "border",
     "border-primary",
     "p-6",
+    "min-h-80", // Standardized minimum height for consistent sizing
+    "flex",
+    "flex-col",
     "transition-spring",
     "hover:shadow-themed-lg",
     "hover:border-interactive-blue/30",
@@ -342,6 +348,9 @@ export const blogCardVariants = cva(
     "border",
     "border-primary",
     "p-6",
+    "min-h-80", // Standardized minimum height for consistent sizing
+    "flex",
+    "flex-col",
     "transition-spring",
     "hover:shadow-themed-lg",
     "hover:border-interactive-blue/30",

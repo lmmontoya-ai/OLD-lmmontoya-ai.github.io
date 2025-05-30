@@ -21,8 +21,8 @@ This document tracks the progress of each PRD task for the Unified Content Syste
 - [x] Task 4.1: Create Search Component (`src/components/ui/SearchInput.astro`)
 
 ## Phase 5 - Content Templates
-- [ ] Task 5.1: Create MDX Templates (`src/content/posts/_templates/blog-post.mdx`)
-- [ ] Task 5.2: Create Roadmap Milestone Template (`src/content/posts/_templates/roadmap-milestone.mdx`)
+- [x] Task 5.1: Create MDX Templates (`src/content/posts/_templates/blog-post.mdx`)
+- [x] Task 5.2: Create Roadmap Milestone Template (`src/content/posts/_templates/roadmap-milestone.mdx`)
 
 ## Phase 6 - Supporting Components
 - [ ] Task 6.1: Create Breadcrumbs Component (`src/components/ui/Breadcrumbs.astro`)
@@ -32,6 +32,6 @@ This document tracks the progress of each PRD task for the Unified Content Syste
 - [ ] Task 7.1: Create Author Guide (`docs/content-authoring-guide.md`)
 
 ---
-**Next Task:** Task 5.1: Create MDX Templates (`src/content/posts/_templates/blog-post.mdx`)
+**Next Task:** Task 6.1: Create Breadcrumbs Component (`src/components/ui/Breadcrumbs.astro`)
 
-> _Note: Task 4.1 complete! ✅ SearchInput component created with Fuse.js integration, keyboard shortcuts (Ctrl/Cmd+K to focus, Escape to clear), and graceful handling of missing API endpoint. Features fuzzy search across title, excerpt, tags, category, and content with proper debouncing and clear functionality. Ready to proceed to Task 5.1: Content Templates._
+> _Note: Task 5.1 & 5.2 complete! ✅ Created comprehensive MDX templates for all content types: blog posts, roadmap milestones, project showcases, and literature reviews. Templates include proper frontmatter examples, content structure guidelines, and demonstrate all features of the unified schema. Added helpful README with authoring guidelines. Ready to proceed to Task 6.1: Breadcrumbs Component._

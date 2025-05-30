@@ -76,77 +76,33 @@ const sidebarAccentClass = accentClasses[accentColor];
 
     <ViewTransitions />
 
-    <!-- Critical theme initialization - prevent flash of wrong theme -->
-    <script is:inline>
-      // This script must run immediately and synchronously to prevent flash
-      (function() {
-        function getStoredTheme() {
-          if (typeof localStorage !== 'undefined') {
-            return localStorage.getItem('theme');
-          }
-          return null;
-        }
-
-        function getSystemTheme() {
-          if (typeof window !== 'undefined' && window.matchMedia) {
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-          }
-          return 'light';
-        }
-
-        function applyTheme() {
-          // Always check localStorage first, then system preference
-          const storedTheme = getStoredTheme();
-          const theme = storedTheme || getSystemTheme();
-
-          // Apply theme immediately to prevent flash
-          const root = document.documentElement;
-          if (theme === 'dark') {
-            root.classList.add('dark');
-          } else {
-            root.classList.remove('dark');
-          }
-
-          // Only store if not already stored
-          if (typeof localStorage !== 'undefined' && !storedTheme) {
-            localStorage.setItem('theme', theme);
-          }
-        }
-
-        // Apply theme immediately on initial load
-        applyTheme();
-
-        // Handle view transitions - preserve theme during navigation
-        document.addEventListener('astro:before-swap', (event) => {
-          // Get current theme before swap
-          const currentTheme = getStoredTheme() || getSystemTheme();
-
-          // Apply to the new document
-          if (currentTheme === 'dark') {
-            event.newDocument.documentElement.classList.add('dark');
-          } else {
-            event.newDocument.documentElement.classList.remove('dark');
-          }
-        });
-
-        // Also ensure theme is applied after swap
-        document.addEventListener('astro:after-swap', applyTheme);
-      })();
-    </script>
-
-    <!-- Add CSS to prevent any initial flash -->
+    <!-- Theme handled by shared Layout component -->
     <style>
-      /* Prevent flash of unstyled content during theme transitions */
-      html {
-        color-scheme: light;
-      }
-      html.dark {
-        color-scheme: dark;
+      /* Post-specific theme transition overrides */
+      /* Apply smooth color transitions to all text elements */
+      * {
+        transition: color 0.15s ease;
       }
 
-      /* Ensure smooth transitions for theme changes */
-      * {
-        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      /* Apply background and border transitions only to specific UI elements */
+      .bg-surface,
+      .bg-surface-secondary,
+      .bg-surface-tertiary,
+      .border-border-primary,
+      .border-border-secondary,
+      button,
+      .card,
+      .sidebar,
+      nav,
+      header,
+      footer,
+      aside {
+        transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+      }
+
+      /* Prevent background transitions on content elements that might cause flickering */
+      p, h1, h2, h3, h4, h5, h6, span, div, article {
+        transition: color 0.15s ease;
       }
     </style>
   </head>

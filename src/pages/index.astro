@@ -4,37 +4,56 @@
 
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/ui/Hero.astro";
-import Card from "../components/ui/Card.astro";
-import Button from "../components/ui/Button.astro";
 import UpdateCard from "../components/ui/UpdateCard.astro";
 import UpdatesContainer from "../components/ui/UpdatesContainer.astro";
-import { formatRelativeDate } from "../utils/dateUtils";
+import { getPostsByType } from "../utils/content";
 
-// Sample data for latest content (one from each section)
-const latestRoadmap = {
-  title: "Mechanistic Interpretability Fundamentals",
-  date: "2024-02-15",
-  tag: "Latest Milestone",
-  description: "Core concepts in circuit analysis and feature visualization.",
-  href: "/roadmap/mech-interp-fundamentals",
+// Fetch latest posts from each section
+const roadmapPosts = await getPostsByType("roadmap");
+const projectPosts = await getPostsByType("project");
+const literaturePosts = await getPostsByType("literature");
+
+// Get latest from each type (handle empty arrays)
+const latestRoadmap = roadmapPosts.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+)[0];
+const latestProject = projectPosts.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+)[0];
+const latestLiterature = literaturePosts.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+)[0];
+
+// Helper function to format date for display
+function formatDate(date: Date): string {
+  return date.toISOString().split("T")[0];
+}
+
+// Create fallback data for empty states
+const fallbackRoadmap = {
+  title: "Learning Journey Starting Soon",
+  date: formatDate(new Date()),
+  tag: "Roadmap Preview",
+  description:
+    "Follow along as I document my path through AI interpretability research.",
+  href: "/roadmap",
 };
 
-const latestProject = {
-  title: "Attention Head Attribution in LLMs",
+const fallbackProject = {
+  title: "Projects Coming Soon",
+  date: formatDate(new Date()),
+  tag: "Project Preview",
   description:
-    "Developed novel metrics for quantifying attention head contributions to factual recall.",
-  tag: "Latest Project",
-  date: "2024-03-15",
-  href: "/projects/attention-attribution",
+    "Exciting AI research projects and tools will be showcased here.",
+  href: "/projects",
 };
 
-const latestLiterature = {
-  title: "Mechanistic Interpretability: Current Progress",
-  description:
-    "A comprehensive overview of the state of mechanistic interpretability research.",
-  tag: "Latest Resource",
-  date: "2024-01-10",
-  href: "/literature/mech-interp-survey",
+const fallbackLiterature = {
+  title: "Literature Reviews Loading",
+  date: formatDate(new Date()),
+  tag: "Literature Preview",
+  description: "Curated paper reviews and research insights will appear here.",
+  href: "/literature",
 };
 ---
 
@@ -43,40 +62,81 @@ const latestLiterature = {
     <!-- Vertical stack of latest content cards -->
     <UpdatesContainer>
       <!-- Roadmap card -->
-      <UpdateCard
-        title={latestRoadmap.title}
-        date={latestRoadmap.date}
-        tag={latestRoadmap.tag}
-        description={latestRoadmap.description}
-        href={latestRoadmap.href}
-        icon="roadmap"
-        variant="milestone"
-      />
+      {
+        latestRoadmap ? (
+          <UpdateCard
+            title={latestRoadmap.data.title}
+            date={formatDate(latestRoadmap.data.date)}
+            tag="Latest Milestone"
+            description={latestRoadmap.data.excerpt}
+            href={`/posts/${latestRoadmap.id}`}
+            icon="roadmap"
+            variant="milestone"
+          />
+        ) : (
+          <UpdateCard
+            title={fallbackRoadmap.title}
+            date={fallbackRoadmap.date}
+            tag={fallbackRoadmap.tag}
+            description={fallbackRoadmap.description}
+            href={fallbackRoadmap.href}
+            icon="roadmap"
+            variant="milestone"
+          />
+        )
+      }
 
       <!-- Project card -->
-      <UpdateCard
-        title={latestProject.title}
-        date={latestProject.date}
-        tag={latestProject.tag}
-        description={latestProject.description}
-        href={latestProject.href}
-        icon="project"
-        variant="project"
-      />
+      {
+        latestProject ? (
+          <UpdateCard
+            title={latestProject.data.title}
+            date={formatDate(latestProject.data.date)}
+            tag="Latest Project"
+            description={latestProject.data.excerpt}
+            href={`/posts/${latestProject.id}`}
+            icon="project"
+            variant="project"
+          />
+        ) : (
+          <UpdateCard
+            title={fallbackProject.title}
+            date={fallbackProject.date}
+            tag={fallbackProject.tag}
+            description={fallbackProject.description}
+            href={fallbackProject.href}
+            icon="project"
+            variant="project"
+          />
+        )
+      }
 
       <!-- Literature card -->
-      <UpdateCard
-        title={latestLiterature.title}
-        date={latestLiterature.date}
-        tag={latestLiterature.tag}
-        description={latestLiterature.description}
-        href={latestLiterature.href}
-        icon="literature"
-        variant="resource"
-      />
+      {
+        latestLiterature ? (
+          <UpdateCard
+            title={latestLiterature.data.title}
+            date={formatDate(latestLiterature.data.date)}
+            tag="Latest Resource"
+            description={latestLiterature.data.excerpt}
+            href={`/posts/${latestLiterature.id}`}
+            icon="literature"
+            variant="resource"
+          />
+        ) : (
+          <UpdateCard
+            title={fallbackLiterature.title}
+            date={fallbackLiterature.date}
+            tag={fallbackLiterature.tag}
+            description={fallbackLiterature.description}
+            href={fallbackLiterature.href}
+            icon="literature"
+            variant="resource"
+          />
+        )
+      }
     </UpdatesContainer>
   </Hero>
-
 </Layout>
 
 <style>

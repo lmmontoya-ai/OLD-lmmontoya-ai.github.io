@@ -19,59 +19,46 @@
     "href": "/posts/introduction"
   },
   {
-    "title": "Understanding Transformer Architectures",
-    "slug": "understanding-transformers",
-    "excerpt": "Deep dive into transformer internals, attention mechanisms, and positional encoding for mechanistic interpretability.",
-    "content": "Understanding Transformer Architectures This milestone marks a crucial point in understanding modern AI architectures that form the backbone of large language models. Learning Objectives Attention Mechanisms: How self-attention enables long-range dependencies Positional Encoding: Methods for incorporating sequence order Multi-Head Attention: Parallel attention computation and its benefits Layer Normalization: Stabilizing training in deep networks Key Insights The transformer architecture revolutionized NLP by replacing recurrent connections with pure attention mechanisms, enabling parallel computation and better handling of long sequences. Next Steps With this foundation, we can move on to more advanced topics like: Mechanistic interpretability of attention heads Circuit analysis in transformers Probing internal representations",
+    "title": "Testing Search Functionality: AI Safety and Interpretability",
+    "slug": "test-search",
+    "excerpt": "A comprehensive test post for search functionality, covering various AI safety and interpretability topics to validate search indexing and retrieval.",
+    "content": "Search Test Introduction This post serves as a comprehensive test for the search functionality of this site. It contains a diverse range of content related to AI safety, interpretability, and machine learning to validate that the search indexing and retrieval systems work correctly across different topics and content types. AI Safety Concepts Alignment Problem The AI alignment problem refers to the challenge of ensuring that artificial intelligence systems pursue goals that are aligned with human values and intentions. This is particularly important as AI systems become more capable and autonomous. Key aspects of alignment include: Value alignment: Ensuring AI systems optimize for human-preferred outcomes Intent alignment: Making sure AI systems do what humans want them to do Robustness: Maintaining alignment under distribution shift and novel circumstances Constitutional AI Constitutional AI is an approach developed by Anthropic that trains AI systems to be helpful, harmless, and hone",
     "types": [
-      "roadmap"
+      "blog",
+      "note"
     ],
     "category": "Technical",
     "tags": [
-      "Transformers",
-      "Deep Learning",
-      "Milestone",
-      "Architecture"
-    ],
-    "date": "2024-12-01T00:00:00.000Z",
-    "href": "/posts/understanding-transformers"
-  },
-  {
-    "title": "Mechanistic Interpretability Toolkit",
-    "slug": "mech-interp-toolkit",
-    "excerpt": "Open-source Python toolkit for analyzing neural network internals with activation patching, circuit discovery, and visualization tools.",
-    "content": "Mechanistic Interpretability Toolkit A comprehensive Python toolkit designed to make mechanistic interpretability research more accessible and reproducible. Overview This project provides researchers and practitioners with powerful tools for understanding the internal mechanisms of neural networks, particularly focusing on transformer architectures and large language models. Key Features 🔬 Activation Patching Systematically isolate causal relationships between activations and outputs Support for both clean and corrupted input paradigms Automated significance testing and visualization 🧠 Circuit Discovery Automated identification of computational circuits Graph-based visualization of information flow Integration with existing interpretability frameworks 📊 Visualization Suite Interactive attention pattern visualization Activation landscape plotting Real-time model probing interface Installation Usage Example Impact This toolkit has been used in several research papers and has helped de",
-    "types": [
-      "project"
-    ],
-    "category": "Technical",
-    "tags": [
-      "Python",
-      "PyTorch",
+      "Search",
+      "Testing",
+      "AI Safety",
       "Interpretability",
-      "Open Source",
-      "Tools"
+      "Machine Learning",
+      "Neural Networks",
+      "Transformers",
+      "Alignment"
     ],
-    "date": "2024-11-15T00:00:00.000Z",
-    "href": "/posts/mech-interp-toolkit"
+    "date": "2024-03-20T00:00:00.000Z",
+    "href": "/posts/test-search"
   },
   {
-    "title": "Paper Review: Attention Is All You Need",
-    "slug": "attention-is-all-you-need-review",
-    "excerpt": "Deep dive into the transformer paper that revolutionized NLP, with implementation notes and insights for interpretability research.",
-    "content": "Paper Review: Attention Is All You Need Authors: Vaswani et al. (2017) Venue: NIPS 2017 Impact: 🌟🌟🌟🌟🌟 (Foundational) Summary This paper introduced the Transformer architecture, fundamentally changing how we approach sequence modeling by relying entirely on attention mechanisms and dispensing with recurrence and convolutions. Key Contributions Self-Attention Mechanism The paper demonstrates that self-attention can effectively capture long-range dependencies without the sequential processing limitations of RNNs. Multi-Head Attention By running multiple attention functions in parallel, the model can attend to information from different representation subspaces simultaneously. Positional Encoding Since the model has no inherent notion of sequence order, sinusoidal positional encodings are added to input embeddings. Interpretability Insights From a mechanistic interpretability perspective, this paper is particularly interesting because: Attention Maps: Provide direct visualization of w",
+    "title": "Literature Review: Attention is All You Need",
+    "slug": "test-literature-attention",
+    "excerpt": "Comprehensive review of the landmark transformer paper that revolutionized natural language processing and became the foundation for modern LLMs.",
+    "content": "Paper Summary The \"Attention is All You Need\" paper introduced the Transformer architecture, which has become the foundation for most modern large language models including GPT, BERT, and their variants. This groundbreaking work demonstrated that attention mechanisms alone, without recurrence or convolution, could achieve state-of-the-art results in sequence-to-sequence tasks. Key Contributions Pure Attention Architecture The paper showed that recurrent and convolutional layers are not necessary for achieving excellent performance on sequence transduction tasks. The Transformer relies entirely on attention mechanisms to draw global dependencies between input and output. Multi-Head Attention Instead of performing a single attention function, the model uses multiple \"attention heads\" that learn different types of relationships: Some heads focus on syntactic relationships Others capture semantic dependencies Some specialize in long-range dependencies Positional Encoding Since the model ha",
     "types": [
-      "literature"
+      "literature",
+      "note"
     ],
     "category": "Research",
     "tags": [
       "Transformers",
       "Attention",
       "Deep Learning",
-      "NLP",
-      "Paper Review"
+      "Paper Review",
+      "NLP"
     ],
-    "date": "2024-10-20T00:00:00.000Z",
-    "href": "/posts/attention-is-all-you-need-review"
+    "date": "2024-03-08T00:00:00.000Z",
+    "href": "/posts/test-literature-attention"
   }
 ]

@@ -235,12 +235,10 @@ const currentPath = Astro.url.pathname;
       menuToggle?.setAttribute("aria-expanded", "false");
       mobileMenu?.classList.add("translate-x-full");
       document.body.classList.remove("overflow-hidden");
-    });
-
-    // Sidebar toggle functionality
+    });    // Sidebar toggle functionality
     const sidebarToggle = document.getElementById("sidebar-toggle");
     const sidebar = document.querySelector('aside[class*="fixed left-0"]');
-    const mainContent = document.querySelector('.lg\\:ml-80');
+    const mainContent = document.querySelector('.lg\\:ml-64');
 
     let sidebarVisible = true;
 
@@ -262,10 +260,10 @@ const currentPath = Astro.url.pathname;
       if (mainContent) {
         if (sidebarVisible) {
           // Restore margin when sidebar is visible
-          mainContent.classList.add("lg:ml-80");
+          mainContent.classList.add("lg:ml-64");
         } else {
           // Remove margin when sidebar is hidden
-          mainContent.classList.remove("lg:ml-80");
+          mainContent.classList.remove("lg:ml-64");
         }
       }
 

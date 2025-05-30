@@ -164,9 +164,9 @@ const sidebarAccentClass = accentClasses[accentColor];
         <div class="absolute inset-0 bg-grid-pattern opacity-[0.015] pointer-events-none"></div>
 
         <!-- Main container -->
-        <div class="relative z-10 pt-24">
+        <div class="relative z-10 pt-16">
           <!-- Breadcrumbs with margin for fixed sidebar -->
-          <div class="container mx-auto px-6 lg:px-16 xl:px-24 lg:ml-80 mb-4">
+          <div class="container mx-auto px-6 lg:px-16 xl:px-24 lg:ml-64 mb-4">
             <Breadcrumbs items={breadcrumbs} />
           </div>
 
@@ -182,7 +182,7 @@ const sidebarAccentClass = accentClasses[accentColor];
         />
 
         <!-- Main content area with proper margin for fixed sidebar -->
-        <div class="lg:ml-80">
+        <div class="lg:ml-64">
           <div class="container mx-auto px-6 lg:px-16 xl:px-24">
             <main class={`${contentWidth} mx-auto`}>
               <!-- Post Header Component -->

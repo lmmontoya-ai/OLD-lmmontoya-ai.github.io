@@ -34,7 +34,7 @@ export async function getRelatedPosts(
 
   // Score posts based on similarity
   const scored = posts
-    .filter(p => p.slug !== currentPost.slug && p.data.status === 'published')
+    .filter(p => p.id !== currentPost.id && p.data.status === 'published')
     .map(post => {
       let score = 0;
 
@@ -130,7 +130,7 @@ export function getBreadcrumbs(post: Post): Array<{ label: string; href: string 
   // Add current post
   crumbs.push({
     label: post.data.title,
-    href: `/posts/${post.slug}`,
+    href: `/posts/${post.id}`,
   });
 
   return crumbs;

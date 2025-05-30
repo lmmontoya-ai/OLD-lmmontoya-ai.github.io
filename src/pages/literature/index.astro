@@ -59,7 +59,7 @@ const orderedTypes = typeOrder.filter(type => literatureByType[type]);
                   date={post.data.date.toISOString().split('T')[0]}
                   tag={post.data.literature?.difficulty || 'Intermediate'}
                   description={post.data.excerpt}
-                  href={`/posts/${post.slug}`}
+                  href={`/posts/${post.id}`}
                   icon="literature"
                   variant="resource"
                 />

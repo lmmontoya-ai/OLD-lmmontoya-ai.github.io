@@ -1,19 +1,77 @@
 [
   {
-    "title": "Test Search Functionality",
-    "slug": "test-search",
-    "excerpt": "A test post to verify search functionality works correctly in the header.",
-    "content": "Test Search Functionality This is a test post created to verify that the search functionality in the header works correctly. Features to Test Click the search icon in the header Verify it focuses the search input in the sidebar Test keyboard shortcuts (Cmd/Ctrl+K) Expected Behavior When clicking the search icon in the header: The search input in the sidebar should receive focus The page should scroll to center the search input Any existing text should be selected This test post contains enough content to verify that the search system can find and index this content properly.",
+    "title": "Welcome to My AI Journey: From Physics to Machine Learning",
+    "slug": "introduction",
+    "excerpt": "An introduction to my background in physics, transition to AI research, and passion for interpretability and alignment. Join me as I document my learning journey and share insights.",
+    "content": "Hello, and Welcome! I'm Luis Miguel Montoya, and I'm excited to share my journey into the fascinating world of artificial intelligence with you. This blog serves as both a learning log and a way to connect with others who share my passion for understanding how AI systems work and ensuring they align with human values. My Background: A Physicist's Path to AI My journey began in physics, where I developed a deep appreciation for mathematical rigor and systematic problem-solving. The transition from studying the fundamental laws of nature to understanding artificial minds might seem like a leap, but there's more overlap than you might think. Physics taught me to: Think in systems - Understanding how complex behaviors emerge from simple rules Embrace uncertainty - Working with probabilistic models and statistical mechanics Value interpretability - Always asking \"why does this work?\" rather than just \"does it work?\" Pursue first principles - Breaking down complex problems into fundamental c",
     "types": [
       "blog"
     ],
+    "category": "Reflection",
+    "tags": [
+      "Introduction",
+      "AI",
+      "Physics",
+      "Career",
+      "Personal"
+    ],
+    "date": "2025-05-30T00:00:00.000Z",
+    "href": "/posts/introduction"
+  },
+  {
+    "title": "Understanding Transformer Architectures",
+    "slug": "understanding-transformers",
+    "excerpt": "Deep dive into transformer internals, attention mechanisms, and positional encoding for mechanistic interpretability.",
+    "content": "Understanding Transformer Architectures This milestone marks a crucial point in understanding modern AI architectures that form the backbone of large language models. Learning Objectives Attention Mechanisms: How self-attention enables long-range dependencies Positional Encoding: Methods for incorporating sequence order Multi-Head Attention: Parallel attention computation and its benefits Layer Normalization: Stabilizing training in deep networks Key Insights The transformer architecture revolutionized NLP by replacing recurrent connections with pure attention mechanisms, enabling parallel computation and better handling of long sequences. Next Steps With this foundation, we can move on to more advanced topics like: Mechanistic interpretability of attention heads Circuit analysis in transformers Probing internal representations",
+    "types": [
+      "roadmap"
+    ],
     "category": "Technical",
     "tags": [
-      "testing",
-      "search",
-      "functionality"
+      "Transformers",
+      "Deep Learning",
+      "Milestone",
+      "Architecture"
     ],
-    "date": "2024-12-19T00:00:00.000Z",
-    "href": "/posts/test-search"
+    "date": "2024-12-01T00:00:00.000Z",
+    "href": "/posts/understanding-transformers"
+  },
+  {
+    "title": "Mechanistic Interpretability Toolkit",
+    "slug": "mech-interp-toolkit",
+    "excerpt": "Open-source Python toolkit for analyzing neural network internals with activation patching, circuit discovery, and visualization tools.",
+    "content": "Mechanistic Interpretability Toolkit A comprehensive Python toolkit designed to make mechanistic interpretability research more accessible and reproducible. Overview This project provides researchers and practitioners with powerful tools for understanding the internal mechanisms of neural networks, particularly focusing on transformer architectures and large language models. Key Features 🔬 Activation Patching Systematically isolate causal relationships between activations and outputs Support for both clean and corrupted input paradigms Automated significance testing and visualization 🧠 Circuit Discovery Automated identification of computational circuits Graph-based visualization of information flow Integration with existing interpretability frameworks 📊 Visualization Suite Interactive attention pattern visualization Activation landscape plotting Real-time model probing interface Installation Usage Example Impact This toolkit has been used in several research papers and has helped de",
+    "types": [
+      "project"
+    ],
+    "category": "Technical",
+    "tags": [
+      "Python",
+      "PyTorch",
+      "Interpretability",
+      "Open Source",
+      "Tools"
+    ],
+    "date": "2024-11-15T00:00:00.000Z",
+    "href": "/posts/mech-interp-toolkit"
+  },
+  {
+    "title": "Paper Review: Attention Is All You Need",
+    "slug": "attention-is-all-you-need-review",
+    "excerpt": "Deep dive into the transformer paper that revolutionized NLP, with implementation notes and insights for interpretability research.",
+    "content": "Paper Review: Attention Is All You Need Authors: Vaswani et al. (2017) Venue: NIPS 2017 Impact: 🌟🌟🌟🌟🌟 (Foundational) Summary This paper introduced the Transformer architecture, fundamentally changing how we approach sequence modeling by relying entirely on attention mechanisms and dispensing with recurrence and convolutions. Key Contributions Self-Attention Mechanism The paper demonstrates that self-attention can effectively capture long-range dependencies without the sequential processing limitations of RNNs. Multi-Head Attention By running multiple attention functions in parallel, the model can attend to information from different representation subspaces simultaneously. Positional Encoding Since the model has no inherent notion of sequence order, sinusoidal positional encodings are added to input embeddings. Interpretability Insights From a mechanistic interpretability perspective, this paper is particularly interesting because: Attention Maps: Provide direct visualization of w",
+    "types": [
+      "literature"
+    ],
+    "category": "Research",
+    "tags": [
+      "Transformers",
+      "Attention",
+      "Deep Learning",
+      "NLP",
+      "Paper Review"
+    ],
+    "date": "2024-10-20T00:00:00.000Z",
+    "href": "/posts/attention-is-all-you-need-review"
   }
 ]

@@ -65,7 +65,7 @@ const phases = Object.keys(milestonesByPhase).sort((a, b) => {
                   date={post.data.date.toISOString().split('T')[0]}
                   tag={post.data.status}
                   description={post.data.excerpt}
-                  href={`/posts/${post.slug}`}
+                  href={`/posts/${post.id}`}
                   icon="roadmap"
                   variant="milestone"
                 />

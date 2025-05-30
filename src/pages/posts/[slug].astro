@@ -1,7 +1,8 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
 import type { GetStaticPaths } from 'astro';
+import type { Post } from '../../utils/content';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getCollection('posts', ({ data }) => {
@@ -10,13 +11,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
 
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 };
 
 interface Props {
-  post: CollectionEntry<'posts'>;
+  post: Post;
 }
 
 const { post } = Astro.props;
@@ -24,7 +25,7 @@ const { post } = Astro.props;
 // Generate metadata for the page
 const title = post.data.seo?.metaTitle || post.data.title;
 const description = post.data.seo?.metaDescription || post.data.excerpt;
-const canonicalUrl = new URL(`/posts/${post.slug}`, Astro.site);
+const canonicalUrl = new URL(`/posts/${post.id}`, Astro.site);
 
 // Open Graph metadata
 const ogImage = post.data.media?.hero || post.data.media?.thumbnail;
@@ -81,8 +82,8 @@ const redirects: Record<string, string> = {
 };
 
 // Check if this is a redirect request
-if (redirects[post.slug]) {
-  return Astro.redirect(redirects[post.slug], 301);
+if (redirects[post.id]) {
+  return Astro.redirect(redirects[post.id], 301);
 }
 
 // Breadcrumb structured data

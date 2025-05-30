@@ -1,19 +1,23 @@
-// src/content/config.ts
-// Unified content collection schema for all content types
+// src/content.config.ts
+// Content collection configuration using the new Content Layer API (Astro v5.0+)
 
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 /**
  * Unified content schema supporting all content types:
  * blog, roadmap, project, literature, note, guide
  */
 const postsCollection = defineCollection({
-  type: 'content',
+  loader: glob({
+    pattern: ["**/*.{md,mdx}", "!_templates/**"],
+    base: "./src/content/posts"
+  }),
   schema: z.object({
     // Core required fields
     title: z.string(),
     slug: z.string(),
-    date: z.date(),
+    date: z.coerce.date(),
     excerpt: z.string().max(280),
     types: z.array(z.enum(['blog', 'roadmap', 'project', 'literature', 'note', 'guide'])),
     category: z.enum(['Research', 'Technical', 'Reflection', 'Resource', 'Tutorial', 'Update']),
@@ -23,7 +27,7 @@ const postsCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     readingTime: z.number().optional(), // Computed reading time in minutes
     wordCount: z.number().optional(), // Total word count
-    lastModified: z.date().optional(), // Last modified date for editorial tracking
+    lastModified: z.coerce.date().optional(), // Last modified date for editorial tracking
 
     // Roadmap-specific fields
     roadmap: z.object({

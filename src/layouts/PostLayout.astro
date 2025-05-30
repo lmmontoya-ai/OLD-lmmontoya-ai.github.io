@@ -6,13 +6,14 @@ import PostHeader from '../components/post/PostHeader.astro';
 import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
 import { getRelatedPosts, getBreadcrumbs } from '../utils/content';
 import type { Post } from '../utils/content';
+import { render } from 'astro:content';
 
 interface Props {
   post: Post;
 }
 
 const { post } = Astro.props;
-const { Content, headings } = await post.render();
+const { Content, headings } = await render(post);
 
 // Get related posts
 const relatedPosts = await getRelatedPosts(post);
@@ -41,7 +42,7 @@ const layoutClasses = {
 const contentWidth = layoutClasses[post.data.display?.layout || 'default'];
 
 // Show TOC if enabled and there are headings
-const showToc = post.data.display?.showToc !== false && headings.filter(h => h.depth === 2 || h.depth === 3).length > 0;
+const showToc = post.data.display?.showToc !== false && headings.filter((h: any) => h.depth === 2 || h.depth === 3).length > 0;
 
 // Accent color CSS classes
 const accentClasses = {
@@ -144,7 +145,7 @@ const sidebarAccentClass = accentClasses[accentColor];
                   <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {relatedPosts.map((relatedPost) => (
                       <a
-                        href={`/posts/${relatedPost.slug}`}
+                        href={`/posts/${relatedPost.id}`}
                         class="group block p-6 bg-bg-secondary/50 backdrop-blur-sm rounded-xl border border-border-secondary hover:border-border-primary transition-all duration-200"
                       >
                         <h4 class="font-sans font-semibold text-content-primary group-hover:text-brand-primary transition-colors mb-2 line-clamp-2">

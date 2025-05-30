@@ -25,17 +25,17 @@ if (tocHeadings.length === 0) {
 
 // Variant-specific classes
 const containerClasses = {
-  sidebar: 'bg-bg-secondary/50 backdrop-blur-sm rounded-xl border border-border-secondary p-6',
+  sidebar: 'rounded-lg',
   mobile: 'bg-bg-secondary backdrop-blur-lg border-t border-border-primary p-4'
 };
 
 const titleClasses = {
-  sidebar: 'text-sm font-mono font-medium text-content-tertiary uppercase tracking-wider mb-4',
+  sidebar: 'sr-only', // Hide title in sidebar since parent handles it
   mobile: 'text-sm font-mono font-medium text-content-tertiary uppercase tracking-wider mb-3'
 };
 
 const listClasses = {
-  sidebar: 'space-y-2',
+  sidebar: 'space-y-1',
   mobile: 'flex gap-4 overflow-x-auto'
 };
 
@@ -45,7 +45,7 @@ const itemClasses = {
 };
 
 const linkClasses = {
-  sidebar: 'block text-sm text-content-secondary hover:text-content-primary transition-colors',
+  sidebar: 'block text-sm text-content-secondary hover:text-brand-primary transition-colors duration-200 py-1',
   mobile: 'block text-sm text-content-secondary hover:text-content-primary transition-colors whitespace-nowrap'
 };
 ---
@@ -61,11 +61,18 @@ const linkClasses = {
           <a
             href={`#${heading.slug}`}
             class={`${linkClasses[variant]} ${
-              variant === 'sidebar' && heading.depth === 3 ? 'pl-4 text-xs' : ''
+              variant === 'sidebar' && heading.depth === 3
+                ? 'pl-4 text-xs opacity-80 font-mono'
+                : variant === 'sidebar'
+                  ? 'font-medium'
+                  : ''
             }`}
             data-toc-link
             data-heading-id={heading.slug}
           >
+            {variant === 'sidebar' && heading.depth === 3 && (
+              <span class="inline-block w-2 h-2 rounded-full bg-brand-primary/40 mr-2"></span>
+            )}
             {heading.text}
           </a>
         </li>

@@ -27,13 +27,13 @@ This document tracks the progress of each PRD task for the Unified Content Syste
 ## Phase 6 - Supporting Components
 - [x] Task 6.1: Create Breadcrumbs Component (`src/components/ui/Breadcrumbs.astro`)
 - [x] Task 6.2: Generate Static Search Index (`scripts/generate-search-index.js`)
-- [ ] Task 6.3: Add Search Icon to Header (`src/components/layout/Header.astro`)
-- [ ] Task 6.4: Integrate Breadcrumbs in Post Pages (`src/layouts/PostLayout.astro`)
+<!-- - [ ] Task 6.3: Add Search Icon to Header (`src/components/layout/Header.astro`) This will be implemente later when it will be needed-->
+- [x] Task 6.4: Integrate Breadcrumbs in Post Pages (`src/layouts/PostLayout.astro`)
 
 ## Phase 7 - Documentation
 - [ ] Task 7.1: Create Author Guide (`docs/content-authoring-guide.md`)
 
 ---
-**Next Task:** Task 6.3: Add Search Icon to Header (`src/components/layout/Header.astro`)
+**Next Task:** Task 3.1: Create Dynamic Post Route (`src/pages/posts/[slug].astro`)
 
-> _Note: Task 6.2 complete! ✅ Generated static search index system for GitHub Pages compatibility. Created `scripts/generate-search-index.js` that processes MDX files, extracts searchable content, and generates `/public/api/posts.json`. Updated `src/utils/search.ts` with SearchManager class for client-side search using Fuse.js. Modified SearchInput component to use static JSON instead of server API. Added build script integration and tested with sample content. System supports fuzzy search with proper debouncing, keyboard shortcuts (Cmd/Ctrl+K), and graceful fallback when search is unavailable._
+> _Note: Task 6.4 complete! ✅ Integrated Breadcrumbs component in PostLayout.astro by importing the dedicated Breadcrumbs component and replacing the inline breadcrumb implementation. The PostLayout now properly uses the reusable Breadcrumbs component with the breadcrumbs data from getBreadcrumbs() utility function. This completes Phase 6 of the Unified Content System implementation._

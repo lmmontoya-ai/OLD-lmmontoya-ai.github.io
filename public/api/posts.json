@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "title": "Test Search Functionality",
+    "slug": "test-search",
+    "excerpt": "A test post to verify search functionality works correctly in the header.",
+    "content": "Test Search Functionality This is a test post created to verify that the search functionality in the header works correctly. Features to Test Click the search icon in the header Verify it focuses the search input in the sidebar Test keyboard shortcuts (Cmd/Ctrl+K) Expected Behavior When clicking the search icon in the header: The search input in the sidebar should receive focus The page should scroll to center the search input Any existing text should be selected This test post contains enough content to verify that the search system can find and index this content properly.",
+    "types": [
+      "blog"
+    ],
+    "category": "Technical",
+    "tags": [
+      "testing",
+      "search",
+      "functionality"
+    ],
+    "date": "2024-12-19T00:00:00.000Z",
+    "href": "/posts/test-search"
+  }
+]

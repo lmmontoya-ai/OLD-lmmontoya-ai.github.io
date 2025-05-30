@@ -47,7 +47,7 @@ const { placeholder = "Search...", class: className = "" } = Astro.props;
 </div>
 
 <script>
-  import Fuse from 'fuse.js';
+  import { searchManager } from '../../utils/search';
 
   // Initialize search functionality
   document.addEventListener('astro:page-load', async () => {
@@ -56,36 +56,16 @@ const { placeholder = "Search...", class: className = "" } = Astro.props;
 
     if (!searchInput) return;
 
-    let posts: any[] = [];
-
-    // Fetch all posts for searching (gracefully handle missing API)
+    // Initialize search manager
     try {
-      const response = await fetch('/api/posts.json');
-      if (response.ok) {
-        posts = await response.json();
-      } else {
-        console.warn('Search API not available, search functionality disabled');
-        return;
-      }
+      await searchManager.initialize();
     } catch (error) {
-      console.warn('Search API not available, search functionality disabled');
+      console.warn('Search functionality disabled:', error);
       return;
     }
 
-    // Configure Fuse.js
-    const fuse = new Fuse(posts, {
-      keys: [
-        { name: 'title', weight: 0.3 },
-        { name: 'excerpt', weight: 0.2 },
-        { name: 'tags', weight: 0.2 },
-        { name: 'category', weight: 0.15 },
-        { name: 'content', weight: 0.15 },
-      ],
-      threshold: 0.3,
-      includeScore: true,
-    });
-
-    // Handle search input
+    // Handle search input with debouncing
+    let debounceTimer: NodeJS.Timeout;
     searchInput.addEventListener('input', (e) => {
       const query = (e.target as HTMLInputElement).value;
 
@@ -97,17 +77,22 @@ const { placeholder = "Search...", class: className = "" } = Astro.props;
         clearButton.classList.toggle('pointer-events-auto', !!query);
       }
 
-      // Perform search
-      if (query) {
-        const results = fuse.search(query);
-        window.dispatchEvent(new CustomEvent('search-results', {
-          detail: { results: results.map(r => r.item) }
-        }));
-      } else {
-        window.dispatchEvent(new CustomEvent('search-results', {
-          detail: { results: posts }
-        }));
-      }
+      // Debounced search
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        if (query.trim()) {
+          const results = searchManager.search(query);
+          window.dispatchEvent(new CustomEvent('search-results', {
+            detail: { results: results.map(r => r.item), query }
+          }));
+        } else {
+          // Show all documents when query is empty
+          const allDocs = searchManager.getAllDocuments();
+          window.dispatchEvent(new CustomEvent('search-results', {
+            detail: { results: allDocs, query: '' }
+          }));
+        }
+      }, 300); // Slightly longer debounce for better UX
     });
 
     // Handle clear button
@@ -123,6 +108,7 @@ const { placeholder = "Search...", class: className = "" } = Astro.props;
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
         searchInput.focus();
+        searchInput.select();
       }
 
       // Clear on Escape
@@ -132,5 +118,13 @@ const { placeholder = "Search...", class: className = "" } = Astro.props;
         searchInput.blur();
       }
     });
+
+    // Initialize with all documents on first load
+    if (searchManager.isAvailable()) {
+      const allDocs = searchManager.getAllDocuments();
+      window.dispatchEvent(new CustomEvent('search-results', {
+        detail: { results: allDocs, query: '' }
+      }));
+    }
   });
 </script>

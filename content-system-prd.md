@@ -1428,40 +1428,26 @@ const { items } = Astro.props;
 </nav>
 ```
 
-#### Task 6.2: Create API Endpoint for Search
-**File**: `src/pages/api/posts.json.ts`
+#### Task 6.2: Generate Static Search Index
+**File**: `public/posts.json`
+**Time**: 15 minutes
+
+```shell
+# At build time, generate a static JSON index of published posts:
+pnpm astro build && pnpm run generate-posts-json
+```
+
+#### Task 6.3: Add Search Icon to Header
+**File**: `src/components/layout/Header.astro`
 **Time**: 30 minutes
 
-```typescript
-import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
+Add a search icon/button next to the theme toggle in the main header. It should open or focus the `SearchInput` component in the sidebar or toggle a search overlay.
 
-export const GET: APIRoute = async () => {
-  const posts = await getCollection('posts', ({ data }) =>
-    data.status === 'published'
-  );
+#### Task 6.4: Integrate Breadcrumbs in Post Pages
+**File**: `src/layouts/PostLayout.astro`
+**Time**: 15 minutes
 
-  // Return simplified post data for search
-  const searchData = posts.map(post => ({
-    slug: post.slug,
-    title: post.data.title,
-    excerpt: post.data.excerpt,
-    category: post.data.category,
-    tags: post.data.tags,
-    types: post.data.types,
-    date: post.data.date.toISOString(),
-    // Include first 500 chars of content for search
-    content: post.body.substring(0, 500),
-  }));
-
-  return new Response(JSON.stringify(searchData), {
-    headers: {
-      'Content-Type': 'application/json',
-      'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
-    },
-  });
-};
-```
+Render the `Breadcrumbs` component at the top of each post, using `getBreadcrumbs(post)` from your utilities.
 
 ### Phase 7: Documentation
 

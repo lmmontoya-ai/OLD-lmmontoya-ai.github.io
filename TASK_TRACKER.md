@@ -25,13 +25,15 @@ This document tracks the progress of each PRD task for the Unified Content Syste
 - [x] Task 5.2: Create Roadmap Milestone Template (`src/content/posts/_templates/roadmap-milestone.mdx`)
 
 ## Phase 6 - Supporting Components
-- [ ] Task 6.1: Create Breadcrumbs Component (`src/components/ui/Breadcrumbs.astro`)
-- [ ] Task 6.2: Create API Endpoint for Search (`src/pages/api/posts.json.ts`)
+- [x] Task 6.1: Create Breadcrumbs Component (`src/components/ui/Breadcrumbs.astro`)
+- [x] Task 6.2: Generate Static Search Index (`scripts/generate-search-index.js`)
+- [ ] Task 6.3: Add Search Icon to Header (`src/components/layout/Header.astro`)
+- [ ] Task 6.4: Integrate Breadcrumbs in Post Pages (`src/layouts/PostLayout.astro`)
 
 ## Phase 7 - Documentation
 - [ ] Task 7.1: Create Author Guide (`docs/content-authoring-guide.md`)
 
 ---
-**Next Task:** Task 6.1: Create Breadcrumbs Component (`src/components/ui/Breadcrumbs.astro`)
+**Next Task:** Task 6.3: Add Search Icon to Header (`src/components/layout/Header.astro`)
 
-> _Note: Task 5.1 & 5.2 complete! ✅ Created comprehensive MDX templates for all content types: blog posts, roadmap milestones, project showcases, and literature reviews. Templates include proper frontmatter examples, content structure guidelines, and demonstrate all features of the unified schema. Added helpful README with authoring guidelines. Ready to proceed to Task 6.1: Breadcrumbs Component._
+> _Note: Task 6.2 complete! ✅ Generated static search index system for GitHub Pages compatibility. Created `scripts/generate-search-index.js` that processes MDX files, extracts searchable content, and generates `/public/api/posts.json`. Updated `src/utils/search.ts` with SearchManager class for client-side search using Fuse.js. Modified SearchInput component to use static JSON instead of server API. Added build script integration and tested with sample content. System supports fuzzy search with proper debouncing, keyboard shortcuts (Cmd/Ctrl+K), and graceful fallback when search is unavailable._

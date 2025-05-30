@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/generate-search-index.js && astro build",
+    "build:search": "node scripts/generate-search-index.js",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -34,5 +35,8 @@
     "onlyBuiltDependencies": [
       "@tailwindcss/oxide"
     ]
+  },
+  "devDependencies": {
+    "glob": "^11.0.2"
   }
 }

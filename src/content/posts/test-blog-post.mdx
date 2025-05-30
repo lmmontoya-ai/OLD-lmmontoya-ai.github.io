@@ -1,0 +1,34 @@
+---
+title: "Test Blog Post"
+slug: "test-blog-post"
+date: 2024-12-01
+excerpt: "This is a test blog post to verify the search index generation is working correctly."
+types: ["blog"]
+category: "Technical"
+status: "published"
+tags: ["test", "search", "blog"]
+---
+
+# Test Blog Post
+
+This is a sample blog post created to test the search functionality. It contains some searchable content that should be indexed by our search system.
+
+## Features Being Tested
+
+- Search index generation
+- Content extraction from markdown
+- Frontmatter parsing
+- JSON API endpoint creation
+
+The search system should be able to find this post when searching for terms like "test", "blog", "search", or "functionality".
+
+## Technical Details
+
+This post demonstrates how the unified content system handles:
+
+1. **Frontmatter parsing** - extracting metadata from YAML
+2. **Content processing** - converting markdown to searchable text
+3. **Index generation** - creating JSON for client-side search
+4. **Search functionality** - using Fuse.js for fuzzy matching
+
+When users search for content, they should find relevant posts quickly and efficiently.

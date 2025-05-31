@@ -42,9 +42,11 @@ const categories = Object.keys(postsByCategory).sort();
   <div class="min-h-screen pt-20 pb-16">
     <div class="container mx-auto px-6 lg:px-16 xl:px-24">
       <!-- Header -->
-      <header class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">Blog</h1>
-        <p class="text-xl text-secondary max-w-3xl">
+      <header class="mb-16">
+        <h1 class="text-5xl md:text-6xl font-bold text-interactive-blue mb-6">
+          Blog
+        </h1>
+        <p class="text-xl text-content-secondary max-w-2xl leading-relaxed">
           Thoughts on AI interpretability, alignment, and the journey from
           physics to machine learning.
         </p>
@@ -59,19 +61,29 @@ const categories = Object.keys(postsByCategory).sort();
       </div>
 
       <!-- Category Filter (shown when category view is active) -->
-      <div class="mb-8 flex gap-2 overflow-x-auto pb-2" id="category-filters">
-        <button class="filter-tab active" data-filter="all">
-          All Posts
-          <span class="count">({sortedPosts.length})</span>
-        </button>
-        {
-          categories.map((category) => (
-            <button class="filter-tab" data-filter={category}>
-              {category}
-              <span class="count">({postsByCategory[category].length})</span>
-            </button>
-          ))
-        }
+      <div class="mb-8" id="category-filters">
+        <div class="flex flex-wrap gap-2">
+          <button
+            class="category-pill category-pill-all active"
+            data-filter="all"
+          >
+            All Posts
+            <span class="ml-1.5 text-xs">({sortedPosts.length})</span>
+          </button>
+          {
+            categories.map((category) => {
+              const pillClass = `category-pill category-pill-${category?.toLowerCase() || "unknown"}`;
+              return (
+                <button class={pillClass} data-filter={category}>
+                  {category}
+                  <span class="ml-1.5 text-xs">
+                    ({postsByCategory[category].length})
+                  </span>
+                </button>
+              );
+            })
+          }
+        </div>
       </div>
 
       <!-- Posts Grid -->
@@ -147,8 +159,7 @@ const categories = Object.keys(postsByCategory).sort();
   </div>
 
   <style>
-    .view-toggle,
-    .filter-tab {
+    .view-toggle {
       border-radius: 0.5rem;
       font-size: 0.875rem;
       font-weight: 500;
@@ -159,22 +170,158 @@ const categories = Object.keys(postsByCategory).sort();
       transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .view-toggle:hover,
-    .filter-tab:hover {
+    .view-toggle:hover {
       background-color: rgb(var(--color-surface-tertiary));
       color: rgb(var(--color-primary));
     }
 
-    .view-toggle.active,
-    .filter-tab.active {
+    .view-toggle.active {
       background-color: rgb(var(--color-interactive-blue));
       color: white;
     }
 
-    .count {
-      font-size: 0.75rem;
-      opacity: 0.7;
-      margin-left: 0.25rem;
+    /* Category Pills - matching Projects page status pills */
+    .category-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.375rem 0.875rem;
+      font-family: var(--font-family-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      border-radius: 9999px;
+      line-height: 1;
+      letter-spacing: 0.025em;
+      transition: all 200ms ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    /* All Posts pill */
+    .category-pill-all {
+      background-color: rgb(var(--color-surface-secondary));
+      color: rgb(var(--color-text-secondary));
+      border-color: rgb(var(--color-border-primary));
+    }
+
+    .category-pill-all:hover {
+      background-color: rgb(var(--color-surface-tertiary));
+      color: rgb(var(--color-text-primary));
+      border-color: rgb(var(--color-interactive-blue));
+    }
+
+    .category-pill-all.active {
+      background-color: rgb(var(--color-interactive-blue));
+      color: white;
+      border-color: rgb(var(--color-interactive-blue));
+    }
+
+    /* Research pill */
+    .category-pill-research {
+      background-color: rgb(var(--color-interactive-blue) / 0.1);
+      color: rgb(var(--color-interactive-blue));
+      border-color: rgb(var(--color-interactive-blue) / 0.2);
+    }
+
+    .category-pill-research:hover {
+      background-color: rgb(var(--color-interactive-blue) / 0.2);
+      border-color: rgb(var(--color-interactive-blue));
+    }
+
+    .category-pill-research.active {
+      background-color: rgb(var(--color-interactive-blue));
+      color: white;
+      border-color: rgb(var(--color-interactive-blue));
+    }
+
+    /* Technical pill */
+    .category-pill-technical {
+      background-color: rgb(var(--color-status-success) / 0.1);
+      color: rgb(var(--color-status-success));
+      border-color: rgb(var(--color-status-success) / 0.2);
+    }
+
+    .category-pill-technical:hover {
+      background-color: rgb(var(--color-status-success) / 0.2);
+      border-color: rgb(var(--color-status-success));
+    }
+
+    .category-pill-technical.active {
+      background-color: rgb(var(--color-status-success));
+      color: white;
+      border-color: rgb(var(--color-status-success));
+    }
+
+    /* Reflection pill */
+    .category-pill-reflection {
+      background-color: rgb(var(--color-interactive-gold) / 0.1);
+      color: rgb(var(--color-interactive-gold));
+      border-color: rgb(var(--color-interactive-gold) / 0.2);
+    }
+
+    .category-pill-reflection:hover {
+      background-color: rgb(var(--color-interactive-gold) / 0.2);
+      border-color: rgb(var(--color-interactive-gold));
+    }
+
+    .category-pill-reflection.active {
+      background-color: rgb(var(--color-interactive-gold));
+      color: rgb(var(--color-interactive-gold-contrast));
+      border-color: rgb(var(--color-interactive-gold));
+    }
+
+    /* Resource pill */
+    .category-pill-resource {
+      background-color: rgb(var(--color-status-warning) / 0.1);
+      color: rgb(var(--color-status-warning));
+      border-color: rgb(var(--color-status-warning) / 0.2);
+    }
+
+    .category-pill-resource:hover {
+      background-color: rgb(var(--color-status-warning) / 0.2);
+      border-color: rgb(var(--color-status-warning));
+    }
+
+    .category-pill-resource.active {
+      background-color: rgb(var(--color-status-warning));
+      color: white;
+      border-color: rgb(var(--color-status-warning));
+    }
+
+    /* Tutorial pill */
+    .category-pill-tutorial {
+      background-color: rgba(134, 25, 143, 0.1);
+      color: rgb(134 25 143);
+      border-color: rgba(134, 25, 143, 0.2);
+    }
+
+    .category-pill-tutorial:hover {
+      background-color: rgba(134, 25, 143, 0.2);
+      border-color: rgb(134 25 143);
+    }
+
+    .category-pill-tutorial.active {
+      background-color: rgb(134 25 143);
+      color: white;
+      border-color: rgb(134 25 143);
+    }
+
+    /* Update pill */
+    .category-pill-update {
+      background-color: rgba(6, 182, 212, 0.1);
+      color: rgb(6 182 212);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .category-pill-update:hover {
+      background-color: rgba(6, 182, 212, 0.2);
+      border-color: rgb(6 182 212);
+    }
+
+    .category-pill-update.active {
+      background-color: rgb(6 182 212);
+      color: white;
+      border-color: rgb(6 182 212);
     }
 
     .blog-item {
@@ -209,8 +356,8 @@ const categories = Object.keys(postsByCategory).sort();
     const blogGrid = document.getElementById("blog-grid");
     const timelineView = document.querySelector(".timeline-view");
 
-    // Filter functionality
-    const filterButtons = document.querySelectorAll(".filter-tab");
+    // Filter functionality - updated for category pills
+    const categoryButtons = document.querySelectorAll(".category-pill");
     const blogItems = document.querySelectorAll(".blog-item");
 
     // View switching
@@ -236,21 +383,24 @@ const categories = Object.keys(postsByCategory).sort();
     });
 
     // Category filter (only works in category view)
-    filterButtons.forEach((button) => {
+    categoryButtons.forEach((button) => {
       button.addEventListener("click", () => {
         const filter = button.getAttribute("data-filter");
 
         // Update active state
-        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        categoryButtons.forEach((btn) => btn.classList.remove("active"));
         button.classList.add("active");
 
         // Filter items
-        blogItems.forEach((item, index) => {
+        let visibleCount = 0;
+        blogItems.forEach((item) => {
           const category = item.getAttribute("data-category");
 
           if (filter === "all" || category === filter) {
             item.classList.remove("hidden");
-            (item as HTMLElement).style.animationDelay = `${index * 50}ms`;
+            (item as HTMLElement).style.animationDelay =
+              `${visibleCount * 50}ms`;
+            visibleCount++;
           } else {
             item.classList.add("hidden");
           }

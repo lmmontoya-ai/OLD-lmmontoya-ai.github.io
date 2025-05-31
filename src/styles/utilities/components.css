@@ -186,6 +186,26 @@
   border: 1px solid transparent;
 }
 
+/* All Projects pill */
+.status-pill-all {
+  background-color: rgb(var(--color-surface-secondary));
+  color: rgb(var(--color-text-secondary));
+  border-color: rgb(var(--color-border-primary));
+}
+
+.status-pill-all:hover {
+  background-color: rgb(var(--color-surface-tertiary));
+  color: rgb(var(--color-text-primary));
+  border-color: rgb(var(--color-interactive-blue));
+  transform: translateY(-1px);
+}
+
+.status-pill-all.active {
+  background-color: rgb(var(--color-interactive-blue));
+  color: white;
+  border-color: rgb(var(--color-interactive-blue));
+}
+
 /* Completed status pill */
 .status-pill-completed {
   background-color: rgb(var(--color-status-success) / 0.15);

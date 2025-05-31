@@ -88,11 +88,16 @@ const statuses = Object.keys(projectsByStatus).sort();
 
         <!-- Status Filters -->
         <div class="flex flex-wrap gap-3">
-          <span class="text-sm font-medium text-content-secondary self-center"
-            >Filter by status:</span
-          >
           <button
-            class="status-pill status-pill-completed active"
+            class="status-pill status-pill-all active"
+            data-filter="all"
+            data-type="status"
+          >
+            All Projects
+            <span class="ml-1.5 text-xs">({sortedProjects.length})</span>
+          </button>
+          <button
+            class="status-pill status-pill-completed"
             data-filter="completed"
             data-type="status"
           >
@@ -102,7 +107,7 @@ const statuses = Object.keys(projectsByStatus).sort();
             >
           </button>
           <button
-            class="status-pill status-pill-in-progress active"
+            class="status-pill status-pill-in-progress"
             data-filter="in-progress"
             data-type="status"
           >
@@ -112,7 +117,7 @@ const statuses = Object.keys(projectsByStatus).sort();
             >
           </button>
           <button
-            class="status-pill status-pill-planned active"
+            class="status-pill status-pill-planned"
             data-filter="planned"
             data-type="status"
           >
@@ -221,11 +226,7 @@ const statuses = Object.keys(projectsByStatus).sort();
 
     // Track current filter state
     let currentAreaFilter: string = "all";
-    let currentStatusFilters: Set<string> = new Set([
-      "completed",
-      "in-progress",
-      "planned",
-    ]);
+    let currentStatusFilter: string = "all";
 
     // Apply filters based on current state
     function applyFilters() {
@@ -237,7 +238,8 @@ const statuses = Object.keys(projectsByStatus).sort();
 
         const matchesArea =
           currentAreaFilter === "all" || area === currentAreaFilter;
-        const matchesStatus = currentStatusFilters.has(status);
+        const matchesStatus =
+          currentStatusFilter === "all" || status === currentStatusFilter;
         const isVisible = matchesArea && matchesStatus;
 
         item.classList.toggle("hidden", !isVisible);
@@ -272,22 +274,23 @@ const statuses = Object.keys(projectsByStatus).sort();
     });
 
     // Handle status filter pills
-    statusPills.forEach((pill) => {
-      pill.addEventListener("click", () => {
-        const filter = pill.getAttribute("data-filter");
+    statusPills.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.getAttribute("data-filter");
         if (!filter) return;
 
-        // Toggle status filter
-        if (currentStatusFilters.has(filter)) {
-          currentStatusFilters.delete(filter);
-          pill.classList.remove("active");
-        } else {
-          currentStatusFilters.add(filter);
-          pill.classList.add("active");
-        }
+        // Update status filter state
+        currentStatusFilter = filter;
+
+        // Update pill states
+        statusPills.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
 
         applyFilters();
       });
     });
+
+    // Initialize filters
+    applyFilters();
   </script>
 </Layout>

@@ -274,18 +274,17 @@ export const projectCardVariants = cva(
     "flex-col",
     "transition-spring",
     "hover:shadow-themed-lg",
-    "hover:border-interactive-blue/30",
     "hover:-translate-y-1",
   ],
   {
     variants: {
       status: {
-        completed: ["border-l-4", "border-l-status-success"],
-        "in-progress": ["border-l-4", "border-l-status-warning"],
-        planned: ["border-l-4", "border-l-tertiary"],
-        published: ["border-l-4", "border-l-interactive-blue"],
-        draft: ["border-l-4", "border-l-subtle"],
-        archived: ["border-l-4", "border-l-tertiary"],
+        completed: ["border-l-4", "border-l-[rgb(var(--color-status-success))]"],
+        "in-progress": ["border-l-4", "border-l-[rgb(var(--color-status-warning))]"],
+        planned: ["border-l-4", "border-l-[rgb(var(--color-interactive-blue))]"],
+        published: ["border-l-4", "border-l-[rgb(var(--color-interactive-blue))]"],
+        draft: ["border-l-4", "border-l-[rgb(var(--color-border-subtle))]"],
+        archived: ["border-l-4", "border-l-[rgb(var(--color-text-tertiary))]"],
       },
     },
     defaultVariants: {
@@ -347,18 +346,17 @@ export const blogCardVariants = cva(
     "flex-col",
     "transition-spring",
     "hover:shadow-themed-lg",
-    "hover:border-interactive-blue/30",
     "hover:-translate-y-1",
   ],
   {
     variants: {
       category: {
-        Research: ["border-l-4", "border-l-interactive-blue"],
-        Technical: ["border-l-4", "border-l-status-success"],
-        Reflection: ["border-l-4", "border-l-interactive-gold"],
-        Resource: ["border-l-4", "border-l-status-warning"],
-        Tutorial: ["border-l-4", "border-l-purple-500"],
-        Update: ["border-l-4", "border-l-cyan-500"],
+        Research: ["border-l-4", "border-l-[rgb(var(--color-interactive-blue))]"],
+        Technical: ["border-l-4", "border-l-[rgb(var(--color-status-success))]"],
+        Reflection: ["border-l-4", "border-l-[rgb(var(--color-interactive-gold))]"],
+        Resource: ["border-l-4", "border-l-[rgb(var(--color-status-warning))]"],
+        Tutorial: ["border-l-4", "border-l-[rgb(134,25,143)]"], // purple-500 RGB
+        Update: ["border-l-4", "border-l-[rgb(6,182,212)]"], // cyan-500 RGB
       },
     },
     defaultVariants: {

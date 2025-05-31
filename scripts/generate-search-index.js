@@ -157,8 +157,33 @@ function processPost(filePath) {
     const content = readFileSync(filePath, 'utf-8');
     const { data, body } = parseFrontmatter(content);
 
-    // Skip if not published
-    if (data.status !== 'published') {
+    // Define valid statuses per content type
+    const validStatusesByType = {
+      blog: ['published'],
+      literature: ['published'],
+      note: ['published'],
+      guide: ['published'],
+      roadmap: ['published', 'in-progress', 'completed'],
+      project: ['published', 'in-progress', 'completed', 'planned'],
+    };
+
+    // Get all valid statuses for the types in this post
+    const validStatuses = new Set();
+    const postTypes = Array.isArray(data.types) ? data.types : (data.types ? [data.types] : []);
+
+    postTypes.forEach(type => {
+      if (validStatusesByType[type]) {
+        validStatusesByType[type].forEach(status => validStatuses.add(status));
+      }
+    });
+
+    // If no specific rules found, default to published only
+    if (validStatuses.size === 0) {
+      validStatuses.add('published');
+    }
+
+    // Skip if not in valid status
+    if (!validStatuses.has(data.status)) {
       return null;
     }
 

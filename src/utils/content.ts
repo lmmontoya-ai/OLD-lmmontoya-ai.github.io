@@ -14,10 +14,36 @@ export async function getPostsByType(types: string | string[]): Promise<Post[]> 
   const typeArray = Array.isArray(types) ? types : [types];
   const posts = await getCollection('posts');
 
-  return posts.filter(post =>
-    post.data.status === 'published' &&
-    typeArray.some(type => post.data.types.includes(type as any))
-  );
+  return posts.filter(post => {
+    // Check if post matches the requested types
+    const hasMatchingType = typeArray.some(type => post.data.types.includes(type as any));
+    if (!hasMatchingType) return false;
+
+    // Define valid statuses per content type
+    const validStatusesByType: Record<string, string[]> = {
+      blog: ['published'],
+      literature: ['published'],
+      note: ['published'],
+      guide: ['published'],
+      roadmap: ['published', 'in-progress', 'completed'],
+      project: ['published', 'in-progress', 'completed', 'planned'],
+    };
+
+    // Get all valid statuses for the types in this post
+    const validStatuses = new Set<string>();
+    post.data.types.forEach(type => {
+      if (validStatusesByType[type]) {
+        validStatusesByType[type].forEach(status => validStatuses.add(status));
+      }
+    });
+
+    // If no specific rules found, default to published only
+    if (validStatuses.size === 0) {
+      validStatuses.add('published');
+    }
+
+    return validStatuses.has(post.data.status);
+  });
 }
 
 /**

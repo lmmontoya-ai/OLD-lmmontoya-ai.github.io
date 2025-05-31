@@ -19,6 +19,32 @@
     "href": "/posts/introduction"
   },
   {
+    "title": "Milestone: AI Alignment Fundamentals",
+    "slug": "roadmap-alignment-fundamentals",
+    "excerpt": "Building foundational knowledge in AI alignment theory, safety research, and value learning to prepare for advanced alignment research.",
+    "content": "Milestone Overview This milestone represents a critical transition in my research journey: moving from understanding how AI systems work (interpretability) to ensuring they work safely and beneficially (alignment). Building on my foundation in transformer architectures and mechanistic interpretability, this phase focuses on the fundamental challenges of AI alignment and the theoretical frameworks needed to address them. Why This Milestone Matters As AI systems become increasingly powerful, ensuring they remain aligned with human values becomes paramount. This milestone provides the theoretical foundation necessary for: Understanding Alignment Challenges: Grasping why alignment is difficult and what can go wrong Evaluating Safety Approaches: Critically analyzing different alignment strategies Designing Better Systems: Applying alignment principles to real AI development Contributing to Research: Building expertise to advance the field Connection to Previous Work This milestone builds di",
+    "types": [
+      "roadmap"
+    ],
+    "category": "Research",
+    "tags": [],
+    "date": "2024-04-10T00:00:00.000Z",
+    "href": "/posts/roadmap-alignment-fundamentals"
+  },
+  {
+    "title": "Project: AI Alignment Evaluation Suite",
+    "slug": "project-alignment-tools",
+    "excerpt": "A planned comprehensive framework for evaluating AI alignment across multiple dimensions, including value alignment, robustness, and safety properties.",
+    "content": "Project Vision The AI Alignment Evaluation Suite represents an ambitious planned project to create the first comprehensive, standardized framework for evaluating AI system alignment across multiple critical dimensions. As AI systems become increasingly powerful and autonomous, we need rigorous methods to assess whether they remain aligned with human values and intentions. Motivation and Problem Statement Current AI alignment evaluation is fragmented and insufficient: Existing Gaps No Unified Framework: Alignment evaluation scattered across different research groups Limited Scope: Most evaluations focus on narrow aspects (helpfulness, harmlessness) Subjective Metrics: Lack of quantitative, reproducible alignment measures Scale Challenges: Existing methods don't scale to large, complex systems Dynamic Alignment: No tools for tracking alignment over time and deployment Critical Need As we approach more capable AI systems, we need: Early Warning Systems: Detect alignment failures before de",
+    "types": [
+      "project"
+    ],
+    "category": "Research",
+    "tags": [],
+    "date": "2024-04-01T00:00:00.000Z",
+    "href": "/posts/project-alignment-tools"
+  },
+  {
     "title": "Testing Search Functionality: AI Safety and Interpretability",
     "slug": "test-search",
     "excerpt": "A comprehensive test post for search functionality, covering various AI safety and interpretability topics to validate search indexing and retrieval.",
@@ -40,6 +66,46 @@
     ],
     "date": "2024-03-20T00:00:00.000Z",
     "href": "/posts/test-search"
+  },
+  {
+    "title": "Milestone: Understanding Transformer Architectures",
+    "slug": "test-roadmap-milestone",
+    "excerpt": "Deep dive into transformer architecture internals, attention mechanisms, and building foundational knowledge for interpretability research.",
+    "content": "Overview This milestone represents a crucial step in my AI interpretability journey: developing a deep, intuitive understanding of Transformer architectures. While I've worked with these models before, this phase focuses on truly understanding the internals—how attention works, why certain design choices were made, and what implications they have for interpretability and safety. Why This Milestone Matters Transformers are the backbone of modern AI systems, from GPT to BERT to the latest multimodal models. To understand how to make these systems safer and more interpretable, I need to understand them from the ground up. This isn't just about knowing the equations—it's about building the intuition necessary for meaningful interpretability research. Connection to AI Safety Mechanistic Interpretability: Understanding how Transformers implement algorithms internally Alignment Research: Knowing how models process information helps with alignment techniques Safety Analysis: Identifying potent",
+    "types": [
+      "roadmap",
+      "blog"
+    ],
+    "category": "Research",
+    "tags": [
+      "Transformers",
+      "Deep Learning",
+      "Milestone",
+      "Learning Journey",
+      "AI Architecture"
+    ],
+    "date": "2024-03-15T00:00:00.000Z",
+    "href": "/posts/test-roadmap-milestone"
+  },
+  {
+    "title": "Project: AI Interpretability Toolkit",
+    "slug": "test-project-toolkit",
+    "excerpt": "A comprehensive toolkit for analyzing and interpreting neural network behavior, with tools for activation patching, attention visualization, and mechanistic analysis.",
+    "content": "Project Overview The AI Interpretability Toolkit is a comprehensive Python package designed to help researchers and practitioners understand how neural networks, particularly Transformers, process information. This project emerged from my own need for better tools while studying mechanistic interpretability and has grown into a modular toolkit that others can use and contribute to. Motivation As I've been diving deeper into AI safety and interpretability research, I've found that while there are many theoretical frameworks for understanding neural networks, there's often a gap between theory and practical implementation. Existing tools are either: Too specialized for specific research groups Difficult to integrate with different model architectures Lacking in visualization capabilities Not well-documented for newcomers This toolkit aims to bridge that gap by providing: Modular components that work with different architectures Clear visualizations that make complex concepts accessible E",
+    "types": [
+      "project",
+      "blog"
+    ],
+    "category": "Technical",
+    "tags": [
+      "AI Interpretability",
+      "Neural Networks",
+      "Visualization",
+      "Python",
+      "PyTorch"
+    ],
+    "date": "2024-03-10T00:00:00.000Z",
+    "href": "/posts/test-project-toolkit"
   },
   {
     "title": "Literature Review: Attention is All You Need",
@@ -118,6 +184,19 @@
     ],
     "date": "2024-02-05T00:00:00.000Z",
     "href": "/posts/literature-anthropic-constitution"
+  },
+  {
+    "title": "Project: Neural Circuit Analysis Framework",
+    "slug": "project-circuit-analysis",
+    "excerpt": "A completed framework for automatically discovering and analyzing computational circuits in transformer models, enabling systematic interpretability research.",
+    "content": "Project Overview The Neural Circuit Analysis Framework represents a significant milestone in my interpretability research journey. This completed project provides researchers with automated tools to discover and analyze computational circuits within transformer models, making mechanistic interpretability more accessible and systematic. Motivation and Impact Understanding how neural networks implement algorithms internally is crucial for AI safety and alignment. While manual circuit discovery has yielded important insights, the process is time-consuming and requires deep expertise. This framework democratizes circuit analysis by automating the discovery process and providing intuitive visualizations. Key Achievements Automated Discovery: First framework to automatically identify circuits across model architectures Validation: Successfully reproduced known circuits in GPT-2 and BERT New Insights: Discovered 12 previously unknown circuits in production models Adoption: Used by 6 research ",
+    "types": [
+      "project"
+    ],
+    "category": "Research",
+    "tags": [],
+    "date": "2024-01-20T00:00:00.000Z",
+    "href": "/posts/project-circuit-analysis"
   },
   {
     "title": "Video Review: Robert Miles on AI Alignment and Safety",

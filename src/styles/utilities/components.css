@@ -168,6 +168,81 @@
   color: rgb(var(--color-text-primary)); /* Text on green should be light */
 }
 
+/* === STATUS PILL VARIANTS === */
+/* Status pill base - smaller and more refined than regular tags */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: 9999px; /* Full rounded */
+  line-height: 1;
+  letter-spacing: 0.025em;
+  transition: all 200ms ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+/* Completed status pill */
+.status-pill-completed {
+  background-color: rgb(var(--color-status-success) / 0.15);
+  color: rgb(var(--color-status-success));
+  border-color: rgb(var(--color-status-success) / 0.3);
+}
+
+.status-pill-completed:hover {
+  background-color: rgb(var(--color-status-success) / 0.25);
+  border-color: rgb(var(--color-status-success) / 0.5);
+  transform: translateY(-1px);
+}
+
+.status-pill-completed.active {
+  background-color: rgb(var(--color-status-success));
+  color: rgb(var(--color-surface-primary));
+  border-color: rgb(var(--color-status-success));
+}
+
+/* In-progress status pill */
+.status-pill-in-progress {
+  background-color: rgb(var(--color-status-warning) / 0.15);
+  color: rgb(var(--color-status-warning));
+  border-color: rgb(var(--color-status-warning) / 0.3);
+}
+
+.status-pill-in-progress:hover {
+  background-color: rgb(var(--color-status-warning) / 0.25);
+  border-color: rgb(var(--color-status-warning) / 0.5);
+  transform: translateY(-1px);
+}
+
+.status-pill-in-progress.active {
+  background-color: rgb(var(--color-status-warning));
+  color: rgb(var(--color-surface-primary));
+  border-color: rgb(var(--color-status-warning));
+}
+
+/* Planned status pill */
+.status-pill-planned {
+  background-color: rgb(var(--color-interactive-blue) / 0.15);
+  color: rgb(var(--color-interactive-blue));
+  border-color: rgb(var(--color-interactive-blue) / 0.3);
+}
+
+.status-pill-planned:hover {
+  background-color: rgb(var(--color-interactive-blue) / 0.25);
+  border-color: rgb(var(--color-interactive-blue) / 0.5);
+  transform: translateY(-1px);
+}
+
+.status-pill-planned.active {
+  background-color: rgb(var(--color-interactive-blue));
+  color: rgb(var(--color-surface-primary));
+  border-color: rgb(var(--color-interactive-blue));
+}
+
 /* === CONTAINER SURFACES === */
 .container-background {
   background-color: rgb(var(--color-surface-secondary)); /* Pure secondary surface for clear separation */

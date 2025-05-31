@@ -27,82 +27,127 @@ const projectsByArea = sortedProjects.reduce(
 );
 
 const areas = Object.keys(projectsByArea).sort();
+
+// Group by status for filter counts
+const projectsByStatus = sortedProjects.reduce(
+  (acc, project) => {
+    const status = project.data.status || "planned";
+    if (!acc[status]) acc[status] = [];
+    acc[status].push(project);
+    return acc;
+  },
+  {} as Record<string, typeof projects>
+);
+
+const statuses = Object.keys(projectsByStatus).sort();
 ---
 
 <Layout
   title="Projects — Luis Miguel Montoya"
   description="AI interpretability research projects, tools, and explorations in understanding artificial minds."
 >
-  <div class="min-h-screen pt-20 pb-16">
+  <div class="min-h-screen pt-24 pb-20">
     <div class="container mx-auto px-6 lg:px-16 xl:px-24">
-      <!-- Header -->
-      <header class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">
+      <header class="mb-16">
+        <h1 class="text-5xl md:text-6xl font-bold text-interactive-blue mb-6">
           Projects
         </h1>
-        <p class="text-xl text-secondary max-w-3xl">
+        <p class="text-xl text-content-secondary max-w-2xl leading-relaxed">
           AI interpretability research projects, tools, and explorations in
           understanding artificial minds.
         </p>
       </header>
 
       <!-- Filter Tabs -->
-      <div class="mb-8 flex gap-2 overflow-x-auto pb-2">
-        <button class="filter-tab active" data-filter="all">
-          All Projects
-          <span class="count">({sortedProjects.length})</span>
-        </button>
-        {
-          Object.entries(projectsByArea).map(([area, items]) => (
-            <button class="filter-tab" data-filter={area}>
-              {area}
-              <span class="count">({items.length})</span>
+      <div class="mb-12 space-y-6">
+        <!-- Area Filters -->
+        <div class="border-b border-border-primary">
+          <div class="flex flex-wrap gap-x-2 -mb-px">
+            <button
+              class="project-filter-tab active"
+              data-filter="all"
+              data-type="area"
+            >
+              All Projects
+              <span class="count">({sortedProjects.length})</span>
             </button>
-          ))
-        }
+            {
+              Object.entries(projectsByArea).map(([area, items]) => (
+                <button
+                  class="project-filter-tab"
+                  data-filter={area}
+                  data-type="area"
+                >
+                  {area}
+                  <span class="count">({items.length})</span>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Status Filters -->
+        <div class="flex flex-wrap gap-3">
+          <span class="text-sm font-medium text-content-secondary self-center"
+            >Filter by status:</span
+          >
+          <button
+            class="status-pill status-pill-completed active"
+            data-filter="completed"
+            data-type="status"
+          >
+            Completed
+            <span class="ml-1.5 text-xs"
+              >({projectsByStatus.completed?.length || 0})</span
+            >
+          </button>
+          <button
+            class="status-pill status-pill-in-progress active"
+            data-filter="in-progress"
+            data-type="status"
+          >
+            In Progress
+            <span class="ml-1.5 text-xs"
+              >({projectsByStatus["in-progress"]?.length || 0})</span
+            >
+          </button>
+          <button
+            class="status-pill status-pill-planned active"
+            data-filter="planned"
+            data-type="status"
+          >
+            Planned
+            <span class="ml-1.5 text-xs"
+              >({projectsByStatus.planned?.length || 0})</span
+            >
+          </button>
+        </div>
       </div>
 
-      <!-- Projects Grid -->
-      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3" id="projects-grid">
+      <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3" id="projects-grid">
         {
           sortedProjects.map((project, index) => (
-            <a
-              href={`/posts/${project.id}`}
-              class="block project-item"
+            <div
+              class="project-item"
               data-area={project.data.project?.area || "Other"}
+              data-status={project.data.status || "planned"}
               style={`animation-delay: ${index * 50}ms`}
             >
-              <ProjectCard post={project} />
-            </a>
+              <a href={`/posts/${project.id}`} class="block">
+                <ProjectCard post={project} />
+              </a>
+            </div>
           ))
         }
       </div>
 
-      <!-- Empty State -->
       {
         sortedProjects.length === 0 && (
-          <div class="text-center py-16">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4">
-              <svg
-                class="w-8 h-8 text-tertiary"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                />
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-primary mb-2">
-              No projects yet
+          <div class="text-center py-20">
+            <h3 class="text-xl font-semibold text-content-primary mb-2">
+              No projects found
             </h3>
-            <p class="text-secondary">
-              Check back soon for exciting AI research projects!
-            </p>
+            <p class="text-content-secondary">Try adjusting your filters.</p>
           </div>
         )
       }
@@ -110,36 +155,45 @@ const areas = Object.keys(projectsByArea).sort();
   </div>
 
   <style>
-    .filter-tab {
-      border-radius: 0.5rem;
-      font-size: 0.875rem;
+    .project-filter-tab {
+      padding: 0.75rem 0.25rem; /* Adjusted padding for better spacing with underline */
+      margin-bottom: -1px; /* Align with bottom border */
+      font-size: 0.9rem;
       font-weight: 500;
-      padding: 0.5rem 1rem;
-      background-color: rgb(var(--color-surface-secondary));
-      color: rgb(var(--color-secondary));
-      white-space: nowrap;
-      transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+      color: rgb(var(--color-content-secondary));
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-right: 1rem; /* Spacing between tabs */
     }
 
-    .filter-tab:hover {
-      background-color: rgb(var(--color-surface-tertiary));
-      color: rgb(var(--color-primary));
+    .project-filter-tab:hover {
+      color: rgb(var(--color-content-primary));
+      border-bottom-color: rgb(var(--color-border-primary) / 0.3);
     }
 
-    .filter-tab.active {
-      background-color: rgb(var(--color-interactive-blue));
-      color: white;
+    .project-filter-tab.active {
+      color: rgb(var(--color-interactive-blue));
+      border-bottom-color: rgb(var(--color-interactive-blue));
+      font-weight: 600;
     }
 
     .count {
       font-size: 0.75rem;
-      opacity: 0.7;
-      margin-left: 0.25rem;
+      font-weight: 400;
+      color: rgb(var(--color-content-tertiary));
+      margin-left: 0.375rem;
+    }
+    .project-filter-tab.active .count {
+      color: rgb(var(--color-interactive-blue) / 0.8);
     }
 
     .project-item {
       animation: fadeInUp 0.5s ease-out forwards;
       opacity: 0;
+      height: 100%;
     }
 
     @keyframes fadeInUp {
@@ -159,29 +213,80 @@ const areas = Object.keys(projectsByArea).sort();
   </style>
 
   <script>
-    // Filter functionality
-    const filterButtons = document.querySelectorAll(".filter-tab");
+    const filterButtons = document.querySelectorAll(".project-filter-tab");
+    const statusPills = document.querySelectorAll(".status-pill");
     const projectItems = document.querySelectorAll(".project-item");
+    const projectsGrid = document.getElementById("projects-grid");
+    const emptyState = document.querySelector(".text-center.py-20");
 
+    // Track current filter state
+    let currentAreaFilter: string = "all";
+    let currentStatusFilters: Set<string> = new Set([
+      "completed",
+      "in-progress",
+      "planned",
+    ]);
+
+    // Apply filters based on current state
+    function applyFilters() {
+      let visibleCount = 0;
+
+      projectItems.forEach((item, index) => {
+        const area = item.getAttribute("data-area") || "Other";
+        const status = item.getAttribute("data-status") || "planned";
+
+        const matchesArea =
+          currentAreaFilter === "all" || area === currentAreaFilter;
+        const matchesStatus = currentStatusFilters.has(status);
+        const isVisible = matchesArea && matchesStatus;
+
+        item.classList.toggle("hidden", !isVisible);
+
+        if (isVisible) {
+          (item as HTMLElement).style.animationDelay = `${visibleCount * 50}ms`;
+          visibleCount++;
+        }
+      });
+
+      if (projectsGrid && emptyState) {
+        projectsGrid.classList.toggle("hidden", visibleCount === 0);
+        emptyState.classList.toggle("hidden", visibleCount > 0);
+      }
+    }
+
+    // Handle area filter tabs
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
         const filter = button.getAttribute("data-filter");
+        if (!filter) return;
 
-        // Update active state
+        // Update area filter state
+        currentAreaFilter = filter;
+
+        // Update button states
         filterButtons.forEach((btn) => btn.classList.remove("active"));
         button.classList.add("active");
 
-        // Filter items
-        projectItems.forEach((item, index) => {
-          const area = item.getAttribute("data-area");
+        applyFilters();
+      });
+    });
 
-          if (filter === "all" || area === filter) {
-            item.classList.remove("hidden");
-            (item as HTMLElement).style.animationDelay = `${index * 50}ms`;
-          } else {
-            item.classList.add("hidden");
-          }
-        });
+    // Handle status filter pills
+    statusPills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        const filter = pill.getAttribute("data-filter");
+        if (!filter) return;
+
+        // Toggle status filter
+        if (currentStatusFilters.has(filter)) {
+          currentStatusFilters.delete(filter);
+          pill.classList.remove("active");
+        } else {
+          currentStatusFilters.add(filter);
+          pill.classList.add("active");
+        }
+
+        applyFilters();
       });
     });
   </script>

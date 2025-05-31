@@ -3,30 +3,28 @@ import Layout from "../../layouts/Layout.astro";
 import LiteratureCard from "../../components/cards/LiteratureCard.astro";
 import { getPostsByType } from "../../utils/content";
 
-// Fetch and sort literature
+// Fetch literature posts
 const literature = await getPostsByType("literature");
 const sortedLiterature = literature.sort((a, b) => {
-  // Sort by rating (high to low), then by date (recent first)
   const aRating = a.data.literature?.rating ?? 0;
   const bRating = b.data.literature?.rating ?? 0;
-
   if (aRating !== bRating) return bRating - aRating;
   return b.data.date.getTime() - a.data.date.getTime();
 });
 
-// Group by literature type
-const literatureByType = sortedLiterature.reduce(
-  (acc, item) => {
-    const type = item.data.literature?.type || "Other";
-    if (!acc[type]) acc[type] = [];
-    acc[type].push(item);
-    return acc;
-  },
-  {} as Record<string, typeof literature>
-);
-
-const typeOrder = ["Paper", "Book", "Course", "Blog", "Video", "Other"];
-const availableTypes = typeOrder.filter((type) => literatureByType[type]);
+// Get unique types and difficulties that actually exist
+const availableTypes = [
+  ...new Set(
+    sortedLiterature.map((item) => item.data.literature?.type).filter(Boolean)
+  ),
+];
+const availableDifficulties = [
+  ...new Set(
+    sortedLiterature
+      .map((item) => item.data.literature?.difficulty)
+      .filter(Boolean)
+  ),
+];
 ---
 
 <Layout
@@ -46,199 +44,184 @@ const availableTypes = typeOrder.filter((type) => literatureByType[type]);
         </p>
       </header>
 
-      <!-- Filter Tabs -->
-      <div class="mb-8 flex gap-2 overflow-x-auto pb-2">
-        <button class="filter-tab active" data-filter="all">
-          All Literature
-          <span class="count">({sortedLiterature.length})</span>
-        </button>
-        {
-          availableTypes.map((type) => (
-            <button class="filter-tab" data-filter={type}>
-              {type}s
-              <span class="count">({literatureByType[type].length})</span>
-            </button>
-          ))
-        }
+      <!-- Type Filters -->
+      <div class="mb-6">
+        <div class="flex flex-wrap gap-3">
+          <button
+            class="px-4 py-2 text-sm font-medium rounded-lg bg-interactive-blue text-white"
+            data-type-filter="all"
+          >
+            All ({sortedLiterature.length})
+          </button>
+          {
+            availableTypes.map((type) => (
+              <button
+                class="px-4 py-2 text-sm font-medium rounded-lg bg-surface-secondary text-secondary hover:bg-surface-tertiary transition-colors"
+                data-type-filter={type}
+              >
+                {type}s (
+                {
+                  sortedLiterature.filter(
+                    (item) => item.data.literature?.type === type
+                  ).length
+                }
+                )
+              </button>
+            ))
+          }
+        </div>
       </div>
 
-      <!-- Difficulty Filter -->
-      <div class="mb-8 flex gap-2 flex-wrap">
-        <span class="text-sm text-tertiary font-medium">Difficulty:</span>
-        <button class="difficulty-filter active" data-difficulty="all"
-          >All</button
-        >
-        <button class="difficulty-filter" data-difficulty="Introductory"
-          >Introductory</button
-        >
-        <button class="difficulty-filter" data-difficulty="Intermediate"
-          >Intermediate</button
-        >
-        <button class="difficulty-filter" data-difficulty="Advanced"
-          >Advanced</button
-        >
+      <!-- Difficulty Filters -->
+      <div class="mb-8">
+        <div class="flex items-center gap-3 flex-wrap">
+          <span class="text-sm font-medium text-tertiary">Difficulty:</span>
+          <button
+            class="px-3 py-1 text-sm rounded-md bg-interactive-blue text-white"
+            data-difficulty-filter="all"
+          >
+            All
+          </button>
+          {
+            availableDifficulties.map((difficulty) => (
+              <button
+                class="px-3 py-1 text-sm rounded-md bg-surface-secondary text-secondary hover:bg-surface-tertiary transition-colors"
+                data-difficulty-filter={difficulty}
+              >
+                {difficulty}
+              </button>
+            ))
+          }
+        </div>
       </div>
 
       <!-- Literature Grid -->
-      <div
-        class="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
-        id="literature-grid"
-      >
+      <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
         {
-          sortedLiterature.map((item, index) => (
-            <a
-              href={`/posts/${item.id}`}
-              class="block literature-item"
-              data-type={item.data.literature?.type || "Other"}
-              data-difficulty={
-                item.data.literature?.difficulty || "Intermediate"
-              }
-              style={`animation-delay: ${index * 50}ms`}
-            >
-              <LiteratureCard post={item} />
-            </a>
+          sortedLiterature.map((item) => (
+            <div>
+              <a
+                href={`/posts/${item.id}`}
+                class="literature-card block"
+                data-type={item.data.literature?.type || ""}
+                data-difficulty={item.data.literature?.difficulty || ""}
+              >
+                <LiteratureCard post={item} />
+              </a>
+            </div>
           ))
         }
       </div>
 
       <!-- Empty State -->
-      {
-        sortedLiterature.length === 0 && (
-          <div class="text-center py-16">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4">
-              <svg
-                class="w-8 h-8 text-tertiary"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                />
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-primary mb-2">
-              No literature yet
-            </h3>
-            <p class="text-secondary">
-              Check back soon for curated research summaries!
-            </p>
-          </div>
-        )
-      }
+      <div class="hidden text-center py-16" id="empty-state">
+        <div
+          class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4"
+        >
+          <svg
+            class="w-8 h-8 text-tertiary"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+            ></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-primary mb-2">
+          No literature found
+        </h3>
+        <p class="text-secondary">
+          Try adjusting your filters to see more results.
+        </p>
+      </div>
     </div>
   </div>
 
-  <style>
-    .filter-tab,
-    .difficulty-filter {
-      border-radius: 0.5rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      padding: 0.375rem 0.75rem;
-      background-color: rgb(var(--color-surface-secondary));
-      color: rgb(var(--color-secondary));
-      white-space: nowrap;
-      transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .filter-tab:hover,
-    .difficulty-filter:hover {
-      background-color: rgb(var(--color-surface-tertiary));
-      color: rgb(var(--color-primary));
-    }
-
-    .filter-tab.active,
-    .difficulty-filter.active {
-      background-color: rgb(var(--color-interactive-blue));
-      color: white;
-    }
-
-    .count {
-      font-size: 0.75rem;
-      opacity: 0.7;
-      margin-left: 0.25rem;
-    }
-
-    .literature-item {
-      animation: fadeInUp 0.5s ease-out forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-    }
-
-    .literature-item.hidden {
-      display: none;
-    }
-  </style>
-
   <script>
-    // Filter functionality
-    const filterButtons = document.querySelectorAll(".filter-tab");
-    const difficultyButtons = document.querySelectorAll(".difficulty-filter");
-    const literatureItems = document.querySelectorAll(".literature-item");
+    function initializeLiteratureFilters() {
+      const typeButtons = document.querySelectorAll("[data-type-filter]");
+      const difficultyButtons = document.querySelectorAll(
+        "[data-difficulty-filter]"
+      );
+      const cards = document.querySelectorAll(".literature-card");
+      const emptyState = document.getElementById("empty-state");
 
-    let currentTypeFilter = "all";
-    let currentDifficultyFilter = "all";
+      let currentType = "all";
+      let currentDifficulty = "all";
 
-    function filterItems() {
-      literatureItems.forEach((item, index) => {
-        const type = item.getAttribute("data-type");
-        const difficulty = item.getAttribute("data-difficulty");
+      function updateFilters() {
+        let visibleCount = 0;
 
-        const typeMatch =
-          currentTypeFilter === "all" || type === currentTypeFilter;
-        const difficultyMatch =
-          currentDifficultyFilter === "all" ||
-          difficulty === currentDifficultyFilter;
+        cards.forEach((card) => {
+          const cardType = card.getAttribute("data-type") || "";
+          const cardDifficulty = card.getAttribute("data-difficulty") || "";
 
-        if (typeMatch && difficultyMatch) {
-          item.classList.remove("hidden");
-          (item as HTMLElement).style.animationDelay = `${index * 50}ms`;
-        } else {
-          item.classList.add("hidden");
+          const typeMatch = currentType === "all" || cardType === currentType;
+          const difficultyMatch =
+            currentDifficulty === "all" || cardDifficulty === currentDifficulty;
+
+          if (typeMatch && difficultyMatch) {
+            (card as HTMLElement).style.display = "block";
+            visibleCount++;
+          } else {
+            (card as HTMLElement).style.display = "none";
+          }
+        });
+
+        // Show/hide empty state
+        if (emptyState) {
+          if (visibleCount === 0) {
+            emptyState.classList.remove("hidden");
+          } else {
+            emptyState.classList.add("hidden");
+          }
         }
+      }
+
+      function setActiveButton(
+        buttons: NodeListOf<Element>,
+        activeButton: Element
+      ) {
+        buttons.forEach((btn: Element) => {
+          btn.classList.remove("bg-interactive-blue", "text-white");
+          btn.classList.add("bg-surface-secondary", "text-secondary");
+        });
+        activeButton.classList.remove("bg-surface-secondary", "text-secondary");
+        activeButton.classList.add("bg-interactive-blue", "text-white");
+      }
+
+      // Type filter handlers
+      typeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          currentType = button.getAttribute("data-type-filter") || "all";
+          setActiveButton(typeButtons, button);
+          updateFilters();
+        });
       });
+
+      // Difficulty filter handlers
+      difficultyButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          currentDifficulty =
+            button.getAttribute("data-difficulty-filter") || "all";
+          setActiveButton(difficultyButtons, button);
+          updateFilters();
+        });
+      });
+
+      // Initial filter update
+      updateFilters();
     }
 
-    // Type filter
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const filter = button.getAttribute("data-filter");
-        currentTypeFilter = filter || "all";
+    // Initialize on page load
+    document.addEventListener("DOMContentLoaded", initializeLiteratureFilters);
 
-        // Update active state
-        filterButtons.forEach((btn) => btn.classList.remove("active"));
-        button.classList.add("active");
-
-        filterItems();
-      });
-    });
-
-    // Difficulty filter
-    difficultyButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const filter = button.getAttribute("data-difficulty");
-        currentDifficultyFilter = filter || "all";
-
-        // Update active state
-        difficultyButtons.forEach((btn) => btn.classList.remove("active"));
-        button.classList.add("active");
-
-        filterItems();
-      });
-    });
+    // Re-initialize on Astro page navigation
+    document.addEventListener("astro:page-load", initializeLiteratureFilters);
   </script>
 </Layout>

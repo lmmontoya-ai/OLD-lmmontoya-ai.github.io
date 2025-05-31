@@ -1,6 +1,5 @@
 ---
 // src/components/cards/LiteratureCard.astro
-import { literatureCardVariants, cn } from "../../utils/variants";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -17,157 +16,57 @@ const formattedDate = date.toLocaleDateString("en-US", {
   year: "numeric",
 });
 
-const classes = cn(
-  literatureCardVariants({
-    difficulty: literature?.difficulty,
-    type: literature?.type,
-  }),
-  className
-);
-
 // Generate star rating display
 const renderStars = (rating: number) => {
   return Array.from({ length: 5 }, (_, i) => i < rating);
 };
+
+// Get type icon
+const getTypeIcon = (type: string) => {
+  switch (type) {
+    case "Paper":
+      return `<svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+      </svg>`;
+    case "Video":
+      return `<svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>`;
+    case "Book":
+      return `<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+      </svg>`;
+    default:
+      return `<svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+      </svg>`;
+  }
+};
+
+// Get difficulty badge color
+const getDifficultyColor = (difficulty: string) => {
+  switch (difficulty) {
+    case "Introductory":
+      return "bg-green-100 text-green-700 border-green-200";
+    case "Advanced":
+      return "bg-red-100 text-red-700 border-red-200";
+    default:
+      return "bg-yellow-100 text-yellow-700 border-yellow-200";
+  }
+};
 ---
 
-<article class={classes}>
-  <!-- Header Section with Type and Difficulty -->
+<article
+  class={`bg-surface-secondary/80 backdrop-blur-sm border border-primary rounded-xl p-6 hover:shadow-lg hover:border-interactive-blue/30 transition-all duration-300 h-full flex flex-col relative ${className || ""}`}
+>
+  <!-- Header -->
   <div class="flex items-start justify-between mb-4">
-    <!-- Resource Type with Icon -->
     <div class="flex items-center gap-2">
-      {
-        literature?.type === "Paper" && (
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-interactive-blue/10">
-            <svg
-              class="w-4 h-4 text-interactive-blue"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-          </div>
-        )
-      }
-      {
-        literature?.type === "Book" && (
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-status-success/10">
-            <svg
-              class="w-4 h-4 text-status-success"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-              />
-            </svg>
-          </div>
-        )
-      }
-      {
-        literature?.type === "Video" && (
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-red-500/10">
-            <svg
-              class="w-4 h-4 text-red-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-              />
-            </svg>
-          </div>
-        )
-      }
-      {
-        literature?.type === "Blog" && (
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-interactive-gold/10">
-            <svg
-              class="w-4 h-4 text-interactive-gold"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-              />
-            </svg>
-          </div>
-        )
-      }
-      {
-        literature?.type === "Course" && (
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500/10">
-            <svg
-              class="w-4 h-4 text-purple-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 14l9-5-9-5-9 5 9 5z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-              />
-            </svg>
-          </div>
-        )
-      }
-      {
-        !literature?.type && (
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-tertiary">
-            <svg
-              class="w-4 h-4 text-tertiary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-          </div>
-        )
-      }
+      <div
+        class="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-100"
+        set:html={getTypeIcon(literature?.type || "")}
+      />
       <div class="flex flex-col">
         <span class="text-sm font-medium text-primary"
           >{literature?.type || "Resource"}</span
@@ -180,19 +79,10 @@ const renderStars = (rating: number) => {
       </div>
     </div>
 
-    <!-- Difficulty Badge -->
     {
       literature?.difficulty && (
         <span
-          class={cn(
-            "px-3 py-1 text-xs font-medium rounded-full border",
-            literature.difficulty === "Introductory" &&
-              "bg-status-success/10 text-status-success border-status-success/20",
-            literature.difficulty === "Intermediate" &&
-              "bg-status-warning/10 text-status-warning border-status-warning/20",
-            literature.difficulty === "Advanced" &&
-              "bg-red-500/10 text-red-500 border-red-500/20"
-          )}
+          class={`px-2 py-1 text-xs font-medium rounded-full border ${getDifficultyColor(literature.difficulty)}`}
         >
           {literature.difficulty}
         </span>
@@ -201,14 +91,11 @@ const renderStars = (rating: number) => {
   </div>
 
   <!-- Content -->
-  <div class="flex-1 flex flex-col space-y-4">
-    <h3
-      class="text-xl font-semibold text-primary group-hover:text-interactive-blue transition-theme line-clamp-2"
-    >
+  <div class="space-y-3">
+    <h3 class="text-lg font-semibold text-primary line-clamp-2">
       {title}
     </h3>
 
-    <!-- Author Information -->
     {
       literature?.authors && literature.authors.length > 0 && (
         <div class="flex items-center gap-2 text-sm text-secondary">
@@ -234,94 +121,85 @@ const renderStars = (rating: number) => {
       )
     }
 
-    <p class="text-secondary line-clamp-3 leading-relaxed flex-1">
+    <p class="text-secondary text-sm line-clamp-3 leading-relaxed">
       {excerpt}
     </p>
 
-    <!-- Rating and Recommended For -->
-    <div class="space-y-3">
-      {
-        literature?.rating && (
-          <div class="flex items-center gap-3">
-            <div class="flex items-center gap-1">
-              {renderStars(literature.rating).map((filled, i) => (
-                <svg
-                  class={cn(
-                    "w-4 h-4",
-                    filled ? "text-yellow-400 fill-current" : "text-gray-300"
-                  )}
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-            </div>
-            <span class="text-sm font-medium text-tertiary">
-              ({literature.rating}/5)
-            </span>
+    {
+      literature?.rating && (
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1">
+            {renderStars(literature.rating).map((filled, i) => (
+              <svg
+                class={`w-3 h-3 ${filled ? "text-yellow-400 fill-current" : "text-gray-300"}`}
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            ))}
           </div>
-        )
-      }
+          <span class="text-xs text-tertiary">({literature.rating}/5)</span>
+        </div>
+      )
+    }
 
-      {
-        literature?.recommendedFor && literature.recommendedFor.length > 0 && (
-          <div class="space-y-2">
-            <span class="text-xs font-medium text-tertiary uppercase tracking-wide">
-              Recommended for
-            </span>
-            <div class="flex flex-wrap gap-2">
-              {literature.recommendedFor.map((audience) => (
-                <span class="px-2 py-1 text-xs bg-surface-tertiary rounded-md text-secondary border border-surface-primary">
-                  {audience}
-                </span>
-              ))}
-            </div>
+    {
+      literature?.recommendedFor && literature.recommendedFor.length > 0 && (
+        <div class="space-y-1">
+          <span class="text-xs font-medium text-tertiary uppercase tracking-wide">
+            Recommended for
+          </span>
+          <div class="flex flex-wrap gap-1">
+            {literature.recommendedFor.slice(0, 2).map((audience) => (
+              <span class="px-2 py-1 text-xs bg-surface-tertiary rounded text-secondary">
+                {audience}
+              </span>
+            ))}
+            {literature.recommendedFor.length > 2 && (
+              <span class="px-2 py-1 text-xs bg-surface-tertiary rounded text-tertiary">
+                +{literature.recommendedFor.length - 2} more
+              </span>
+            )}
           </div>
-        )
-      }
-    </div>
-
-    <!-- Footer -->
-    <div
-      class="flex items-center justify-between pt-4 border-t border-surface-tertiary mt-auto"
-    >
-      <time class="text-sm text-tertiary" datetime={date.toISOString()}>
-        Added {formattedDate}
-      </time>
-
-      {
-        literature?.source && (
-          <a
-            href={literature.source}
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-1 px-3 py-1.5 text-sm text-interactive-blue hover:text-interactive-blue/80 bg-interactive-blue/10 hover:bg-interactive-blue/20 rounded-lg transition-theme"
-            aria-label="View source"
-            onclick="event.stopPropagation()"
-          >
-            <span>View Source</span>
-            <svg
-              class="w-3 h-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
-          </a>
-        )
-      }
-    </div>
+        </div>
+      )
+    }
   </div>
 
-  <!-- Hover gradient effect -->
+  <!-- Footer -->
   <div
-    class="absolute inset-0 bg-gradient-to-br from-interactive-blue/0 to-interactive-blue/5 opacity-0 group-hover:opacity-100 transition-theme pointer-events-none rounded-xl"
+    class="flex items-center justify-between pt-4 mt-auto border-t border-surface-tertiary"
   >
+    <time class="text-xs text-tertiary" datetime={date.toISOString()}>
+      Added {formattedDate}
+    </time>
+
+    {
+      literature?.source && (
+        <a
+          href={literature.source}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-1 px-2 py-1 text-xs text-interactive-blue hover:text-interactive-blue/80 bg-interactive-blue/10 hover:bg-interactive-blue/20 rounded transition-colors"
+          aria-label="View source"
+          onclick="event.stopPropagation()"
+        >
+          <span>View Source</span>
+          <svg
+            class="w-3 h-3"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            />
+          </svg>
+        </a>
+      )
+    }
   </div>
 </article>

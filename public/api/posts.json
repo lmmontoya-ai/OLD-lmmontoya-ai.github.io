@@ -60,5 +60,82 @@
     ],
     "date": "2024-03-08T00:00:00.000Z",
     "href": "/posts/test-literature-attention"
+  },
+  {
+    "title": "From Quantum Mechanics to Neural Networks: A Personal Journey",
+    "slug": "blog-learning-journey",
+    "excerpt": "Reflecting on how my physics background shapes my approach to AI research and interpretability, and the unexpected parallels between quantum mechanics and neural network behavior.",
+    "content": "The Unexpected Parallels When I first transitioned from physics to AI, I expected a complete paradigm shift. After years of studying quantum mechanics, statistical mechanics, and condensed matter physics, I thought I was leaving behind one world of complex systems for an entirely different one. What I discovered instead was a surprising number of deep connections that have fundamentally shaped how I approach AI interpretability research. Physics Foundations: More Than Just Math The Mindset of Emergence In physics, we're constantly dealing with emergent phenomena—behaviors that arise from the collective interactions of simpler components but can't be easily predicted from those components alone. Superconductivity emerges from electron interactions. Phase transitions arise from statistical mechanics. Consciousness might emerge from neural activity. This perspective has been invaluable in AI research. When I look at a transformer model, I don't just see matrix multiplications and activati",
+    "types": [
+      "blog"
+    ],
+    "category": "Reflection",
+    "tags": [],
+    "date": "2024-03-01T00:00:00.000Z",
+    "href": "/posts/blog-learning-journey"
+  },
+  {
+    "title": "Survey: Mechanistic Interpretability in Neural Networks",
+    "slug": "literature-interpretability-survey",
+    "excerpt": "Comprehensive survey of mechanistic interpretability techniques, covering circuit discovery, feature visualization, and causal interventions in modern deep learning systems.",
+    "content": "Mechanistic Interpretability Survey: A Comprehensive Overview This survey provides an exhaustive review of mechanistic interpretability techniques that have emerged as crucial tools for understanding the internal workings of neural networks. The authors systematically organize the field around three core paradigms: circuit discovery, feature visualization, and causal intervention methods. Key Contributions Circuit Discovery Methods The paper thoroughly examines approaches for identifying computational circuits within neural networks, including: Activation patching for isolating causal pathways Gradient-based attribution methods for circuit identification Sparse probing techniques for discovering interpretable features Feature Visualization Advances Modern feature visualization has evolved significantly beyond simple gradient ascent: Optimization-based synthesis for generating feature-maximizing inputs Dataset exemplars for understanding learned representations Activation atlas construc",
+    "types": [
+      "literature"
+    ],
+    "category": "Resource",
+    "tags": [],
+    "date": "2024-02-20T00:00:00.000Z",
+    "href": "/posts/literature-interpretability-survey"
+  },
+  {
+    "title": "Building Better Interpretability Tools: A Practical Guide",
+    "slug": "blog-interpretability-tools",
+    "excerpt": "A hands-on tutorial for developing effective AI interpretability tools, covering design principles, implementation strategies, and common pitfalls to avoid.",
+    "content": "Introduction: Why Better Tools Matter The field of AI interpretability is rapidly evolving, but many researchers still struggle with inadequate tools. Whether you're trying to understand attention patterns, visualize neural activations, or trace information flow through networks, having the right tools can make the difference between insight and confusion. This tutorial will guide you through building effective interpretability tools, from initial design principles to production-ready implementations. We'll cover both the technical aspects and the human factors that determine whether a tool actually helps researchers understand AI systems. Design Principles for Interpretability Tools Start with the Question, Not the Method The biggest mistake in interpretability tool development is starting with a cool technique and then looking for applications. Instead, begin with specific research questions: \"Why does this model fail on certain inputs?\" \"How does information flow through the network",
+    "types": [
+      "blog"
+    ],
+    "category": "Tutorial",
+    "tags": [],
+    "date": "2024-02-15T00:00:00.000Z",
+    "href": "/posts/blog-interpretability-tools"
+  },
+  {
+    "title": "Book Review: Constitutional AI - Training a Helpful, Harmless Assistant",
+    "slug": "literature-anthropic-constitution",
+    "excerpt": "In-depth review of Anthropic's foundational work on Constitutional AI, exploring how AI systems can be trained to be more helpful, harmless, and honest through constitutional training methods.",
+    "content": "Paper Overview Anthropic's \"Constitutional AI: Harmlessness from AI Feedback\" represents a paradigm shift in AI training methodology. This seminal work introduces a novel approach to training AI assistants that combines the benefits of reinforcement learning from human feedback (RLHF) with a scalable, principle-based training method that reduces reliance on human labelers for identifying harmful outputs. The Constitutional AI Framework Core Innovation Constitutional AI (CAI) addresses a fundamental challenge in AI alignment: how to train models to be helpful, harmless, and honest at scale. Traditional approaches rely heavily on human feedback to identify and correct harmful behaviors, which is: Expensive: Requires extensive human annotation Inconsistent: Human raters may disagree on what constitutes harm Unscalable: Doesn't scale to the complexity of modern AI systems Reactive: Focuses on fixing problems after they occur CAI introduces a proactive, principle-based approach that can sca",
+    "types": [
+      "literature"
+    ],
+    "category": "Research",
+    "tags": [
+      "Constitutional AI",
+      "AI Safety",
+      "Anthropic",
+      "RLHF",
+      "AI Alignment"
+    ],
+    "date": "2024-02-05T00:00:00.000Z",
+    "href": "/posts/literature-anthropic-constitution"
+  },
+  {
+    "title": "Video Review: Robert Miles on AI Alignment and Safety",
+    "slug": "literature-ai-safety-video",
+    "excerpt": "Comprehensive review of Robert Miles' acclaimed video series on AI safety and alignment, examining how these accessible explanations bridge the gap between technical research and public understanding.",
+    "content": "Video Series Overview Robert Miles' YouTube channel stands as one of the most accessible and well-crafted introductions to AI safety and alignment available today. Through carefully designed explanations, thought experiments, and visual aids, Miles bridges the crucial gap between cutting-edge AI safety research and public understanding. This review examines his body of work, focusing on how educational content can play a vital role in democratizing AI safety knowledge and building broader understanding of these critical issues. Why This Content Matters The Public Understanding Gap AI safety research has historically suffered from an accessibility problem: Technical Complexity: Research papers require specialized knowledge Jargon Barriers: Field-specific terminology excludes non-experts Abstract Concepts: Many AI safety issues are counterintuitive Stakeholder Disconnect: Public, policymakers, and researchers often speak different languages Robert Miles' work addresses these challenges s",
+    "types": [
+      "literature"
+    ],
+    "category": "Resource",
+    "tags": [
+      "AI Safety",
+      "Education",
+      "YouTube",
+      "Alignment",
+      "Public Understanding"
+    ],
+    "date": "2024-01-15T00:00:00.000Z",
+    "href": "/posts/literature-ai-safety-video"
   }
 ]

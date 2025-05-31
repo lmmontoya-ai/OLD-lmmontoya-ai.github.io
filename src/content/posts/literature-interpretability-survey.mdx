@@ -1,0 +1,83 @@
+---
+title: "Survey: Mechanistic Interpretability in Neural Networks"
+slug: "literature-interpretability-survey"
+excerpt: "Comprehensive survey of mechanistic interpretability techniques, covering circuit discovery, feature visualization, and causal interventions in modern deep learning systems."
+date: 2024-02-20
+status: "published"
+types: ["literature"]
+category: "Resource"
+tags:
+  [
+    "mechanistic-interpretability",
+    "survey",
+    "neural-networks",
+    "circuits",
+    "feature-visualization",
+  ]
+readingTime: 12
+literature:
+  type: "Paper"
+  authors:
+    [
+      "Chris Olah",
+      "Nick Cammarata",
+      "Ludwig Schubert",
+      "Gabriel Goh",
+      "Michael Petrov",
+    ]
+  year: 2024
+  difficulty: "Advanced"
+  rating: 5
+  source: "https://distill.pub/2024/mech-interp-survey"
+  recommendedFor:
+    [
+      "Research Scientists",
+      "PhD Students",
+      "ML Engineers",
+      "AI Safety Researchers",
+    ]
+---
+
+# Mechanistic Interpretability Survey: A Comprehensive Overview
+
+This survey provides an exhaustive review of mechanistic interpretability techniques that have emerged as crucial tools for understanding the internal workings of neural networks. The authors systematically organize the field around three core paradigms: circuit discovery, feature visualization, and causal intervention methods.
+
+## Key Contributions
+
+### Circuit Discovery Methods
+
+The paper thoroughly examines approaches for identifying computational circuits within neural networks, including:
+
+- **Activation patching** for isolating causal pathways
+- **Gradient-based attribution** methods for circuit identification
+- **Sparse probing** techniques for discovering interpretable features
+
+### Feature Visualization Advances
+
+Modern feature visualization has evolved significantly beyond simple gradient ascent:
+
+- **Optimization-based synthesis** for generating feature-maximizing inputs
+- **Dataset exemplars** for understanding learned representations
+- **Activation atlas** construction for high-dimensional feature spaces
+
+### Causal Intervention Framework
+
+The survey establishes a rigorous framework for causal analysis in interpretability:
+
+- **Interchange interventions** for testing feature necessity
+- **Ablation studies** with careful controls for network capacity
+- **Steering vectors** for controlled manipulation of model behavior
+
+## Methodological Insights
+
+The authors provide critical analysis of current limitations and propose directions for advancing the field:
+
+1. **Scalability challenges** in applying interpretability to large language models
+2. **Evaluation metrics** for assessing interpretability method effectiveness
+3. **Theoretical foundations** linking mechanistic understanding to model capabilities
+
+## Impact and Applications
+
+This comprehensive survey serves as both a tutorial for newcomers and a research roadmap for experienced practitioners. The systematic organization of techniques provides a clear framework for choosing appropriate interpretability methods based on research goals and model architectures.
+
+The work has significant implications for AI safety research, as mechanistic understanding becomes increasingly important for ensuring reliable and controllable AI systems at scale.

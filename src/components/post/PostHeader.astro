@@ -1,9 +1,9 @@
 ---
-import type { Post } from '../../utils/content';
+import type { Post } from "../../utils/content";
 
 interface Props {
   post: Post;
-  accentColor: 'blue' | 'gold' | 'green';
+  accentColor: "blue" | "gold" | "green";
 }
 
 const { post, accentColor } = Astro.props;
@@ -11,66 +11,73 @@ const { post, accentColor } = Astro.props;
 // Type badges configuration with icons
 const typeBadges = {
   blog: {
-    icon: 'M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16',
-    label: 'Blog Post'
+    icon: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16",
+    label: "Blog Post",
   },
   roadmap: {
-    icon: 'M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 01.553-.894L9 2l6 3 5.447-2.724A1 1 0 0121 3.382v10.764a1 1 0 01-.553.894L15 18l-6-3z',
-    label: 'Roadmap'
+    icon: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 01.553-.894L9 2l6 3 5.447-2.724A1 1 0 0121 3.382v10.764a1 1 0 01-.553.894L15 18l-6-3z",
+    label: "Roadmap",
   },
   project: {
-    icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
-    label: 'Project'
+    icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10",
+    label: "Project",
   },
   literature: {
-    icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
-    label: 'Literature'
+    icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
+    label: "Literature",
   },
   note: {
-    icon: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z',
-    label: 'Note'
+    icon: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
+    label: "Note",
   },
   guide: {
-    icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
-    label: 'Guide'
-  }
+    icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
+    label: "Guide",
+  },
 };
 
 // Accent color styles
 const accentStyles = {
-  blue: 'bg-brand-primary/10 text-brand-primary border-brand-primary/20',
-  gold: 'bg-brand-secondary/10 text-brand-secondary border-brand-secondary/20',
-  green: 'bg-status-success/10 text-status-success border-status-success/20',
+  blue: "bg-brand-primary/10 text-brand-primary border-brand-primary/20",
+  gold: "bg-brand-secondary/10 text-brand-secondary border-brand-secondary/20",
+  green: "bg-status-success/10 text-status-success border-status-success/20",
 };
 
 // Status badge configuration
 const statusConfig = {
-  'in-progress': {
-    label: 'In Progress',
-    classes: 'bg-status-warning/10 text-status-warning border-status-warning/20',
-    icon: true // Shows animated dot
+  "in-progress": {
+    label: "In Progress",
+    classes:
+      "bg-status-warning/10 text-status-warning border-status-warning/20",
+    icon: true, // Shows animated dot
   },
-  'completed': {
-    label: 'Completed',
-    classes: 'bg-status-success/10 text-status-success border-status-success/20',
-    icon: false
+  completed: {
+    label: "Completed",
+    classes:
+      "bg-status-success/10 text-status-success border-status-success/20",
+    icon: false,
   },
-  'planned': {
-    label: 'Planned',
-    classes: 'bg-content-tertiary/10 text-content-tertiary border-content-tertiary/20',
-    icon: false
-  }
+  planned: {
+    label: "Planned",
+    classes:
+      "bg-content-tertiary/10 text-content-tertiary border-content-tertiary/20",
+    icon: false,
+  },
 };
 
 // Project/roadmap specific metadata
-const hasProjectLinks = post.data.project?.links && Object.values(post.data.project.links).some(link => link);
-const isRoadmapPost = post.data.types.includes('roadmap');
-const isProjectPost = post.data.types.includes('project');
+const hasProjectLinks =
+  post.data.project?.links &&
+  Object.values(post.data.project.links).some((link) => link);
+const isRoadmapPost = post.data.types.includes("roadmap");
+const isProjectPost = post.data.types.includes("project");
 ---
 
 <header class="mb-12">
   <!-- Title -->
-  <h1 class="text-4xl md:text-5xl font-sans font-bold text-content-primary leading-tight mb-4">
+  <h1
+    class="text-4xl md:text-5xl font-sans font-bold text-content-primary leading-tight mb-4"
+  >
     {post.data.title}
   </h1>
 
@@ -80,66 +87,112 @@ const isProjectPost = post.data.types.includes('project');
   </p>
 
   <!-- Metadata bar -->
-  <div class="flex flex-wrap items-center gap-4 text-sm text-content-tertiary font-mono mb-6">
+  <div
+    class="flex flex-wrap items-center gap-4 text-sm text-content-tertiary font-mono mb-6"
+  >
     <!-- Date -->
-    <time datetime={post.data.date.toISOString()} class="flex items-center gap-1.5">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+    <time
+      datetime={post.data.date.toISOString()}
+      class="flex items-center gap-1.5"
+    >
+      <svg
+        class="w-4 h-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+        ></path>
       </svg>
-      <span class="opacity-80">{post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+      <span class="opacity-80"
+        >{
+          post.data.date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })
+        }</span
+      >
     </time>
 
     <!-- Reading time -->
-    {post.data.readingTime && (
-      <>
-        <span class="opacity-60">•</span>
-        <div class="flex items-center gap-1.5">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          <span class="opacity-80">{post.data.readingTime} min read</span>
-        </div>
-      </>
-    )}
+    {
+      post.data.readingTime && (
+        <>
+          <span class="opacity-60">•</span>
+          <div class="flex items-center gap-1.5">
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span class="opacity-80">{post.data.readingTime} min read</span>
+          </div>
+        </>
+      )
+    }
 
     <!-- Word count -->
-    {post.data.wordCount && (
-      <>
-        <span class="opacity-60">•</span>
-        <div class="flex items-center gap-1.5">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-          </svg>
-          <span class="opacity-80">{post.data.wordCount.toLocaleString()} words</span>
-        </div>
-      </>
-    )}
+    {
+      post.data.wordCount && (
+        <>
+          <span class="opacity-60">•</span>
+          <div class="flex items-center gap-1.5">
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            <span class="opacity-80">
+              {post.data.wordCount.toLocaleString()} words
+            </span>
+          </div>
+        </>
+      )
+    }
 
     <!-- Literature specific metadata -->
-    {post.data.literature?.year && (
-      <>
-        <span class="opacity-60">•</span>
-        <span class="opacity-80">{post.data.literature.year}</span>
-      </>
-    )}
-
-    {post.data.literature?.difficulty && (
-      <>
-        <span class="opacity-60">•</span>
-        <span class="opacity-80 capitalize">{post.data.literature.difficulty} level</span>
-      </>
-    )}
+    {
+      post.data.literature?.year && (
+        <>
+          <span class="opacity-60">•</span>
+          <span class="opacity-80">{post.data.literature.year}</span>
+        </>
+      )
+    }
   </div>
 
   <!-- Hero image -->
-  {post.data.media?.hero && (
-    <div class="mt-8 -mx-6 md:-mx-12 lg:-mx-16">
-      <img
-        src={post.data.media.hero}
-        alt={post.data.title}
-        class="w-full h-64 md:h-80 lg:h-96 object-cover rounded-lg shadow-lg"
-        loading="eager"
-      />
-    </div>
-  )}
+  {
+    post.data.media?.hero && (
+      <div class="mt-8 -mx-6 md:-mx-12 lg:-mx-16">
+        <img
+          src={post.data.media.hero}
+          alt={post.data.title}
+          class="w-full h-64 md:h-80 lg:h-96 object-cover rounded-lg shadow-lg"
+          loading="eager"
+        />
+      </div>
+    )
+  }
 </header>

@@ -316,11 +316,6 @@ export const literatureCardVariants = cva(
   ],
   {
     variants: {
-      difficulty: {
-        Introductory: ["border-l-4", "border-l-status-success"],
-        Intermediate: ["border-l-4", "border-l-status-warning"],
-        Advanced: ["border-l-4", "border-l-status-error"],
-      },
       type: {
         Paper: ["bg-gradient-to-br", "from-surface-secondary/80", "to-blue-500/5"],
         Book: ["bg-gradient-to-br", "from-surface-secondary/80", "to-green-500/5"],
@@ -330,7 +325,6 @@ export const literatureCardVariants = cva(
       },
     },
     defaultVariants: {
-      difficulty: "Intermediate",
       type: "Paper",
     },
   }

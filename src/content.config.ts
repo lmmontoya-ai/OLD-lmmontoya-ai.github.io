@@ -59,7 +59,6 @@ const postsCollection = defineCollection({
       year: z.number().optional(),
       source: z.string().url().optional(),
       type: z.enum(['Paper', 'Blog', 'Video', 'Book', 'Course']).optional(),
-      difficulty: z.enum(['Introductory', 'Intermediate', 'Advanced']).optional(),
       rating: z.number().min(1).max(5).optional(),
       recommendedFor: z.array(z.string()).optional(),
     }).optional(),

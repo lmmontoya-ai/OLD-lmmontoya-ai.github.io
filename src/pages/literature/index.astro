@@ -9,7 +9,7 @@ const sortedLiterature = literature.sort((a, b) => {
   const aRating = a.data.literature?.rating ?? 0;
   const bRating = b.data.literature?.rating ?? 0;
   if (aRating !== bRating) return bRating - aRating;
-  return b.data.date.getTime() - a.data.date.getTime();
+  return b.data.date.getTime() - b.data.date.getTime();
 });
 
 // Get unique types and difficulties that actually exist
@@ -31,81 +31,174 @@ const availableDifficulties = [
   title="Literature — Luis Miguel Montoya"
   description="Curated summaries and insights from AI research papers, books, and educational resources."
 >
-  <div class="min-h-screen pt-20 pb-16">
+  <div class="min-h-screen pt-24 pb-20">
     <div class="container mx-auto px-6 lg:px-16 xl:px-24">
-      <!-- Header -->
-      <header class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">
-          Literature
-        </h1>
-        <p class="text-xl text-secondary max-w-3xl">
-          Curated summaries and insights from AI research papers, books, and
-          educational resources.
-        </p>
-      </header>
+      <!-- Header with Title and Filters -->
+      <div class="mb-20">
+        <!-- Title and Description -->
+        <div
+          class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-12 mb-16"
+        >
+          <div class="lg:flex-1 lg:pr-12">
+            <h1
+              class="text-5xl md:text-6xl font-bold text-interactive-blue mb-6"
+            >
+              Literature
+            </h1>
+            <p class="text-xl text-content-secondary max-w-xl leading-relaxed">
+              Curated summaries and insights from AI research papers, books, and
+              educational resources.
+            </p>
+          </div>
 
-      <!-- Type Filters -->
-      <div class="mb-6">
-        <div class="flex flex-wrap gap-3">
-          <button
-            class="px-4 py-2 text-sm font-medium rounded-lg bg-interactive-blue text-white"
-            data-type-filter="all"
-          >
-            All ({sortedLiterature.length})
-          </button>
-          {
-            availableTypes.map((type) => (
-              <button
-                class="px-4 py-2 text-sm font-medium rounded-lg bg-surface-secondary text-secondary hover:bg-surface-tertiary transition-colors"
-                data-type-filter={type}
-              >
-                {type}s (
-                {
-                  sortedLiterature.filter(
-                    (item) => item.data.literature?.type === type
-                  ).length
-                }
-                )
-              </button>
-            ))
-          }
-        </div>
-      </div>
+          <!-- Filters Section -->
+          <div class="lg:flex-shrink-0 lg:w-[22rem]">
+            <!-- Search and Sort -->
+            <div class="flex flex-col gap-5 mb-10">
+              <!-- Search -->
+              <div class="relative">
+                <svg
+                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-content-tertiary pointer-events-none"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="Search literature..."
+                  class="w-full pl-10 pr-4 py-3 bg-transparent border-b-2 border-border-primary text-content-primary placeholder-content-tertiary focus:outline-none focus:border-interactive-blue transition-colors text-base"
+                />
+              </div>
 
-      <!-- Difficulty Filters -->
-      <div class="mb-8">
-        <div class="flex items-center gap-3 flex-wrap">
-          <span class="text-sm font-medium text-tertiary">Difficulty:</span>
-          <button
-            class="px-3 py-1 text-sm rounded-md bg-interactive-blue text-white"
-            data-difficulty-filter="all"
-          >
-            All
-          </button>
-          {
-            availableDifficulties.map((difficulty) => (
-              <button
-                class="px-3 py-1 text-sm rounded-md bg-surface-secondary text-secondary hover:bg-surface-tertiary transition-colors"
-                data-difficulty-filter={difficulty}
-              >
-                {difficulty}
-              </button>
-            ))
-          }
+              <!-- Custom Sort Dropdown -->
+              <div class="relative" id="custom-sort-container">
+                <button
+                  id="sort-button"
+                  type="button"
+                  class="w-full flex items-center justify-between px-4 py-3 bg-transparent border-b-2 border-border-primary text-content-primary focus:outline-none focus:border-interactive-blue transition-colors text-base"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                >
+                  <span id="sort-button-text">Best Rated</span>
+                  <svg
+                    id="sort-chevron"
+                    class="w-5 h-5 text-content-tertiary transform transition-transform duration-200"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+                <div
+                  id="sort-dropdown"
+                  class="absolute z-10 mt-1 w-full bg-secondary rounded-lg shadow-xl border border-primary/20 py-2 hidden overflow-hidden"
+                  role="listbox"
+                >
+                  <button
+                    data-sort-value="rating"
+                    class="sort-option active-sort"
+                  >
+                    Best Rated
+                  </button>
+                  <button data-sort-value="date" class="sort-option">
+                    Most Recent
+                  </button>
+                  <button data-sort-value="title" class="sort-option">
+                    Alphabetical
+                  </button>
+                  <button data-sort-value="difficulty" class="sort-option">
+                    By Difficulty
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="space-y-6">
+              <!-- Type Filters -->
+              <div>
+                <h3
+                  class="text-xs font-semibold text-content-tertiary uppercase tracking-wider mb-3"
+                >
+                  Type
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                  <button class="filter-tab active" data-type-filter="all">
+                    All
+                  </button>
+                  {
+                    availableTypes.map((type) => (
+                      <button class="filter-tab" data-type-filter={type}>
+                        {type}s
+                      </button>
+                    ))
+                  }
+                </div>
+              </div>
+
+              <!-- Difficulty Filters -->
+              <div>
+                <h3
+                  class="text-xs font-semibold text-content-tertiary uppercase tracking-wider mb-3"
+                >
+                  Difficulty
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                  <button
+                    class="difficulty-tab active"
+                    data-difficulty-filter="all"
+                  >
+                    All Levels
+                  </button>
+                  {
+                    availableDifficulties.map((difficulty) => (
+                      <button
+                        class="difficulty-tab"
+                        data-difficulty-filter={difficulty}
+                      >
+                        {difficulty}
+                      </button>
+                    ))
+                  }
+                </div>
+              </div>
+
+              <!-- Results Counter -->
+              <div class="pt-4 text-sm text-content-tertiary">
+                <span id="results-count">{sortedLiterature.length}</span> resources
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Literature Grid -->
-      <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+      <div
+        id="literature-grid"
+        class="grid gap-8 md:grid-cols-2 xl:grid-cols-3"
+      >
         {
           sortedLiterature.map((item) => (
-            <div>
-              <a
-                href={`/posts/${item.id}`}
-                class="literature-card block"
-                data-type={item.data.literature?.type || ""}
-                data-difficulty={item.data.literature?.difficulty || ""}
-              >
+            <div
+              class="literature-item"
+              data-type={item.data.literature?.type || ""}
+              data-difficulty={item.data.literature?.difficulty || ""}
+              data-title={item.data.title?.toLowerCase() || ""}
+              data-rating={item.data.literature?.rating || 0}
+              data-date={item.data.date.getTime()}
+            >
+              <a href={`/posts/${item.id}`} class="literature-card block">
                 <LiteratureCard post={item} />
               </a>
             </div>
@@ -114,29 +207,12 @@ const availableDifficulties = [
       </div>
 
       <!-- Empty State -->
-      <div class="hidden text-center py-16" id="empty-state">
-        <div
-          class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4"
-        >
-          <svg
-            class="w-8 h-8 text-tertiary"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-            ></path>
-          </svg>
-        </div>
-        <h3 class="text-lg font-semibold text-primary mb-2">
+      <div class="hidden text-center py-20" id="empty-state">
+        <h3 class="text-xl font-semibold text-content-primary mb-2">
           No literature found
         </h3>
-        <p class="text-secondary">
-          Try adjusting your filters to see more results.
+        <p class="text-content-secondary">
+          Try adjusting your search or filters.
         </p>
       </div>
     </div>
@@ -148,80 +224,265 @@ const availableDifficulties = [
       const difficultyButtons = document.querySelectorAll(
         "[data-difficulty-filter]"
       );
-      const cards = document.querySelectorAll(".literature-card");
+      const searchInput = document.getElementById(
+        "search-input"
+      ) as HTMLInputElement;
+
+      // Custom Sort Dropdown Elements
+      const sortButton = document.getElementById("sort-button");
+      const sortButtonText = document.getElementById("sort-button-text");
+      const sortDropdown = document.getElementById("sort-dropdown");
+      const sortOptions = document.querySelectorAll(".sort-option");
+      const sortChevron = document.getElementById("sort-chevron");
+
+      const resultsCount = document.getElementById("results-count");
+      const cards = document.querySelectorAll(".literature-item");
       const emptyState = document.getElementById("empty-state");
+      const grid = document.getElementById("literature-grid");
 
       let currentType = "all";
       let currentDifficulty = "all";
+      let currentSort = "rating";
+      let searchTerm = "";
 
       function updateFilters() {
-        let visibleCount = 0;
-
+        let visibleCards: HTMLElement[] = [];
         cards.forEach((card) => {
-          const cardType = card.getAttribute("data-type") || "";
-          const cardDifficulty = card.getAttribute("data-difficulty") || "";
+          const cardElement = card as HTMLElement;
+          const cardType = cardElement.getAttribute("data-type") || "";
+          const cardDifficulty =
+            cardElement.getAttribute("data-difficulty") || "";
+          const cardTitle = cardElement.getAttribute("data-title") || "";
 
           const typeMatch = currentType === "all" || cardType === currentType;
           const difficultyMatch =
             currentDifficulty === "all" || cardDifficulty === currentDifficulty;
+          const searchMatch =
+            searchTerm === "" || cardTitle.includes(searchTerm.toLowerCase());
 
-          if (typeMatch && difficultyMatch) {
-            (card as HTMLElement).style.display = "block";
-            visibleCount++;
+          if (typeMatch && difficultyMatch && searchMatch) {
+            cardElement.style.display = "block";
+            visibleCards.push(cardElement);
           } else {
-            (card as HTMLElement).style.display = "none";
+            cardElement.style.display = "none";
           }
         });
 
-        // Show/hide empty state
-        if (emptyState) {
-          if (visibleCount === 0) {
-            emptyState.classList.remove("hidden");
-          } else {
-            emptyState.classList.add("hidden");
-          }
+        sortCards(visibleCards);
+        if (resultsCount)
+          resultsCount.textContent = visibleCards.length.toString();
+        if (emptyState && grid) {
+          emptyState.classList.toggle("hidden", visibleCards.length > 0);
+          grid.classList.toggle("hidden", visibleCards.length === 0);
         }
       }
 
-      function setActiveButton(
+      function sortCards(visibleCards: HTMLElement[]) {
+        if (!grid) return;
+        visibleCards.sort((a, b) => {
+          switch (currentSort) {
+            case "rating":
+              return (
+                parseInt(b.getAttribute("data-rating") || "0") -
+                parseInt(a.getAttribute("data-rating") || "0")
+              );
+            case "date":
+              return (
+                parseInt(b.getAttribute("data-date") || "0") -
+                parseInt(a.getAttribute("data-date") || "0")
+              );
+            case "title":
+              return (a.getAttribute("data-title") || "").localeCompare(
+                b.getAttribute("data-title") || ""
+              );
+            case "difficulty":
+              const order = { introductory: 0, intermediate: 1, advanced: 2 };
+              return (
+                (order[
+                  a
+                    .getAttribute("data-difficulty")
+                    ?.toLowerCase() as keyof typeof order
+                ] ?? 999) -
+                (order[
+                  b
+                    .getAttribute("data-difficulty")
+                    ?.toLowerCase() as keyof typeof order
+                ] ?? 999)
+              );
+            default:
+              return 0;
+          }
+        });
+        visibleCards.forEach((card) => grid.appendChild(card));
+      }
+
+      function setActiveTab(
         buttons: NodeListOf<Element>,
         activeButton: Element
       ) {
-        buttons.forEach((btn: Element) => {
-          btn.classList.remove("bg-interactive-blue", "text-white");
-          btn.classList.add("bg-surface-secondary", "text-secondary");
-        });
-        activeButton.classList.remove("bg-surface-secondary", "text-secondary");
-        activeButton.classList.add("bg-interactive-blue", "text-white");
+        buttons.forEach((btn) => btn.classList.remove("active"));
+        activeButton.classList.add("active");
       }
 
-      // Type filter handlers
       typeButtons.forEach((button) => {
         button.addEventListener("click", () => {
           currentType = button.getAttribute("data-type-filter") || "all";
-          setActiveButton(typeButtons, button);
+          setActiveTab(typeButtons, button);
           updateFilters();
         });
       });
 
-      // Difficulty filter handlers
       difficultyButtons.forEach((button) => {
         button.addEventListener("click", () => {
           currentDifficulty =
             button.getAttribute("data-difficulty-filter") || "all";
-          setActiveButton(difficultyButtons, button);
+          setActiveTab(difficultyButtons, button);
           updateFilters();
         });
       });
 
-      // Initial filter update
-      updateFilters();
+      if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+          searchTerm = (e.target as HTMLInputElement).value;
+          updateFilters();
+        });
+      }
+
+      // Custom Sort Logic
+      if (sortButton && sortDropdown && sortButtonText && sortChevron) {
+        sortButton.addEventListener("click", () => {
+          const isExpanded =
+            sortButton.getAttribute("aria-expanded") === "true";
+          sortButton.setAttribute("aria-expanded", (!isExpanded).toString());
+          sortDropdown.classList.toggle("hidden");
+          sortChevron.classList.toggle("rotate-180");
+        });
+
+        sortOptions.forEach((option) => {
+          option.addEventListener("click", () => {
+            currentSort = option.getAttribute("data-sort-value") || "rating";
+            sortButtonText.textContent = option.textContent || "Best Rated";
+            sortButton.setAttribute("aria-expanded", "false");
+            sortDropdown.classList.add("hidden");
+            sortChevron.classList.remove("rotate-180");
+
+            sortOptions.forEach((opt) => opt.classList.remove("active-sort"));
+            option.classList.add("active-sort");
+
+            updateFilters();
+          });
+        });
+
+        // Close dropdown on outside click
+        document.addEventListener("click", (event) => {
+          const container = document.getElementById("custom-sort-container");
+          if (
+            container &&
+            !container.contains(event.target as Node) &&
+            sortButton.getAttribute("aria-expanded") === "true"
+          ) {
+            sortButton.setAttribute("aria-expanded", "false");
+            sortDropdown.classList.add("hidden");
+            sortChevron.classList.remove("rotate-180");
+          }
+        });
+      }
+
+      updateFilters(); // Initial filter update
     }
 
-    // Initialize on page load
     document.addEventListener("DOMContentLoaded", initializeLiteratureFilters);
-
-    // Re-initialize on Astro page navigation
     document.addEventListener("astro:page-load", initializeLiteratureFilters);
   </script>
+
+  <style>
+    input::placeholder {
+      transition: opacity 0.2s ease;
+    }
+    input:focus::placeholder {
+      opacity: 0.5;
+    }
+    input:focus,
+    #sort-button:focus {
+      outline: none;
+    }
+
+    .filter-tab,
+    .difficulty-tab {
+      padding: 0.375rem 0.875rem; /* Slightly smaller padding */
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: 0.5rem; /* Rounded tabs */
+      color: rgb(var(--color-content-secondary));
+      background-color: rgb(var(--color-surface-secondary) / 0.3);
+      border: 1px solid rgb(var(--color-border-primary) / 0.2);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-tab:hover,
+    .difficulty-tab:hover {
+      color: rgb(var(--color-content-primary));
+      background-color: rgb(var(--color-surface-secondary) / 0.6);
+      border-color: rgb(var(--color-border-primary) / 0.4);
+    }
+
+    .filter-tab.active {
+      color: rgb(var(--color-white));
+      background-color: rgb(var(--color-interactive-blue));
+      border-color: rgb(var(--color-interactive-blue));
+      font-weight: 600;
+    }
+
+    .difficulty-tab.active {
+      color: rgb(var(--color-black)); /* Dark text for gold button */
+      background-color: rgb(var(--color-interactive-secondary));
+      border-color: rgb(var(--color-interactive-secondary));
+      font-weight: 600;
+    }
+
+    .dark .difficulty-tab.active {
+      color: rgb(var(--color-bg-primary)); /* Ensure contrast on dark gold */
+    }
+
+    /* Custom Sort Dropdown Styles */
+    .sort-option {
+      display: block;
+      width: 100%;
+      padding: 0.625rem 1rem; /* Slightly more padding for options */
+      text-align: left;
+      font-size: 0.875rem;
+      color: rgb(var(--color-content-secondary));
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+    }
+
+    .sort-option:hover {
+      background-color: rgb(var(--color-surface-tertiary));
+      color: rgb(var(--color-content-primary));
+    }
+
+    .sort-option.active-sort {
+      color: rgb(var(--color-interactive-blue));
+      font-weight: 600;
+      background-color: rgb(var(--color-interactive-blue) / 0.05);
+    }
+    .dark .sort-option.active-sort {
+      background-color: rgb(var(--color-interactive-blue) / 0.1);
+    }
+
+    .literature-item {
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+    }
+    .literature-item[style*="display: none"] {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  </style>
 </Layout>

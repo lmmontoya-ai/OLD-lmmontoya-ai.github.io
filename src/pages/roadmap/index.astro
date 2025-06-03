@@ -27,91 +27,35 @@ const milestonePosts = roadmapPosts.filter(
         </p>
       </header>
 
-      <!-- Introduction -->
-      {
-        introPost && (
-          <div class="max-w-4xl mx-auto mb-16">
-            <div class="bg-surface-secondary/80 backdrop-blur-sm rounded-xl p-8 border border-primary">
-              <h2 class="text-2xl font-semibold text-primary mb-4">
-                {introPost.data.title}
-              </h2>
-              <p class="text-secondary mb-6">{introPost.data.excerpt}</p>
-              <a
-                href={`/posts/${introPost.data.slug}`}
-                class="inline-flex items-center gap-2 text-interactive-blue hover:text-interactive-blue/80 transition-theme"
-              >
-                Read the introduction
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </a>
-            </div>
-          </div>
-        )
-      }
 
-      <!-- Roadmap Visualization -->
-      <div class="mb-12">
-        <h2 class="text-2xl font-semibold text-primary mb-6">The Journey</h2>
-        <RoadmapVisualization posts={milestonePosts} />
-      </div>
 
-      <!-- Legend -->
-      <div class="flex flex-wrap gap-4 justify-center">
-        <div class="flex items-center gap-2">
-          <div class="w-4 h-4 rounded-full bg-status-success"></div>
-          <span class="text-sm text-secondary">Completed</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <div class="w-4 h-4 rounded-full bg-status-warning"></div>
-          <span class="text-sm text-secondary">In Progress</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <div
-            class="w-4 h-4 rounded-full bg-surface-secondary border border-primary"
-          >
-          </div>
-          <span class="text-sm text-secondary">Planned</span>
-        </div>
-      </div>
 
-      {
-        milestonePosts.length === 0 && (
-          <div class="text-center py-12">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4">
-              <svg
-                class="w-8 h-8 text-tertiary"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-primary mb-2">
-              No roadmap milestones yet
-            </h3>
-            <p class="text-secondary">
-              Check back soon for exciting learning milestones!
-            </p>
+
+      {milestonePosts.length === 0 ? (
+        <div class="text-center py-12">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4">
+            <svg
+              class="w-8 h-8 text-tertiary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
           </div>
-        )
-      }
+          <h3 class="text-lg font-semibold text-primary mb-2">
+            No roadmap milestones yet
+          </h3>
+          <p class="text-secondary">
+            Check back soon for exciting learning milestones!
+          </p>
+        </div>
+      ) : null}
     </div>
   </div>
 </Layout>

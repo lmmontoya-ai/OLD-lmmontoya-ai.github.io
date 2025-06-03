@@ -4,20 +4,20 @@
 
 <button
   id="themeToggle"
-  class="relative inline-flex items-center justify-center w-11 h-11 rounded-xl bg-surface-secondary hover:bg-surface-tertiary text-secondary hover:text-primary transition-theme focus-ring group overflow-hidden"
+  class="relative inline-flex items-center justify-center w-11 h-11 rounded-xl bg-surface-secondary hover:bg-surface-tertiary text-secondary hover:text-primary transition-spring focus-ring group overflow-hidden"
   title="Toggle dark/light mode"
   aria-label="Toggle dark/light mode"
 >
   <!-- Background gradient on hover -->
   <div
-    class="absolute inset-0 rounded-xl bg-gradient-to-br from-interactive-blue/5 to-interactive-gold/5 opacity-0 group-hover:opacity-100 transition-theme"
+    class="absolute inset-0 rounded-xl bg-gradient-to-br from-interactive-blue/5 to-interactive-gold/5 opacity-0 group-hover:opacity-100 transition-spring"
   ></div>
 
   <!-- Sun icon for light mode -->
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="sun-icon"
-    class="absolute w-5 h-5 transition-theme"
+    class="absolute w-5 h-5 transition-spring"
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -33,7 +33,7 @@
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="moon-icon"
-    class="absolute w-5 h-5 transition-theme"
+    class="absolute w-5 h-5 transition-spring"
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -45,7 +45,7 @@
   <!-- Ripple effect on click -->
   <div
     id="ripple-effect"
-    class="absolute inset-0 rounded-xl bg-interactive-blue/20 scale-0 transition-transform duration-300 ease-out opacity-0"
+    class="absolute inset-0 rounded-xl bg-interactive-blue/20 scale-0 transition-spring opacity-0"
   ></div>
 </button>
 
@@ -88,6 +88,7 @@
       // Toggle the theme using standard Tailwind approach
       const isDark = document.documentElement.classList.contains("dark");
 
+      // Use a more immediate theme change to reduce flickering
       if (isDark) {
         document.documentElement.classList.remove("dark");
         localStorage.setItem("theme", "light");
@@ -98,6 +99,9 @@
 
       // Update icon visibility immediately
       this.updateIconVisibility();
+
+      // Force a style recalculation to ensure immediate theme application
+      document.documentElement.offsetHeight;
     }
 
     updateIconVisibility() {
@@ -144,8 +148,31 @@
     }
   }
 
-  // Initialize theme toggle with proper cleanup
+  // Initialize theme toggle with proper cleanup and conflict prevention
+  let themeToggleInstance: ThemeToggle | null = null;
+
+  function cleanupThemeToggle() {
+    // Clean up any existing instance
+    if (themeToggleInstance) {
+      // Remove existing event listeners if they exist
+      const existingButton = document.getElementById("themeToggle");
+      if (existingButton) {
+        const clonedButton = existingButton.cloneNode(true);
+        existingButton.parentNode?.replaceChild(clonedButton, existingButton);
+      }
+      themeToggleInstance = null;
+    }
+  }
+
   function initThemeToggle() {
+    // Clean up any existing instance first
+    cleanupThemeToggle();
+
+    // Wait for the DOM to be ready
+    if (!document.getElementById("themeToggle")) {
+      return; // Theme toggle button not found, might not be on this page
+    }
+
     // Ensure theme is correct first
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme) {
@@ -157,18 +184,30 @@
     }
 
     // Then initialize the toggle
-    new ThemeToggle();
+    themeToggleInstance = new ThemeToggle();
   }
 
-  // Initialize on different page load events
+  // Initialize on different page load events with debouncing
+  let initTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  function scheduleInit() {
+    if (initTimeout) {
+      clearTimeout(initTimeout);
+    }
+    initTimeout = setTimeout(initThemeToggle, 50); // Small delay to ensure DOM is ready
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initThemeToggle);
+    document.addEventListener("DOMContentLoaded", scheduleInit);
   } else {
-    initThemeToggle();
+    scheduleInit();
   }
 
   // Initialize on Astro view transitions
-  document.addEventListener("astro:page-load", initThemeToggle);
+  document.addEventListener("astro:page-load", scheduleInit);
+
+  // Cleanup on page unload
+  document.addEventListener("astro:before-swap", cleanupThemeToggle);
 </script>
 
 <style>

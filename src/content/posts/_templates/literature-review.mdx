@@ -12,9 +12,9 @@ literature:
   year: 2017
   source: "https://arxiv.org/abs/1706.03762"
   type: "Paper"
-  difficulty: "Advanced"
   rating: 5
-  recommendedFor: ["NLP Researchers", "Deep Learning Engineers", "Graduate Students"]
+  recommendedFor:
+    ["NLP Researchers", "Deep Learning Engineers", "Graduate Students"]
 display:
   showToc: true
   showRelated: true
@@ -29,12 +29,15 @@ The "Attention is All You Need" paper introduced the Transformer architecture, w
 ## Key Contributions
 
 ### 1. Self-Attention Mechanism
+
 The paper's core innovation is the scaled dot-product attention mechanism that allows the model to focus on relevant parts of the input sequence.
 
 ### 2. Parallelizable Architecture
+
 Unlike RNNs, transformers can process all positions in a sequence simultaneously, leading to significant training speedups.
 
 ### 3. Positional Encoding
+
 Novel approach to encoding position information without recurrence or convolution.
 
 ## Technical Deep Dive
@@ -48,6 +51,7 @@ Attention(Q,K,V) = softmax(QK^T / √d_k)V
 ```
 
 Where:
+
 - **Q**: Query matrix
 - **K**: Key matrix
 - **V**: Value matrix
@@ -81,11 +85,13 @@ def multi_head_attention(Q, K, V, h=8):
 ## Architecture Overview
 
 ### Encoder Stack
+
 - **6 identical layers**
 - **Multi-head self-attention + feed-forward network**
 - **Residual connections and layer normalization**
 
 ### Decoder Stack
+
 - **6 identical layers**
 - **Masked multi-head self-attention**
 - **Encoder-decoder attention**
@@ -94,28 +100,35 @@ def multi_head_attention(Q, K, V, h=8):
 ## Key Insights
 
 ### 1. Attention Patterns
+
 The model learns different types of attention patterns:
+
 - **Local attention**: Focus on nearby tokens
 - **Global attention**: Long-range dependencies
 - **Syntactic attention**: Grammar and structure
 
 ### 2. Scalability
+
 The architecture scales well with:
+
 - **Model size** (parameters)
 - **Training data** (larger datasets)
 - **Computational resources** (parallel processing)
 
 ### 3. Transfer Learning
+
 Pre-trained transformers can be fine-tuned for various downstream tasks with minimal architecture changes.
 
 ## Impact & Significance
 
 ### Immediate Impact (2017-2019)
+
 - **BERT**: Bidirectional encoder representations
 - **GPT**: Generative pre-training approach
 - **T5**: Text-to-text transfer transformer
 
 ### Long-term Impact (2020+)
+
 - **GPT-3/4**: Large-scale language models
 - **ChatGPT**: Conversational AI breakthrough
 - **Multimodal models**: Vision transformers, DALL-E
@@ -123,12 +136,14 @@ Pre-trained transformers can be fine-tuned for various downstream tasks with min
 ## Critical Analysis
 
 ### Strengths
+
 - ✅ **Parallelizable training**
 - ✅ **Strong empirical results**
 - ✅ **Interpretable attention weights**
 - ✅ **Flexible architecture**
 
 ### Limitations
+
 - ❌ **Quadratic complexity** with sequence length
 - ❌ **Large memory requirements**
 - ❌ **Limited inductive biases**
@@ -137,9 +152,11 @@ Pre-trained transformers can be fine-tuned for various downstream tasks with min
 ## Personal Notes
 
 ### Implementation Experience
+
 After implementing this from scratch, the key insight is how the attention mechanism naturally handles variable-length sequences without padding issues.
 
 ### Practical Considerations
+
 - **Memory optimization** is crucial for long sequences
 - **Attention visualization** helps debug model behavior
 - **Layer normalization placement** affects training stability
@@ -147,10 +164,12 @@ After implementing this from scratch, the key insight is how the attention mecha
 ## Related Work
 
 ### Prerequisites
+
 - [Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/abs/1409.0473)
 - [Sequence to Sequence Learning with Neural Networks](https://arxiv.org/abs/1409.3215)
 
 ### Follow-up Papers
+
 - [BERT: Pre-training of Deep Bidirectional Transformers](https://arxiv.org/abs/1810.04805)
 - [Language Models are Unsupervised Multitask Learners (GPT-2)](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
 

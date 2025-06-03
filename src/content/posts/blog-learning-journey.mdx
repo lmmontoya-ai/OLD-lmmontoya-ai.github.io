@@ -1,0 +1,297 @@
+---
+title: "From Quantum Mechanics to Neural Networks: A Personal Journey"
+slug: "blog-learning-journey"
+date: 2024-03-01
+excerpt: "Reflecting on how my physics background shapes my approach to AI research and interpretability, and the unexpected parallels between quantum mechanics and neural network behavior."
+types: ["blog"]
+category: "Reflection"
+tags:
+  [
+    "Career",
+    "Physics",
+    "AI",
+    "Personal",
+    "Learning Journey",
+    "Interpretability",
+  ]
+status: "published"
+readingTime: 8
+display:
+  showToc: true
+  showRelated: true
+  layout: "default"
+  accent: "gold"
+---
+
+## The Unexpected Parallels
+
+When I first transitioned from physics to AI, I expected a complete paradigm shift. After years of studying quantum mechanics, statistical mechanics, and condensed matter physics, I thought I was leaving behind one world of complex systems for an entirely different one. What I discovered instead was a surprising number of deep connections that have fundamentally shaped how I approach AI interpretability research.
+
+## Physics Foundations: More Than Just Math
+
+### The Mindset of Emergence
+
+In physics, we're constantly dealing with emergent phenomena—behaviors that arise from the collective interactions of simpler components but can't be easily predicted from those components alone. Superconductivity emerges from electron interactions. Phase transitions arise from statistical mechanics. Consciousness might emerge from neural activity.
+
+This perspective has been invaluable in AI research. When I look at a transformer model, I don't just see matrix multiplications and activation functions. I see a complex system where:
+
+- **Local interactions** (attention between tokens) give rise to **global behaviors** (language understanding)
+- **Phase transitions** occur as models scale (sudden capability jumps)
+- **Collective phenomena** emerge that are greater than the sum of their parts
+
+### The Art of Approximation
+
+Physics taught me that perfect solutions are rare, but useful approximations are everywhere. We use:
+
+- **Mean field theory** to understand many-body systems
+- **Perturbation theory** to handle complex interactions
+- **Effective theories** to capture essential physics at different scales
+
+In AI interpretability, this translates to:
+
+- **Simplified models** that capture essential behaviors
+- **Linear probes** that approximate complex representations
+- **Circuit analysis** that identifies key computational pathways
+
+The goal isn't perfect understanding—it's useful insight.
+
+### Symmetry and Invariance
+
+Physics is obsessed with symmetries and what remains invariant under transformations. This lens has been incredibly useful for understanding neural networks:
+
+- **Translation invariance** in CNNs mirrors spatial symmetries
+- **Permutation invariance** in attention relates to gauge symmetries
+- **Scale invariance** in neural scaling laws echoes critical phenomena
+
+Looking for these patterns helps identify fundamental principles underlying AI behavior.
+
+## The Transition: Challenges and Revelations
+
+### Challenge 1: Different Standards of Evidence
+
+Physics has a culture of extreme rigor. Theoretical predictions must match experimental results to many decimal places. In AI research, I initially struggled with the more exploratory, empirical nature of the field.
+
+**Learning**: Both approaches have value. Physics rigor helps design better experiments and avoid overfitting to anecdotes. AI pragmatism enables rapid progress on complex, poorly understood systems.
+
+### Challenge 2: Interpretability vs. Predictability
+
+In physics, we often have beautiful theories that make precise predictions. In AI, we have powerful models that work well but are hard to interpret.
+
+**Insight**: This is actually similar to many physics problems. We can predict statistical mechanics without understanding every molecular interaction. We can use quantum field theory without fully grasping what it "means."
+
+The key is finding the right level of description for the questions we're asking.
+
+### Challenge 3: The Role of Intuition
+
+Physics builds strong geometric and mathematical intuition. AI often defies this intuition—why should attention mechanisms work so well? Why do large models exhibit emergent capabilities?
+
+**Resolution**: Physics intuition is still valuable, but it needs to be calibrated to new domains. The mathematical tools transfer; the specific intuitions need updating.
+
+## How Physics Shapes My AI Research
+
+### 1. **Multi-Scale Analysis**
+
+Physics taught me to think across scales:
+
+- **Microscopic**: Individual neurons and weights
+- **Mesoscopic**: Circuits and attention heads
+- **Macroscopic**: Emergent capabilities and behaviors
+
+This perspective helps identify which level of analysis is most appropriate for different questions.
+
+### 2. **Phenomenological Modeling**
+
+Before diving into mechanistic details, physics often starts with phenomenological models that capture the essential behavior. In AI interpretability, this means:
+
+- Starting with simple, interpretable models
+- Identifying key phenomena to explain
+- Building complexity gradually
+- Always maintaining connection to observable behavior
+
+### 3. **Conservation Laws and Constraints**
+
+Physics is governed by conservation laws—energy, momentum, charge. Neural networks have their own constraints:
+
+- **Information bottlenecks** limit what can be preserved across layers
+- **Capacity constraints** determine what can be learned
+- **Optimization dynamics** constrain the learning process
+
+Understanding these constraints helps predict and explain model behavior.
+
+### 4. **Phase Transitions and Critical Phenomena**
+
+The sudden emergence of capabilities in large models reminds me of phase transitions in physics. This suggests looking for:
+
+- **Order parameters** that characterize different phases
+- **Critical points** where behavior changes qualitatively
+- **Scaling laws** near critical regions
+- **Universality classes** that group similar transitions
+
+## Specific Research Applications
+
+### Circuit Analysis Through Physics Lens
+
+When analyzing neural circuits, I apply physics principles:
+
+**Energy Landscapes**: Thinking of neural networks as dynamical systems with energy landscapes helps understand:
+
+- Why certain solutions are preferred
+- How training dynamics evolve
+- Where instabilities might occur
+
+**Renormalization Group**: This physics technique for handling multiple scales suggests:
+
+- Coarse-graining strategies for understanding large models
+- Identifying relevant vs. irrelevant features
+- Understanding how behavior changes with scale
+
+**Statistical Mechanics**: Treating neural networks as statistical systems provides:
+
+- Ensemble perspectives on model behavior
+- Temperature analogies for exploration vs. exploitation
+- Partition function approaches to understanding distributions
+
+### Attention as Quantum Mechanics
+
+The mathematical similarity between attention mechanisms and quantum mechanics isn't just superficial:
+
+**Attention Weights as Probability Amplitudes**:
+
+- Both involve computing overlaps between states
+- Both use normalization (softmax vs. Born rule)
+- Both exhibit interference-like phenomena
+
+**Entanglement and Correlation**:
+
+- Multi-head attention creates complex correlations
+- Information can be "entangled" across positions
+- Measurement (probing) can disturb the system
+
+This analogy suggests new interpretability techniques based on quantum information theory.
+
+### Emergence and Scaling
+
+Physics experience with emergent phenomena helps understand:
+
+**Critical Scaling**: Why do capabilities emerge suddenly at certain model sizes? Physics suggests looking for:
+
+- Power law relationships
+- Critical exponents
+- Finite-size scaling effects
+
+**Universality**: Different models might exhibit similar scaling behavior, suggesting universal principles underlying AI capabilities.
+
+## Lessons for the AI Community
+
+### 1. **Embrace Approximation**
+
+Perfect interpretability might be impossible, but useful approximations are achievable. Physics shows that:
+
+- Effective theories can be incredibly powerful
+- Different levels of description serve different purposes
+- Approximations can reveal essential physics
+
+### 2. **Look for Symmetries**
+
+Symmetries and invariances often reveal fundamental principles. In AI:
+
+- What remains constant across different training runs?
+- What patterns persist across different architectures?
+- What principles generalize across domains?
+
+### 3. **Think in Terms of Phases**
+
+AI systems might have different "phases" of operation:
+
+- Memorization vs. generalization phases
+- Different capability regimes
+- Transitions between learning strategies
+
+Understanding these phases could improve training and deployment.
+
+### 4. **Use Multiple Perspectives**
+
+Physics taught me that different mathematical formulations can provide complementary insights:
+
+- Lagrangian vs. Hamiltonian mechanics
+- Wave vs. particle descriptions
+- Field theory vs. many-body approaches
+
+Similarly, AI interpretability benefits from multiple approaches:
+
+- Mechanistic vs. behavioral analysis
+- Local vs. global explanations
+- Static vs. dynamic perspectives
+
+## The Road Ahead
+
+### Bridging Communities
+
+There's enormous potential for deeper collaboration between physics and AI communities:
+
+**Physics → AI**:
+
+- Advanced mathematical techniques
+- Principled approaches to complex systems
+- Rigorous experimental design
+
+**AI → Physics**:
+
+- New computational tools
+- Novel optimization techniques
+- Fresh perspectives on information processing
+
+### Open Questions
+
+My physics background highlights several intriguing questions:
+
+1. **Are there fundamental limits to interpretability?** (Like uncertainty principles in quantum mechanics)
+
+2. **Do neural networks exhibit universal behavior?** (Like critical phenomena in statistical mechanics)
+
+3. **Can we develop "thermodynamics" for neural networks?** (Relating microscopic parameters to macroscopic behavior)
+
+4. **What are the conservation laws of learning?** (What quantities are preserved during training?)
+
+## Personal Reflections
+
+### What I've Gained
+
+The transition from physics to AI has been intellectually enriching:
+
+- **Broader Impact**: AI research has more immediate societal relevance
+- **Faster Pace**: The field moves quickly, enabling rapid iteration
+- **Interdisciplinary Connections**: AI touches everything from neuroscience to philosophy
+- **Practical Applications**: Research directly improves real systems
+
+### What I've Kept
+
+Core physics principles remain central to my approach:
+
+- **Rigor**: Careful experimental design and statistical analysis
+- **Skepticism**: Questioning assumptions and seeking alternative explanations
+- **Simplicity**: Looking for the simplest explanation that captures essential behavior
+- **Universality**: Seeking principles that generalize across systems
+
+### What I've Learned
+
+The transition taught me valuable lessons:
+
+- **Humility**: Complex systems often defy simple explanations
+- **Pragmatism**: Sometimes empirical progress precedes theoretical understanding
+- **Collaboration**: Interdisciplinary work requires learning new languages and cultures
+- **Patience**: Deep understanding takes time, even in fast-moving fields
+
+## Conclusion
+
+The journey from quantum mechanics to neural networks has been more of a natural evolution than a radical departure. The mathematical tools, conceptual frameworks, and problem-solving approaches from physics provide a solid foundation for AI research.
+
+More importantly, physics taught me to appreciate the beauty of emergent complexity—how simple rules can give rise to rich, unexpected behaviors. This perspective is essential for understanding artificial intelligence and working toward systems that are not just powerful, but also interpretable and aligned with human values.
+
+As AI systems become increasingly sophisticated, we need researchers who can bridge different domains and bring diverse perspectives to bear on these challenges. My physics background is just one lens among many, but it's proven invaluable for navigating the complex landscape of modern AI research.
+
+The future of AI interpretability will likely require insights from many fields—physics, neuroscience, cognitive science, philosophy, and more. By combining these perspectives, we can build a deeper understanding of artificial minds and ensure they remain beneficial as they grow in capability.
+
+---
+
+**Personal Note**: This reflection represents my ongoing journey of understanding. The connections between physics and AI continue to evolve as both fields advance, and I'm excited to see where this interdisciplinary path leads next.

@@ -1,78 +1,41 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
-import PostLayout from '../../layouts/PostLayout.astro';
-import type { GetStaticPaths } from 'astro';
+import { getCollection } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+import type { GetStaticPaths } from "astro";
+import type { Post } from "../../utils/content";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getCollection('posts', ({ data }) => {
-    // Only include published posts, or drafts in development
-    return data.status === 'published' || (import.meta.env.DEV && data.status === 'draft');
+  const posts = await getCollection("posts", ({ data }) => {
+    // Include posts based on content type and status
+    const validStatuses = ["published"];
+
+    // Add project-specific statuses if this is a project
+    if (data.types?.includes("project")) {
+      validStatuses.push("completed", "in-progress", "planned");
+    }
+
+    // Add roadmap-specific statuses if this is a roadmap item
+    if (data.types?.includes("roadmap")) {
+      validStatuses.push("completed", "in-progress");
+    }
+
+    // Include drafts in development mode
+    const includeInDev = import.meta.env.DEV && data.status === "draft";
+
+    return validStatuses.includes(data.status) || includeInDev;
   });
 
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 };
 
 interface Props {
-  post: CollectionEntry<'posts'>;
+  post: Post;
 }
 
 const { post } = Astro.props;
-
-// Generate metadata for the page
-const title = post.data.seo?.metaTitle || post.data.title;
-const description = post.data.seo?.metaDescription || post.data.excerpt;
-const canonicalUrl = new URL(`/posts/${post.slug}`, Astro.site);
-
-// Open Graph metadata
-const ogImage = post.data.media?.hero || post.data.media?.thumbnail;
-const ogType = post.data.types.includes('project') ? 'article' : 'article';
-
-// Structured data for SEO
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": post.data.title,
-  "description": post.data.excerpt,
-  "author": {
-    "@type": "Person",
-    "name": "Luis Miguel Montoya",
-    "url": Astro.site?.toString()
-  },
-  "datePublished": post.data.date.toISOString(),
-  ...(post.data.lastModified && {
-    "dateModified": post.data.lastModified.toISOString()
-  }),
-  "url": canonicalUrl.toString(),
-  ...(ogImage && {
-    "image": new URL(ogImage, Astro.site).toString()
-  }),
-  "publisher": {
-    "@type": "Organization",
-    "name": "Luis Miguel Montoya",
-    "url": Astro.site?.toString()
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": canonicalUrl.toString()
-  }
-};
-
-// Add project-specific structured data
-if (post.data.types.includes('project') && post.data.project) {
-  Object.assign(structuredData, {
-    "@type": "SoftwareApplication",
-    "applicationCategory": post.data.project.area || "WebApplication",
-    ...(post.data.project.stack && {
-      "programmingLanguage": post.data.project.stack
-    }),
-    ...(post.data.project.links?.github && {
-      "codeRepository": post.data.project.links.github
-    })
-  });
-}
 
 // Redirect handling for legacy URLs
 const redirects: Record<string, string> = {
@@ -81,287 +44,9 @@ const redirects: Record<string, string> = {
 };
 
 // Check if this is a redirect request
-if (redirects[post.slug]) {
-  return Astro.redirect(redirects[post.slug], 301);
+if (redirects[post.id]) {
+  return Astro.redirect(redirects[post.id], 301);
 }
-
-// Breadcrumb structured data
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": Astro.site?.toString()
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": post.data.types.includes('blog') ? 'Blog' :
-             post.data.types.includes('roadmap') ? 'Roadmap' :
-             post.data.types.includes('project') ? 'Projects' :
-             post.data.types.includes('literature') ? 'Literature' : 'Posts',
-      "item": new URL(
-        post.data.types.includes('blog') ? '/blog' :
-        post.data.types.includes('roadmap') ? '/roadmap' :
-        post.data.types.includes('project') ? '/projects' :
-        post.data.types.includes('literature') ? '/literature' : '/blog',
-        Astro.site
-      ).toString()
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": post.data.title,
-      "item": canonicalUrl.toString()
-    }
-  ]
-};
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Primary Meta Tags -->
-  <title>{title}</title>
-  <meta name="title" content={title}>
-  <meta name="description" content={description}>
-  <link rel="canonical" href={canonicalUrl.toString()}>
-
-  <!-- Keywords -->
-  {post.data.tags && (
-    <meta name="keywords" content={post.data.tags.join(', ')}>
-  )}
-
-  <!-- Author -->
-  <meta name="author" content="Luis Miguel Montoya">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content={ogType}>
-  <meta property="og:url" content={canonicalUrl.toString()}>
-  <meta property="og:title" content={title}>
-  <meta property="og:description" content={description}>
-  <meta property="og:site_name" content="Luis Miguel Montoya">
-  {ogImage && (
-    <meta property="og:image" content={new URL(ogImage, Astro.site).toString()}>
-  )}
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content={canonicalUrl.toString()}>
-  <meta property="twitter:title" content={title}>
-  <meta property="twitter:description" content={description}>
-  {ogImage && (
-    <meta property="twitter:image" content={new URL(ogImage, Astro.site).toString()}>
-  )}
-
-  <!-- Article specific meta tags -->
-  {post.data.types.includes('blog') && (
-    <>
-      <meta property="article:published_time" content={post.data.date.toISOString()}>
-      {post.data.lastModified && (
-        <meta property="article:modified_time" content={post.data.lastModified.toISOString()}>
-      )}
-      <meta property="article:author" content="Luis Miguel Montoya">
-      {post.data.tags?.map((tag) => (
-        <meta property="article:tag" content={tag}>
-      ))}
-      {post.data.category && (
-        <meta property="article:section" content={post.data.category}>
-      )}
-    </>
-  )}
-
-  <!-- Project specific meta tags -->
-  {post.data.types.includes('project') && post.data.project && (
-    <>
-      {post.data.project.stack?.map((tech) => (
-        <meta name="technology" content={tech}>
-      ))}
-      {post.data.project.area && (
-        <meta name="project-category" content={post.data.project.area}>
-      )}
-    </>
-  )}
-
-  <!-- Literature specific meta tags -->
-  {post.data.types.includes('literature') && post.data.literature && (
-    <>
-      {post.data.literature.authors?.map((author) => (
-        <meta name="literature-author" content={author}>
-      ))}
-      {post.data.literature.year && (
-        <meta name="literature-year" content={post.data.literature.year.toString()}>
-      )}
-      {post.data.literature.source && (
-        <meta name="literature-source" content={post.data.literature.source}>
-      )}
-    </>
-  )}
-
-  <!-- Robots meta tag -->
-  <meta name="robots" content={
-    post.data.status === 'draft' ? 'noindex, nofollow' :
-    post.data.seo?.noIndex ? 'noindex, follow' :
-    'index, follow'
-  }>
-
-  <!-- Reading time and word count for tools -->
-  {post.data.readingTime && (
-    <meta name="reading-time" content={`${post.data.readingTime} minutes`}>
-  )}
-  {post.data.wordCount && (
-    <meta name="word-count" content={post.data.wordCount.toString()}>
-  )}
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbStructuredData)}></script>
-</head>
-
-<body>
-  <PostLayout post={post} />
-</body>
-</html>
-
-<style>
-  /* Custom styles for specific post types */
-  body {
-    /* Ensure proper theme handling */
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  /* Project-specific styling */
-  body:has([data-post-type*="project"]) {
-    /* Add any project-specific body styles here */
-  }
-
-  /* Literature-specific styling */
-  body:has([data-post-type*="literature"]) {
-    /* Add any literature-specific body styles here */
-  }
-
-  /* Roadmap-specific styling */
-  body:has([data-post-type*="roadmap"]) {
-    /* Add any roadmap-specific body styles here */
-  }
-
-  /* Print styles */
-  @media print {
-    /* Hide interactive elements when printing */
-    .no-print {
-      display: none !important;
-    }
-
-    /* Ensure proper contrast for printing */
-    body {
-      background: white !important;
-      color: black !important;
-    }
-
-    /* Optimize typography for print */
-    .prose {
-      max-width: none;
-      font-size: 12pt;
-      line-height: 1.4;
-    }
-
-    /* Break page after main content */
-    main {
-      page-break-after: always;
-    }
-
-    /* Avoid breaking inside code blocks */
-    pre, code {
-      page-break-inside: avoid;
-    }
-
-    /* Show link URLs in print */
-    a[href]:after {
-      content: " (" attr(href) ")";
-      font-size: 0.8em;
-      color: #666;
-    }
-
-    /* Don't show URLs for internal links */
-    a[href^="#"]:after,
-    a[href^="/"]:after {
-      content: "";
-    }
-  }
-</style>
-
-<script>
-  declare var gtag: any;
-  // Add post type data attribute to body for styling
-  document.addEventListener('DOMContentLoaded', () => {
-    const postTypes = document.querySelector('[data-post-types]')?.getAttribute('data-post-types');
-    if (postTypes) {
-      document.body.setAttribute('data-post-type', postTypes);
-    }
-  });
-
-  // Analytics tracking for different post types
-  if (typeof gtag !== 'undefined') {
-    const postData = {
-      event_category: 'Post View',
-      event_label: document.title,
-      custom_map: {
-        post_type: document.querySelector('[data-post-types]')?.getAttribute('data-post-types'),
-        reading_time: document.querySelector('meta[name="reading-time"]')?.getAttribute('content')
-      }
-    };
-
-    gtag('event', 'page_view', postData);
-  }
-
-  // Track reading progress
-  let readingProgress = 0;
-  let readingMilestones = [25, 50, 75, 100];
-
-  function trackReadingProgress() {
-    const article = document.querySelector('article') || document.querySelector('main');
-    if (!article) return;
-
-    const articleTop = article.offsetTop;
-    const articleHeight = article.offsetHeight;
-    const windowHeight = window.innerHeight;
-    const scrollTop = window.scrollY;
-
-    const progress = Math.round(
-      ((scrollTop - articleTop + windowHeight) / articleHeight) * 100
-    );
-
-    // Track milestones
-    readingMilestones.forEach((milestone, index) => {
-      if (progress >= milestone && readingProgress < milestone) {
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'reading_progress', {
-            event_category: 'Engagement',
-            event_label: `${milestone}% read`,
-            value: milestone
-          });
-        }
-      }
-    });
-
-    readingProgress = Math.max(readingProgress, progress);
-  }
-
-  // Throttled scroll listener
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        trackReadingProgress();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-</script>
+<PostLayout post={post} />

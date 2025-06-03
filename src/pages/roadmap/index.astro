@@ -1,85 +1,117 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import UpdateCard from '../../components/ui/UpdateCard.astro';
-import { getPostsByType } from '../../utils/content';
+import Layout from "../../layouts/Layout.astro";
+import RoadmapVisualization from "../../components/roadmap/RoadmapVisualization.astro";
+import { getPostsByType } from "../../utils/content";
 
-// Get all roadmap posts
-const posts = await getPostsByType('roadmap');
-const sortedPosts = posts.sort((a, b) => {
-  // Sort by phase first, then by date
-  const aPhase = a.data.roadmap?.phase ?? 999;
-  const bPhase = b.data.roadmap?.phase ?? 999;
-
-  if (aPhase !== bPhase) return aPhase - bPhase;
-  return a.data.date.getTime() - b.data.date.getTime();
-});
-
-// Group by phase
-const milestonesByPhase = sortedPosts.reduce((acc, post) => {
-  const phase = post.data.roadmap?.phase ?? 0;
-  const phaseKey = phase === 0 ? 'Planning' : `Phase ${phase}`;
-  if (!acc[phaseKey]) acc[phaseKey] = [];
-  acc[phaseKey].push(post);
-  return acc;
-}, {} as Record<string, typeof posts>);
-
-const phases = Object.keys(milestonesByPhase).sort((a, b) => {
-  if (a === 'Planning') return -1;
-  if (b === 'Planning') return 1;
-  const aNum = parseInt(a.replace('Phase ', ''));
-  const bNum = parseInt(b.replace('Phase ', ''));
-  return aNum - bNum;
-});
+const roadmapPosts = await getPostsByType("roadmap");
+const introPost = roadmapPosts.find((p) => p.data.slug === "introduction");
+const milestonePosts = roadmapPosts.filter(
+  (p) => p.data.slug !== "introduction"
+);
 ---
 
 <Layout
   title="Roadmap — Luis Miguel Montoya"
-  description="My journey into AI interpretability research: milestones, progress, and future plans."
+  description="My structured journey from physics to AI interpretability research. Follow along as I explore the path to understanding artificial minds."
 >
-  <div class="min-h-screen pt-20">
+  <div class="min-h-screen pt-20 pb-16">
     <div class="container mx-auto px-6 lg:px-16 xl:px-24">
       <!-- Header -->
-      <header class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-sans font-bold text-primary mb-4">
-          Roadmap
+      <header class="mb-12 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">
+          Learning Roadmap
         </h1>
-        <p class="text-xl text-secondary leading-relaxed max-w-3xl">
-          My structured journey from physics to AI interpretability research,
-          documenting key milestones, learnings, and next steps.
+        <p class="text-xl text-secondary max-w-3xl mx-auto">
+          My structured journey from physics to AI interpretability research.
+          Follow along as I explore the path to understanding artificial minds.
         </p>
       </header>
 
-      <!-- Milestones by phase -->
-      <div class="max-w-4xl">
-        {phases.map((phase) => (
-          <section class="mb-12">
-            <h2 class="text-2xl font-sans font-semibold text-primary mb-6
-                       sticky top-20 bg-surface-primary/90 backdrop-blur-sm py-2 -mx-2 px-2">
-              {phase}
-            </h2>
-
-            <div class="space-y-4">
-              {milestonesByPhase[phase].map((post) => (
-                <UpdateCard
-                  title={post.data.title}
-                  date={post.data.date.toISOString().split('T')[0]}
-                  tag={post.data.status}
-                  description={post.data.excerpt}
-                  href={`/posts/${post.slug}`}
-                  icon="roadmap"
-                  variant="milestone"
-                />
-              ))}
+      <!-- Introduction -->
+      {
+        introPost && (
+          <div class="max-w-4xl mx-auto mb-16">
+            <div class="bg-surface-secondary/80 backdrop-blur-sm rounded-xl p-8 border border-primary">
+              <h2 class="text-2xl font-semibold text-primary mb-4">
+                {introPost.data.title}
+              </h2>
+              <p class="text-secondary mb-6">{introPost.data.excerpt}</p>
+              <a
+                href={`/posts/${introPost.data.slug}`}
+                class="inline-flex items-center gap-2 text-interactive-blue hover:text-interactive-blue/80 transition-theme"
+              >
+                Read the introduction
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
             </div>
-          </section>
-        ))}
+          </div>
+        )
+      }
+
+      <!-- Roadmap Visualization -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-semibold text-primary mb-6">The Journey</h2>
+        <RoadmapVisualization posts={milestonePosts} />
       </div>
 
-      {sortedPosts.length === 0 && (
-        <div class="text-center py-12">
-          <p class="text-secondary text-lg">No roadmap milestones yet. Check back soon!</p>
+      <!-- Legend -->
+      <div class="flex flex-wrap gap-4 justify-center">
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 rounded-full bg-status-success"></div>
+          <span class="text-sm text-secondary">Completed</span>
         </div>
-      )}
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 rounded-full bg-status-warning"></div>
+          <span class="text-sm text-secondary">In Progress</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div
+            class="w-4 h-4 rounded-full bg-surface-secondary border border-primary"
+          >
+          </div>
+          <span class="text-sm text-secondary">Planned</span>
+        </div>
+      </div>
+
+      {
+        milestonePosts.length === 0 && (
+          <div class="text-center py-12">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4">
+              <svg
+                class="w-8 h-8 text-tertiary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-primary mb-2">
+              No roadmap milestones yet
+            </h3>
+            <p class="text-secondary">
+              Check back soon for exciting learning milestones!
+            </p>
+          </div>
+        )
+      }
     </div>
   </div>
 </Layout>

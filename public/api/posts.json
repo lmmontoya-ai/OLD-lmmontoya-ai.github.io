@@ -1,19 +1,220 @@
 [
   {
-    "title": "Test Search Functionality",
-    "slug": "test-search",
-    "excerpt": "A test post to verify search functionality works correctly in the header.",
-    "content": "Test Search Functionality This is a test post created to verify that the search functionality in the header works correctly. Features to Test Click the search icon in the header Verify it focuses the search input in the sidebar Test keyboard shortcuts (Cmd/Ctrl+K) Expected Behavior When clicking the search icon in the header: The search input in the sidebar should receive focus The page should scroll to center the search input Any existing text should be selected This test post contains enough content to verify that the search system can find and index this content properly.",
+    "title": "Welcome to My AI Journey: From Physics to Machine Learning",
+    "slug": "introduction",
+    "excerpt": "An introduction to my background in physics, transition to AI research, and passion for interpretability and alignment. Join me as I document my learning journey and share insights.",
+    "content": "Hello, and Welcome! I'm Luis Miguel Montoya, and I'm excited to share my journey into the fascinating world of artificial intelligence with you. This blog serves as both a learning log and a way to connect with others who share my passion for understanding how AI systems work and ensuring they align with human values. My Background: A Physicist's Path to AI My journey began in physics, where I developed a deep appreciation for mathematical rigor and systematic problem-solving. The transition from studying the fundamental laws of nature to understanding artificial minds might seem like a leap, but there's more overlap than you might think. Physics taught me to: Think in systems - Understanding how complex behaviors emerge from simple rules Embrace uncertainty - Working with probabilistic models and statistical mechanics Value interpretability - Always asking \"why does this work?\" rather than just \"does it work?\" Pursue first principles - Breaking down complex problems into fundamental c",
     "types": [
+      "blog"
+    ],
+    "category": "Reflection",
+    "tags": [
+      "Introduction",
+      "AI",
+      "Physics",
+      "Career",
+      "Personal"
+    ],
+    "date": "2025-05-30T00:00:00.000Z",
+    "href": "/posts/introduction"
+  },
+  {
+    "title": "Milestone: AI Alignment Fundamentals",
+    "slug": "roadmap-alignment-fundamentals",
+    "excerpt": "Building foundational knowledge in AI alignment theory, safety research, and value learning to prepare for advanced alignment research.",
+    "content": "Milestone Overview This milestone represents a critical transition in my research journey: moving from understanding how AI systems work (interpretability) to ensuring they work safely and beneficially (alignment). Building on my foundation in transformer architectures and mechanistic interpretability, this phase focuses on the fundamental challenges of AI alignment and the theoretical frameworks needed to address them. Why This Milestone Matters As AI systems become increasingly powerful, ensuring they remain aligned with human values becomes paramount. This milestone provides the theoretical foundation necessary for: Understanding Alignment Challenges: Grasping why alignment is difficult and what can go wrong Evaluating Safety Approaches: Critically analyzing different alignment strategies Designing Better Systems: Applying alignment principles to real AI development Contributing to Research: Building expertise to advance the field Connection to Previous Work This milestone builds di",
+    "types": [
+      "roadmap"
+    ],
+    "category": "Research",
+    "tags": [],
+    "date": "2024-04-10T00:00:00.000Z",
+    "href": "/posts/roadmap-alignment-fundamentals"
+  },
+  {
+    "title": "Project: AI Alignment Evaluation Suite",
+    "slug": "project-alignment-tools",
+    "excerpt": "A planned comprehensive framework for evaluating AI alignment across multiple dimensions, including value alignment, robustness, and safety properties.",
+    "content": "Project Vision The AI Alignment Evaluation Suite represents an ambitious planned project to create the first comprehensive, standardized framework for evaluating AI system alignment across multiple critical dimensions. As AI systems become increasingly powerful and autonomous, we need rigorous methods to assess whether they remain aligned with human values and intentions. Motivation and Problem Statement Current AI alignment evaluation is fragmented and insufficient: Existing Gaps No Unified Framework: Alignment evaluation scattered across different research groups Limited Scope: Most evaluations focus on narrow aspects (helpfulness, harmlessness) Subjective Metrics: Lack of quantitative, reproducible alignment measures Scale Challenges: Existing methods don't scale to large, complex systems Dynamic Alignment: No tools for tracking alignment over time and deployment Critical Need As we approach more capable AI systems, we need: Early Warning Systems: Detect alignment failures before de",
+    "types": [
+      "project"
+    ],
+    "category": "Research",
+    "tags": [],
+    "date": "2024-04-01T00:00:00.000Z",
+    "href": "/posts/project-alignment-tools"
+  },
+  {
+    "title": "Testing Search Functionality: AI Safety and Interpretability",
+    "slug": "test-search",
+    "excerpt": "A comprehensive test post for search functionality, covering various AI safety and interpretability topics to validate search indexing and retrieval.",
+    "content": "Search Test Introduction This post serves as a comprehensive test for the search functionality of this site. It contains a diverse range of content related to AI safety, interpretability, and machine learning to validate that the search indexing and retrieval systems work correctly across different topics and content types. AI Safety Concepts Alignment Problem The AI alignment problem refers to the challenge of ensuring that artificial intelligence systems pursue goals that are aligned with human values and intentions. This is particularly important as AI systems become more capable and autonomous. Key aspects of alignment include: Value alignment: Ensuring AI systems optimize for human-preferred outcomes Intent alignment: Making sure AI systems do what humans want them to do Robustness: Maintaining alignment under distribution shift and novel circumstances Constitutional AI Constitutional AI is an approach developed by Anthropic that trains AI systems to be helpful, harmless, and hone",
+    "types": [
+      "blog",
+      "note"
+    ],
+    "category": "Technical",
+    "tags": [
+      "Search",
+      "Testing",
+      "AI Safety",
+      "Interpretability",
+      "Machine Learning",
+      "Neural Networks",
+      "Transformers",
+      "Alignment"
+    ],
+    "date": "2024-03-20T00:00:00.000Z",
+    "href": "/posts/test-search"
+  },
+  {
+    "title": "Milestone: Understanding Transformer Architectures",
+    "slug": "test-roadmap-milestone",
+    "excerpt": "Deep dive into transformer architecture internals, attention mechanisms, and building foundational knowledge for interpretability research.",
+    "content": "Overview This milestone represents a crucial step in my AI interpretability journey: developing a deep, intuitive understanding of Transformer architectures. While I've worked with these models before, this phase focuses on truly understanding the internals—how attention works, why certain design choices were made, and what implications they have for interpretability and safety. Why This Milestone Matters Transformers are the backbone of modern AI systems, from GPT to BERT to the latest multimodal models. To understand how to make these systems safer and more interpretable, I need to understand them from the ground up. This isn't just about knowing the equations—it's about building the intuition necessary for meaningful interpretability research. Connection to AI Safety Mechanistic Interpretability: Understanding how Transformers implement algorithms internally Alignment Research: Knowing how models process information helps with alignment techniques Safety Analysis: Identifying potent",
+    "types": [
+      "roadmap",
+      "blog"
+    ],
+    "category": "Research",
+    "tags": [
+      "Transformers",
+      "Deep Learning",
+      "Milestone",
+      "Learning Journey",
+      "AI Architecture"
+    ],
+    "date": "2024-03-15T00:00:00.000Z",
+    "href": "/posts/test-roadmap-milestone"
+  },
+  {
+    "title": "Project: AI Interpretability Toolkit",
+    "slug": "test-project-toolkit",
+    "excerpt": "A comprehensive toolkit for analyzing and interpreting neural network behavior, with tools for activation patching, attention visualization, and mechanistic analysis.",
+    "content": "Project Overview The AI Interpretability Toolkit is a comprehensive Python package designed to help researchers and practitioners understand how neural networks, particularly Transformers, process information. This project emerged from my own need for better tools while studying mechanistic interpretability and has grown into a modular toolkit that others can use and contribute to. Motivation As I've been diving deeper into AI safety and interpretability research, I've found that while there are many theoretical frameworks for understanding neural networks, there's often a gap between theory and practical implementation. Existing tools are either: Too specialized for specific research groups Difficult to integrate with different model architectures Lacking in visualization capabilities Not well-documented for newcomers This toolkit aims to bridge that gap by providing: Modular components that work with different architectures Clear visualizations that make complex concepts accessible E",
+    "types": [
+      "project",
       "blog"
     ],
     "category": "Technical",
     "tags": [
-      "testing",
-      "search",
-      "functionality"
+      "AI Interpretability",
+      "Neural Networks",
+      "Visualization",
+      "Python",
+      "PyTorch"
     ],
-    "date": "2024-12-19T00:00:00.000Z",
-    "href": "/posts/test-search"
+    "date": "2024-03-10T00:00:00.000Z",
+    "href": "/posts/test-project-toolkit"
+  },
+  {
+    "title": "Literature Review: Attention is All You Need",
+    "slug": "test-literature-attention",
+    "excerpt": "Comprehensive review of the landmark transformer paper that revolutionized natural language processing and became the foundation for modern LLMs.",
+    "content": "Paper Summary The \"Attention is All You Need\" paper introduced the Transformer architecture, which has become the foundation for most modern large language models including GPT, BERT, and their variants. This groundbreaking work demonstrated that attention mechanisms alone, without recurrence or convolution, could achieve state-of-the-art results in sequence-to-sequence tasks. Key Contributions Pure Attention Architecture The paper showed that recurrent and convolutional layers are not necessary for achieving excellent performance on sequence transduction tasks. The Transformer relies entirely on attention mechanisms to draw global dependencies between input and output. Multi-Head Attention Instead of performing a single attention function, the model uses multiple \"attention heads\" that learn different types of relationships: Some heads focus on syntactic relationships Others capture semantic dependencies Some specialize in long-range dependencies Positional Encoding Since the model ha",
+    "types": [
+      "literature",
+      "note"
+    ],
+    "category": "Research",
+    "tags": [
+      "Transformers",
+      "Attention",
+      "Deep Learning",
+      "Paper Review",
+      "NLP"
+    ],
+    "date": "2024-03-08T00:00:00.000Z",
+    "href": "/posts/test-literature-attention"
+  },
+  {
+    "title": "From Quantum Mechanics to Neural Networks: A Personal Journey",
+    "slug": "blog-learning-journey",
+    "excerpt": "Reflecting on how my physics background shapes my approach to AI research and interpretability, and the unexpected parallels between quantum mechanics and neural network behavior.",
+    "content": "The Unexpected Parallels When I first transitioned from physics to AI, I expected a complete paradigm shift. After years of studying quantum mechanics, statistical mechanics, and condensed matter physics, I thought I was leaving behind one world of complex systems for an entirely different one. What I discovered instead was a surprising number of deep connections that have fundamentally shaped how I approach AI interpretability research. Physics Foundations: More Than Just Math The Mindset of Emergence In physics, we're constantly dealing with emergent phenomena—behaviors that arise from the collective interactions of simpler components but can't be easily predicted from those components alone. Superconductivity emerges from electron interactions. Phase transitions arise from statistical mechanics. Consciousness might emerge from neural activity. This perspective has been invaluable in AI research. When I look at a transformer model, I don't just see matrix multiplications and activati",
+    "types": [
+      "blog"
+    ],
+    "category": "Reflection",
+    "tags": [],
+    "date": "2024-03-01T00:00:00.000Z",
+    "href": "/posts/blog-learning-journey"
+  },
+  {
+    "title": "Survey: Mechanistic Interpretability in Neural Networks",
+    "slug": "literature-interpretability-survey",
+    "excerpt": "Comprehensive survey of mechanistic interpretability techniques, covering circuit discovery, feature visualization, and causal interventions in modern deep learning systems.",
+    "content": "Mechanistic Interpretability Survey: A Comprehensive Overview This survey provides an exhaustive review of mechanistic interpretability techniques that have emerged as crucial tools for understanding the internal workings of neural networks. The authors systematically organize the field around three core paradigms: circuit discovery, feature visualization, and causal intervention methods. Key Contributions Circuit Discovery Methods The paper thoroughly examines approaches for identifying computational circuits within neural networks, including: Activation patching for isolating causal pathways Gradient-based attribution methods for circuit identification Sparse probing techniques for discovering interpretable features Feature Visualization Advances Modern feature visualization has evolved significantly beyond simple gradient ascent: Optimization-based synthesis for generating feature-maximizing inputs Dataset exemplars for understanding learned representations Activation atlas construc",
+    "types": [
+      "literature"
+    ],
+    "category": "Resource",
+    "tags": [],
+    "date": "2024-02-20T00:00:00.000Z",
+    "href": "/posts/literature-interpretability-survey"
+  },
+  {
+    "title": "Building Better Interpretability Tools: A Practical Guide",
+    "slug": "blog-interpretability-tools",
+    "excerpt": "A hands-on tutorial for developing effective AI interpretability tools, covering design principles, implementation strategies, and common pitfalls to avoid.",
+    "content": "Introduction: Why Better Tools Matter The field of AI interpretability is rapidly evolving, but many researchers still struggle with inadequate tools. Whether you're trying to understand attention patterns, visualize neural activations, or trace information flow through networks, having the right tools can make the difference between insight and confusion. This tutorial will guide you through building effective interpretability tools, from initial design principles to production-ready implementations. We'll cover both the technical aspects and the human factors that determine whether a tool actually helps researchers understand AI systems. Design Principles for Interpretability Tools Start with the Question, Not the Method The biggest mistake in interpretability tool development is starting with a cool technique and then looking for applications. Instead, begin with specific research questions: \"Why does this model fail on certain inputs?\" \"How does information flow through the network",
+    "types": [
+      "blog"
+    ],
+    "category": "Tutorial",
+    "tags": [],
+    "date": "2024-02-15T00:00:00.000Z",
+    "href": "/posts/blog-interpretability-tools"
+  },
+  {
+    "title": "Book Review: Constitutional AI - Training a Helpful, Harmless Assistant",
+    "slug": "literature-anthropic-constitution",
+    "excerpt": "In-depth review of Anthropic's foundational work on Constitutional AI, exploring how AI systems can be trained to be more helpful, harmless, and honest through constitutional training methods.",
+    "content": "Paper Overview Anthropic's \"Constitutional AI: Harmlessness from AI Feedback\" represents a paradigm shift in AI training methodology. This seminal work introduces a novel approach to training AI assistants that combines the benefits of reinforcement learning from human feedback (RLHF) with a scalable, principle-based training method that reduces reliance on human labelers for identifying harmful outputs. The Constitutional AI Framework Core Innovation Constitutional AI (CAI) addresses a fundamental challenge in AI alignment: how to train models to be helpful, harmless, and honest at scale. Traditional approaches rely heavily on human feedback to identify and correct harmful behaviors, which is: Expensive: Requires extensive human annotation Inconsistent: Human raters may disagree on what constitutes harm Unscalable: Doesn't scale to the complexity of modern AI systems Reactive: Focuses on fixing problems after they occur CAI introduces a proactive, principle-based approach that can sca",
+    "types": [
+      "literature"
+    ],
+    "category": "Research",
+    "tags": [
+      "Constitutional AI",
+      "AI Safety",
+      "Anthropic",
+      "RLHF",
+      "AI Alignment"
+    ],
+    "date": "2024-02-05T00:00:00.000Z",
+    "href": "/posts/literature-anthropic-constitution"
+  },
+  {
+    "title": "Project: Neural Circuit Analysis Framework",
+    "slug": "project-circuit-analysis",
+    "excerpt": "A completed framework for automatically discovering and analyzing computational circuits in transformer models, enabling systematic interpretability research.",
+    "content": "Project Overview The Neural Circuit Analysis Framework represents a significant milestone in my interpretability research journey. This completed project provides researchers with automated tools to discover and analyze computational circuits within transformer models, making mechanistic interpretability more accessible and systematic. Motivation and Impact Understanding how neural networks implement algorithms internally is crucial for AI safety and alignment. While manual circuit discovery has yielded important insights, the process is time-consuming and requires deep expertise. This framework democratizes circuit analysis by automating the discovery process and providing intuitive visualizations. Key Achievements Automated Discovery: First framework to automatically identify circuits across model architectures Validation: Successfully reproduced known circuits in GPT-2 and BERT New Insights: Discovered 12 previously unknown circuits in production models Adoption: Used by 6 research ",
+    "types": [
+      "project"
+    ],
+    "category": "Research",
+    "tags": [],
+    "date": "2024-01-20T00:00:00.000Z",
+    "href": "/posts/project-circuit-analysis"
+  },
+  {
+    "title": "Video Review: Robert Miles on AI Alignment and Safety",
+    "slug": "literature-ai-safety-video",
+    "excerpt": "Comprehensive review of Robert Miles' acclaimed video series on AI safety and alignment, examining how these accessible explanations bridge the gap between technical research and public understanding.",
+    "content": "Video Series Overview Robert Miles' YouTube channel stands as one of the most accessible and well-crafted introductions to AI safety and alignment available today. Through carefully designed explanations, thought experiments, and visual aids, Miles bridges the crucial gap between cutting-edge AI safety research and public understanding. This review examines his body of work, focusing on how educational content can play a vital role in democratizing AI safety knowledge and building broader understanding of these critical issues. Why This Content Matters The Public Understanding Gap AI safety research has historically suffered from an accessibility problem: Technical Complexity: Research papers require specialized knowledge Jargon Barriers: Field-specific terminology excludes non-experts Abstract Concepts: Many AI safety issues are counterintuitive Stakeholder Disconnect: Public, policymakers, and researchers often speak different languages Robert Miles' work addresses these challenges s",
+    "types": [
+      "literature"
+    ],
+    "category": "Resource",
+    "tags": [
+      "AI Safety",
+      "Education",
+      "YouTube",
+      "Alignment",
+      "Public Understanding"
+    ],
+    "date": "2024-01-15T00:00:00.000Z",
+    "href": "/posts/literature-ai-safety-video"
   }
 ]

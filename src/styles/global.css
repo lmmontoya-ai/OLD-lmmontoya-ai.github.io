@@ -17,6 +17,29 @@
   }
 }
 
+/* === CUSTOM SCROLLBAR === */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--color-border-primary) / 0.5) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-border-primary) / 0.5);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-border-primary) / 0.7);
+}
+
 /* Theme layer: design tokens using standard Tailwind approach */
 @import "./theme/colors.css" layer(theme);
 @import "./theme/typography.css" layer(theme);

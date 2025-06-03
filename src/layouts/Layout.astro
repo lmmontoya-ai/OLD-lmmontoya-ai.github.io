@@ -102,9 +102,29 @@ const {
         color-scheme: dark;
       }
 
-      /* Ensure smooth transitions for theme changes */
+      /* Apply smooth color transitions to all text elements */
       * {
-        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        transition: color 0.15s ease;
+      }
+
+      /* Apply background and border transitions only to specific UI elements */
+      .bg-surface,
+      .bg-surface-secondary,
+      .bg-surface-tertiary,
+      .border-border-primary,
+      .border-border-secondary,
+      button,
+      .card,
+      nav,
+      header,
+      footer,
+      aside {
+        transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+      }
+
+      /* Prevent background transitions on content elements that might cause flickering */
+      p, h1, h2, h3, h4, h5, h6, span, div, article {
+        transition: color 0.15s ease;
       }
     </style>
   </head>

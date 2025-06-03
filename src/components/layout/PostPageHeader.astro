@@ -1,0 +1,326 @@
+---
+// src/components/layout/PostPageHeader.astro
+// Header specifically for post pages with sidebar toggle functionality
+
+import ThemeToggle from "../ui/ThemeToggle.astro";
+import NavLink from "../ui/NavLink.astro";
+
+// Get current path for active link styling
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 h-14 backdrop-blur-lg border-b border-primary transition-theme"
+>
+  <!-- Bottom gradient border -->
+  <div
+    class="absolute left-0 right-0 -bottom-px h-px bg-gradient-to-r from-transparent via-interactive-blue/40 to-transparent"
+  ></div>
+
+  <div class="container mx-auto px-6 py-2 flex items-center justify-between">
+    <!-- Contents Toggle + Brand -->
+    <div class="flex items-center gap-3">
+      <!-- Contents Toggle Button (only visible on lg+) -->
+      <button
+        id="sidebar-toggle"
+        class="hidden lg:flex items-center justify-center w-8 h-8 rounded-lg text-secondary hover:text-interactive-blue transition-theme"
+        aria-label="Toggle sidebar"
+        aria-expanded="true"
+      >
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+        </svg>
+      </button>
+
+      <!-- Brand/Motto -->
+      <a
+        href="/"
+        class="font-sans font-semibold text-lg tracking-tight group relative header-brand"
+      >
+        <span
+          class="block text-sm md:text-sm font-bold mt-0.9 font-mono group-hover:text-interactive-blue transition-spring"
+        >
+          Understand to Align
+        </span>
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-1 h-full">
+      <NavLink href="/roadmap" currentPath={currentPath}> Roadmap </NavLink>
+
+      <!-- Nav link divider -->
+      <div class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-100"></div>
+
+      <NavLink href="/projects" currentPath={currentPath}> Projects </NavLink>
+
+      <div class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-50"></div>
+
+      <NavLink href="/literature" currentPath={currentPath}> Literature </NavLink>
+
+      <div class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-50"></div>
+
+      <NavLink href="/blog" currentPath={currentPath}> Blog </NavLink>
+
+      <div class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"></div>
+
+      <NavLink href="/contact" currentPath={currentPath}> Contact </NavLink>
+
+      <div class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"></div>
+      <ThemeToggle />
+    </nav>
+
+    <!-- Mobile Menu Button & Toggle -->
+    <div class="md:hidden flex items-center gap-2">
+      <ThemeToggle />
+      <button
+        id="menu-toggle"
+        class="flex items-center justify-center w-10 h-10 rounded-lg text-secondary hover:text-interactive-blue transition-theme"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-5 h-5"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div
+    id="mobile-menu"
+    class="md:hidden fixed inset-0 z-40 transform translate-x-full transition-transform duration-300 ease-in-out pt-20 pb-8 px-6 bg-surface/95 backdrop-blur-lg flex flex-col"
+  >
+    <!-- Close button -->
+    <button
+      id="close-menu"
+      class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full text-secondary hover:text-interactive-blue transition-theme"
+      aria-label="Close menu"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-5 h-5"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <nav class="flex flex-col gap-6 text-lg grow">
+
+      <NavLink href="/roadmap" currentPath={currentPath} variant="mobile" class="group">
+        <span class="text-primary group-hover:text-interactive-blue transition-theme font-medium">Roadmap</span>
+        <div class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </div>
+      </NavLink>
+
+      <NavLink href="/projects" currentPath={currentPath} variant="mobile" class="group">
+        <span class="text-primary group-hover:text-interactive-blue transition-theme font-medium">Projects</span>
+        <div class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </div>
+      </NavLink>
+
+      <NavLink href="/literature" currentPath={currentPath} variant="mobile" class="group">
+        <span class="text-primary group-hover:text-interactive-blue transition-theme font-medium">Literature</span>
+        <div class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </div>
+      </NavLink>
+
+      <NavLink href="/blog" currentPath={currentPath} variant="mobile" class="group">
+        <span class="text-primary group-hover:text-interactive-blue transition-theme font-medium">Blog</span>
+        <div class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </div>
+      </NavLink>
+
+      <NavLink href="/contact" currentPath={currentPath} variant="mobile" class="group">
+        <span class="text-primary group-hover:text-interactive-blue transition-theme font-medium">Contact</span>
+        <div class="w-6 h-6 rounded-full bg-interactive-blue/10 flex items-center justify-center text-interactive-blue opacity-75 group-hover:opacity-100 transition-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </div>
+      </NavLink>
+
+      <div class="mt-auto w-full text-center">
+        <a
+          href="/projects"
+          class="inline-flex items-center justify-center w-full py-3 px-6 rounded-lg font-mono font-medium text-sm bg-gradient-primary text-white transform transition-theme hover:scale-105"
+        >
+          View All Projects
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 ml-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Brand in mobile menu -->
+    <div class="mt-12 text-center">
+      <div
+        class="text-secondary font-sans font-semibold text-lg tracking-tight opacity-80"
+      >
+        <span
+          class="text-transparent bg-clip-text bg-gradient-primary inline-block"
+        >
+          Luis Miguel Montoya
+        </span>
+        <span
+          class="block text-sm font-normal mt-1 font-mono text-interactive-gold"
+        >
+          Understand to Align
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const closeMenu = document.getElementById("close-menu");
+    const header = document.getElementById("site-header");
+
+    menuToggle?.addEventListener("click", () => {
+      const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", (!expanded).toString());
+      mobileMenu?.classList.toggle("translate-x-full");
+      document.body.classList.toggle("overflow-hidden");
+    });
+
+    closeMenu?.addEventListener("click", () => {
+      menuToggle?.setAttribute("aria-expanded", "false");
+      mobileMenu?.classList.add("translate-x-full");
+      document.body.classList.remove("overflow-hidden");
+    });
+
+    // Sidebar toggle functionality - wrapped in DOM ready
+    function initSidebarToggle() {
+      const sidebarToggle = document.getElementById("sidebar-toggle");
+      const sidebar = document.querySelector('aside[class*="fixed left-0"]');
+      // More specific selector for the main content area in PostLayout.astro
+      const mainContentArea = document.getElementById('main-content-area');
+      // More specific selector for breadcrumbs container in PostLayout.astro
+      const breadcrumbsContainer = document.getElementById('breadcrumbs-container');
+
+      let sidebarVisible = true; // Assuming sidebar is visible by default
+
+      sidebarToggle?.addEventListener("click", () => {
+        sidebarVisible = !sidebarVisible;
+
+        console.log('Toggling sidebar. Visible:', sidebarVisible);
+        console.log('Sidebar element:', sidebar);
+        console.log('Main content element:', mainContentArea);
+        console.log('Breadcrumbs element:', breadcrumbsContainer);
+
+        if (sidebar) {
+          sidebar.classList.toggle("translate-x-0", sidebarVisible);
+          sidebar.classList.toggle("-translate-x-full", !sidebarVisible);
+        }
+
+        // Adjust main content area
+        if (mainContentArea) {
+          mainContentArea.classList.toggle("lg:ml-64", sidebarVisible);
+          mainContentArea.classList.toggle("lg:ml-0", !sidebarVisible);
+        }
+
+        // Adjust breadcrumbs container
+        if (breadcrumbsContainer) {
+          breadcrumbsContainer.classList.toggle("lg:ml-64", sidebarVisible);
+          breadcrumbsContainer.classList.toggle("lg:ml-0", !sidebarVisible);
+        }
+
+        // Update aria-expanded
+        sidebarToggle.setAttribute("aria-expanded", sidebarVisible.toString());
+      });
+
+      // Initial state setup based on sidebarVisible
+      // This ensures consistency if the script re-runs or on page load
+      if (sidebar) {
+        sidebar.classList.toggle("translate-x-0", sidebarVisible);
+        sidebar.classList.toggle("-translate-x-full", !sidebarVisible);
+      }
+      if (mainContentArea) {
+        mainContentArea.classList.toggle("lg:ml-64", sidebarVisible);
+        mainContentArea.classList.toggle("lg:ml-0", !sidebarVisible);
+      }
+      if (breadcrumbsContainer) {
+        breadcrumbsContainer.classList.toggle("lg:ml-64", sidebarVisible);
+        breadcrumbsContainer.classList.toggle("lg:ml-0", !sidebarVisible);
+      }
+      if (sidebarToggle) {
+        sidebarToggle.setAttribute("aria-expanded", sidebarVisible.toString());
+      }
+    }
+
+    // Initialize sidebar toggle when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSidebarToggle);
+    } else {
+      initSidebarToggle();
+    }
+
+    // Also initialize on Astro page transitions
+    document.addEventListener('astro:page-load', initSidebarToggle);
+
+    // Header opacity on load
+    document.addEventListener("DOMContentLoaded", () => {
+      if (header) {
+        header.classList.add("opacity-0");
+        setTimeout(() => {
+          header.classList.remove("opacity-0");
+          header.classList.add("opacity-100");
+        }, 100);
+      }
+    });
+  </script>
+
+  <style>
+    .header-brand:hover {
+      color: rgb(77, 139, 247) !important;
+    }
+  </style>
+</header>

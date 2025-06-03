@@ -146,7 +146,6 @@ literature:
   year: 2025                                      # Number - Publication year
   source: "https://arxiv.org/abs/2501.12345"     # URL - Link to original source
   type: "Paper"                                   # Enum - Paper|Blog|Video|Book|Course
-  difficulty: "Advanced"                          # Enum - Introductory|Intermediate|Advanced
   rating: 4                                       # Number - 1-5 star rating
   recommendedFor: ["AI Researchers", "Students"] # Array - Target audience
 ---

@@ -1,295 +1,839 @@
 ---
-import Layout from './Layout.astro';
-import Sidebar from '../components/post/Sidebar.astro';
-import TableOfContents from '../components/post/TableOfContents.astro';
-import PostHeader from '../components/post/PostHeader.astro';
-import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
-import { getRelatedPosts, getBreadcrumbs } from '../utils/content';
-import type { Post } from '../utils/content';
+import PostPageHeader from "../components/layout/PostPageHeader.astro";
+import Footer from "../components/layout/Footer.astro";
+import Sidebar from "../components/post/Sidebar.astro";
+import TableOfContents from "../components/post/TableOfContents.astro";
+import PostHeader from "../components/post/PostHeader.astro";
+import Breadcrumbs from "../components/ui/Breadcrumbs.astro";
+import { getRelatedPosts, getBreadcrumbs } from "../utils/content";
+import type { Post } from "../utils/content";
+import { render } from "astro:content";
+import { ViewTransitions } from "astro:transitions";
+import "../styles/global.css";
+import "../styles/transitions.css";
 
 interface Props {
   post: Post;
 }
 
 const { post } = Astro.props;
-const { Content, headings } = await post.render();
+const { Content, headings } = await render(post);
 
 // Get related posts
 const relatedPosts = await getRelatedPosts(post);
 const breadcrumbs = getBreadcrumbs(post);
 
+// Generate metadata for the page
+const title = post.data.seo?.metaTitle || post.data.title;
+const description = post.data.seo?.metaDescription || post.data.excerpt;
+const canonicalUrl = new URL(`/posts/${post.id}`, Astro.site);
+
+// Open Graph metadata
+const ogImage = post.data.media?.hero || post.data.media?.thumbnail;
+const ogType = post.data.types.includes("project") ? "article" : "article";
+
+// Structured data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: post.data.title,
+  description: post.data.excerpt,
+  author: {
+    "@type": "Person",
+    name: "Luis Miguel Montoya",
+    url: Astro.site?.toString(),
+  },
+  datePublished: post.data.date.toISOString(),
+  ...(post.data.lastModified && {
+    dateModified: post.data.lastModified.toISOString(),
+  }),
+  url: canonicalUrl.toString(),
+  ...(ogImage && {
+    image: new URL(ogImage, Astro.site).toString(),
+  }),
+  publisher: {
+    "@type": "Organization",
+    name: "Luis Miguel Montoya",
+    url: Astro.site?.toString(),
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonicalUrl.toString(),
+  },
+};
+
+// Add project-specific structured data
+if (post.data.types.includes("project") && post.data.project) {
+  Object.assign(structuredData, {
+    "@type": "SoftwareApplication",
+    applicationCategory: post.data.project.area || "WebApplication",
+    ...(post.data.project.stack && {
+      programmingLanguage: post.data.project.stack,
+    }),
+    ...(post.data.project.links?.github && {
+      codeRepository: post.data.project.links.github,
+    }),
+  });
+}
+
+// Breadcrumb structured data
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: Astro.site?.toString(),
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: post.data.types.includes("blog")
+        ? "Blog"
+        : post.data.types.includes("roadmap")
+          ? "Roadmap"
+          : post.data.types.includes("project")
+            ? "Projects"
+            : post.data.types.includes("literature")
+              ? "Literature"
+              : "Posts",
+      item: new URL(
+        post.data.types.includes("blog")
+          ? "/blog"
+          : post.data.types.includes("roadmap")
+            ? "/roadmap"
+            : post.data.types.includes("project")
+              ? "/projects"
+              : post.data.types.includes("literature")
+                ? "/literature"
+                : "/blog",
+        Astro.site
+      ).toString(),
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: post.data.title,
+      item: canonicalUrl.toString(),
+    },
+  ],
+};
+
 // Determine accent color based on primary type
 const accentColors = {
-  roadmap: 'gold',
-  project: 'blue',
-  literature: 'green',
-  blog: 'blue',
-  note: 'blue',
-  guide: 'green',
+  roadmap: "gold",
+  project: "blue",
+  literature: "green",
+  blog: "blue",
+  note: "blue",
+  guide: "green",
 } as const;
 
 const primaryType = post.data.types[0];
-const accentColor = post.data.display?.accent || accentColors[primaryType] || 'blue';
+const accentColor =
+  post.data.display?.accent || accentColors[primaryType] || "blue";
 
 // Layout classes
 const layoutClasses = {
-  default: 'max-w-4xl',
-  wide: 'max-w-6xl',
-  centered: 'max-w-3xl',
+  default: "max-w-4xl",
+  wide: "max-w-6xl",
+  centered: "max-w-3xl",
 } as const;
 
-const contentWidth = layoutClasses[post.data.display?.layout || 'default'];
+const contentWidth = layoutClasses[post.data.display?.layout || "default"];
 
 // Show TOC if enabled and there are headings
-const showToc = post.data.display?.showToc !== false && headings.filter(h => h.depth === 2 || h.depth === 3).length > 0;
+const showToc =
+  post.data.display?.showToc !== false &&
+  headings.filter((h: any) => h.depth === 2 || h.depth === 3).length > 0;
 
 // Accent color CSS classes
 const accentClasses = {
-  blue: 'border-brand-primary',
-  gold: 'border-brand-secondary',
-  green: 'border-status-success',
+  blue: "border-brand-primary",
+  gold: "border-brand-secondary",
+  green: "border-status-success",
 } as const;
 
 const sidebarAccentClass = accentClasses[accentColor];
 ---
 
-<Layout
-  title={post.data.seo?.metaTitle || post.data.title}
-  description={post.data.seo?.metaDescription || post.data.excerpt}
->
-  <div class="min-h-screen relative">
-    <!-- Background pattern -->
-    <div class="absolute inset-0 bg-grid-pattern opacity-[0.015] pointer-events-none"></div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
 
-    <!-- Main container -->
-    <div class="relative z-10 pt-20">
-      <!-- Breadcrumbs -->
-      <div class="container mx-auto px-6 lg:px-16 xl:px-24 mb-6">
-        <Breadcrumbs items={breadcrumbs} />
-      </div>
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl.toString()} />
 
-      <!-- Split layout container -->
-      <div class="container mx-auto px-6 lg:px-16 xl:px-24">
-        <div class="flex gap-8 lg:gap-12">
-          <!-- Sidebar Component -->
-          <Sidebar
-            post={post}
-            relatedPosts={relatedPosts}
-            headings={headings}
-            showToc={showToc}
-            accentColor={accentColor}
+    <!-- Keywords -->
+    {
+      post.data.tags && (
+        <meta name="keywords" content={post.data.tags.join(", ")} />
+      )
+    }
+
+    <!-- Author -->
+    <meta name="author" content="Luis Miguel Montoya" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl.toString()} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Luis Miguel Montoya" />
+    {
+      ogImage && (
+        <meta
+          property="og:image"
+          content={new URL(ogImage, Astro.site).toString()}
+        />
+      )
+    }
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalUrl.toString()} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    {
+      ogImage && (
+        <meta
+          property="twitter:image"
+          content={new URL(ogImage, Astro.site).toString()}
+        />
+      )
+    }
+
+    <!-- Article specific meta tags -->
+    {
+      post.data.types.includes("blog") && (
+        <>
+          <meta
+            property="article:published_time"
+            content={post.data.date.toISOString()}
           />
+          {post.data.lastModified && (
+            <meta
+              property="article:modified_time"
+              content={post.data.lastModified.toISOString()}
+            />
+          )}
+          <meta property="article:author" content="Luis Miguel Montoya" />
+          {post.data.tags?.map((tag) => (
+            <meta property="article:tag" content={tag} />
+          ))}
+          {post.data.category && (
+            <meta property="article:section" content={post.data.category} />
+          )}
+        </>
+      )
+    }
 
-          <!-- Main content area -->
-          <main class={`flex-1 min-w-0 ${contentWidth} mx-auto`}>
-            <!-- Post Header Component -->
-            <PostHeader
+    <!-- Project specific meta tags -->
+    {
+      post.data.types.includes("project") && post.data.project && (
+        <>
+          {post.data.project.stack?.map((tech) => (
+            <meta name="technology" content={tech} />
+          ))}
+          {post.data.project.area && (
+            <meta name="project-category" content={post.data.project.area} />
+          )}
+        </>
+      )
+    }
+
+    <!-- Literature specific meta tags -->
+    {
+      post.data.types.includes("literature") && post.data.literature && (
+        <>
+          {post.data.literature.authors?.map((author) => (
+            <meta name="literature-author" content={author} />
+          ))}
+          {post.data.literature.year && (
+            <meta
+              name="literature-year"
+              content={post.data.literature.year.toString()}
+            />
+          )}
+          {post.data.literature.source && (
+            <meta
+              name="literature-source"
+              content={post.data.literature.source}
+            />
+          )}
+        </>
+      )
+    }
+
+    <!-- Robots meta tag -->
+    <meta
+      name="robots"
+      content={post.data.status === "draft"
+        ? "noindex, nofollow"
+        : post.data.seo?.noIndex
+          ? "noindex, follow"
+          : "index, follow"}
+    />
+
+    <!-- Reading time and word count for tools -->
+    {
+      post.data.readingTime && (
+        <meta
+          name="reading-time"
+          content={`${post.data.readingTime} minutes`}
+        />
+      )
+    }
+    {
+      post.data.wordCount && (
+        <meta name="word-count" content={post.data.wordCount.toString()} />
+      )
+    }
+
+    <!-- JSON-LD Structured Data -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumbStructuredData)}
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <ViewTransitions />
+
+    <!-- Theme handled by shared Layout component -->
+    <style>
+      /* Post-specific theme transition overrides */
+      * {
+        transition: color 0.15s ease;
+      }
+
+      /* Apply background and border transitions only to specific UI elements */
+      .bg-surface,
+      .bg-surface-secondary,
+      .bg-surface-tertiary,
+      .border-border-primary,
+      .border-border-secondary,
+      button,
+      .card,
+      .sidebar,
+      nav,
+      header,
+      footer,
+      aside {
+        transition:
+          background-color 0.2s ease,
+          border-color 0.2s ease,
+          color 0.15s ease;
+      }
+
+      /* Prevent background transitions on content elements */
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      span,
+      article {
+        transition: color 0.15s ease;
+      }
+
+      /* Print styles */
+      @media print {
+        /* Hide interactive elements when printing */
+        .no-print {
+          display: none !important;
+        }
+
+        /* Ensure proper contrast for printing */
+        body {
+          background: white !important;
+          color: black !important;
+        }
+
+        /* Optimize typography for print */
+        .prose {
+          max-width: none;
+          font-size: 12pt;
+          line-height: 1.4;
+        }
+
+        /* Break page after main content */
+        main {
+          page-break-after: always;
+        }
+
+        /* Avoid breaking inside code blocks */
+        pre,
+        code {
+          page-break-inside: avoid;
+        }
+
+        /* Show link URLs in print */
+        a[href]:after {
+          content: " (" attr(href) ")";
+          font-size: 0.8em;
+          color: #666;
+        }
+
+        /* Don't show URLs for internal links */
+        a[href^="#"]:after,
+        a[href^="/"]:after {
+          content: "";
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-surface text-primary"
+    data-post-types={post.data.types.join(",")}
+    data-post-category={post.data.category}
+  >
+    <PostPageHeader />
+
+    <main
+      class="pt-4 min-h-[calc(100vh-var(--footer-height,12rem))] relative z-10"
+    >
+      <div class="min-h-screen relative">
+        <!-- Clean background for reading -->
+        <div class="absolute inset-0 bg-surface"></div>
+
+        <!-- Main container -->
+        <div class="relative z-10 pt-16">
+          <!-- Breadcrumbs with margin for fixed sidebar, aligned with content -->
+          <div
+            id="breadcrumbs-container"
+            class="lg:ml-64 mb-4 transition-all duration-300 ease-out"
+          >
+            <div class="container mx-auto px-6 lg:px-16 xl:px-24">
+              <div class={`${contentWidth} mx-auto`}>
+                <Breadcrumbs items={breadcrumbs} />
+              </div>
+            </div>
+          </div>
+
+          <!-- Split layout container -->
+          <div class="relative">
+            <!-- Sidebar Component - Fixed positioned, modern styling -->
+            <Sidebar
               post={post}
+              relatedPosts={relatedPosts}
+              headings={headings}
+              showToc={showToc}
               accentColor={accentColor}
             />
 
-            <!-- Article content -->
-            <article
-              class="prose prose-lg max-w-none prose-headings:text-content-primary prose-p:text-content-secondary prose-a:text-brand-primary prose-strong:text-content-primary prose-code:text-content-primary prose-pre:bg-bg-secondary prose-pre:border prose-pre:border-border-secondary"
-              data-post-types={post.data.types.join(',')}
-              data-post-category={post.data.category}
+            <!-- Main content area with proper margin for fixed sidebar -->
+            <div
+              id="main-content-area"
+              class="lg:ml-64 transition-all duration-300 ease-out"
             >
-              <Content />
-            </article>
+              <div class="container mx-auto px-6 lg:px-16 xl:px-24">
+                <main class={`${contentWidth} mx-auto`}>
+                  <!-- Post Header Component -->
+                  <PostHeader post={post} accentColor={accentColor} />
 
-            <!-- Post Footer -->
-            <footer class="mt-16 pt-8 border-t border-border-secondary">
-              <!-- Tags -->
-              {post.data.tags && post.data.tags.length > 0 && (
-                <div class="mb-8">
-                  <h3 class="text-sm font-mono font-medium text-content-tertiary uppercase tracking-wider mb-3">
-                    Tags
-                  </h3>
-                  <div class="flex flex-wrap gap-2">
-                    {post.data.tags.map((tag) => (
-                      <span class="px-3 py-1 rounded-full text-xs font-medium bg-bg-secondary text-content-secondary border border-border-secondary hover:border-border-primary transition-colors">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <!-- Share section -->
-              <div class="mb-8">
-                <h3 class="text-sm font-mono font-medium text-content-tertiary uppercase tracking-wider mb-3">
-                  Share
-                </h3>
-                <div class="flex gap-3">
-                  <button
-                    onclick="navigator.share ? navigator.share({title: this.dataset.title, url: this.dataset.url}) : navigator.clipboard.writeText(this.dataset.url)"
-                    data-title={post.data.title}
-                    data-url={Astro.url.href}
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-bg-secondary text-content-secondary border border-border-secondary hover:border-border-primary hover:text-content-primary transition-colors"
+                  <!-- Article content with clean, readable styling -->
+                  <article
+                    class="prose prose-lg max-w-none
+                  prose-headings:scroll-mt-24
+                  prose-h1:text-4xl prose-h1:lg:text-5xl prose-h1:font-bold prose-h1:text-interactive-blue prose-h1:mb-8 prose-h1:leading-tight
+                  prose-h2:text-2xl prose-h2:lg:text-3xl prose-h2:font-semibold prose-h2:text-primary prose-h2:mt-16 prose-h2:mb-6 prose-h2:border-b prose-h2:border-border-primary prose-h2:pb-3 prose-h2:leading-tight
+                  prose-h3:text-xl prose-h3:lg:text-2xl prose-h3:font-semibold prose-h3:text-primary prose-h3:mt-12 prose-h3:mb-4 prose-h3:leading-tight
+                  prose-h4:text-lg prose-h4:lg:text-xl prose-h4:font-medium prose-h4:text-primary prose-h4:mt-8 prose-h4:mb-3 prose-h4:leading-tight
+                  prose-h5:text-base prose-h5:lg:text-lg prose-h5:font-medium prose-h5:text-primary prose-h5:mt-6 prose-h5:mb-2
+                  prose-h6:text-sm prose-h6:lg:text-base prose-h6:font-medium prose-h6:text-secondary prose-h6:mt-4 prose-h6:mb-2 prose-h6:uppercase prose-h6:tracking-wider
+                  prose-p:text-base prose-p:lg:text-lg prose-p:text-secondary prose-p:leading-relaxed prose-p:mb-6
+                  prose-a:text-interactive-blue prose-a:no-underline prose-a:font-medium hover:prose-a:underline hover:prose-a:text-interactive-blue prose-a:transition-colors
+                  prose-strong:text-primary prose-strong:font-semibold
+                  prose-em:text-secondary prose-em:italic
+                  prose-code:text-interactive-blue prose-code:bg-surface-secondary prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+                  prose-pre:bg-surface-secondary prose-pre:border prose-pre:border-border-primary prose-pre:rounded-lg prose-pre:p-6 prose-pre:overflow-x-auto prose-pre:text-sm prose-pre:leading-relaxed
+                  prose-blockquote:border-l-4 prose-blockquote:border-interactive-blue prose-blockquote:bg-surface-secondary prose-blockquote:pl-6 prose-blockquote:pr-6 prose-blockquote:py-4 prose-blockquote:my-8 prose-blockquote:rounded-r-lg prose-blockquote:text-secondary prose-blockquote:italic prose-blockquote:text-lg
+                  prose-ul:my-6 prose-ul:space-y-2 prose-ul:pl-6
+                  prose-ol:my-6 prose-ol:space-y-2 prose-ol:pl-6
+                  prose-li:text-secondary prose-li:leading-relaxed prose-li:text-base prose-li:lg:text-lg
+                  prose-table:my-8 prose-table:border-collapse prose-table:border prose-table:border-border-primary prose-table:rounded-lg prose-table:overflow-hidden prose-table:bg-surface-secondary
+                  prose-th:bg-surface-tertiary prose-th:border prose-th:border-border-primary prose-th:px-4 prose-th:py-3 prose-th:text-primary prose-th:font-semibold prose-th:text-left prose-th:text-sm prose-th:uppercase prose-th:tracking-wider
+                  prose-td:border prose-td:border-border-primary prose-td:px-4 prose-td:py-3 prose-td:text-secondary prose-td:text-base
+                  prose-hr:border-border-primary prose-hr:my-12 prose-hr:border-t-2
+                  prose-img:rounded-lg prose-img:shadow-lg prose-img:my-8
+                  prose-figure:my-8
+                  prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:text-tertiary prose-figcaption:mt-2 prose-figcaption:italic"
+                    data-post-types={post.data.types.join(",")}
+                    data-post-category={post.data.category}
                   >
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                    </svg>
-                    Copy Link
-                  </button>
-                </div>
-              </div>
+                    <Content />
+                  </article>
 
-              <!-- Related posts -->
-              {post.data.display?.showRelated !== false && relatedPosts.length > 0 && (
-                <div class="mt-12">
-                  <h3 class="text-lg font-sans font-semibold text-content-primary mb-6">
-                    Related Posts
-                  </h3>
-                  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {relatedPosts.map((relatedPost) => (
-                      <a
-                        href={`/posts/${relatedPost.slug}`}
-                        class="group block p-6 bg-bg-secondary/50 backdrop-blur-sm rounded-xl border border-border-secondary hover:border-border-primary transition-all duration-200"
-                      >
-                        <h4 class="font-sans font-semibold text-content-primary group-hover:text-brand-primary transition-colors mb-2 line-clamp-2">
-                          {relatedPost.data.title}
-                        </h4>
-                        <p class="text-sm text-content-tertiary mb-3 line-clamp-3">
-                          {relatedPost.data.excerpt}
-                        </p>
-                        <div class="flex items-center gap-2 text-xs text-content-tertiary">
-                          <time datetime={relatedPost.data.date.toISOString()}>
-                            {relatedPost.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                          </time>
-                          <span>•</span>
-                          <span class="capitalize">{relatedPost.data.types[0]}</span>
+                  <!-- Post Footer with modern styling -->
+                  <footer
+                    class="mt-20 pt-8 border-t border-border-secondary/50"
+                  >
+                    <!-- Tags with modern styling -->
+                    {
+                      post.data.tags && post.data.tags.length > 0 && (
+                        <div class="mb-8">
+                          <h3 class="text-sm font-mono font-medium text-content-tertiary/80 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <svg
+                              class="w-3.5 h-3.5"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                              />
+                            </svg>
+                            Tags
+                          </h3>
+                          <div class="flex flex-wrap gap-2">
+                            {post.data.tags.map((tag) => (
+                              <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-surface-secondary text-secondary border border-border-primary hover:border-interactive-blue hover:text-interactive-blue transition-all duration-200 cursor-default">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </footer>
-          </main>
+                      )
+                    }
+
+                    <!-- Share section with elegant styling -->
+                    <div class="mb-8">
+                      <h3
+                        class="text-sm font-mono font-medium text-content-tertiary/80 uppercase tracking-wider mb-4 flex items-center gap-2"
+                      >
+                        <svg
+                          class="w-3.5 h-3.5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                          ></path>
+                        </svg>
+                        Share
+                      </h3>
+                      <div class="flex gap-3">
+                        <button
+                          onclick="navigator.share ? navigator.share({title: this.dataset.title, url: this.dataset.url}) : navigator.clipboard.writeText(this.dataset.url)"
+                          data-title={post.data.title}
+                          data-url={Astro.url.href}
+                          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-surface-secondary text-secondary border border-border-primary hover:border-interactive-blue hover:text-interactive-blue hover:bg-surface-tertiary transition-all duration-200"
+                        >
+                          <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                            ></path>
+                          </svg>
+                          Copy Link
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Related posts with modern card design -->
+                    {
+                      post.data.display?.showRelated !== false &&
+                        relatedPosts.length > 0 && (
+                          <div class="mt-12">
+                            <h3 class="text-lg font-sans font-semibold text-primary mb-6 flex items-center gap-2">
+                              <svg
+                                class="w-5 h-5 text-interactive-blue"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                                />
+                              </svg>
+                              Related Posts
+                            </h3>
+                            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                              {relatedPosts.map((relatedPost) => (
+                                <a
+                                  href={`/posts/${relatedPost.id}`}
+                                  class="group block p-6 bg-surface-secondary rounded-xl border border-border-primary hover:border-interactive-blue hover:bg-surface-tertiary transition-all duration-200"
+                                >
+                                  <h4 class="font-sans font-semibold text-primary group-hover:text-interactive-blue transition-colors mb-2 line-clamp-2">
+                                    {relatedPost.data.title}
+                                  </h4>
+                                  <p class="text-sm text-secondary mb-3 line-clamp-3">
+                                    {relatedPost.data.excerpt}
+                                  </p>
+                                  <div class="flex items-center gap-2 text-xs text-tertiary">
+                                    <time
+                                      datetime={relatedPost.data.date.toISOString()}
+                                    >
+                                      {relatedPost.data.date.toLocaleDateString(
+                                        "en-US",
+                                        { month: "short", day: "numeric" }
+                                      )}
+                                    </time>
+                                    <span class="opacity-50">•</span>
+                                    <span class="capitalize">
+                                      {relatedPost.data.types[0]}
+                                    </span>
+                                  </div>
+                                </a>
+                              ))}
+                            </div>
+                          </div>
+                        )
+                    }
+                  </footer>
+                </main>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Mobile TOC (Fixed bottom sheet) -->
+        {
+          showToc && (
+            <div class="lg:hidden fixed bottom-0 left-0 right-0 z-50">
+              <TableOfContents headings={headings} variant="mobile" />
+            </div>
+          )
+        }
+
+        <Footer />
       </div>
-    </div>
-  </div>
+    </main>
 
-  <!-- Mobile TOC (Fixed bottom sheet) -->
-  {showToc && (
-    <div class="lg:hidden fixed bottom-0 left-0 right-0 z-50">
-      <TableOfContents
-        headings={headings}
-        variant="mobile"
-      />
-    </div>
-  )}
-</Layout>
+    <style>
+      /* Custom prose overrides for interactive content */
+      article :global(.interactive-demo) {
+        margin: 2rem -1rem;
+        padding: 2rem;
+        background: rgb(var(--color-surface-secondary));
+        border-radius: 1rem;
+        border: 1px solid rgb(var(--color-border-primary));
+      }
 
-<style>
-  /* Custom prose overrides for interactive content */
-  article :global(.interactive-demo) {
-    margin: 2rem -1rem;
-    padding: 2rem;
-    background: rgb(var(--color-bg-secondary));
-    border-radius: 1rem;
-    border: 1px solid rgb(var(--color-border-primary));
-  }
+      article :global(.full-bleed) {
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+      }
 
-  article :global(.full-bleed) {
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-  }
+      /* Smooth scroll for anchor links */
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 6rem;
+      }
 
-  /* Smooth scroll for anchor links */
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
-  }
+      /* Line clamp utility */
+      .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
 
-  /* Line clamp utility */
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+      .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
 
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-</style>
+      /* Enhanced readability styles */
+      article {
+        font-feature-settings:
+          "kern" 1,
+          "liga" 1,
+          "clig" 1,
+          "calt" 1;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
 
-<script>
-  // Scroll spy for active heading
-  document.addEventListener('astro:page-load', () => {
-    const tocLinks = document.querySelectorAll('[data-toc-link]');
-    const headings = document.querySelectorAll('h2, h3');
+      /* Better spacing for reading */
+      article > * + * {
+        margin-top: 1.5rem;
+      }
 
-    if (tocLinks.length === 0 || headings.length === 0) return;
+      article h2 + *,
+      article h3 + *,
+      article h4 + * {
+        margin-top: 1rem;
+      }
 
-    // Create intersection observer
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const id = entry.target.id;
-          const tocLink = document.querySelector(`[data-heading-id="${id}"]`);
+      /* Clean focus styles */
+      article a:focus-visible {
+        outline: 2px solid rgb(var(--color-interactive-blue));
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+    </style>
 
-          if (tocLink) {
-            if (entry.isIntersecting) {
-              // Remove active from all links
-              tocLinks.forEach((link) => {
-                link.classList.remove('text-brand-primary', 'font-medium');
-                link.classList.add('text-content-secondary');
+    <script>
+      declare var gtag: any;
+
+      // Add post type data attribute to body for styling - moved to body attribute above
+      // Analytics tracking for different post types
+      if (typeof gtag !== "undefined") {
+        const postData = {
+          event_category: "Post View",
+          event_label: document.title,
+          custom_map: {
+            post_type: document.body.getAttribute("data-post-types"),
+            reading_time: document
+              .querySelector('meta[name="reading-time"]')
+              ?.getAttribute("content"),
+          },
+        };
+
+        gtag("event", "page_view", postData);
+      }
+
+      // Track reading progress
+      let readingProgress = 0;
+      let readingMilestones = [25, 50, 75, 100];
+
+      function trackReadingProgress() {
+        const article =
+          document.querySelector("article") || document.querySelector("main");
+        if (!article) return;
+
+        const articleTop = article.offsetTop;
+        const articleHeight = article.offsetHeight;
+        const windowHeight = window.innerHeight;
+        const scrollTop = window.scrollY;
+
+        const progress = Math.round(
+          ((scrollTop - articleTop + windowHeight) / articleHeight) * 100
+        );
+
+        // Track milestones
+        readingMilestones.forEach((milestone, index) => {
+          if (progress >= milestone && readingProgress < milestone) {
+            if (typeof gtag !== "undefined") {
+              gtag("event", "reading_progress", {
+                event_category: "Engagement",
+                event_label: `${milestone}% read`,
+                value: milestone,
               });
-
-              // Add active to current link
-              tocLink.classList.remove('text-content-secondary');
-              tocLink.classList.add('text-brand-primary', 'font-medium');
             }
           }
         });
-      },
-      {
-        rootMargin: '-20% 0% -35% 0%',
-        threshold: 0
+
+        readingProgress = Math.max(readingProgress, progress);
       }
-    );
 
-    // Observe all headings
-    headings.forEach((heading) => {
-      if (heading.id) observer.observe(heading);
-    });
-
-    // Smooth scroll on click
-    tocLinks.forEach((link) => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('data-heading-id');
-
-        if (targetId) {
-          const targetElement = document.getElementById(targetId);
-          if (targetElement) {
-            targetElement.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
+      // Throttled scroll listener
+      let ticking = false;
+      window.addEventListener("scroll", () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            trackReadingProgress();
+            ticking = false;
+          });
+          ticking = true;
         }
       });
-    });
-  });
 
-  // Search functionality placeholder
-  document.addEventListener('astro:page-load', () => {
-    const searchInput = document.getElementById('post-search');
+      // Scroll spy for active heading
+      document.addEventListener("astro:page-load", () => {
+        const tocLinks = document.querySelectorAll("[data-toc-link]");
+        const headings = document.querySelectorAll("h2, h3");
 
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        const query = (e.target as HTMLInputElement).value;
-        // TODO: Implement search functionality
-        console.log('Search query:', query);
+        if (tocLinks.length === 0 || headings.length === 0) return;
+
+        // Create intersection observer
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const id = entry.target.id;
+              const tocLink = document.querySelector(
+                `[data-heading-id="${id}"]`
+              );
+
+              if (tocLink) {
+                if (entry.isIntersecting) {
+                  // Remove active from all links
+                  tocLinks.forEach((link) => {
+                    link.classList.remove(
+                      "text-interactive-blue",
+                      "font-medium"
+                    );
+                    link.classList.add("text-secondary");
+                  });
+
+                  // Add active to current link
+                  tocLink.classList.remove("text-secondary");
+                  tocLink.classList.add("text-interactive-blue", "font-medium");
+                }
+              }
+            });
+          },
+          {
+            rootMargin: "-20% 0% -35% 0%",
+            threshold: 0,
+          }
+        );
+
+        // Observe all headings
+        headings.forEach((heading) => {
+          if (heading.id) observer.observe(heading);
+        });
+
+        // Smooth scroll on click
+        tocLinks.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute("data-heading-id");
+
+            if (targetId) {
+              const targetElement = document.getElementById(targetId);
+              if (targetElement) {
+                targetElement.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }
+            }
+          });
+        });
       });
-    }
-  });
-</script>
+    </script>
+  </body>
+</html>

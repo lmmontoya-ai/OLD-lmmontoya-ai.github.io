@@ -21,7 +21,7 @@ const isActive = currentPath.startsWith(href);
 
 // Generate classes based on variant using semantic utilities
 const getClasses = () => {
-  const baseClasses = "relative group transition-theme";
+  const baseClasses = "relative group transition-spring";
 
   if (variant === "desktop") {
     return [
@@ -51,7 +51,7 @@ const getUnderlineClasses = () => {
   return [
     "absolute -bottom-1 left-0 w-full h-0.5",
     "bg-interactive-blue",
-    "transform origin-left transition-theme",
+    "transform origin-left transition-spring",
     isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
   ].join(" ");
 };

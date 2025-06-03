@@ -257,6 +257,114 @@ export const updateCardTitleVariants = cva(
   }
 );
 
+// Project Card Variants
+export const projectCardVariants = cva(
+  [
+    "group",
+    "relative",
+    "overflow-hidden",
+    "rounded-xl",
+    "bg-surface-secondary/80",
+    "backdrop-blur-sm",
+    "border",
+    "border-primary",
+    "p-6",
+    "min-h-80", // Standardized minimum height for consistent sizing
+    "flex",
+    "flex-col",
+    "transition-spring",
+    "hover:shadow-themed-lg",
+    "hover:-translate-y-1",
+  ],
+  {
+    variants: {
+      status: {
+        completed: ["border-l-4", "border-l-[rgb(var(--color-status-success))]"],
+        "in-progress": ["border-l-4", "border-l-[rgb(var(--color-status-warning))]"],
+        planned: ["border-l-4", "border-l-[rgb(var(--color-interactive-blue))]"],
+        published: ["border-l-4", "border-l-[rgb(var(--color-interactive-blue))]"],
+        draft: ["border-l-4", "border-l-[rgb(var(--color-border-subtle))]"],
+        archived: ["border-l-4", "border-l-[rgb(var(--color-text-tertiary))]"],
+      },
+    },
+    defaultVariants: {
+      status: "in-progress",
+    },
+  }
+);
+
+// Literature Card Variants
+export const literatureCardVariants = cva(
+  [
+    "group",
+    "relative",
+    "overflow-hidden",
+    "rounded-xl",
+    "bg-surface-secondary/80",
+    "backdrop-blur-sm",
+    "border",
+    "border-primary",
+    "p-6",
+    "min-h-80", // Standardized minimum height for consistent sizing
+    "flex",
+    "flex-col",
+    "transition-spring",
+    "hover:shadow-themed-lg",
+    "hover:border-interactive-blue/30",
+    "hover:-translate-y-1",
+  ],
+  {
+    variants: {
+      type: {
+        Paper: ["bg-gradient-to-br", "from-surface-secondary/80", "to-blue-500/5"],
+        Book: ["bg-gradient-to-br", "from-surface-secondary/80", "to-green-500/5"],
+        Video: ["bg-gradient-to-br", "from-surface-secondary/80", "to-purple-500/5"],
+        Blog: ["bg-gradient-to-br", "from-surface-secondary/80", "to-orange-500/5"],
+        Course: ["bg-gradient-to-br", "from-surface-secondary/80", "to-cyan-500/5"],
+      },
+    },
+    defaultVariants: {
+      type: "Paper",
+    },
+  }
+);
+
+// Blog Card Variants
+export const blogCardVariants = cva(
+  [
+    "group",
+    "relative",
+    "overflow-hidden",
+    "rounded-xl",
+    "bg-surface-secondary/80",
+    "backdrop-blur-sm",
+    "border",
+    "border-primary",
+    "p-6",
+    "min-h-80", // Standardized minimum height for consistent sizing
+    "flex",
+    "flex-col",
+    "transition-spring",
+    "hover:shadow-themed-lg",
+    "hover:-translate-y-1",
+  ],
+  {
+    variants: {
+      category: {
+        Research: ["border-l-4", "border-l-[rgb(var(--color-interactive-blue))]"],
+        Technical: ["border-l-4", "border-l-[rgb(var(--color-status-success))]"],
+        Reflection: ["border-l-4", "border-l-[rgb(var(--color-interactive-gold))]"],
+        Resource: ["border-l-4", "border-l-[rgb(var(--color-status-warning))]"],
+        Tutorial: ["border-l-4", "border-l-[rgb(134,25,143)]"], // purple-500 RGB
+        Update: ["border-l-4", "border-l-[rgb(6,182,212)]"], // cyan-500 RGB
+      },
+    },
+    defaultVariants: {
+      category: "Research",
+    },
+  }
+);
+
 // Export types for component props
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
 export type CardVariants = VariantProps<typeof cardVariants>;
@@ -264,3 +372,6 @@ export type UpdateCardVariants = VariantProps<typeof updateCardVariants>;
 export type UpdateCardIconVariants = VariantProps<typeof updateCardIconVariants>;
 export type UpdateCardTagVariants = VariantProps<typeof updateCardTagVariants>;
 export type UpdateCardTitleVariants = VariantProps<typeof updateCardTitleVariants>;
+export type ProjectCardVariants = VariantProps<typeof projectCardVariants>;
+export type LiteratureCardVariants = VariantProps<typeof literatureCardVariants>;
+export type BlogCardVariants = VariantProps<typeof blogCardVariants>;

@@ -16,8 +16,8 @@ export async function getPostsByType(types: string | string[]): Promise<Post[]> 
 
   return posts.filter(post => {
     // Check if post matches the requested types
-    const hasMatchingType = typeArray.some(type => post.data.types.includes(type as any));
-    if (!hasMatchingType) return false;
+    const matchingTypes = post.data.types.filter(type => typeArray.includes(type as any));
+    if (matchingTypes.length === 0) return false;
 
     // Define valid statuses per content type
     const validStatusesByType: Record<string, string[]> = {
@@ -29,15 +29,16 @@ export async function getPostsByType(types: string | string[]): Promise<Post[]> 
       project: ['published', 'in-progress', 'completed', 'planned'],
     };
 
-    // Get all valid statuses for the types in this post
+    // Collect statuses allowed for the matching types only
     const validStatuses = new Set<string>();
-    post.data.types.forEach(type => {
-      if (validStatusesByType[type]) {
-        validStatusesByType[type].forEach(status => validStatuses.add(status));
+    matchingTypes.forEach(type => {
+      const statuses = validStatusesByType[type];
+      if (statuses) {
+        statuses.forEach(status => validStatuses.add(status));
       }
     });
 
-    // If no specific rules found, default to published only
+    // Default to published only if no rules found
     if (validStatuses.size === 0) {
       validStatuses.add('published');
     }

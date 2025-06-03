@@ -1,13 +1,11 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import RoadmapVisualization from "../../components/roadmap/RoadmapVisualization.astro";
-import { getPostsByType } from "../../utils/content";
+import InteractiveRoadmap from "../../components/roadmap/InteractiveRoadmap.tsx";
+import { getRoadmapGraph } from "../../lib/roadmap";
 
-const roadmapPosts = await getPostsByType("roadmap");
+const { posts: roadmapPosts, nodes, edges } = await getRoadmapGraph();
 const introPost = roadmapPosts.find((p) => p.data.slug === "introduction");
-const milestonePosts = roadmapPosts.filter(
-  (p) => p.data.slug !== "introduction"
-);
+const milestonePosts = roadmapPosts.filter(p => p.data.slug !== "introduction");
 ---
 
 <Layout
@@ -63,7 +61,12 @@ const milestonePosts = roadmapPosts.filter(
       <!-- Roadmap Visualization -->
       <div class="mb-12">
         <h2 class="text-2xl font-semibold text-primary mb-6">The Journey</h2>
-        <RoadmapVisualization posts={milestonePosts} />
+        <InteractiveRoadmap client:visible nodes={nodes} edges={edges} />
+        <ol class="sr-only">
+          {milestonePosts.map(post => (
+            <li><a href={`/posts/${post.data.slug}`}>{post.data.title}</a></li>
+          ))}
+        </ol>
       </div>
 
       <!-- Legend -->

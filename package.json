@@ -23,6 +23,7 @@
     "clsx": "^2.1.1",
     "d3-force": "^3.0.0",
     "fuse.js": "^7.1.0",
+    "reactflow": "^11.10.0",
     "nanostores": "^1.0.1",
     "postcss": "^8.5.3",
     "react": "^19.1.0",

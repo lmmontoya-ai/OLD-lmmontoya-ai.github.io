@@ -1,13 +1,68 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import RoadmapVisualization from "../../components/roadmap/RoadmapVisualization.astro";
+import RoadmapTimeline from "../../components/roadmap/RoadmapTimeline.astro";
+import RoadmapCard from "../../components/roadmap/RoadmapCard.astro";
 import { getPostsByType } from "../../utils/content";
 
+// Fetch and sort roadmap posts
 const roadmapPosts = await getPostsByType("roadmap");
-const introPost = roadmapPosts.find((p) => p.data.slug === "introduction");
-const milestonePosts = roadmapPosts.filter(
-  (p) => p.data.slug !== "introduction"
+const sortedPosts = roadmapPosts.sort(
+  (a, b) => a.data.date.getTime() - b.data.date.getTime()
 );
+
+// Group by status for different views
+const postsByStatus = sortedPosts.reduce(
+  (acc, post) => {
+    const status = post.data.status;
+    if (!acc[status]) acc[status] = [];
+    acc[status].push(post);
+    return acc;
+  },
+  {} as Record<string, typeof roadmapPosts>
+);
+
+// Group by phase if it exists
+const postsByPhase = sortedPosts.reduce(
+  (acc, post) => {
+    const phase = post.data.roadmap?.phase || 0;
+    if (!acc[phase]) acc[phase] = [];
+    acc[phase].push(post);
+    return acc;
+  },
+  {} as Record<number, typeof roadmapPosts>
+);
+
+const phases = Object.keys(postsByPhase)
+  .map(Number)
+  .sort((a, b) => a - b);
+const statuses = ["completed", "in-progress", "planned"];
+
+// Get status colors and icons (for progress overview)
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case "completed":
+      return "text-green-600 bg-green-50 border-green-200";
+    case "in-progress":
+      return "text-blue-600 bg-blue-50 border-blue-200";
+    case "planned":
+      return "text-gray-600 bg-gray-50 border-gray-200";
+    default:
+      return "text-gray-600 bg-gray-50 border-gray-200";
+  }
+};
+
+const getStatusIcon = (status: string) => {
+  switch (status) {
+    case "completed":
+      return "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z";
+    case "in-progress":
+      return "M12 6v6l4 2";
+    case "planned":
+      return "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2z";
+    default:
+      return "";
+  }
+};
 ---
 
 <Layout
@@ -17,45 +72,183 @@ const milestonePosts = roadmapPosts.filter(
   <div class="min-h-screen pt-20 pb-16">
     <div class="container mx-auto px-6 lg:px-16 xl:px-24">
       <!-- Header -->
-      <header class="mb-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">
+      <header class="mb-16">
+        <h1 class="text-5xl md:text-6xl font-bold text-interactive-blue mb-6">
           Learning Roadmap
         </h1>
-        <p class="text-xl text-secondary max-w-3xl mx-auto">
+        <p class="text-xl text-content-secondary max-w-3xl leading-relaxed">
           My structured journey from physics to AI interpretability research.
           Follow along as I explore the path to understanding artificial minds.
         </p>
+
+        <!-- Progress Overview -->
+        {
+          sortedPosts.length > 0 && (
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl">
+              {statuses.map((status) => {
+                const count = postsByStatus[status]?.length || 0;
+                const total = sortedPosts.length;
+                const percentage =
+                  total > 0 ? Math.round((count / total) * 100) : 0;
+
+                return (
+                  <div
+                    class={`p-4 rounded-lg border ${getStatusColor(status)}`}
+                  >
+                    <div class="flex items-center gap-2 mb-1">
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d={getStatusIcon(status)}
+                        />
+                      </svg>
+                      <span class="font-medium capitalize">
+                        {status.replace("-", " ")}
+                      </span>
+                    </div>
+                    <div class="text-2xl font-bold">{count}</div>
+                    <div class="text-sm opacity-70">
+                      {percentage}% of milestones
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )
+        }
       </header>
 
-
-
-
-
-      {milestonePosts.length === 0 ? (
-        <div class="text-center py-12">
-          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4">
-            <svg
-              class="w-8 h-8 text-tertiary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+      <!-- View Toggle -->
+      {
+        sortedPosts.length > 0 && (
+          <div class="mb-8 flex gap-2">
+            <button
+              class="px-4 py-2 rounded-lg bg-interactive-blue text-white font-medium view-toggle active"
+              data-view="timeline"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+              Timeline View
+            </button>
+            <button
+              class="px-4 py-2 rounded-lg border text-content-primary hover:bg-surface-secondary font-medium view-toggle"
+              data-view="phases"
+            >
+              Phase View
+            </button>
           </div>
-          <h3 class="text-lg font-semibold text-primary mb-2">
-            No roadmap milestones yet
-          </h3>
-          <p class="text-secondary">
-            Check back soon for exciting learning milestones!
-          </p>
-        </div>
-      ) : null}
+        )
+      }
+      <!-- Timeline View -->
+      {
+        sortedPosts.length > 0 && (
+          <div class="roadmap-timeline timeline-view">
+            <RoadmapTimeline posts={sortedPosts} showPhases={true} />
+          </div>
+        )
+      }
+      <!-- Phase View -->
+      {
+        sortedPosts.length > 0 && (
+          <div class="roadmap-phases phases-view hidden">
+            {phases.map((phase) => (
+              <section class="mb-16">
+                <h2 class="text-3xl font-bold text-content-primary mb-8 flex items-center gap-3">
+                  <span class="w-12 h-12 bg-interactive-blue text-white rounded-full flex items-center justify-center text-lg font-bold">
+                    {phase}
+                  </span>
+                  Phase {phase}
+                </h2>
+
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {postsByPhase[phase].map((post) => (
+                    <a href={`/posts/${post.id}`} class="block">
+                      <RoadmapCard post={post} showPhase={false} />
+                    </a>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        )
+      }
+
+      <!-- Empty State -->
+      {
+        sortedPosts.length === 0 && (
+          <div class="text-center py-16">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4">
+              <svg
+                class="w-8 h-8 text-content-tertiary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-content-primary mb-2">
+              No roadmap milestones yet
+            </h3>
+            <p class="text-content-secondary">
+              Check back soon for exciting learning milestones!
+            </p>
+          </div>
+        )
+      }
     </div>
   </div>
+
+  <script>
+    // View toggle functionality
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggleButtons = document.querySelectorAll(".view-toggle");
+      const timelineView = document.querySelector(".timeline-view");
+      const phasesView = document.querySelector(".phases-view");
+
+      toggleButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetView = button.getAttribute("data-view");
+
+          // Update button states
+          toggleButtons.forEach((btn) =>
+            btn.classList.remove("active", "bg-interactive-blue", "text-white")
+          );
+          toggleButtons.forEach((btn) =>
+            btn.classList.add(
+              "border",
+              "text-content-primary",
+              "hover:bg-surface-secondary"
+            )
+          );
+
+          button.classList.remove(
+            "border",
+            "text-content-primary",
+            "hover:bg-surface-secondary"
+          );
+          button.classList.add("active", "bg-interactive-blue", "text-white");
+
+          // Toggle views
+          if (targetView === "timeline") {
+            timelineView?.classList.remove("hidden");
+            phasesView?.classList.add("hidden");
+          } else {
+            timelineView?.classList.add("hidden");
+            phasesView?.classList.remove("hidden");
+          }
+        });
+      });
+    });
+  </script>
 </Layout>

@@ -1,0 +1,104 @@
+---
+// Simple roadmap card component
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+  showPhase?: boolean;
+}
+
+const { post, showPhase = false } = Astro.props;
+
+// Get status styling
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case "completed":
+      return "text-green-600 bg-green-50 border-green-200";
+    case "in-progress":
+      return "text-blue-600 bg-blue-50 border-blue-200";
+    case "planned":
+      return "text-gray-600 bg-gray-50 border-gray-200";
+    default:
+      return "text-gray-600 bg-gray-50 border-gray-200";
+  }
+};
+---
+
+<article
+  class="bg-surface-primary rounded-lg border hover:border-interactive-blue transition-colors p-6 h-full group"
+>
+  <header class="mb-4">
+    <div class="flex items-center justify-between mb-2">
+      <div class="flex items-center gap-2">
+        <span
+          class={`
+          px-2 py-1 text-xs font-medium rounded-full
+          ${getStatusColor(post.data.status)}
+        `}
+        >
+          {post.data.status.replace("-", " ")}
+        </span>
+        {
+          showPhase && post.data.roadmap?.phase && (
+            <span class="px-2 py-1 text-xs font-medium rounded-full bg-surface-secondary text-content-secondary">
+              Phase {post.data.roadmap.phase}
+            </span>
+          )
+        }
+      </div>
+      <time class="text-sm text-content-tertiary">
+        {
+          post.data.date.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })
+        }
+      </time>
+    </div>
+    <h3
+      class="text-lg font-semibold text-content-primary group-hover:text-interactive-blue transition-colors line-clamp-2"
+    >
+      {post.data.title}
+    </h3>
+  </header>
+
+  <p class="text-content-secondary text-sm mb-4 line-clamp-3 leading-relaxed">
+    {post.data.excerpt}
+  </p>
+
+  {
+    post.data.roadmap?.outcomes && post.data.roadmap.outcomes.length > 0 && (
+      <div class="mb-4">
+        <h4 class="text-xs font-medium text-content-primary mb-2 uppercase tracking-wide">
+          Key Outcomes
+        </h4>
+        <ul class="text-xs text-content-secondary space-y-1">
+          {post.data.roadmap.outcomes.slice(0, 2).map((outcome) => (
+            <li class="flex items-start gap-2">
+              <span class="text-green-500 mt-0.5">•</span>
+              <span class="line-clamp-1">{outcome}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  {
+    post.data.tags && (
+      <div class="flex flex-wrap gap-1 mt-auto">
+        {post.data.tags.slice(0, 3).map((tag) => (
+          <span class="px-2 py-1 text-xs bg-surface-secondary text-content-tertiary rounded-md">
+            {tag}
+          </span>
+        ))}
+        {post.data.tags.length > 3 && (
+          <span class="px-2 py-1 text-xs text-content-tertiary">
+            +{post.data.tags.length - 3}
+          </span>
+        )}
+      </div>
+    )
+  }
+</article>

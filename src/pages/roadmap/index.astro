@@ -124,15 +124,15 @@ const getStatusIcon = (status: string) => {
       </header>      <!-- View Toggle -->
       {
         sortedPosts.length > 0 && (
-          <div class="mb-4 flex gap-2">
+          <div class="mb-4 flex gap-3">
             <button
-              class="px-3 py-1.5 text-sm rounded-lg bg-interactive-blue text-white font-medium view-toggle active"
+              class="status-pill status-pill-all active view-toggle"
               data-view="horizontal"
             >
               Timeline View
             </button>
             <button
-              class="px-3 py-1.5 text-sm rounded-lg border text-content-primary hover:bg-surface-secondary font-medium view-toggle"
+              class="status-pill status-pill-planned view-toggle"
               data-view="phases"
             >
               Phase View
@@ -214,24 +214,11 @@ const getStatusIcon = (status: string) => {
         button.addEventListener("click", () => {
           const targetView = button.getAttribute("data-view");
 
-          // Update button states
-          toggleButtons.forEach((btn) =>
-            btn.classList.remove("active", "bg-interactive-blue", "text-white")
-          );
-          toggleButtons.forEach((btn) =>
-            btn.classList.add(
-              "border",
-              "text-content-primary",
-              "hover:bg-surface-secondary"
-            )
-          );
+          // Update button states - remove active from all buttons
+          toggleButtons.forEach((btn) => btn.classList.remove("active"));
 
-          button.classList.remove(
-            "border",
-            "text-content-primary",
-            "hover:bg-surface-secondary"
-          );
-          button.classList.add("active", "bg-interactive-blue", "text-white");
+          // Add active to clicked button
+          button.classList.add("active");
 
           // Toggle views
           if (targetView === "horizontal") {

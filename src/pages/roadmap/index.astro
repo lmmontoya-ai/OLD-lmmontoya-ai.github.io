@@ -1,96 +1,114 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import RoadmapVisualization from "../../components/roadmap/RoadmapVisualization.astro";
+import RoadmapHorizontal from "../../components/roadmap/RoadmapHorizontal.astro";
+import RoadmapCard from "../../components/roadmap/RoadmapCard.astro";
 import { getPostsByType } from "../../utils/content";
 
+// Fetch and sort roadmap posts
 const roadmapPosts = await getPostsByType("roadmap");
-const introPost = roadmapPosts.find((p) => p.data.slug === "introduction");
-const milestonePosts = roadmapPosts.filter(
-  (p) => p.data.slug !== "introduction"
+const sortedPosts = roadmapPosts.sort(
+  (a, b) => a.data.date.getTime() - b.data.date.getTime()
 );
+
+// Group by status for different views
+const postsByStatus = sortedPosts.reduce(
+  (acc, post) => {
+    const status = post.data.status;
+    if (!acc[status]) acc[status] = [];
+    acc[status].push(post);
+    return acc;
+  },
+  {} as Record<string, typeof roadmapPosts>
+);
+
+// Group by category (area/branch)
+const postsByCategory = sortedPosts.reduce(
+  (acc, post) => {
+    const category = post.data.category || "Other";
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(post);
+    return acc;
+  },
+  {} as Record<string, typeof roadmapPosts>
+);
+
+const categories = Object.keys(postsByCategory).sort();
+const statuses = ["completed", "in-progress", "planned"];
 ---
 
 <Layout
   title="Roadmap — Luis Miguel Montoya"
   description="My structured journey from physics to AI interpretability research. Follow along as I explore the path to understanding artificial minds."
->
-  <div class="min-h-screen pt-20 pb-16">
+>  <div class="min-h-screen pt-16 pb-8">
     <div class="container mx-auto px-6 lg:px-16 xl:px-24">
       <!-- Header -->
-      <header class="mb-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">
+      <header class="mb-6">
+        <h1 class="text-3xl md:text-4xl font-bold text-interactive-blue mb-3">
           Learning Roadmap
         </h1>
-        <p class="text-xl text-secondary max-w-3xl mx-auto">
+        <p class="text-base text-content-secondary max-w-3xl leading-normal">
           My structured journey from physics to AI interpretability research.
           Follow along as I explore the path to understanding artificial minds.
         </p>
-      </header>
-
-      <!-- Introduction -->
+      </header>      <!-- View Toggle -->
       {
-        introPost && (
-          <div class="max-w-4xl mx-auto mb-16">
-            <div class="bg-surface-secondary/80 backdrop-blur-sm rounded-xl p-8 border border-primary">
-              <h2 class="text-2xl font-semibold text-primary mb-4">
-                {introPost.data.title}
-              </h2>
-              <p class="text-secondary mb-6">{introPost.data.excerpt}</p>
-              <a
-                href={`/posts/${introPost.data.slug}`}
-                class="inline-flex items-center gap-2 text-interactive-blue hover:text-interactive-blue/80 transition-theme"
-              >
-                Read the introduction
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </a>
-            </div>
+        sortedPosts.length > 0 && (
+          <div class="mb-4 flex gap-3">
+            <button
+              class="status-pill status-pill-all active view-toggle"
+              data-view="horizontal"
+            >
+              Timeline View
+            </button>
+            <button
+              class="status-pill status-pill-planned view-toggle"
+              data-view="areas"
+            >
+              Areas View
+            </button>
+          </div>
+        )
+      }
+      <!-- Horizontal Timeline View -->
+      {
+        sortedPosts.length > 0 && (
+          <div class="roadmap-horizontal-view horizontal-view overflow-visible">
+            <RoadmapHorizontal posts={sortedPosts} />
+          </div>
+        )
+      }      <!-- Areas View -->
+      {
+        sortedPosts.length > 0 && (
+          <div class="roadmap-areas areas-view hidden">
+            {categories.map((category) => (
+              <section class="mb-12">
+                <h2 class="text-2xl font-bold text-content-primary mb-6 flex items-center gap-3">
+                  <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-interactive-blue/10">
+                    <span class="text-sm font-bold text-interactive-blue">{category.slice(0, 2).toUpperCase()}</span>
+                  </div>
+                  {category}
+                </h2>
+
+                <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {postsByCategory[category].map((post) => (
+                    <a href={`/posts/${post.id}`} class="block">
+                      <RoadmapCard post={post} />
+                    </a>
+                  ))}
+                </div>
+              </section>
+            ))}
           </div>
         )
       }
 
-      <!-- Roadmap Visualization -->
-      <div class="mb-12">
-        <h2 class="text-2xl font-semibold text-primary mb-6">The Journey</h2>
-        <RoadmapVisualization posts={milestonePosts} />
-      </div>
-
-      <!-- Legend -->
-      <div class="flex flex-wrap gap-4 justify-center">
-        <div class="flex items-center gap-2">
-          <div class="w-4 h-4 rounded-full bg-status-success"></div>
-          <span class="text-sm text-secondary">Completed</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <div class="w-4 h-4 rounded-full bg-status-warning"></div>
-          <span class="text-sm text-secondary">In Progress</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <div
-            class="w-4 h-4 rounded-full bg-surface-secondary border border-primary"
-          >
-          </div>
-          <span class="text-sm text-secondary">Planned</span>
-        </div>
-      </div>
-
+      <!-- Empty State -->
       {
-        milestonePosts.length === 0 && (
-          <div class="text-center py-12">
+        sortedPosts.length === 0 && (
+          <div class="text-center py-16">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-secondary mb-4">
               <svg
-                class="w-8 h-8 text-tertiary"
+                class="w-8 h-8 text-content-tertiary"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -103,10 +121,10 @@ const milestonePosts = roadmapPosts.filter(
                 />
               </svg>
             </div>
-            <h3 class="text-lg font-semibold text-primary mb-2">
+            <h3 class="text-lg font-semibold text-content-primary mb-2">
               No roadmap milestones yet
             </h3>
-            <p class="text-secondary">
+            <p class="text-content-secondary">
               Check back soon for exciting learning milestones!
             </p>
           </div>
@@ -114,4 +132,33 @@ const milestonePosts = roadmapPosts.filter(
       }
     </div>
   </div>
+  <script>
+    // View toggle functionality
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggleButtons = document.querySelectorAll(".view-toggle");
+      const horizontalView = document.querySelector(".horizontal-view");
+      const areasView = document.querySelector(".areas-view");
+
+      toggleButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetView = button.getAttribute("data-view");
+
+          // Update button states - remove active from all buttons
+          toggleButtons.forEach((btn) => btn.classList.remove("active"));
+
+          // Add active to clicked button
+          button.classList.add("active");
+
+          // Toggle views
+          if (targetView === "horizontal") {
+            horizontalView?.classList.remove("hidden");
+            areasView?.classList.add("hidden");
+          } else {
+            horizontalView?.classList.add("hidden");
+            areasView?.classList.remove("hidden");
+          }
+        });
+      });
+    });
+  </script>
 </Layout>

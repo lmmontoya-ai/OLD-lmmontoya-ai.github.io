@@ -1,0 +1,132 @@
+---
+// Simplified RoadmapCard following ProjectCard design pattern
+import { projectCardVariants, cn } from "../../utils/variants";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+  class?: string;
+}
+
+const { post, class: className } = Astro.props;
+const { title, excerpt, date, status, roadmap, category } = post.data;
+
+const formattedDate = date.toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+
+const classes = cn(
+  projectCardVariants({ status }),
+  // Status-specific hover border colors
+  status === "completed" &&
+    "hover:border-[rgb(var(--color-status-success))]/30",
+  status === "in-progress" &&
+    "hover:border-[rgb(var(--color-status-warning))]/30",
+  status === "planned" &&
+    "hover:border-[rgb(var(--color-interactive-blue))]/30",
+  className
+);
+---
+
+<article class={classes}>
+  <!-- Status Badge -->
+  <div class="absolute top-4 right-4">
+    <span
+      class={cn(
+        "px-2 py-1 text-xs font-medium rounded-full",
+        status === "completed" && "bg-status-success/10 text-status-success",
+        status === "in-progress" && "bg-status-warning/10 text-status-warning",
+        status === "planned" && "bg-interactive-blue/10 text-interactive-blue"
+      )}
+    >
+      {status.replace("-", " ")}
+    </span>
+  </div>
+
+  <!-- Area/Branch Badge -->
+  {
+    category && (
+      <div class="absolute top-4 left-4">
+        <span class="px-2 py-1 text-xs font-medium rounded bg-surface-tertiary text-secondary">
+          {category}
+        </span>
+      </div>
+    )
+  }
+
+  <!-- Content -->
+  <div class="flex-1 flex flex-col space-y-3 mt-8">
+    <h3
+      class={cn(
+        "text-xl font-semibold text-primary transition-theme",
+        status === "completed" &&
+          "group-hover:text-[rgb(var(--color-status-success))]",
+        status === "in-progress" &&
+          "group-hover:text-[rgb(var(--color-status-warning))]",
+        status === "planned" &&
+          "group-hover:text-[rgb(var(--color-interactive-blue))]"
+      )}
+    >
+      {title}
+    </h3>
+
+    <p class="text-secondary line-clamp-2 flex-1">
+      {excerpt}
+    </p>
+
+    <!-- Key Outcomes -->
+    {
+      roadmap?.outcomes && roadmap.outcomes.length > 0 && (
+        <div class="text-sm text-tertiary">
+          <span class="font-medium">Key Outcomes:</span>
+          <ul class="mt-1 space-y-0.5">
+            {roadmap.outcomes.slice(0, 2).map((outcome) => (
+              <li class="text-secondary">• {outcome}</li>
+            ))}
+            {roadmap.outcomes.length > 2 && (
+              <li class="text-tertiary">+{roadmap.outcomes.length - 2} more</li>
+            )}
+          </ul>
+        </div>
+      )
+    }
+
+    <!-- Tags -->
+    {
+      post.data.tags && post.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {post.data.tags.slice(0, 4).map((tag) => (
+            <span class="px-2 py-1 text-xs bg-surface-tertiary rounded-md text-tertiary">
+              {tag}
+            </span>
+          ))}
+          {post.data.tags.length > 4 && (
+            <span class="px-2 py-1 text-xs text-tertiary">
+              +{post.data.tags.length - 4} more
+            </span>
+          )}
+        </div>
+      )
+    }
+
+    <!-- Footer -->
+    <div
+      class="flex items-center justify-between pt-4 border-t border-subtle mt-auto"
+    >
+      <time class="text-sm text-tertiary" datetime={date.toISOString()}>
+        {formattedDate}
+      </time>
+
+      <!-- Timeline -->
+      {
+        roadmap?.timeline && (
+          <div class="text-sm text-tertiary">
+            {roadmap.timeline}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</article>

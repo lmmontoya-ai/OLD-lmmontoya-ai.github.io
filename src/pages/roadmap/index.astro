@@ -79,48 +79,6 @@ const getStatusIcon = (status: string) => {
           My structured journey from physics to AI interpretability research.
           Follow along as I explore the path to understanding artificial minds.
         </p>
-
-        <!-- Progress Overview -->
-        {
-          sortedPosts.length > 0 && (
-            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2 max-w-2xl">
-              {statuses.map((status) => {
-                const count = postsByStatus[status]?.length || 0;
-                const total = sortedPosts.length;
-                const percentage =
-                  total > 0 ? Math.round((count / total) * 100) : 0;
-
-                return (
-                  <div
-                    class={`p-2 rounded-lg border ${getStatusColor(status)}`}
-                  >
-                    <div class="flex items-center gap-2 mb-1">
-                      <svg
-                        class="w-3 h-3"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d={getStatusIcon(status)}
-                        />
-                      </svg>                      <span class="font-medium capitalize text-sm">
-                        {status.replace("-", " ")}
-                      </span>
-                    </div>
-                    <div class="text-xl font-bold">{count}</div>
-                    <div class="text-xs opacity-70">
-                      {percentage}% of milestones
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )
-        }
       </header>      <!-- View Toggle -->
       {
         sortedPosts.length > 0 && (

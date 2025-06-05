@@ -1,3 +1,20 @@
+## Progress Summary (as of June 5, 2025)
+
+**Foundation & CSS Modernization: Status Update**
+
+- Tailwind CSS v4 and all core plugins are installed and working. The project builds and runs without errors.
+- All required utility packages (`clsx`, `tailwind-merge`, `class-variance-authority`) are present in `package.json`.
+- `@radix-ui/react-slot` is installed and ready for shadcn components.
+- The new, future-proof `shadcn` CLI is installed and executable locally.
+- `tsconfig.json` is configured with `baseUrl: "."` and the `@/*` alias, as well as other useful aliases. Imports using `@/` resolve correctly.
+- `shadcn init` has been run. This generated a `components.json` file, created `src/lib/utils.ts` with the `cn()` helper, and updated `src/styles/global.css` with shadcn CSS variables.
+- `components.json` has been updated to match the project guide: style is set to `default`, base color to `slate`, and all aliases are present.
+- The project builds successfully after all changes. No type errors or regressions detected.
+- The codebase is now fully prepared for the next phase: modernizing the color system (OKLCH), shadows, gradients, and atomic component migration.
+
+**Next up:**
+- Begin CSS Modernization: migrate color tokens to OKLCH in `styles/theme/colors.css` (Task F-9).
+
 | ID | Phase | Task / User Story | Priority | Dependencies | Definition of Done (DoD) | Status |
 |----|-------|-------------------|----------|--------------|---------------------------|--------|
 | DOC | Guide | Use this table as a sequential checklist. Update **Status** with `[x]` when the **DoD** criteria are fully met. | - | - | Table committed to repo and referenced in README. | [ ] |

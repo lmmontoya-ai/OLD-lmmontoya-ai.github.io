@@ -1,0 +1,6 @@
+@import "./colors.css" layer(theme);
+@import "./typography.css" layer(theme);
+@import "./spacing.css" layer(theme);
+@import "./shadows.css" layer(theme);
+@import "./animations.css" layer(theme);
+@import "./gradients.css" layer(theme);

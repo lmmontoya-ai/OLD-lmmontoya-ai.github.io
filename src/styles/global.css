@@ -98,11 +98,7 @@
 }
 
 /* Theme layer: design tokens using standard Tailwind approach */
-@import "./theme/colors.css" layer(theme);
-@import "./theme/typography.css" layer(theme);
-@import "./theme/spacing.css" layer(theme);
-@import "./theme/shadows.css" layer(theme);
-@import "./theme/animations.css" layer(theme);
+@import "./theme/theme_index.css";
 
 /* Base layer: normalize/reset styles */
 @import "./base/base.css" layer(base);
@@ -113,8 +109,7 @@
 
 
 /* Utilities: only essential custom utilities */
-@import "./utilities/semantic-colors.css";
-@import "./utilities/interactive.css";
+@import "./utilities/utilities_index.css";
 @import "tw-animate-css";
 
 

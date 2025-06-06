@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import RoadmapHorizontal from "../../components/roadmap/RoadmapHorizontal.astro";
 import RoadmapCard from "../../components/roadmap/RoadmapCard.astro";
 import { getPostsByType } from "../../utils/content";
+import StatusPill from "../../components/ui/StatusPill.astro";
 
 // Fetch and sort roadmap posts
 const roadmapPosts = await getPostsByType("roadmap");
@@ -39,7 +40,8 @@ const statuses = ["completed", "in-progress", "planned"];
 <Layout
   title="Roadmap — Luis Miguel Montoya"
   description="My structured journey from physics to AI interpretability research. Follow along as I explore the path to understanding artificial minds."
->  <div class="min-h-screen pt-16 pb-8">
+>
+  <div class="min-h-screen pt-16 pb-8">
     <div class="container mx-auto px-6 lg:px-16 xl:px-24">
       <!-- Header -->
       <header class="mb-6">
@@ -50,22 +52,24 @@ const statuses = ["completed", "in-progress", "planned"];
           My structured journey from physics to AI interpretability research.
           Follow along as I explore the path to understanding artificial minds.
         </p>
-      </header>      <!-- View Toggle -->
+      </header>
+      <!-- View Toggle -->
       {
         sortedPosts.length > 0 && (
           <div class="mb-4 flex gap-3">
-            <button
-              class="status-pill status-pill-all active view-toggle"
+            <StatusPill
+              variant="all"
+              text="Timeline View"
+              active={true}
+              class="view-toggle"
               data-view="horizontal"
-            >
-              Timeline View
-            </button>
-            <button
-              class="status-pill status-pill-planned view-toggle"
+            />
+            <StatusPill
+              variant="planned"
+              text="Areas View"
+              class="view-toggle"
               data-view="areas"
-            >
-              Areas View
-            </button>
+            />
           </div>
         )
       }
@@ -76,7 +80,8 @@ const statuses = ["completed", "in-progress", "planned"];
             <RoadmapHorizontal posts={sortedPosts} />
           </div>
         )
-      }      <!-- Areas View -->
+      }
+      <!-- Areas View -->
       {
         sortedPosts.length > 0 && (
           <div class="roadmap-areas areas-view hidden">
@@ -84,7 +89,9 @@ const statuses = ["completed", "in-progress", "planned"];
               <section class="mb-12">
                 <h2 class="text-2xl font-bold text-content-primary mb-6 flex items-center gap-3">
                   <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-interactive-blue/10">
-                    <span class="text-sm font-bold text-interactive-blue">{category.slice(0, 2).toUpperCase()}</span>
+                    <span class="text-sm font-bold text-interactive-blue">
+                      {category.slice(0, 2).toUpperCase()}
+                    </span>
                   </div>
                   {category}
                 </h2>

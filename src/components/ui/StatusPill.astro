@@ -1,0 +1,116 @@
+---
+// src/components/ui/StatusPill.astro
+interface Props {
+  variant: "all" | "completed" | "in-progress" | "planned";
+  text: string;
+  active?: boolean;
+  href?: string;
+  class?: string;
+}
+
+const {
+  variant = "all",
+  text,
+  active = false,
+  href,
+  class: className,
+} = Astro.props;
+
+const Element = href ? "a" : "button";
+
+const baseClasses =
+  "status-pill inline-flex items-center px-3 py-1.5 font-mono text-xs font-semibold uppercase rounded-full border transition-all duration-200 ease-in-out focus-ring";
+
+const variantClasses = {
+  all: "status-pill-all",
+  completed: "status-pill-completed",
+  "in-progress": "status-pill-in-progress",
+  planned: "status-pill-planned",
+};
+---
+
+<Element
+  href={href}
+  class:list={[
+    baseClasses,
+    variantClasses[variant],
+    { active: active },
+    className,
+  ]}
+>
+  {text}
+</Element>
+
+<style>
+  /* Base styles are applied via Tailwind in the component props */
+
+  /* All Projects pill */
+  .status-pill-all {
+    background-color: oklch(var(--color-surface-secondary));
+    color: oklch(var(--color-text-secondary));
+    border-color: oklch(var(--color-border-primary));
+  }
+  .status-pill-all:hover {
+    background-color: oklch(var(--color-surface-tertiary));
+    color: oklch(var(--color-text-primary));
+    border-color: oklch(var(--color-interactive-blue));
+    transform: translateY(-1px);
+  }
+  .status-pill-all.active {
+    background-color: oklch(var(--color-interactive-blue));
+    color: oklch(var(--color-content-inverse));
+    border-color: oklch(var(--color-interactive-blue));
+  }
+
+  /* Completed status pill */
+  .status-pill-completed {
+    background-color: oklch(var(--color-status-success) / 0.15);
+    color: oklch(var(--color-status-success));
+    border-color: oklch(var(--color-status-success) / 0.3);
+  }
+  .status-pill-completed:hover {
+    background-color: oklch(var(--color-status-success) / 0.25);
+    border-color: oklch(var(--color-status-success) / 0.5);
+    transform: translateY(-1px);
+  }
+  .status-pill-completed.active {
+    background-color: oklch(var(--color-status-success));
+    color: oklch(var(--color-surface-primary));
+    border-color: oklch(var(--color-status-success));
+  }
+
+  /* In-progress status pill */
+  .status-pill-in-progress {
+    background-color: oklch(var(--color-status-warning) / 0.15);
+    color: oklch(var(--color-status-warning));
+    border-color: oklch(var(--color-status-warning) / 0.3);
+  }
+  .status-pill-in-progress:hover {
+    background-color: oklch(var(--color-status-warning) / 0.25);
+    border-color: oklch(var(--color-status-warning) / 0.5);
+    transform: translateY(-1px);
+  }
+  .status-pill-in-progress.active {
+    background-color: oklch(var(--color-status-warning));
+    color: oklch(var(--color-surface-primary));
+    border-color: oklch(var(--color-status-warning));
+  }
+
+  /* Planned status pill */
+  .status-pill-planned {
+    background-color: oklch(var(--color-interactive-blue) / 0.15);
+    color: oklch(var(--color-interactive-blue));
+    border-color: oklch(var(--color-interactive-blue) / 0.3);
+  }
+  .status-pill-planned:hover {
+    background-color: oklch(var(--color-interactive-blue) / 0.25);
+    border-color: oklch(var(--color-interactive-blue) / 0.5);
+    transform: translateY(-1px);
+  }
+  .status-pill-planned.active {
+    background-color: oklch(var(--color-interactive-blue));
+    color: oklch(var(--color-surface-primary));
+    border-color: oklch(var(--color-interactive-blue));
+  }
+</style>
+

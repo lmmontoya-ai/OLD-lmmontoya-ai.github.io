@@ -37,7 +37,7 @@
 
 @utility focus-ring {
   &:focus-visible {
-    outline: 2px solid rgb(var(--color-interactive-focus));
+    outline: 2px solid oklch(var(--color-interactive-focus));
     outline-offset: 2px;
     border-radius: var(--radius-sm);
   }
@@ -45,7 +45,7 @@
 
 @utility focus-ring-inset {
   &:focus-visible {
-    outline: 2px solid rgb(var(--color-interactive-focus));
+    outline: 2px solid oklch(var(--color-interactive-focus));
     outline-offset: -2px;
     border-radius: var(--radius-sm);
   }
@@ -133,86 +133,50 @@
 
 /* Milestone Accent - Gold in Dark, Orange-Brown in Light */
 @utility text-accent-milestone {
-  color: rgb(var(--color-accent-milestone));
+  color: oklch(var(--color-accent-milestone));
   transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-accent-milestone-light));
-  }
 }
 
 @utility bg-accent-milestone {
-  background-color: rgb(var(--color-accent-milestone));
+  background-color: oklch(var(--color-accent-milestone));
   transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-milestone-light));
-  }
 }
 
 @utility bg-accent-milestone-hover {
-  background-color: rgb(var(--color-accent-milestone) / 0.05);
+  background-color: oklch(var(--color-accent-milestone) / 0.05);
   transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-milestone-light) / 0.1);
-  }
 }
 
 /* Project Accent - Blue (slightly adjusted for light theme) */
 @utility text-accent-project {
-  color: rgb(var(--color-accent-project));
+  color: oklch(var(--color-accent-project));
   transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-accent-project-light));
-  }
 }
 
 @utility bg-accent-project {
-  background-color: rgb(var(--color-accent-project));
+  background-color: oklch(var(--color-accent-project));
   transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-project-light));
-  }
 }
 
 @utility bg-accent-project-hover {
-  background-color: rgb(var(--color-accent-project) / 0.05);
+  background-color: oklch(var(--color-accent-project) / 0.05);
   transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-project-light) / 0.1);
-  }
 }
 
 /* Resource Accent - Green (darker in light theme) */
 @utility text-accent-resource {
-  color: rgb(var(--color-accent-resource));
+  color: oklch(var(--color-accent-resource));
   transition: color var(--transition-base);
-
-  :not(.dark) & {
-    color: rgb(var(--color-accent-resource-light));
-  }
 }
 
 @utility bg-accent-resource {
-  background-color: rgb(var(--color-accent-resource));
+  background-color: oklch(var(--color-accent-resource));
   transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-resource-light));
-  }
 }
 
 @utility bg-accent-resource-hover {
-  background-color: rgb(var(--color-accent-resource) / 0.05);
+  background-color: oklch(var(--color-accent-resource) / 0.05);
   transition: background-color var(--transition-base);
-
-  :not(.dark) & {
-    background-color: rgb(var(--color-accent-resource-light) / 0.1);
-  }
 }
 
 /* === ENHANCED BUTTON HOVER STATES === */
@@ -221,14 +185,9 @@
   transition: all var(--transition-base);
 
   &:hover {
-    background-color: rgb(var(--color-interactive-primary));
+    background-color: oklch(var(--color-interactive-blue));
     transform: translateY(-1px);
     box-shadow: var(--shadow-lg);
-  }
-
-  :not(.dark) &:hover {
-    background-color: rgb(var(--color-interactive-primary-light));
-    box-shadow: var(--shadow-lg-light);
   }
 }
 
@@ -236,14 +195,9 @@
   transition: all var(--transition-base);
 
   &:hover {
-    background-color: rgb(var(--color-interactive-secondary) / 0.1);
-    border-color: rgb(var(--color-interactive-secondary));
+    background-color: oklch(var(--color-interactive-gold) / 0.1);
+    border-color: oklch(var(--color-interactive-gold));
     transform: translateY(-1px);
-  }
-
-  :not(.dark) &:hover {
-    background-color: rgb(var(--color-interactive-secondary-light) / 0.1);
-    border-color: rgb(var(--color-interactive-secondary-light));
   }
 }
 
@@ -255,12 +209,7 @@
   &:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-xl);
-    border-color: rgb(var(--color-interactive-primary) / 0.2);
-  }
-
-  :not(.dark) &:hover {
-    box-shadow: var(--shadow-xl-light);
-    border-color: rgb(var(--color-interactive-primary-light) / 0.3);
+    border-color: oklch(var(--color-interactive-blue) / 0.2);
   }
 }
 
@@ -270,11 +219,7 @@
   transition: color var(--transition-base);
 
   &:hover {
-    color: rgb(var(--color-interactive-primary));
-  }
-
-  :not(.dark) &:hover {
-    color: rgb(var(--color-interactive-primary-light));
+    color: oklch(var(--color-interactive-blue));
   }
 }
 
@@ -289,7 +234,7 @@
 
 @utility focus-ring-gold {
   &:focus-visible {
-    outline: 2px solid rgb(var(--color-interactive-gold));
+    outline: 2px solid oklch(var(--color-interactive-gold));
     outline-offset: 3px;
     border-radius: var(--radius-md);
     transition: var(--transition-fast);
@@ -298,7 +243,7 @@
 
 @utility focus-ring-blue {
   &:focus-visible {
-    outline: 2px solid rgb(var(--color-interactive-blue));
+    outline: 2px solid oklch(var(--color-interactive-blue));
     outline-offset: 3px;
     border-radius: var(--radius-md);
     transition: var(--transition-fast);

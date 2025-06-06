@@ -1,0 +1,229 @@
+/**
+ * Theme Gradients - OKLCH-based Modern Gradient System
+ *
+ * This system provides flexible, animatable gradients using OKLCH color tokens.
+ * Features support for animated gradient angles and mesh-style gradients.
+ *
+ * @see colors.css for color token definitions
+ */
+
+@theme {
+  /* === ANIMATABLE GRADIENT ANGLE === */
+  /* CSS @property for smooth gradient rotation */
+  @property --gradient-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 135deg;
+  }
+
+  @property --gradient-angle-slow {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 90deg;
+  }
+
+  /* === BRAND GRADIENTS === */
+  /* Primary brand gradient using interactive colors */
+  --gradient-brand-primary: linear-gradient(
+    var(--gradient-angle),
+    oklch(var(--color-interactive-blue)) 0%,
+    oklch(var(--color-interactive-gold)) 100%
+  );
+
+  /* Secondary brand gradient with softer colors */
+  --gradient-brand-secondary: linear-gradient(
+    var(--gradient-angle),
+    oklch(var(--color-brand-primary) / 0.8) 0%,
+    oklch(var(--color-brand-secondary) / 0.8) 100%
+  );
+
+  /* === SURFACE GRADIENTS === */
+  /* Subtle background gradients for sections */
+  --gradient-surface-primary: linear-gradient(
+    135deg,
+    oklch(var(--color-surface-primary)) 0%,
+    oklch(var(--color-surface-secondary)) 100%
+  );
+
+  --gradient-surface-hero: linear-gradient(
+    var(--gradient-angle-slow),
+    oklch(var(--color-surface-tertiary)) 0%,
+    oklch(var(--color-surface-primary)) 50%,
+    oklch(var(--color-surface-secondary)) 100%
+  );
+
+  /* === ACCENT GRADIENTS === */
+  /* Category-specific gradients */
+  --gradient-milestone: linear-gradient(
+    var(--gradient-angle),
+    oklch(var(--color-accent-milestone)) 0%,
+    oklch(var(--color-accent-milestone) / 0.7) 100%
+  );
+
+  --gradient-project: linear-gradient(
+    var(--gradient-angle),
+    oklch(var(--color-accent-project)) 0%,
+    oklch(var(--color-accent-project) / 0.7) 100%
+  );
+
+  --gradient-resource: linear-gradient(
+    var(--gradient-angle),
+    oklch(var(--color-accent-resource)) 0%,
+    oklch(var(--color-accent-resource) / 0.7) 100%
+  );
+
+  /* === MESH GRADIENTS === */
+  /* Complex multi-point gradients for hero sections */
+  --gradient-mesh-primary:
+    radial-gradient(at 40% 20%, oklch(var(--color-interactive-blue) / 0.3) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, oklch(var(--color-interactive-gold) / 0.2) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, oklch(var(--color-accent-project) / 0.2) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, oklch(var(--color-accent-resource) / 0.15) 0px, transparent 50%);
+
+  --gradient-mesh-hero:
+    radial-gradient(circle at 20% 80%, oklch(var(--color-glow-accent) / 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, oklch(var(--color-glow-highlight) / 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, oklch(var(--color-glow-success) / 0.08) 0%, transparent 50%),
+    oklch(var(--color-surface-primary));
+
+  /* === TEXT GRADIENTS === */
+  /* Gradients for text and icons */
+  --gradient-text-primary: linear-gradient(
+    135deg,
+    oklch(var(--color-interactive-blue)) 0%,
+    oklch(var(--color-interactive-gold)) 100%
+  );
+
+  --gradient-text-accent: linear-gradient(
+    90deg,
+    oklch(var(--color-accent-milestone)) 0%,
+    oklch(var(--color-accent-project)) 50%,
+    oklch(var(--color-accent-resource)) 100%
+  );
+
+  /* === BUTTON GRADIENTS === */
+  /* Gradients for interactive elements */
+  --gradient-button-primary: linear-gradient(
+    135deg,
+    oklch(var(--color-interactive-blue)) 0%,
+    oklch(var(--color-interactive-blue) / 0.9) 100%
+  );
+
+  --gradient-button-secondary: linear-gradient(
+    135deg,
+    oklch(var(--color-interactive-gold)) 0%,
+    oklch(var(--color-interactive-gold) / 0.9) 100%
+  );
+
+  --gradient-button-hover: linear-gradient(
+    135deg,
+    oklch(var(--color-interactive-blue) / 1.1) 0%,
+    oklch(var(--color-interactive-blue)) 100%
+  );
+}
+
+/* === GRADIENT ANIMATION KEYFRAMES === */
+@keyframes gradient-rotate {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+@keyframes gradient-rotate-slow {
+  0% {
+    --gradient-angle-slow: 0deg;
+  }
+  100% {
+    --gradient-angle-slow: 360deg;
+  }
+}
+
+@keyframes gradient-pulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* === GRADIENT UTILITIES === */
+/* Pre-built classes for common patterns */
+
+@utility gradient-animated {
+  background: linear-gradient(
+    var(--gradient-angle),
+    oklch(var(--color-interactive-blue)) 0%,
+    oklch(var(--color-interactive-gold)) 100%
+  );
+  animation: gradient-rotate 8s linear infinite;
+}
+
+@utility gradient-animated-slow {
+  background: linear-gradient(
+    var(--gradient-angle-slow),
+    oklch(var(--color-surface-tertiary)) 0%,
+    oklch(var(--color-surface-primary)) 50%,
+    oklch(var(--color-surface-secondary)) 100%
+  );
+  animation: gradient-rotate-slow 20s linear infinite;
+}
+
+@utility gradient-mesh-animated {
+  background:
+    radial-gradient(at 40% 20%, oklch(var(--color-interactive-blue) / 0.3) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, oklch(var(--color-interactive-gold) / 0.2) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, oklch(var(--color-accent-project) / 0.2) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, oklch(var(--color-accent-resource) / 0.15) 0px, transparent 50%);
+  animation: gradient-pulse 4s ease-in-out infinite;
+}
+
+@utility gradient-text {
+  background: linear-gradient(
+    135deg,
+    oklch(var(--color-interactive-blue)) 0%,
+    oklch(var(--color-interactive-gold)) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease-in-out infinite;
+}
+
+@utility gradient-border {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    oklch(var(--color-interactive-blue)) 0%,
+    oklch(var(--color-interactive-gold)) 100%
+  );
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  margin: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    oklch(var(--color-interactive-blue)) 0%,
+    oklch(var(--color-interactive-gold)) 100%
+  );
+}

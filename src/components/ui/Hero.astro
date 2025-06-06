@@ -129,12 +129,7 @@ const {
         <!-- Call to action buttons with modern animations -->
         <div class="flex flex-col sm:flex-row sm:justify-start gap-4 mb-8">
           <!-- Primary button: View Roadmap -->
-          <Button
-            href="/roadmap"
-            variant="roadmap"
-            size="md"
-            class="hero-button-primary group"
-          >
+          <Button href="/roadmap" variant="roadmap" size="md">
             <span class="relative z-10 flex items-center">
               View Roadmap
               <svg
@@ -154,12 +149,7 @@ const {
           </Button>
 
           <!-- Secondary button: Explore Projects -->
-          <Button
-            href="/projects"
-            variant="secondary"
-            size="md"
-            class="hero-button-secondary group"
-          >
+          <Button href="/projects" variant="secondary" size="md">
             <span class="relative z-10 flex items-center">
               Explore Projects
               <svg
@@ -194,128 +184,20 @@ const {
 </section>
 
 <style>
-  /* === HERO BUTTON ANIMATIONS === */
-  /* Modern, elegant button animations matching ThemeToggle quality */
+  /* All component-specific button styles have been removed and are now handled by reusable utilities */
 
-  .hero-button-primary {
-    position: relative;
-    overflow: hidden;
-    transition: var(--transition-spring);
-  }
-
-  .hero-button-primary:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: var(--shadow-hero-primary);
-  }
-
-  .hero-button-primary:active {
-    transform: translateY(-1px) scale(0.98);
-    transition: var(--transition-fast);
-  }
-
-  .hero-button-secondary {
-    position: relative;
-    overflow: hidden;
-    transition: var(--transition-spring);
-  }
-
-  .hero-button-secondary:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: var(--shadow-hero-secondary);
-  }
-
-  .hero-button-secondary:active {
-    transform: translateY(-1px) scale(0.98);
-    transition: var(--transition-fast);
-  }
-
-  /* Animated gradient backgrounds - these will be applied to pseudo-elements or child divs if needed */
-  .hero-button-primary:hover .hero-button-gradient-roadmap {
-    opacity: 0.1;
-    animation: gradientShift 2s ease-in-out infinite alternate;
-  }
-
-  .hero-button-secondary:hover .hero-button-gradient-secondary {
-    opacity: 0.08;
-    animation: gradientShift 2s ease-in-out infinite alternate;
-  }
-
-  /* Ripple effect for click feedback */
-  .hero-button-primary:active .hero-button-ripple {
-    opacity: 1;
-    transform: scale(1);
-    animation: rippleEffect 0.6s ease-out;
-  }
-
-  .hero-button-secondary:active .hero-button-ripple {
-    opacity: 1;
-    transform: scale(1);
-    animation: rippleEffect 0.6s ease-out;
-  }
-
-  /* Enhanced focus styles for accessibility */
-  .hero-button-primary:focus-visible,
-  .hero-button-secondary:focus-visible {
-    outline: 2px solid oklch(var(--color-interactive-focus));
-    outline-offset: 3px;
-    transform: translateY(-1px);
-  }
-
-  /* === HERO BUTTON KEYFRAMES === */
-  @keyframes gradientShift {
-    0% {
-      background-position: 0% 50%;
-      filter: hue-rotate(0deg);
-    }
-    100% {
-      background-position: 100% 50%;
-      filter: hue-rotate(10deg);
-    }
-  }
-
-  @keyframes rippleEffect {
-    0% {
-      opacity: 1;
-      transform: scale(0);
-    }
-    50% {
-      opacity: 0.7;
-      transform: scale(0.8);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(1.2);
-    }
-  }
-
-  /* Dark theme adjustments from previous :global styles */
-  :global(html.dark) .hero-button-primary:hover {
-    box-shadow:
-      0 8px 25px oklch(var(--color-glow-highlight) / 0.25),
-      0 4px 12px oklch(var(--color-shadow) / 0.3);
-  }
-
-  :global(html.dark) .hero-button-secondary:hover {
-    box-shadow:
-      0 8px 25px oklch(var(--color-glow-accent) / 0.2),
-      0 4px 12px oklch(var(--color-shadow) / 0.3);
-  }
+  /* === HERO BANNER AND TEXT ANIMATIONS === */
+  /* These styles are specific to the Hero component and can remain */
 
   /* Enhanced icon animations */
-  :global(.hero-button-primary svg),
-  :global(.hero-button-secondary svg) {
+  :global(.group:hover svg) {
+    transform: translateX(4px) scale(1.1);
+    filter: drop-shadow(0 2px 4px oklch(var(--color-shadow) / 0.1));
     transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  :global(.hero-button-primary:hover svg),
-  :global(.hero-button-secondary:hover svg) {
-    transform: translateX(4px) scale(1.1);
-    filter: drop-shadow(0 2px 4px oklch(var(--color-shadow) / 0.1));
-  }
-
   /* Button content glow effect on hover */
-  :global(.hero-button-primary:hover span),
-  :global(.hero-button-secondary:hover span) {
+  :global(.group:hover span) {
     text-shadow: 0 0 8px oklch(var(--color-content-inverse) / 0.2);
   }
 

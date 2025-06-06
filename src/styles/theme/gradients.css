@@ -1,18 +1,18 @@
+/* === ANIMATABLE GRADIENT ANGLE === */
+/* CSS @property for smooth gradient rotation */
+@property --gradient-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 135deg;
+}
+
+@property --gradient-angle-slow {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 90deg;
+}
+
 @theme {
-  /* === ANIMATABLE GRADIENT ANGLE === */
-  /* CSS @property for smooth gradient rotation */
-  @property --gradient-angle {
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 135deg;
-  }
-
-  @property --gradient-angle-slow {
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 90deg;
-  }
-
   /* === BRAND GRADIENTS === */
   /* Primary brand gradient using interactive colors */
   --gradient-brand-primary: linear-gradient(

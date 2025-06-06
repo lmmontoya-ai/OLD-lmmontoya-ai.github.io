@@ -1,7 +1,7 @@
-@theme {
-  /* === SEMANTIC COLOR SYSTEM === */
+/* === SEMANTIC COLOR SYSTEM === */
 
-  /* Base color definitions (Light Theme by default) */
+/* Base color definitions (Light Theme by default) */
+:root {
   --color-text-primary: 22.5% 0.071 262.5deg;
   --color-text-secondary: 29.8% 0.041 262.5deg;
   --color-text-tertiary: 50.2% 0.041 262.5deg;

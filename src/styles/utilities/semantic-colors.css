@@ -11,9 +11,13 @@
   color: oklch(var(--color-text-tertiary));
 }
 
+@utility text-content-inverse {
+  color: oklch(var(--color-content-inverse));
+}
+
 /* === INTERACTIVE TEXT COLORS === */
 @utility text-interactive-blue {
-  color: oklch(var(--color-interactive-blue)) !important;
+  color: oklch(var(--color-interactive-blue));
 }
 
 @utility text-interactive-gold {

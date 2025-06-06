@@ -7,26 +7,15 @@
 }
 
 /* === SHADOW SYSTEM === */
+/* These utilities now use theme-aware shadow variables */
 .shadow-themed-sm {
-  box-shadow: var(--shadow-sm-light);
-}
-
-.dark .shadow-themed-sm {
   box-shadow: var(--shadow-sm);
 }
 
 .shadow-themed-md {
-  box-shadow: var(--shadow-md-light);
-}
-
-.dark .shadow-themed-md {
   box-shadow: var(--shadow-md);
 }
 
 .shadow-themed-lg {
-  box-shadow: var(--shadow-lg-light);
-}
-
-.dark .shadow-themed-lg {
   box-shadow: var(--shadow-lg);
 }

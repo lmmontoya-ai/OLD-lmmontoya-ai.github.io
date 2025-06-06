@@ -4,12 +4,21 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { clsx, type ClassValue } from "clsx";
 
-// Utility function to merge classes
+// =====================
+// Utility Functions
+// =====================
+
+/**
+ * Utility function to merge classes
+ */
 export function cn(...inputs: ClassValue[]) {
   return clsx(inputs);
 }
 
-// Button component variants - Using semantic color utilities
+// =====================
+// Button Variants
+// =====================
+
 export const buttonVariants = cva(
   [
     "inline-flex",
@@ -36,6 +45,7 @@ export const buttonVariants = cva(
           "transition-spring",
           "hover:shadow-themed-md",
           "focus-ring",
+          "button-glow",
         ],
         secondary: [
           "bg-transparent",
@@ -61,6 +71,8 @@ export const buttonVariants = cva(
           "focus-ring",
         ],
         roadmap: [
+          "bg-interactive-gold",
+          "text-content-inverse",
           "border",
           "border-transparent",
           "shadow-themed-sm",
@@ -68,6 +80,7 @@ export const buttonVariants = cva(
           "hover:shadow-themed-md",
           "font-semibold",
           "focus-ring",
+          "button-glow",
         ],
       },
       size: {
@@ -93,46 +106,11 @@ export const buttonVariants = cva(
   }
 );
 
-// Card component variants - Using semantic utilities
-export const cardVariants = cva(
-  [
-    "relative",
-    "overflow-hidden",
-    "rounded-2xl",
-    "transition-spring",
-    "bg-surface-secondary",
-    "backdrop-blur-sm",
-    "border",
-    "border-primary",
-    "shadow-themed-sm",
-    "p-8",
-    "lg:p-10",
-  ],
-  {
-    variants: {
-      interactive: {
-        true: [
-          "group",
-          "hover:-translate-y-1",
-          "hover:shadow-themed-lg",
-          "hover:border-interactive-blue/20",
-          "cursor-pointer",
-        ],
-        false: "",
-      },
-      featured: {
-        true: ["border-l-4", "border-l-interactive-blue"],
-        false: "",
-      },
-    },
-    defaultVariants: {
-      interactive: false,
-      featured: false,
-    },
-  }
-);
 
-// UpdateCard component variants - Using semantic utilities with enhanced spring animations
+// =====================
+// Update Card Variants
+// =====================
+
 export const updateCardVariants = cva(
   [
     "update-card",
@@ -257,7 +235,10 @@ export const updateCardTitleVariants = cva(
   }
 );
 
+// =====================
 // Project Card Variants
+// =====================
+
 export const projectCardVariants = cva(
   [
     "group",
@@ -367,7 +348,6 @@ export const blogCardVariants = cva(
 
 // Export types for component props
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
-export type CardVariants = VariantProps<typeof cardVariants>;
 export type UpdateCardVariants = VariantProps<typeof updateCardVariants>;
 export type UpdateCardIconVariants = VariantProps<typeof updateCardIconVariants>;
 export type UpdateCardTagVariants = VariantProps<typeof updateCardTagVariants>;

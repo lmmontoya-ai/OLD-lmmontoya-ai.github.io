@@ -147,6 +147,10 @@
   border-color: oklch(var(--color-border-secondary));
 }
 
+@utility border-interactive-blue {
+  border-color: oklch(var(--color-interactive-blue));
+}
+
 /* === CATEGORY ACCENT BORDER COLORS === */
 @utility border-accent-research {
   border-color: oklch(var(--color-accent-research));

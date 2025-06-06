@@ -58,7 +58,7 @@ const classes = cn(
   {
     project?.area && (
       <div class="absolute top-4 left-4">
-        <span class="px-2 py-1 text-xs font-medium rounded bg-surface-tertiary text-secondary">
+        <span class="px-2 py-1 text-xs font-medium rounded bg-surface-primary text-secondary">
           {project.area}
         </span>
       </div>
@@ -113,14 +113,14 @@ const classes = cn(
     <!-- Tech Stack -->
     {
       project?.stack && project.stack.length > 0 && (
-        <div class="flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2 mt-2">
           {project.stack.slice(0, 4).map((tech) => (
             <span class="px-2 py-1 text-xs bg-surface-tertiary rounded-md text-tertiary">
               {tech}
             </span>
           ))}
           {project.stack.length > 4 && (
-            <span class="px-2 py-1 text-xs text-tertiary">
+            <span class="px-2 py-1 text-xs text-tertiary bg-surface-tertiary rounded-md">
               +{project.stack.length - 4} more
             </span>
           )}

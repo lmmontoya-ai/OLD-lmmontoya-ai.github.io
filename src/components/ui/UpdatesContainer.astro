@@ -23,7 +23,6 @@ const containerClasses = [
   "flex-col",
   "rounded-2xl",
   "overflow-hidden",
-  "shadow-themed-md", // Use themed shadow
   "transition-all",
   "duration-spring", // Already uses a defined animation property
   "backdrop-blur-themed", // Use themed backdrop blur
@@ -116,7 +115,6 @@ const headerClasses = [
   }
   :global(.container-background:hover) {
     border-color: oklch(var(--color-border-primary));
-    box-shadow: var(--shadow-update-card);
   }
   :global(.container-header-background) {
     background-color: oklch(var(--color-surface-tertiary) / 0.5);
@@ -129,7 +127,6 @@ const headerClasses = [
   }
   :global(html.dark .container-background:hover) {
     border-color: oklch(var(--color-border-primary));
-    box-shadow: var(--shadow-update-card-dark);
   }
   :global(html.dark .container-header-background) {
     background-color: oklch(var(--color-surface-tertiary) / 0.3);

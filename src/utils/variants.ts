@@ -75,7 +75,6 @@ export const buttonVariants = cva(
           "text-content-inverse",
           "border",
           "border-transparent",
-          "shadow-themed-sm",
           "transition-spring",
           "hover:shadow-themed-md",
           "font-semibold",
@@ -120,31 +119,18 @@ export const updateCardVariants = cva(
     "p-4",
     "px-5",
     "rounded-lg",
-    "transition-spring", // Using spring transition for smooth animations
+    "transition-spring",
     "focus-ring",
     "bg-surface-secondary/50",
     "backdrop-blur-sm",
-    // Removed hover:translate-x-1 to prevent text movement - movement is handled by CSS transform
   ],
   {
     variants: {
       variant: {
-        milestone: [
-          "update-card-milestone",
-          "hover-milestone",
-        ],
-        project: [
-          "update-card-project",
-          "hover-project",
-        ],
-        resource: [
-          "update-card-resource",
-          "hover-resource",
-        ],
-        literature: [
-          "update-card-literature",
-          "hover-resource",
-        ]
+        milestone: "hover-milestone",
+        project: "hover-project",
+        resource: "hover-resource",
+        literature: "hover-resource",
       },
     },
     defaultVariants: {
@@ -162,17 +148,17 @@ export const updateCardIconVariants = cva(
     "w-9",
     "h-9",
     "flex-shrink-0",
-    "transition-spring", // Spring animation for smooth icon interactions
-    "group-hover:scale-110", // Subtle scale on hover
-    "group-hover:rotate-3", // Slight rotation for playfulness
+    "transition-spring",
+    "group-hover:scale-110",
+    "group-hover:rotate-3",
   ],
   {
     variants: {
       variant: {
-        milestone: ["text-milestone"],
-        project: ["text-project"],
-        resource: ["text-resource"],
-        literature: ["text-resource"],
+        milestone: "text-milestone",
+        project: "text-project",
+        resource: "text-resource",
+        literature: "text-resource",
       },
     },
     defaultVariants: {
@@ -192,14 +178,15 @@ export const updateCardTagVariants = cva(
     "inline-block",
     "mb-1.5",
     "transition-theme",
+    "bg-surface-primary",
   ],
   {
     variants: {
       variant: {
-        milestone: ["text-milestone"],
-        project: ["text-project"],
-        resource: ["text-resource"],
-        literature: ["text-resource"],
+        milestone: "text-milestone",
+        project: "text-project",
+        resource: "text-resource",
+        literature: "text-resource",
       },
     },
     defaultVariants: {
@@ -217,16 +204,16 @@ export const updateCardTitleVariants = cva(
     "leading-tight",
     "text-base",
     "text-primary",
-    "transition-spring", // Spring transition for smooth color changes
-    "group-hover:translate-x-1", // Subtle slide on hover
+    "transition-spring",
+    "group-hover:translate-x-1",
   ],
   {
     variants: {
       variant: {
-        milestone: ["group-hover:text-milestone"],
-        project: ["group-hover:text-project"],
-        resource: ["group-hover:text-resource"],
-        literature: ["group-hover:text-resource"],
+        milestone: "group-hover:text-milestone",
+        project: "group-hover:text-project",
+        resource: "group-hover:text-resource",
+        literature: "group-hover:text-resource",
       },
     },
     defaultVariants: {
@@ -245,7 +232,7 @@ export const projectCardVariants = cva(
     "relative",
     "overflow-hidden",
     "rounded-xl",
-    "bg-surface-secondary/80",
+    "bg-surface-primary",
     "backdrop-blur-sm",
     "border",
     "border-primary",
@@ -281,7 +268,7 @@ export const literatureCardVariants = cva(
     "relative",
     "overflow-hidden",
     "rounded-xl",
-    "bg-surface-secondary/80",
+    "bg-surface-primary",
     "backdrop-blur-sm",
     "border",
     "border-primary",
@@ -297,11 +284,11 @@ export const literatureCardVariants = cva(
   {
     variants: {
       type: {
-        Paper: ["bg-gradient-to-br", "from-surface-secondary/80", "to-[oklch(var(--color-interactive-blue)/0.05)]"],
-        Book: ["bg-gradient-to-br", "from-surface-secondary/80", "to-[oklch(var(--color-status-success)/0.05)]"],
-        Video: ["bg-gradient-to-br", "from-surface-secondary/80", "to-[oklch(var(--color-accent-tutorial)/0.05)]"],
-        Blog: ["bg-gradient-to-br", "from-surface-secondary/80", "to-[oklch(var(--color-status-warning)/0.05)]"],
-        Course: ["bg-gradient-to-br", "from-surface-secondary/80", "to-[oklch(var(--color-accent-update)/0.05)]"],
+        Paper: ["bg-gradient-to-br", "from-surface-primary", "to-[oklch(var(--color-interactive-blue)/0.05)]"],
+        Book: ["bg-gradient-to-br", "from-surface-primary", "to-[oklch(var(--color-status-success)/0.05)]"],
+        Video: ["bg-gradient-to-br", "from-surface-primary", "to-[oklch(var(--color-accent-tutorial)/0.05)]"],
+        Blog: ["bg-gradient-to-br", "from-surface-primary", "to-[oklch(var(--color-status-warning)/0.05)]"],
+        Course: ["bg-gradient-to-br", "from-surface-primary", "to-[oklch(var(--color-accent-update)/0.05)]"],
       },
     },
     defaultVariants: {
@@ -317,7 +304,7 @@ export const blogCardVariants = cva(
     "relative",
     "overflow-hidden",
     "rounded-xl",
-    "bg-surface-secondary/80",
+    "bg-surface-primary",
     "backdrop-blur-sm",
     "border",
     "border-primary",
@@ -355,6 +342,186 @@ export type UpdateCardTitleVariants = VariantProps<typeof updateCardTitleVariant
 export type ProjectCardVariants = VariantProps<typeof projectCardVariants>;
 export type LiteratureCardVariants = VariantProps<typeof literatureCardVariants>;
 export type BlogCardVariants = VariantProps<typeof blogCardVariants>;
+
+// =====================
+// Pill Variants
+// =====================
+
+export const pillVariants = cva(
+  [
+    "inline-flex",
+    "items-center",
+    "px-3",
+    "py-1.5",
+    "font-mono",
+    "text-xs",
+    "font-semibold",
+    "uppercase",
+    "rounded-full",
+    "border",
+    "transition-all",
+    "duration-200",
+    "ease-in-out",
+    "focus-ring",
+    "cursor-pointer",
+    "hover:-translate-y-px",
+    "whitespace-nowrap",
+  ],
+  {
+    variants: {
+      variant: {
+        default: [
+          "bg-surface-secondary",
+          "text-text-secondary",
+          "border-border-primary",
+          "hover:bg-surface-tertiary",
+          "hover:text-text-primary",
+          "hover:border-interactive-blue",
+        ],
+        completed: [
+          "bg-[oklch(var(--color-status-success)/0.1)]",
+          "text-status-success",
+          "border-[oklch(var(--color-status-success)/0.2)]",
+          "hover:bg-[oklch(var(--color-status-success)/0.2)]",
+          "hover:border-status-success",
+        ],
+        "in-progress": [
+          "bg-[oklch(var(--color-status-warning)/0.1)]",
+          "text-status-warning",
+          "border-[oklch(var(--color-status-warning)/0.2)]",
+          "hover:bg-[oklch(var(--color-status-warning)/0.2)]",
+          "hover:border-status-warning",
+        ],
+        planned: [
+          "bg-[oklch(var(--color-interactive-blue)/0.1)]",
+          "text-interactive-blue",
+          "border-[oklch(var(--color-interactive-blue)/0.2)]",
+          "hover:bg-[oklch(var(--color-interactive-blue)/0.2)]",
+          "hover:border-interactive-blue",
+        ],
+        research: [
+          "bg-accent-research/10",
+          "text-accent-research",
+          "border-accent-research/20",
+          "hover:bg-accent-research/20",
+          "hover:border-accent-research",
+        ],
+        technical: [
+          "bg-accent-technical/10",
+          "text-accent-technical",
+          "border-accent-technical/20",
+          "hover:bg-accent-technical/20",
+          "hover:border-accent-technical",
+        ],
+        reflection: [
+          "bg-accent-reflection/10",
+          "text-accent-reflection",
+          "border-accent-reflection/20",
+          "hover:bg-accent-reflection/20",
+          "hover:border-accent-reflection",
+        ],
+        resource: [
+          "bg-accent-resource/10",
+          "text-accent-resource",
+          "border-accent-resource/20",
+          "hover:bg-accent-resource/20",
+          "hover:border-accent-resource",
+        ],
+        tutorial: [
+          "bg-accent-tutorial/10",
+          "text-accent-tutorial",
+          "border-accent-tutorial/20",
+          "hover:bg-accent-tutorial/20",
+          "hover:border-accent-tutorial",
+        ],
+        update: [
+          "bg-accent-update/10",
+          "text-accent-update",
+          "border-accent-update/20",
+          "hover:bg-accent-update/20",
+          "hover:border-accent-update",
+        ],
+        roadmap: [
+          "bg-transparent",
+          "text-text-primary",
+          "border-text-primary",
+          "hover:bg-surface-tertiary",
+          "hover:text-text-primary",
+          "hover:border-interactive-blue",
+        ],
+      },
+      active: {
+        true: "shadow-md",
+        false: "",
+      },
+    },
+    compoundVariants: [
+      {
+        variant: "default",
+        active: true,
+        class:
+          "bg-surface-tertiary text-interactive-blue border-interactive-blue",
+      },
+      {
+        variant: "completed",
+        active: true,
+        class: "bg-status-success text-surface-primary border-status-success",
+      },
+      {
+        variant: "in-progress",
+        active: true,
+        class: "bg-status-warning text-surface-primary border-status-warning",
+      },
+      {
+        variant: "planned",
+        active: true,
+        class: "bg-interactive-blue text-surface-primary border-interactive-blue",
+      },
+      {
+        variant: "research",
+        active: true,
+        class: "bg-accent-research text-surface-primary border-accent-research",
+      },
+      {
+        variant: "technical",
+        active: true,
+        class: "bg-accent-technical text-surface-primary border-accent-technical",
+      },
+      {
+        variant: "reflection",
+        active: true,
+        class:
+          "bg-accent-reflection text-interactive-gold-contrast border-accent-reflection",
+      },
+      {
+        variant: "resource",
+        active: true,
+        class: "bg-accent-resource text-surface-primary border-accent-resource",
+      },
+      {
+        variant: "tutorial",
+        active: true,
+        class: "bg-accent-tutorial text-surface-primary border-accent-tutorial",
+      },
+      {
+        variant: "update",
+        active: true,
+        class: "bg-accent-update text-surface-primary border-accent-update",
+      },
+      {
+        variant: "roadmap",
+        active: true,
+        class: "bg-text-primary text-surface-primary border-text-primary",
+      },
+    ],
+    defaultVariants: {
+      variant: "default",
+      active: false,
+    },
+  }
+);
+
+export type PillVariants = VariantProps<typeof pillVariants>;
 
 // NavLink component variants - Using semantic utilities
 export const navLinkVariants = cva(

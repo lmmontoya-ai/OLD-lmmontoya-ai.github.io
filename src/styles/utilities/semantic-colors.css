@@ -37,6 +37,19 @@
   color: oklch(var(--color-accent-resource));
 }
 
+/* === STATUS TEXT COLORS === */
+@utility text-status-success {
+  color: oklch(var(--color-status-success));
+}
+
+@utility text-status-warning {
+  color: oklch(var(--color-status-warning));
+}
+
+@utility text-status-error {
+  color: oklch(var(--color-status-error));
+}
+
 /* === CATEGORY ACCENT TEXT COLORS === */
 @utility text-accent-research {
   color: oklch(var(--color-accent-research));
@@ -109,6 +122,19 @@
   background-color: oklch(var(--color-interactive-gold));
 }
 
+/* === STATUS BACKGROUND COLORS === */
+@utility bg-status-success {
+  background-color: oklch(var(--color-status-success));
+}
+
+@utility bg-status-warning {
+  background-color: oklch(var(--color-status-warning));
+}
+
+@utility bg-status-error {
+  background-color: oklch(var(--color-status-error));
+}
+
 /* === CATEGORY ACCENT BACKGROUND COLORS === */
 @utility bg-accent-research {
   background-color: oklch(var(--color-accent-research));
@@ -149,6 +175,19 @@
 
 @utility border-interactive-blue {
   border-color: oklch(var(--color-interactive-blue));
+}
+
+/* === STATUS BORDER COLORS === */
+@utility border-status-success {
+  border-color: oklch(var(--color-status-success));
+}
+
+@utility border-status-warning {
+  border-color: oklch(var(--color-status-warning));
+}
+
+@utility border-status-error {
+  border-color: oklch(var(--color-status-error));
 }
 
 /* === CATEGORY ACCENT BORDER COLORS === */

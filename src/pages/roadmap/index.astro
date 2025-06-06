@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import RoadmapHorizontal from "../../components/roadmap/RoadmapHorizontal.astro";
 import RoadmapCard from "../../components/roadmap/RoadmapCard.astro";
 import { getPostsByType } from "../../utils/content";
-import StatusPill from "../../components/ui/StatusPill.astro";
+import Pill from "../../components/ui/Pill.astro";
 
 // Fetch and sort roadmap posts
 const roadmapPosts = await getPostsByType("roadmap");
@@ -57,15 +57,15 @@ const statuses = ["completed", "in-progress", "planned"];
       {
         sortedPosts.length > 0 && (
           <div class="mb-4 flex gap-3">
-            <StatusPill
-              variant="all"
+            <Pill
+              variant="roadmap"
               text="Timeline View"
               active={true}
               class="view-toggle"
               data-view="horizontal"
             />
-            <StatusPill
-              variant="planned"
+            <Pill
+              variant="roadmap"
               text="Areas View"
               class="view-toggle"
               data-view="areas"

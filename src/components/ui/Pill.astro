@@ -1,0 +1,45 @@
+---
+// src/components/ui/Pill.astro
+import {
+  pillVariants,
+  type PillVariants as PillVariantProps,
+} from "../../utils/variants";
+import { cn } from "../../utils/variants";
+
+interface Props extends PillVariantProps {
+  text: string;
+  count?: number;
+  active?: boolean;
+  href?: string;
+  class?: string;
+  "data-filter"?: string;
+  "data-view"?: string;
+}
+
+const {
+  variant,
+  text,
+  count,
+  active = false,
+  href,
+  class: className,
+  "data-filter": dataFilter,
+  "data-view": dataView,
+} = Astro.props;
+
+const Element = href ? "a" : "button";
+---
+
+<Element
+  href={href}
+  class={cn(pillVariants({ variant, active }), className)}
+  data-filter={dataFilter}
+  data-view={dataView}
+>
+  {text}
+  {
+    count !== undefined && (
+      <span class="ml-1.5 text-xs opacity-80">({count})</span>
+    )
+  }
+</Element>

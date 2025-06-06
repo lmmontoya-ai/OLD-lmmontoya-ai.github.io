@@ -17,7 +17,7 @@ const footerClasses = [
   "border-primary",
   "py-12",
   "lg:py-16",
-  "bg-surface-tertiary",
+  "bg-surface-primary",
   "backdrop-blur-sm",
   className,
 ].join(" ");
@@ -129,11 +129,8 @@ const socialLinks = [
               <a
                 href={social.href}
                 aria-label={social.label}
-                class="footer-social-link group relative inline-flex items-center justify-center w-11 h-11 rounded-xl bg-surface-secondary hover:bg-surface-primary text-secondary hover:text-primary transition-theme focus-ring overflow-hidden"
+                class="footer-social-link group relative inline-flex items-center justify-center w-11 h-11 rounded-xl bg-surface-primary hover:bg-surface-secondary text-secondary hover:text-primary transition-theme focus-ring overflow-hidden"
               >
-                {/* Background gradient on hover */}
-                <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-interactive-blue/5 to-interactive-gold/5 opacity-0 group-hover:opacity-100 transition-theme" />
-
                 {/* Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +138,7 @@ const socialLinks = [
                   height="20"
                   fill="currentColor"
                   viewBox="0 0 24 24"
-                  class="relative z-10 transition-transform duration-300 ease-out group-hover:scale-110"
+                  class="relative z-10 transition-transform duration-300 ease-out"
                 >
                   <path d={social.icon} />
                 </svg>

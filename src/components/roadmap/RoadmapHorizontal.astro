@@ -30,11 +30,11 @@ const sortedPosts = posts.sort((a, b) => a.data.date.getTime() - b.data.date.get
           projectCardVariants({ status }),
           // Status-specific hover border colors
           status === "completed" &&
-            "hover:border-[rgb(var(--color-status-success))]/30",
+            "hover:border-[oklch(var(--color-status-success))]/30",
           status === "in-progress" &&
-            "hover:border-[rgb(var(--color-status-warning))]/30",
+            "hover:border-[oklch(var(--color-status-warning))]/30",
           status === "planned" &&
-            "hover:border-[rgb(var(--color-interactive-blue))]/30",
+            "hover:border-[oklch(var(--color-interactive-blue))]/30",
           "w-80 flex-shrink-0"
         );
 
@@ -72,11 +72,11 @@ const sortedPosts = posts.sort((a, b) => a.data.date.getTime() - b.data.date.get
                   class={cn(
                     "text-xl font-semibold text-primary transition-theme",
                     status === "completed" &&
-                      "group-hover:text-[rgb(var(--color-status-success))]",
+                      "group-hover:text-[oklch(var(--color-status-success))]",
                     status === "in-progress" &&
-                      "group-hover:text-[rgb(var(--color-status-warning))]",
+                      "group-hover:text-[oklch(var(--color-status-warning))]",
                     status === "planned" &&
-                      "group-hover:text-[rgb(var(--color-interactive-blue))]"
+                      "group-hover:text-[oklch(var(--color-interactive-blue))]"
                   )}
                 >
                   {title}
@@ -167,25 +167,25 @@ const sortedPosts = posts.sort((a, b) => a.data.date.getTime() - b.data.date.get
   }
 
   .roadmap-horizontal div::-webkit-scrollbar-track {
-    background: rgb(var(--color-surface-secondary));
+    background: oklch(var(--color-surface-secondary));
     border-radius: 3px;
     margin: 0 16px;
   }
 
   .roadmap-horizontal div::-webkit-scrollbar-thumb {
-    background: rgb(var(--color-interactive-blue));
+    background: oklch(var(--color-interactive-blue));
     border-radius: 3px;
     transition: background 0.2s ease;
   }
 
   .roadmap-horizontal div::-webkit-scrollbar-thumb:hover {
-    background: rgb(var(--color-interactive-blue))/0.8;
+    background: oklch(var(--color-interactive-blue)/0.8);
   }
 
   /* Firefox scrollbar */
   .roadmap-horizontal div {
     scrollbar-width: thin;
-    scrollbar-color: rgb(var(--color-interactive-blue)) rgb(var(--color-surface-secondary));
+    scrollbar-color: oklch(var(--color-interactive-blue)) oklch(var(--color-surface-secondary));
   }
 
   /* Smooth scroll behavior */

@@ -46,7 +46,7 @@ const currentPath = Astro.url.pathname;
       <!-- Brand/Motto -->
       <a
         href="/"
-        class="font-sans font-semibold text-lg tracking-tight group relative header-brand"
+        class="font-sans font-semibold text-lg tracking-tight group relative"
       >
         <span
           class="block text-sm md:text-sm font-bold mt-0.9 font-mono group-hover:text-interactive-blue transition-spring"
@@ -426,10 +426,4 @@ const currentPath = Astro.url.pathname;
       }
     });
   </script>
-
-  <style>
-    .header-brand:hover {
-      color: oklch(var(--color-interactive-blue)) !important;
-    }
-  </style>
 </header>

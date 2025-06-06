@@ -45,10 +45,7 @@ const classes = cn(
   <!-- Gradient border effect (recreating ::before pseudo-element) -->
   {
     href && (
-      <div
-        class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
-        style={`background: linear-gradient(135deg, rgb(var(--color-interactive-primary) / 0.1) 0%, transparent 50%, rgb(var(--color-interactive-secondary) / 0.1) 100%); padding: 1px; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: xor;`}
-      />
+      <div class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none card-gradient-border" />
     )
   }
 

@@ -1,56 +1,72 @@
+
 /**
  * Theme Shadows - OKLCH-based Semantic Shadow System
  *
- * Shadow system with semantic color variables and component-specific shadows.
- * Uses OKLCH color space for better color manipulation and theme adaptation.
+ * This system uses a single, theme-aware --color-shadow variable to generate
+ * shadows that automatically adapt to light and dark modes. It follows an
+ * elevation-based model for semantic clarity.
  *
- * Shadow Categories:
- * - Standard shadows: xs, sm, md, lg, xl, 2xl with semantic colors
- * - Glow effects: Accent, highlight, success glows using semantic variables
- * - Component shadows: Button, card, and interaction states
- *
- * @see colors.css for semantic color variable definitions
+  * @see colors.css for --color-shadow definition
  */
+@theme  {
+  /* SHADOW ELEVATION SYSTEM */
+  /* Usa la variable --color-shadow definida en colors.css */
+  --shadow-elevation-low:
+    0 2px 4px 0 oklch(var(--color-shadow) / 0.7),
+    0 1px 3px -1px oklch(var(--color-shadow) / 0.7);
 
-@theme {
-  /* === SHADOWS === */
-  /* Standard shadows using semantic shadow color */
+  --shadow-elevation-medium:
+    0 4px 8px -1px oklch(var(--color-shadow) / 0.7),
+    0 2px 6px -2px oklch(var(--color-shadow) / 0.7);
+
+  --shadow-elevation-high:
+    0 12px 20px -3px oklch(var(--color-shadow) / 0.8),
+    0 6px 10px -4px oklch(var(--color-shadow) / 0.7);
+
+  --shadow-elevation-extra-high:
+    0 24px 32px -5px oklch(var(--color-shadow) / 0.9),
+    0 12px 16px -6px oklch(var(--color-shadow) / 0.8);
+
+  /* Finer-grained shadows para casos específicos */
   --shadow-xs: 0 1px 3px 0 oklch(var(--color-shadow) / 0.6);
-  --shadow-sm: 0 2px 4px 0 oklch(var(--color-shadow) / 0.7), 0 1px 3px -1px oklch(var(--color-shadow) / 0.7);
-  --shadow-md: 0 4px 8px -1px oklch(var(--color-shadow) / 0.7), 0 2px 6px -2px oklch(var(--color-shadow) / 0.7);
-  --shadow-lg: 0 12px 20px -3px oklch(var(--color-shadow) / 0.8), 0 6px 10px -4px oklch(var(--color-shadow) / 0.7);
-  --shadow-xl: 0 24px 32px -5px oklch(var(--color-shadow) / 0.9), 0 12px 16px -6px oklch(var(--color-shadow) / 0.8);
-  --shadow-2xl: 0 32px 48px -8px oklch(var(--color-shadow) / 0.95), 0 20px 32px -8px oklch(var(--color-shadow) / 0.9);
+  --shadow-sm: var(--shadow-elevation-low);
+  --shadow-md: var(--shadow-elevation-medium);
+  --shadow-lg: var(--shadow-elevation-high);
+  --shadow-xl: var(--shadow-elevation-extra-high);
+  --shadow-2xl:
+    0 32px 48px -8px oklch(var(--color-shadow) / 0.95),
+    0 20px 32px -8px oklch(var(--color-shadow) / 0.9);
 
-  /* Light theme specific shadows (automatically applied when not in dark mode) */
-  --shadow-xs-light: 0 1px 3px 0 oklch(22.5% 0.071 262.5deg / 0.12);
-  --shadow-sm-light: 0 3px 6px 0 oklch(22.5% 0.071 262.5deg / 0.15), 0 2px 4px -1px oklch(22.5% 0.071 262.5deg / 0.12);
-  --shadow-md-light: 0 6px 12px -2px oklch(22.5% 0.071 262.5deg / 0.18), 0 3px 6px -2px oklch(22.5% 0.071 262.5deg / 0.15);
-  --shadow-lg-light: 0 12px 32px -4px oklch(22.5% 0.071 262.5deg / 0.22), 0 6px 12px -4px oklch(22.5% 0.071 262.5deg / 0.18);
-  --shadow-xl-light: 0 20px 40px -8px oklch(22.5% 0.071 262.5deg / 0.26), 0 12px 20px -8px oklch(22.5% 0.071 262.5deg / 0.22);
-  --shadow-2xl-light: 0 32px 64px -12px oklch(22.5% 0.071 262.5deg / 0.3), 0 20px 40px -12px oklch(22.5% 0.071 262.5deg / 0.26);
-
-  /* Glow effects using semantic color variables */
+  /* Glow effects usando variables semánticas */
   --shadow-glow-accent: 0 0 20px oklch(var(--color-glow-accent) / 0.2);
   --shadow-glow-accent-lg: 0 0 40px oklch(var(--color-glow-accent) / 0.3);
   --shadow-glow-highlight: 0 0 20px oklch(var(--color-glow-highlight) / 0.2);
   --shadow-glow-highlight-lg: 0 0 40px oklch(var(--color-glow-highlight) / 0.3);
   --shadow-glow-success: 0 0 20px oklch(var(--color-glow-success) / 0.2);
   --shadow-glow-success-lg: 0 0 40px oklch(var(--color-glow-success) / 0.3);
+  --shadow-glow-accent-with-xs: var(--shadow-glow-accent), var(--shadow-xs);
 
-  /* Component-specific shadows using semantic variables */
-  --shadow-button: 0 2px 4px 0 oklch(var(--color-shadow) / 0.7), 0 1px 3px -1px oklch(var(--color-shadow) / 0.7);
-  --shadow-button-hover: 0 12px 20px -3px oklch(var(--color-shadow) / 0.8), 0 6px 10px -4px oklch(var(--color-shadow) / 0.7);
-  --shadow-card: 0 2px 4px 0 oklch(var(--color-shadow) / 0.7), 0 1px 3px -1px oklch(var(--color-shadow) / 0.7);
-  --shadow-card-hover: 0 24px 32px -5px oklch(var(--color-shadow) / 0.9), 0 12px 16px -6px oklch(var(--color-shadow) / 0.8);
+  /* Sombras específicas para componentes */
+  --shadow-button: var(--shadow-elevation-low);
+  --shadow-button-hover: var(--shadow-elevation-high);
+  --shadow-card: var(--shadow-elevation-low);
+  --shadow-card-hover: var(--shadow-elevation-extra-high);
   --shadow-inner: inset 0 2px 4px 0 oklch(var(--color-shadow) / 0.1);
   --shadow-none: 0 0 #0000;
 
-  /* Hero and special effect shadows */
-  --shadow-hero-primary: 0 8px 25px oklch(var(--color-glow-highlight) / 0.25), 0 4px 12px oklch(var(--color-shadow) / 0.15);
-  --shadow-hero-secondary: 0 8px 25px oklch(var(--color-glow-accent) / 0.2), 0 4px 12px oklch(var(--color-shadow) / 0.15);
+  /* Sombras “Hero” y efectos especiales */
+  --shadow-hero-primary:
+    0 8px 25px oklch(var(--color-glow-highlight) / 0.25),
+    0 4px 12px oklch(var(--color-shadow) / 0.15);
+  --shadow-hero-secondary:
+    0 8px 25px oklch(var(--color-glow-accent) / 0.2),
+    0 4px 12px oklch(var(--color-shadow) / 0.15);
 
-  /* Update card specific shadows */
-  --shadow-update-card: 0 4px 12px oklch(var(--color-shadow) / 0.08), 0 2px 6px oklch(var(--color-shadow) / 0.04);
-  --shadow-update-card-dark: 0 6px 20px oklch(var(--color-shadow) / 0.25), 0 3px 8px oklch(var(--color-shadow) / 0.15);
+  /* Sombras para tarjetas de “update” */
+  --shadow-update-card:
+    0 4px 12px oklch(var(--color-shadow) / 0.08),
+    0 2px 6px oklch(var(--color-shadow) / 0.04);
+  --shadow-update-card-dark:
+    0 6px 20px oklch(var(--color-shadow) / 0.25),
+    0 3px 8px oklch(var(--color-shadow) / 0.15);
 }

@@ -418,6 +418,15 @@
   }
 }
 
+/* === CARD GRADIENT BORDER === */
+.card-gradient-border {
+  background: linear-gradient(135deg, oklch(var(--color-interactive-primary) / 0.1) 0%, transparent 50%, oklch(var(--color-interactive-secondary) / 0.1) 100%);
+  padding: 1px;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
 /* === ENHANCED UPDATE CARD ANIMATIONS === */
 
 /* Dark theme adjustments for update cards */

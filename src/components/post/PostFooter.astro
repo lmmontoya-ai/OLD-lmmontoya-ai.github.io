@@ -48,18 +48,18 @@ const accentStyles = {
 
 const styles = accentStyles[accentColor];
 
-// Category styling
+// Category styling using semantic tokens
 const categoryStyles = {
-  'Research': 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-  'Technical': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  'Reflection': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-  'Resource': 'bg-green-500/10 text-green-400 border-green-500/20',
-  'Tutorial': 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-  'Update': 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+  'Research': 'bg-accent-research/10 text-accent-research border-accent-research/20',
+  'Technical': 'bg-accent-technical/10 text-accent-technical border-accent-technical/20',
+  'Reflection': 'bg-accent-reflection/10 text-accent-reflection border-accent-reflection/20',
+  'Resource': 'bg-accent-resource-cat/10 text-accent-resource-cat border-accent-resource-cat/20',
+  'Tutorial': 'bg-accent-tutorial/10 text-accent-tutorial border-accent-tutorial/20',
+  'Update': 'bg-accent-update/10 text-accent-update border-accent-update/20'
 };
 ---
 
-<footer class="mt-16 pt-12 border-t border-border-secondary">
+<footer class="mt-16 pt-12 border-t border-secondary">
   <!-- Tags and Category -->
   {(((post.data.tags ?? []).length > 0) || post.data.category) && (
     <div class="mb-8">
@@ -104,7 +104,7 @@ const categoryStyles = {
         href={socialLinks.twitter}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-content-secondary hover:text-content-primary bg-bg-secondary hover:bg-bg-tertiary border border-border-secondary hover:border-border-primary rounded-lg transition-all duration-200"
+        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-content-secondary hover:text-content-primary bg-bg-secondary hover:bg-bg-tertiary border border-secondary hover:border-primary rounded-lg transition-all duration-200"
         aria-label="Share on Twitter"
       >
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -118,7 +118,7 @@ const categoryStyles = {
         href={socialLinks.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-content-secondary hover:text-content-primary bg-bg-secondary hover:bg-bg-tertiary border border-border-secondary hover:border-border-primary rounded-lg transition-all duration-200"
+        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-content-secondary hover:text-content-primary bg-bg-secondary hover:bg-bg-tertiary border border-secondary hover:border-primary rounded-lg transition-all duration-200"
         aria-label="Share on LinkedIn"
       >
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -130,7 +130,7 @@ const categoryStyles = {
       <!-- Email -->
       <a
         href={socialLinks.email}
-        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-content-secondary hover:text-content-primary bg-bg-secondary hover:bg-bg-tertiary border border-border-secondary hover:border-border-primary rounded-lg transition-all duration-200"
+        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-content-secondary hover:text-content-primary bg-bg-secondary hover:bg-bg-tertiary border border-secondary hover:border-primary rounded-lg transition-all duration-200"
         aria-label="Share via Email"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,7 +143,7 @@ const categoryStyles = {
       <button
         id="copyLinkBtn"
         data-url={currentUrl.toString()}
-        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-content-secondary hover:text-content-primary bg-bg-secondary hover:bg-bg-tertiary border border-border-secondary hover:border-border-primary rounded-lg transition-all duration-200"
+        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-content-secondary hover:text-content-primary bg-bg-secondary hover:bg-bg-tertiary border border-secondary hover:border-primary rounded-lg transition-all duration-200"
         aria-label="Copy link to clipboard"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -164,7 +164,7 @@ const categoryStyles = {
         {relatedPosts.map((relatedPost) => (
           <a
             href={`/posts/${relatedPost.id}`}
-            class="group block p-4 bg-bg-secondary hover:bg-bg-tertiary border border-border-secondary hover:border-border-primary rounded-lg transition-all duration-200"
+            class="group block p-4 bg-bg-secondary hover:bg-bg-tertiary border border-secondary hover:border-primary rounded-lg transition-all duration-200"
           >
             <!-- Type badge -->
             <div class="flex items-center gap-2 mb-2">
@@ -202,7 +202,7 @@ const categoryStyles = {
   )}
 
   <!-- Navigation to section index -->
-  <div class="pt-8 border-t border-border-secondary">
+  <div class="pt-8 border-t border-secondary">
     <div class="flex items-center justify-between">
       <!-- Back to section -->
       <a

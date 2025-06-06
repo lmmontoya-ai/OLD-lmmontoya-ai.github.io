@@ -3,7 +3,7 @@ import "../styles/global.css";
 import "../styles/transitions.css";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
-import { ViewTransitions } from 'astro:transitions';
+import { ViewTransitions } from "astro:transitions";
 
 export interface Props {
   title: string;
@@ -37,19 +37,21 @@ const {
     <!-- Critical theme initialization - prevent flash of wrong theme -->
     <script is:inline>
       // This script must run immediately and synchronously to prevent flash
-      (function() {
+      (function () {
         function getStoredTheme() {
-          if (typeof localStorage !== 'undefined') {
-            return localStorage.getItem('theme');
+          if (typeof localStorage !== "undefined") {
+            return localStorage.getItem("theme");
           }
           return null;
         }
 
         function getSystemTheme() {
-          if (typeof window !== 'undefined' && window.matchMedia) {
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          if (typeof window !== "undefined" && window.matchMedia) {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
           }
-          return 'light';
+          return "light";
         }
 
         function applyTheme() {
@@ -59,15 +61,15 @@ const {
 
           // Apply theme immediately to prevent flash
           const root = document.documentElement;
-          if (theme === 'dark') {
-            root.classList.add('dark');
+          if (theme === "dark") {
+            root.classList.add("dark");
           } else {
-            root.classList.remove('dark');
+            root.classList.remove("dark");
           }
 
           // Only store if not already stored
-          if (typeof localStorage !== 'undefined' && !storedTheme) {
-            localStorage.setItem('theme', theme);
+          if (typeof localStorage !== "undefined" && !storedTheme) {
+            localStorage.setItem("theme", theme);
           }
         }
 
@@ -75,20 +77,20 @@ const {
         applyTheme();
 
         // Handle view transitions - preserve theme during navigation
-        document.addEventListener('astro:before-swap', (event) => {
+        document.addEventListener("astro:before-swap", (event) => {
           // Get current theme before swap
           const currentTheme = getStoredTheme() || getSystemTheme();
 
           // Apply to the new document
-          if (currentTheme === 'dark') {
-            event.newDocument.documentElement.classList.add('dark');
+          if (currentTheme === "dark") {
+            event.newDocument.documentElement.classList.add("dark");
           } else {
-            event.newDocument.documentElement.classList.remove('dark');
+            event.newDocument.documentElement.classList.remove("dark");
           }
         });
 
         // Also ensure theme is applied after swap
-        document.addEventListener('astro:after-swap', applyTheme);
+        document.addEventListener("astro:after-swap", applyTheme);
       })();
     </script>
 
@@ -112,18 +114,30 @@ const {
       .bg-surface-secondary,
       .bg-surface-tertiary,
       .border-border-primary,
-      .border-border-secondary,
+      .border-secondary,
       button,
       .card,
       nav,
       header,
       footer,
       aside {
-        transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+        transition:
+          background-color 0.2s ease,
+          border-color 0.2s ease,
+          color 0.15s ease;
       }
 
       /* Prevent background transitions on content elements that might cause flickering */
-      p, h1, h2, h3, h4, h5, h6, span, div, article {
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      span,
+      div,
+      article {
         transition: color 0.15s ease;
       }
     </style>
@@ -132,7 +146,8 @@ const {
     <!-- Subtle grid overlay for technical aesthetic -->
     <div
       class="fixed inset-0 bg-grid-pattern opacity-[0.02] dark:opacity-[0.035] pointer-events-none z-0"
-    ></div>
+    >
+    </div>
 
     <Header />
 

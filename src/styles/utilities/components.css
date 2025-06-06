@@ -27,17 +27,8 @@
  */
 
 /* === MODERN GRADIENT UTILITIES === */
-.gradient-hero {
-  background: linear-gradient(135deg, rgb(var(--color-hero-gradient-start)) 0%, rgb(var(--color-hero-gradient-end)) 100%);
-}
-
-.gradient-accent {
-  background: linear-gradient(135deg, rgb(var(--color-interactive-primary)) 0%, rgb(var(--color-interactive-secondary)) 100%);
-}
-
-.gradient-brand {
-  background: linear-gradient(135deg, rgb(var(--color-brand-primary)) 0%, rgb(var(--color-brand-secondary)) 100%);
-}
+/* Gradients are now defined directly in semantic-colors.css or with Tailwind utilities. */
+/* These legacy definitions have been removed to avoid confusion. */
 
 /* === ESSENTIAL ANIMATION UTILITIES === */
 .animate-fade-in-fast {
@@ -76,7 +67,7 @@
   top: 0;
   bottom: 0;
   width: 3px;
-  background-color: rgb(var(--color-accent-milestone)); /* Default fallback color */
+  background-color: oklch(var(--color-accent-milestone)); /* Default fallback color */
   transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1); /* Spring animation */
   z-index: 1; /* Render above card's direct content */
   border-radius: 0 2px 2px 0; /* Subtle rounding */
@@ -84,7 +75,7 @@
 
 .update-card:hover {
   transform: translateY(-1px) scale(1.005); /* Reduced movement - only vertical lift and subtle scale */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04); /* Subtle shadow lift */
+  box-shadow: var(--shadow-update-card); /* Use semantic shadow variable */
 }
 
 /* Remove counter-transform as we're using subtle card movement */
@@ -101,36 +92,36 @@
 
 /* Milestone Update Card */
 .update-card-milestone::before {
-  background-color: rgb(var(--color-accent-milestone)) !important;
+  background-color: oklch(var(--color-accent-milestone)) !important;
 }
 
 /* Project Update Card */
 .update-card-project::before {
-  background-color: rgb(var(--color-accent-project)) !important;
+  background-color: oklch(var(--color-accent-project)) !important;
 }
 
 /* Resource Update Card */
 .update-card-resource::before {
-  background-color: rgb(var(--color-accent-resource)) !important;
+  background-color: oklch(var(--color-accent-resource)) !important;
 }
 
 /* Literature Update Card (uses Resource accent color) */
 .update-card-literature::before {
-  background-color: rgb(var(--color-accent-resource)) !important;
+  background-color: oklch(var(--color-accent-resource)) !important;
 }
 
 /* Hover glow effects for each card type */
 .update-card-milestone:hover::before {
-  box-shadow: 0 0 12px 2px rgb(var(--color-accent-milestone) / 0.4);
+  box-shadow: 0 0 12px 2px oklch(var(--color-accent-milestone) / 0.4);
 }
 
 .update-card-project:hover::before {
-  box-shadow: 0 0 12px 2px rgb(var(--color-accent-project) / 0.4);
+  box-shadow: 0 0 12px 2px oklch(var(--color-accent-project) / 0.4);
 }
 
 .update-card-resource:hover::before,
 .update-card-literature:hover::before {
-  box-shadow: 0 0 12px 2px rgb(var(--color-accent-resource) / 0.4);
+  box-shadow: 0 0 12px 2px oklch(var(--color-accent-resource) / 0.4);
 }
 
 /* === TAG ACCENTS === */
@@ -148,24 +139,24 @@
 
 /* Milestone Tag */
 .tag-milestone {
-  background-color: rgb(var(--color-accent-milestone));
-  color: rgb(var(--color-surface-secondary)); /* Assuming text on gold bg should be dark/light depending on theme */
+  background-color: oklch(var(--color-accent-milestone));
+  color: oklch(var(--color-surface-secondary)); /* Assuming text on gold bg should be dark/light depending on theme */
 }
 
 .dark .tag-milestone {
- color: rgb(var(--color-text-primary)); /* Text on dark gold should be light */
+ color: oklch(var(--color-text-primary)); /* Text on dark gold should be light */
 }
 
 /* Project Tag */
 .tag-project {
-  background-color: rgb(var(--color-accent-project));
-  color: rgb(var(--color-text-primary)); /* Text on blue should be light */
+  background-color: oklch(var(--color-accent-project));
+  color: oklch(var(--color-text-primary)); /* Text on blue should be light */
 }
 
 /* Resource Tag */
 .tag-resource {
-  background-color: rgb(var(--color-accent-resource));
-  color: rgb(var(--color-text-primary)); /* Text on green should be light */
+  background-color: oklch(var(--color-accent-resource));
+  color: oklch(var(--color-text-primary)); /* Text on green should be light */
 }
 
 /* === STATUS PILL VARIANTS === */
@@ -188,112 +179,112 @@
 
 /* All Projects pill */
 .status-pill-all {
-  background-color: rgb(var(--color-surface-secondary));
-  color: rgb(var(--color-text-secondary));
-  border-color: rgb(var(--color-border-primary));
+  background-color: oklch(var(--color-surface-secondary));
+  color: oklch(var(--color-text-secondary));
+  border-color: oklch(var(--color-border-primary));
 }
 
 .status-pill-all:hover {
-  background-color: rgb(var(--color-surface-tertiary));
-  color: rgb(var(--color-text-primary));
-  border-color: rgb(var(--color-interactive-blue));
+  background-color: oklch(var(--color-surface-tertiary));
+  color: oklch(var(--color-text-primary));
+  border-color: oklch(var(--color-interactive-blue));
   transform: translateY(-1px);
 }
 
 .status-pill-all.active {
-  background-color: rgb(var(--color-interactive-blue));
-  color: white;
-  border-color: rgb(var(--color-interactive-blue));
+  background-color: oklch(var(--color-interactive-blue));
+  color: oklch(var(--color-content-inverse));
+  border-color: oklch(var(--color-interactive-blue));
 }
 
 /* Completed status pill */
 .status-pill-completed {
-  background-color: rgb(var(--color-status-success) / 0.15);
-  color: rgb(var(--color-status-success));
-  border-color: rgb(var(--color-status-success) / 0.3);
+  background-color: oklch(var(--color-status-success) / 0.15);
+  color: oklch(var(--color-status-success));
+  border-color: oklch(var(--color-status-success) / 0.3);
 }
 
 .status-pill-completed:hover {
-  background-color: rgb(var(--color-status-success) / 0.25);
-  border-color: rgb(var(--color-status-success) / 0.5);
+  background-color: oklch(var(--color-status-success) / 0.25);
+  border-color: oklch(var(--color-status-success) / 0.5);
   transform: translateY(-1px);
 }
 
 .status-pill-completed.active {
-  background-color: rgb(var(--color-status-success));
-  color: rgb(var(--color-surface-primary));
-  border-color: rgb(var(--color-status-success));
+  background-color: oklch(var(--color-status-success));
+  color: oklch(var(--color-surface-primary));
+  border-color: oklch(var(--color-status-success));
 }
 
 /* In-progress status pill */
 .status-pill-in-progress {
-  background-color: rgb(var(--color-status-warning) / 0.15);
-  color: rgb(var(--color-status-warning));
-  border-color: rgb(var(--color-status-warning) / 0.3);
+  background-color: oklch(var(--color-status-warning) / 0.15);
+  color: oklch(var(--color-status-warning));
+  border-color: oklch(var(--color-status-warning) / 0.3);
 }
 
 .status-pill-in-progress:hover {
-  background-color: rgb(var(--color-status-warning) / 0.25);
-  border-color: rgb(var(--color-status-warning) / 0.5);
+  background-color: oklch(var(--color-status-warning) / 0.25);
+  border-color: oklch(var(--color-status-warning) / 0.5);
   transform: translateY(-1px);
 }
 
 .status-pill-in-progress.active {
-  background-color: rgb(var(--color-status-warning));
-  color: rgb(var(--color-surface-primary));
-  border-color: rgb(var(--color-status-warning));
+  background-color: oklch(var(--color-status-warning));
+  color: oklch(var(--color-surface-primary));
+  border-color: oklch(var(--color-status-warning));
 }
 
 /* Planned status pill */
 .status-pill-planned {
-  background-color: rgb(var(--color-interactive-blue) / 0.15);
-  color: rgb(var(--color-interactive-blue));
-  border-color: rgb(var(--color-interactive-blue) / 0.3);
+  background-color: oklch(var(--color-interactive-blue) / 0.15);
+  color: oklch(var(--color-interactive-blue));
+  border-color: oklch(var(--color-interactive-blue) / 0.3);
 }
 
 .status-pill-planned:hover {
-  background-color: rgb(var(--color-interactive-blue) / 0.25);
-  border-color: rgb(var(--color-interactive-blue) / 0.5);
+  background-color: oklch(var(--color-interactive-blue) / 0.25);
+  border-color: oklch(var(--color-interactive-blue) / 0.5);
   transform: translateY(-1px);
 }
 
 .status-pill-planned.active {
-  background-color: rgb(var(--color-interactive-blue));
-  color: rgb(var(--color-surface-primary));
-  border-color: rgb(var(--color-interactive-blue));
+  background-color: oklch(var(--color-interactive-blue));
+  color: oklch(var(--color-surface-primary));
+  border-color: oklch(var(--color-interactive-blue));
 }
 
 /* === CONTAINER SURFACES === */
 .container-background {
-  background-color: rgb(var(--color-surface-secondary)); /* Pure secondary surface for clear separation */
-  border: 1px solid rgb(var(--color-border-subtle)); /* Subtle border for definition */
+  background-color: oklch(var(--color-surface-secondary)); /* Pure secondary surface for clear separation */
+  border: 1px solid oklch(var(--color-border-subtle)); /* Subtle border for definition */
   transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1); /* Spring transition */
 }
 
 .container-background:hover {
-  border-color: rgb(var(--color-border-primary)); /* Slightly more visible border on hover */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); /* Very subtle shadow for depth */
+  border-color: oklch(var(--color-border-primary)); /* Slightly more visible border on hover */
+  box-shadow: var(--shadow-update-card); /* Use semantic shadow variable */
 }
 
 .container-header-background {
-  background-color: rgb(var(--color-surface-tertiary) / 0.5); /* Subtle header distinction */
-  border-bottom: 1px solid rgb(var(--color-border-subtle)); /* Clean separation line */
+  background-color: oklch(var(--color-surface-tertiary) / 0.5); /* Subtle header distinction */
+  border-bottom: 1px solid oklch(var(--color-border-subtle)); /* Clean separation line */
 }
 
 /* Dark theme adjustments for containers */
 :global(html.dark) .container-background {
-  background-color: rgb(var(--color-surface-secondary));
-  border-color: rgb(var(--color-border-primary));
+  background-color: oklch(var(--color-surface-secondary));
+  border-color: oklch(var(--color-border-primary));
 }
 
 :global(html.dark) .container-background:hover {
-  border-color: rgb(var(--color-border-primary));
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-color: oklch(var(--color-border-primary));
+  box-shadow: var(--shadow-update-card-dark);
 }
 
 :global(html.dark) .container-header-background {
-  background-color: rgb(var(--color-surface-tertiary) / 0.3);
-  border-bottom-color: rgb(var(--color-border-primary));
+  background-color: oklch(var(--color-surface-tertiary) / 0.3);
+  border-bottom-color: oklch(var(--color-border-primary));
 }
 
 /* === HERO BUTTON ANIMATIONS === */
@@ -307,8 +298,7 @@
 
 .hero-button-primary:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(var(--color-interactive-gold), 0.25),
-              0 4px 12px rgba(var(--color-shadow-rgb), 0.15);
+  box-shadow: var(--shadow-hero-primary);
 }
 
 .hero-button-primary:active {
@@ -324,8 +314,7 @@
 
 .hero-button-secondary:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(var(--color-interactive-blue), 0.2),
-              0 4px 12px rgba(var(--color-shadow-rgb), 0.15);
+  box-shadow: var(--shadow-hero-secondary);
 }
 
 .hero-button-secondary:active {
@@ -338,9 +327,9 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg,
-    rgb(var(--color-interactive-gold)) 0%,
-    rgb(var(--color-interactive-gold)) 50%,
-    rgb(var(--color-accent-milestone)) 100%
+    oklch(var(--color-interactive-gold)) 0%,
+    oklch(var(--color-interactive-gold)) 50%,
+    oklch(var(--color-accent-milestone)) 100%
   );
   opacity: 0;
   transition: var(--transition-spring);
@@ -356,9 +345,9 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg,
-    rgb(var(--color-interactive-blue)) 0%,
-    rgb(var(--color-accent-project)) 50%,
-    rgb(var(--color-interactive-blue)) 100%
+    oklch(var(--color-interactive-blue)) 0%,
+    oklch(var(--color-accent-project)) 50%,
+    oklch(var(--color-interactive-blue)) 100%
   );
   opacity: 0;
   transition: var(--transition-spring);
@@ -374,7 +363,7 @@
 .hero-button-ripple {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, oklch(var(--color-content-inverse) / 0.3) 0%, transparent 70%);
   opacity: 0;
   transform: scale(0);
   transition: var(--transition-fast);
@@ -397,7 +386,7 @@
 /* Enhanced focus styles for accessibility */
 .hero-button-primary:focus-visible,
 .hero-button-secondary:focus-visible {
-  outline: 2px solid rgb(var(--color-interactive-blue));
+  outline: 2px solid oklch(var(--color-interactive-focus));
   outline-offset: 3px;
   transform: translateY(-1px);
 }
@@ -433,12 +422,12 @@
 
 /* Dark theme adjustments for update cards */
 :global(html.dark) .update-card:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25), 0 3px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-update-card-dark);
 }
 
 /* Enhanced focus states for accessibility */
 .update-card:focus-visible {
-  outline: 2px solid rgb(var(--color-interactive-blue));
+  outline: 2px solid oklch(var(--color-interactive-focus));
   outline-offset: 3px;
   transform: translateX(3px) translateY(-0.5px);
 }
@@ -450,17 +439,17 @@
 
 /* Enhanced icon glow effect on hover */
 .update-card:hover svg {
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  filter: drop-shadow(0 2px 4px oklch(var(--color-shadow) / 0.1));
 }
 
 /* Subtle text glow on hover for better readability */
 .update-card:hover .text-primary {
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 8px oklch(var(--color-content-inverse) / 0.1);
 }
 
 /* Dark theme text glow */
 :global(html.dark) .update-card:hover .text-primary {
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  text-shadow: 0 0 8px oklch(var(--color-content-inverse) / 0.05);
 }
 
 /* Staggered entrance animations for update cards */

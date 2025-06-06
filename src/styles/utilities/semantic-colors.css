@@ -1,74 +1,178 @@
 /**
- * Semantic Color Utilities - Readable & Maintainable
+ * Semantic Color Utilities - OKLCH-based & Maintainable
  *
- * Creates semantic utility classes using custom color tokens.
+ * Creates semantic utility classes using OKLCH color tokens.
  * Theme switching is handled by the definitions in theme/colors.css.
  */
 
 /* === TEXT COLOR UTILITIES === */
 @utility text-primary {
-  color: rgb(var(--color-text-primary));
+  color: oklch(var(--color-text-primary));
 }
 
 @utility text-secondary {
-  color: rgb(var(--color-text-secondary));
+  color: oklch(var(--color-text-secondary));
 }
 
 @utility text-tertiary {
-  color: rgb(var(--color-text-tertiary));
+  color: oklch(var(--color-text-tertiary));
 }
 
 /* === INTERACTIVE TEXT COLORS === */
 @utility text-interactive-blue {
-  color: rgb(var(--color-interactive-blue)) !important;
+  color: oklch(var(--color-interactive-blue)) !important;
 }
 
 @utility text-interactive-gold {
-  color: rgb(var(--color-interactive-gold));
+  color: oklch(var(--color-interactive-gold));
 }
 
 /* === ACCENT TEXT COLORS === */
 @utility text-milestone {
-  color: rgb(var(--color-accent-milestone));
+  color: oklch(var(--color-accent-milestone));
 }
 
 @utility text-project {
-  color: rgb(var(--color-accent-project));
+  color: oklch(var(--color-accent-project));
 }
 
 @utility text-resource {
-  color: rgb(var(--color-accent-resource));
+  color: oklch(var(--color-accent-resource));
+}
+
+/* === CATEGORY ACCENT TEXT COLORS === */
+@utility text-accent-research {
+  color: oklch(var(--color-accent-research));
+}
+
+@utility text-accent-technical {
+  color: oklch(var(--color-accent-technical));
+}
+
+@utility text-accent-reflection {
+  color: oklch(var(--color-accent-reflection));
+}
+
+@utility text-accent-resource-cat {
+  color: oklch(var(--color-accent-resource-cat));
+}
+
+@utility text-accent-tutorial {
+  color: oklch(var(--color-accent-tutorial));
+}
+
+@utility text-accent-update {
+  color: oklch(var(--color-accent-update));
+}
+
+/* === BRAND COLOR UTILITIES === */
+@utility text-brand-primary {
+  color: oklch(var(--color-brand-primary));
+}
+
+@utility text-brand-secondary {
+  color: oklch(var(--color-brand-secondary));
+}
+
+@utility bg-brand-primary {
+  background-color: oklch(var(--color-brand-primary));
+}
+
+@utility bg-brand-secondary {
+  background-color: oklch(var(--color-brand-secondary));
+}
+
+@utility border-brand-primary {
+  border-color: oklch(var(--color-brand-primary));
+}
+
+@utility border-brand-secondary {
+  border-color: oklch(var(--color-brand-secondary));
 }
 
 /* === BACKGROUND COLOR UTILITIES === */
 @utility bg-surface-primary {
-  background-color: rgb(var(--color-surface-primary));
+  background-color: oklch(var(--color-surface-primary));
 }
 
 @utility bg-surface-secondary {
-  background-color: rgb(var(--color-surface-secondary));
+  background-color: oklch(var(--color-surface-secondary));
 }
 
 @utility bg-surface-tertiary {
-  background-color: rgb(var(--color-surface-tertiary));
+  background-color: oklch(var(--color-surface-tertiary));
 }
 
 /* === INTERACTIVE BACKGROUND COLORS === */
 @utility bg-interactive-blue {
-  background-color: rgb(var(--color-interactive-blue));
+  background-color: oklch(var(--color-interactive-blue));
 }
 
 @utility bg-interactive-gold {
-  background-color: rgb(var(--color-interactive-gold));
+  background-color: oklch(var(--color-interactive-gold));
+}
+
+/* === CATEGORY ACCENT BACKGROUND COLORS === */
+@utility bg-accent-research {
+  background-color: oklch(var(--color-accent-research));
+}
+
+@utility bg-accent-technical {
+  background-color: oklch(var(--color-accent-technical));
+}
+
+@utility bg-accent-reflection {
+  background-color: oklch(var(--color-accent-reflection));
+}
+
+@utility bg-accent-resource-cat {
+  background-color: oklch(var(--color-accent-resource-cat));
+}
+
+@utility bg-accent-tutorial {
+  background-color: oklch(var(--color-accent-tutorial));
+}
+
+@utility bg-accent-update {
+  background-color: oklch(var(--color-accent-update));
 }
 
 /* === BORDER COLOR UTILITIES === */
 @utility border-primary {
-  border-color: rgb(var(--color-border-primary));
+  border-color: oklch(var(--color-border-primary));
 }
 
 @utility border-subtle {
-  border-color: rgb(var(--color-border-subtle));
+  border-color: oklch(var(--color-border-subtle));
+}
+
+@utility border-secondary {
+  border-color: oklch(var(--color-border-secondary));
+}
+
+/* === CATEGORY ACCENT BORDER COLORS === */
+@utility border-accent-research {
+  border-color: oklch(var(--color-accent-research));
+}
+
+@utility border-accent-technical {
+  border-color: oklch(var(--color-accent-technical));
+}
+
+@utility border-accent-reflection {
+  border-color: oklch(var(--color-accent-reflection));
+}
+
+@utility border-accent-resource-cat {
+  border-color: oklch(var(--color-accent-resource-cat));
+}
+
+@utility border-accent-tutorial {
+  border-color: oklch(var(--color-accent-tutorial));
+}
+
+@utility border-accent-update {
+  border-color: oklch(var(--color-accent-update));
 }
 
 /* === HOVER BACKGROUND UTILITIES === */
@@ -77,7 +181,7 @@
 }
 
 .hover-milestone:hover {
-  background-color: rgb(var(--color-accent-milestone) / 0.1);
+  background-color: oklch(var(--color-accent-milestone) / 0.1);
 }
 
 @utility hover-project {
@@ -85,7 +189,7 @@
 }
 
 .hover-project:hover {
-  background-color: rgb(var(--color-accent-project) / 0.1);
+  background-color: oklch(var(--color-accent-project) / 0.1);
 }
 
 @utility hover-resource {
@@ -93,21 +197,17 @@
 }
 
 .hover-resource:hover {
-  background-color: rgb(var(--color-accent-resource) / 0.1);
+  background-color: oklch(var(--color-accent-resource) / 0.1);
 }
 
 /* === ESSENTIAL NON-COLOR UTILITIES === */
 .gradient-hero {
-  background: linear-gradient(135deg, #13263C 0%, #0B141F 100%);
+  background: linear-gradient(135deg, oklch(var(--color-surface-tertiary)) 0%, oklch(var(--color-surface-primary)) 100%);
 }
 
-/* Note: The .dark .gradient-primary rule is kept as it defines a distinct gradient for dark mode */
+/* Semantic gradient using theme-aware color variables */
 .gradient-primary {
-  background: linear-gradient(135deg, rgb(var(--color-interactive-blue)) 0%, rgb(var(--color-interactive-gold)) 100%);
-}
-
-.dark .gradient-primary {
-  background: linear-gradient(135deg, rgb(var(--color-interactive-blue)) 0%, rgb(var(--color-interactive-gold)) 100%);
+  background: linear-gradient(135deg, oklch(var(--color-interactive-blue)) 0%, oklch(var(--color-interactive-gold)) 100%);
 }
 
 .backdrop-blur-themed {
@@ -117,13 +217,13 @@
 
 /* Note: The .dark .focus-ring:focus-visible rule is kept as it correctly overrides the focus color */
 .focus-ring:focus-visible {
-  outline: 2px solid rgb(var(--color-interactive-blue));
+  outline: 2px solid oklch(var(--color-interactive-blue));
   outline-offset: 2px;
   border-radius: 4px;
 }
 
 .dark .focus-ring:focus-visible {
-  outline-color: rgb(var(--color-interactive-blue));
+  outline-color: oklch(var(--color-interactive-blue));
 }
 
 .transition-theme {
@@ -139,93 +239,93 @@
 /* === GRID PATTERN === */
 .bg-grid-pattern {
   background-image:
-    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.3) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.3) 1px, transparent 1px);
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.3) 1px, transparent 1px);
   background-size: 2rem 2rem;
 }
 
 .dark .bg-grid-pattern {
   background-image:
-    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.15) 1px, transparent 1px);
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.15) 1px, transparent 1px);
 }
 
 /* Fine grid pattern for subtle backgrounds */
 .bg-grid-fine {
   background-image:
-    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.2) 1px, transparent 1px);
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.2) 1px, transparent 1px);
   background-size: 1rem 1rem;
 }
 
 .dark .bg-grid-fine {
   background-image:
-    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.1) 1px, transparent 1px);
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.1) 1px, transparent 1px);
 }
 
 /* Large grid pattern for sections */
 .bg-grid-large {
   background-image:
-    linear-gradient(to right, rgb(var(--color-border-primary) / 0.4) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-primary) / 0.4) 1px, transparent 1px);
+    linear-gradient(to right, oklch(var(--color-border-primary) / 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-primary) / 0.4) 1px, transparent 1px);
   background-size: 4rem 4rem;
 }
 
 .dark .bg-grid-large {
   background-image:
-    linear-gradient(to right, rgb(var(--color-border-primary) / 0.2) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-primary) / 0.2) 1px, transparent 1px);
+    linear-gradient(to right, oklch(var(--color-border-primary) / 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-primary) / 0.2) 1px, transparent 1px);
 }
 
 /* Dot grid pattern for hero sections */
 .bg-dots {
-  background-image: radial-gradient(circle, rgb(var(--color-border-subtle) / 0.3) 1px, transparent 1px);
+  background-image: radial-gradient(circle, oklch(var(--color-border-subtle) / 0.3) 1px, transparent 1px);
   background-size: 1.5rem 1.5rem;
 }
 
 .dark .bg-dots {
-  background-image: radial-gradient(circle, rgb(var(--color-border-subtle) / 0.2) 1px, transparent 1px);
+  background-image: radial-gradient(circle, oklch(var(--color-border-subtle) / 0.2) 1px, transparent 1px);
 }
 
 /* Combined grid and dots for technical sections */
 .bg-grid-dots {
   background-image:
-    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
-    radial-gradient(circle, rgb(var(--color-border-primary) / 0.15) 2px, transparent 2px);
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
+    radial-gradient(circle, oklch(var(--color-border-primary) / 0.15) 2px, transparent 2px);
   background-size: 2rem 2rem, 2rem 2rem, 8rem 8rem;
 }
 
 .dark .bg-grid-dots {
   background-image:
-    linear-gradient(to right, rgb(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
-    radial-gradient(circle, rgb(var(--color-border-primary) / 0.1) 2px, transparent 2px);
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
+    radial-gradient(circle, oklch(var(--color-border-primary) / 0.1) 2px, transparent 2px);
 }
 
 /* === SHADOW SYSTEM === */
 /* Note: The .dark .shadow-themed-* rules are kept as they correctly override the shadow colors */
 .shadow-themed-sm {
-  box-shadow: 0 1px 3px 0 rgba(var(--color-shadow-rgb), 0.1), 0 1px 2px 0 rgba(var(--color-shadow-rgb), 0.06);
+  box-shadow: var(--shadow-sm-light);
 }
 
 .dark .shadow-themed-sm {
-  box-shadow: 0 2px 4px 0 rgba(var(--color-shadow-rgb), 0.7), 0 1px 3px -1px rgba(var(--color-shadow-rgb), 0.7);
+  box-shadow: var(--shadow-sm);
 }
 
 .shadow-themed-md {
-  box-shadow: 0 4px 6px -1px rgba(var(--color-shadow-rgb), 0.1), 0 2px 4px -1px rgba(var(--color-shadow-rgb), 0.06);
+  box-shadow: var(--shadow-md-light);
 }
 
 .dark .shadow-themed-md {
-  box-shadow: 0 4px 8px -1px rgba(var(--color-shadow-rgb), 0.7), 0 2px 6px -2px rgba(var(--color-shadow-rgb), 0.7);
+  box-shadow: var(--shadow-md);
 }
 
 .shadow-themed-lg {
-  box-shadow: 0 10px 15px -3px rgba(var(--color-shadow-rgb), 0.1), 0 4px 6px -2px rgba(var(--color-shadow-rgb), 0.05);
+  box-shadow: var(--shadow-lg-light);
 }
 
 .dark .shadow-themed-lg {
-  box-shadow: 0 12px 20px -3px rgba(var(--color-shadow-rgb), 0.8), 0 6px 10px -4px rgba(var(--color-shadow-rgb), 0.7);
+  box-shadow: var(--shadow-lg);
 }

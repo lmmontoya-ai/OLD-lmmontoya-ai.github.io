@@ -52,14 +52,14 @@ const isRoadmap = variant === "roadmap";
 
   {isRoadmap && (
     <!-- Theme-aware background using gold color with inline style -->
-    <div class="absolute inset-0" style="background-color: rgb(var(--color-interactive-gold));"></div>
+    <div class="absolute inset-0" style="background-color: oklch(var(--color-interactive-gold));"></div>
   )}
 
   {isPrimary && (
     <!-- Hover glow effect using semantic colors -->
     <div
       class="absolute inset-0 transition-spring opacity-0 hover:opacity-100"
-      style="box-shadow: 0 0 20px rgb(var(--color-interactive-blue) / 0.3), 0 4px 8px rgba(0, 0, 0, 0.1);"
+      style="box-shadow: 0 0 20px oklch(var(--color-glow-accent) / 0.3), var(--shadow-xs);"
     ></div>
   )}
 
@@ -67,14 +67,14 @@ const isRoadmap = variant === "roadmap";
     <!-- Hover glow effect using gold color -->
     <div
       class="absolute inset-0 transition-spring opacity-0 hover:opacity-100"
-      style="box-shadow: 0 0 20px rgb(var(--color-interactive-gold) / 0.3), 0 4px 8px rgba(0, 0, 0, 0.1);"
+      style="box-shadow: 0 0 20px oklch(var(--color-glow-highlight) / 0.3), var(--shadow-xs);"
     ></div>
   )}
 
   <!-- Button content -->
   <span
     class="relative z-10 flex items-center"
-    style={isRoadmap ? "color: rgb(var(--color-interactive-gold-contrast));" : ""}
+    style={isRoadmap ? "color: oklch(var(--color-interactive-gold-contrast));" : ""}
   >
     <slot />
   </span>

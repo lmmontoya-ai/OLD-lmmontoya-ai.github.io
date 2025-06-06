@@ -12,6 +12,18 @@ This document details the audit of color usage across the Luis Miguel Montoya po
 *   Avoiding hardcoded color values (hex, rgb, named colors) directly in components or utility stylesheets.
 *   Ensuring colors in `src/utils/variants.ts` use Tailwind classes derived from the theme or CSS variables.
 
+## Audit Summary & Recent Changes (June 5, 2025)
+
+The `shadcn-ui` library was successfully initialized. This introduced a new set of `oklch`-based color variables directly into `src/styles/global.css`.
+
+**Key actions taken:**
+1.  **Isolation of `shadcn-ui` Colors:** The `shadcn-ui` color variables have been isolated from the project's primary semantic color system. They are now clearly commented and namespaced in `tailwind.config.mjs` to be used *only* for `shadcn-ui` components. This prevents unintended overrides of the main site theme.
+2.  **Conflicting Style Removal:** The `shadcn-ui` initialization added a global `@layer base` style that overrode the `<body>` background and text colors. This has been **removed**, restoring the site's intended appearance.
+3.  **Configuration:** A `tailwind.config.mjs` file was created to properly integrate `shadcn-ui` components with Tailwind v4's CSS-first approach, and `components.json` was updated accordingly.
+4.  **Violation Fixed:** The hardcoded focus color in `src/styles/base/reset.css` was corrected to use a semantic variable.
+
+The project is now correctly configured to use both its own semantic color system for the main layout and theme, and the `shadcn-ui` color system for its specific components, without conflict.
+
 ## File-by-File Analysis
 
 This section will be populated as files are analyzed.
@@ -93,6 +105,7 @@ This section will be populated as files are analyzed.
 *   **Guideline Adherence:**
     *   Correctly uses CSS variables (`--color-border-primary`).
     *   Uses `rgb(var(...) / <alpha-value>)`. This will need testing after `--color-border-primary` is converted to `oklch` in `colors.css`. The syntax might need to change to `oklch(var(...) / alpha)`.
+    *   **UPDATE (June 5):** The `shadcn-ui` initialization added a large block of its own `oklch` color variables to this file. These have been successfully isolated and are intended only for `shadcn-ui` components. The conflicting `@layer base` styles that `shadcn-ui` added, which overrode the body background and text colors, have been removed.
 *   **Recommendations:**
     *   Verify scrollbar styling after `oklch` conversion of `--color-border-primary`.
 
@@ -192,12 +205,12 @@ This section will be populated as files are analyzed.
 
 *   **Path:** `/Users/lumontoya/Documents/lmmontoya/portfolio/lmmontoya-ai.github.io/src/styles/base/reset.css`
 *   **Color Usage:**
-    *   `:focus-visible`: `outline: 2px solid rgb(59 130 246);` The RGB value `59 130 246` is a blue color.
+    *   `:focus-visible`: `outline: 2px solid rgb(var(--color-interactive-blue));`
 *   **Guideline Adherence:**
-    *   The hardcoded RGB value for `:focus-visible` does **not** meet guidelines. It should use a CSS variable like `var(--color-interactive-focus)` or `var(--color-interactive-blue)`.
-*   **Hardcoded Values:** `rgb(59 130 246)`.
+    *   Correctly uses a CSS variable for the focus outline color.
+*   **Hardcoded Values:** None.
 *   **Recommendations:**
-    *   Replace the hardcoded `rgb(59 130 246)` with a CSS variable (e.g., `var(--color-interactive-focus)`).
+    *   None. This file is now compliant.
 
 ### `src/styles/theme/index.css`
 

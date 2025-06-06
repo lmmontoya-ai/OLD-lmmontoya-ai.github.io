@@ -55,9 +55,12 @@ const socialLinks = [
   <!-- Subtle background pattern -->
   <div
     class="absolute inset-0 bg-grid-fine opacity-[0.015] dark:opacity-[0.025] pointer-events-none"
-  ></div>
+  >
+  </div>
 
-  <div class="container mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24 relative">
+  <div
+    class="container mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24 relative"
+  >
     <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
       <!-- Brand Section -->
       <div class="space-y-4">
@@ -73,11 +76,13 @@ const socialLinks = [
           </h2>
           <div
             class="h-0.5 w-12 bg-gradient-to-r from-interactive-blue to-interactive-gold opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all duration-300 ease-out"
-          ></div>
+          >
+          </div>
         </div>
         <p class="text-secondary text-sm lg:text-base max-w-xs leading-relaxed">
-          Documenting my journey from Physicist-Data Scientist to AI interpretability
-          researcher. Exploring the path to understanding artificial minds.
+          Documenting my journey from Physicist-Data Scientist to AI
+          interpretability researcher. Exploring the path to understanding
+          artificial minds.
         </p>
       </div>
 
@@ -97,7 +102,7 @@ const socialLinks = [
               >
                 <span class="relative">
                   {link.label}
-                  <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-interactive-blue transform origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
+                  <span class="absolute bottom-0 left-0 w-full h-0.5 bg-interactive-blue transform origin-left scale-x-0 transition-all duration-300 ease-out group-hover:scale-x-100" />
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -175,7 +180,8 @@ const socialLinks = [
       <p class="text-tertiary text-xs lg:text-sm font-mono text-center">
         <span class="opacity-60">©</span>
         <time class="tabular-nums mx-1">{new Date().getFullYear()}</time>
-        <span class="opacity-60">Luis Miguel Montoya. All rights reserved.</span>
+        <span class="opacity-60">Luis Miguel Montoya. All rights reserved.</span
+        >
       </p>
     </div>
   </div>
@@ -218,11 +224,17 @@ const socialLinks = [
   }
 
   @keyframes gradientShift {
-    0%, 100% {
+    0%,
+    100% {
       background-position: 0% 50%;
     }
     50% {
       background-position: 100% 50%;
     }
+  }
+
+  /* Ensure underline color is visible */
+  .bg-interactive-blue {
+    background-color: oklch(var(--color-interactive-blue)) !important;
   }
 </style>

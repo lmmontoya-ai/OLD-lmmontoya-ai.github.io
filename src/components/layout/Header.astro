@@ -36,27 +36,16 @@ const currentPath = Astro.url.pathname;
     <nav class="hidden md:flex items-center gap-1 h-full">
       <NavLink href="/roadmap" currentPath={currentPath}> Roadmap </NavLink>
 
-      <!-- Nav link divider -->
-      <div class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-100">
-      </div>
-
       <NavLink href="/projects" currentPath={currentPath}> Projects </NavLink>
-
-      <div class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-50"></div>
 
       <NavLink href="/literature" currentPath={currentPath}>
         Literature
       </NavLink>
 
-      <div class="inline-block w-px h-4 mx-2 bg-border-subtle opacity-50"></div>
-
       <NavLink href="/blog" currentPath={currentPath}> Blog </NavLink>
-
-      <div class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"></div>
 
       <NavLink href="/contact" currentPath={currentPath}> Contact </NavLink>
 
-      <div class="inline-block w-px h-4 mx-3 bg-border-subtle opacity-50"></div>
       <ThemeToggle />
     </nav>
 

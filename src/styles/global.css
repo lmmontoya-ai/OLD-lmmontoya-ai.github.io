@@ -102,7 +102,6 @@
 @import "./theme/typography.css" layer(theme);
 @import "./theme/spacing.css" layer(theme);
 @import "./theme/shadows.css" layer(theme);
-@import "./theme/gradients.css" layer(theme);
 @import "./theme/animations.css" layer(theme);
 
 /* Base layer: normalize/reset styles */
@@ -115,6 +114,8 @@
 
 /* Utilities: only essential custom utilities */
 @import "./utilities/semantic-colors.css";
+@import "./utilities/interactive.css";
+@import "./utilities/modern-layout.css";
 @import "./utilities/components.css";
 @import "tw-animate-css";
 

@@ -1,11 +1,3 @@
-/**
- * Theme Colors - Semantic Tokens with OKLCH Color Space
- *
- * Uses Tailwind v4 @theme to define semantic color tokens in OKLCH format.
- * OKLCH provides better color manipulation and future compatibility.
- * Dark mode overrides are applied via a separate html.dark ruleset.
- */
-
 @theme {
   /* === SEMANTIC COLOR SYSTEM === */
 

@@ -375,3 +375,71 @@ export type UpdateCardTitleVariants = VariantProps<typeof updateCardTitleVariant
 export type ProjectCardVariants = VariantProps<typeof projectCardVariants>;
 export type LiteratureCardVariants = VariantProps<typeof literatureCardVariants>;
 export type BlogCardVariants = VariantProps<typeof blogCardVariants>;
+
+// NavLink component variants - Using semantic utilities
+export const navLinkVariants = cva(
+  [
+    "relative",
+    "group",
+    "transition-spring",
+  ],
+  {
+    variants: {
+      variant: {
+        desktop: [
+          "flex",
+          "items-center",
+          "h-10",
+          "px-3",
+          "font-medium",
+          "font-mono",
+          "text-sm",
+          "rounded-lg",
+        ],
+        mobile: [
+          "py-3",
+          "border-b",
+          "border-subtle",
+          "flex",
+          "items-center",
+          "justify-between",
+          "font-mono",
+          "transform",
+          "hover:translate-x-1",
+        ],
+      },
+      active: {
+        true: "",
+        false: "",
+      },
+    },
+    compoundVariants: [
+      {
+        variant: "desktop",
+        active: true,
+        class: "text-interactive-blue",
+      },
+      {
+        variant: "desktop",
+        active: false,
+        class: "text-primary hover:text-interactive-blue",
+      },
+      {
+        variant: "mobile",
+        active: true,
+        class: "text-interactive-blue border-interactive-blue/30",
+      },
+      {
+        variant: "mobile",
+        active: false,
+        class: "text-primary hover:text-interactive-blue",
+      },
+    ],
+    defaultVariants: {
+      variant: "desktop",
+      active: false,
+    },
+  }
+);
+
+export type NavLinkVariants = VariantProps<typeof navLinkVariants>;

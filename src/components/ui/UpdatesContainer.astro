@@ -63,7 +63,7 @@ const headerClasses = [
           clip-rule="evenodd"></path>
       </svg>
       <span
-        class="absolute -bottom-1 left-0 w-full h-0.5 bg-interactive-blue transform origin-left scale-x-0 transition-underline-themed group-hover:scale-x-100"
+        class="absolute bottom-0 left-0 w-full h-0.5 bg-interactive-blue transform origin-left scale-x-0 transition-all duration-300 ease-out group-hover:scale-x-100"
       ></span>
     </a>
   </div>
@@ -72,3 +72,10 @@ const headerClasses = [
     <div class="flex-1"></div>
   </div>
 </div>
+
+<style>
+  /* Ensure underline color is visible */
+  .bg-interactive-blue {
+    background-color: oklch(var(--color-interactive-blue)) !important;
+  }
+</style>

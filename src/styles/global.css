@@ -112,12 +112,14 @@
 @import "./animations/properties.css" layer(theme);
 @import "./animations/keyframes.css" layer(theme);
 
-/* Utilities: only essential custom utilities */
-@import "./utilities/semantic-colors.css";
-@import "./utilities/interactive.css";
-@import "./utilities/modern-layout.css";
-@import "./utilities/components.css";
-@import "tw-animate-css";
+/* Components layer: custom component classes */
+@import "./utilities/components.css" layer(components);
+
+/* Utilities layer: custom utility classes */
+@import "./utilities/semantic-colors.css" layer(utilities);
+@import "./utilities/interactive.css" layer(utilities);
+@import "./utilities/modern-layout.css" layer(utilities);
+@import "tw-animate-css" layer(utilities);
 
 /* === SHADCN TAILWIND INTEGRATION === */
 @theme inline {

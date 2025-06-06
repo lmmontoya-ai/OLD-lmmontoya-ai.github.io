@@ -1,0 +1,148 @@
+/* === PROSE ENHANCEMENTS === */
+/* Overrides and additions for @tailwindcss/typography */
+
+.prose {
+  /* Base typography */
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Set primary content color for better readability */
+  color: oklch(var(--color-content-primary));
+  line-height: 1.75;
+
+  /* General Link Styling */
+  a {
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: oklch(var(--color-interactive-blue) / 0.8);
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  h2 {
+    border-bottom: 1px solid oklch(var(--color-border-subtle));
+    padding-bottom: 0.75rem;
+    margin-top: 3em;
+    margin-bottom: 1.5em;
+  }
+
+  h3 {
+    margin-top: 2.5em;
+    margin-bottom: 1.25em;
+  }
+
+  /* Improve paragraph spacing */
+  p {
+    margin-bottom: 1.5em;
+  }
+
+  /* Style for definition-list like paragraphs */
+  p > strong:first-child {
+    font-weight: 600;
+    color: oklch(var(--color-content-primary));
+    display: block;
+    margin-bottom: 0.25rem;
+    font-family: var(--font-heading);
+  }
+
+  /* Blockquotes */
+  blockquote {
+    border-left-width: 3px;
+    padding: 1rem 1.5rem;
+    background-color: oklch(var(--color-surface-secondary) / 0.5);
+    border-radius: theme("borderRadius.lg");
+    font-style: normal;
+  }
+
+  blockquote p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  /* Code blocks */
+  pre {
+    border: 1px solid oklch(var(--color-border-secondary));
+    border-radius: theme("borderRadius.lg");
+    padding: 1.5rem;
+    line-height: 1.6;
+  }
+
+  /* Inline code */
+  code {
+    font-size: 0.9em;
+    padding: 0.2em 0.4em;
+    margin: 0 0.1em;
+    background-color: oklch(var(--color-surface-secondary));
+    border: 1px solid oklch(var(--color-border-subtle));
+    border-radius: theme("borderRadius.sm");
+  }
+
+  code::before,
+  code::after {
+    content: none;
+  }
+
+  /* Lists */
+  ul > li::marker {
+    color: oklch(var(--color-border-primary));
+  }
+  ol > li::marker {
+    color: oklch(var(--color-content-tertiary));
+  }
+
+  /* Horizontal Rule */
+  hr {
+    margin: 3em 0;
+    border-color: oklch(var(--color-border-subtle));
+  }
+
+  /* Images and Figures */
+  figure {
+    margin: 2em 0;
+  }
+
+  figcaption {
+    text-align: center;
+    font-size: 0.9rem;
+    color: oklch(var(--color-content-tertiary));
+    margin-top: 0.75rem;
+    font-family: var(--font-mono);
+  }
+
+  /* Tables */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 2em 0;
+    border-radius: theme("borderRadius.lg");
+    overflow: hidden;
+    border: 1px solid oklch(var(--color-border-primary));
+  }
+
+  th {
+    background-color: oklch(var(--color-surface-secondary));
+    font-family: var(--font-heading);
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    text-align: left;
+  }
+
+  td {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid oklch(var(--color-border-primary));
+  }
+
+  tr:nth-child(even) {
+      background-color: oklch(var(--color-surface-secondary) / 0.3);
+  }
+}

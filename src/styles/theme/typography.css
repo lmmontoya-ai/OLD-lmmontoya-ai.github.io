@@ -1,3 +1,9 @@
 @theme {
 
 }
+
+:root {
+  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-heading: "Inter", sans-serif;
+}

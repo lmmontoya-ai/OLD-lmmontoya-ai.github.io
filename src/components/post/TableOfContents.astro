@@ -15,11 +15,22 @@ const {
   className = "",
 } = Astro.props;
 
-// Filter to only show h2 and h3 for TOC
-const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+// Create a tree structure for h2/h3 headings
+const tocTree: (MarkdownHeading & { children: MarkdownHeading[] })[] = [];
+let currentH2: (MarkdownHeading & { children: MarkdownHeading[] }) | null =
+  null;
 
-// Don't render if no headings
-if (tocHeadings.length === 0) {
+headings.forEach((h) => {
+  if (h.depth === 2) {
+    currentH2 = { ...h, children: [] };
+    tocTree.push(currentH2);
+  } else if (h.depth === 3 && currentH2) {
+    currentH2.children.push(h);
+  }
+});
+
+// Don't render if no h2 headings
+if (tocTree.length === 0) {
   return null;
 }
 
@@ -54,31 +65,63 @@ const linkClasses = {
 ---
 
 <div class={`${containerClasses[variant]} ${className}`}>
-  <h3 class={titleClasses[variant]}>
-    {title}
-  </h3>
+  <h3 class={titleClasses[variant]}>{title}</h3>
   <nav>
     <ul class={listClasses[variant]}>
       {
-        tocHeadings.map((heading) => (
+        tocTree.map((h2) => (
           <li class={itemClasses[variant]}>
-            <a
-              href={`#${heading.slug}`}
-              class={`${linkClasses[variant]} ${
-                variant === "sidebar" && heading.depth === 3
-                  ? "pl-4 text-xs opacity-80 font-mono"
-                  : variant === "sidebar"
-                    ? "font-medium"
-                    : ""
-              }`}
-              data-toc-link
-              data-heading-id={heading.slug}
-            >
-              {variant === "sidebar" && heading.depth === 3 && (
-                <span class="inline-block w-2 h-2 rounded-full bg-brand-primary/40 mr-2" />
-              )}
-              {heading.text}
-            </a>
+            {h2.children.length > 0 ? (
+              <details class="group" data-toc-details>
+                <summary class="flex items-center justify-between cursor-pointer list-none">
+                  <a
+                    href={`#${h2.slug}`}
+                    class={`${linkClasses[variant]} font-medium flex-grow`}
+                    data-toc-link
+                    data-heading-id={h2.slug}
+                  >
+                    {h2.text}
+                  </a>
+                  <svg
+                    class="w-4 h-4 text-content-tertiary group-open:rotate-90 transition-transform"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </summary>
+                <ul class="pl-4 mt-1 space-y-1">
+                  {h2.children.map((h3) => (
+                    <li>
+                      <a
+                        href={`#${h3.slug}`}
+                        class={`${linkClasses[variant]} text-xs opacity-80 font-mono`}
+                        data-toc-link
+                        data-heading-id={h3.slug}
+                      >
+                        <span class="inline-block w-2 h-2 rounded-full bg-brand-primary/40 mr-2" />
+                        {h3.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ) : (
+              <a
+                href={`#${h2.slug}`}
+                class={`${linkClasses[variant]} font-medium`}
+                data-toc-link
+                data-heading-id={h2.slug}
+              >
+                {h2.text}
+              </a>
+            )}
           </li>
         ))
       }
@@ -95,7 +138,21 @@ const linkClasses = {
     // Smooth scroll to heading
     tocLinks.forEach((link) => {
       link.addEventListener("click", (e) => {
-        e.preventDefault();
+        // Prevent default if it's just the summary chevron
+        if ((e.target as HTMLElement).tagName !== "A") {
+          const summary = (e.target as HTMLElement).closest("summary");
+          if (summary) {
+            const details = summary.parentElement as HTMLDetailsElement;
+            if (details) {
+              details.open = !details.open;
+              e.preventDefault();
+              return;
+            }
+          }
+        } else {
+          e.preventDefault();
+        }
+
         const targetId = link.getAttribute("data-heading-id");
         if (targetId) {
           const targetElement = document.getElementById(targetId);
@@ -104,8 +161,6 @@ const linkClasses = {
               behavior: "smooth",
               block: "start",
             });
-
-            // Update URL without triggering scroll
             history.pushState(null, "", `#${targetId}`);
           }
         }
@@ -114,6 +169,9 @@ const linkClasses = {
 
     // Intersection Observer for active state
     let activeId = "";
+
+    const sixRemInPx =
+      parseFloat(getComputedStyle(document.documentElement).fontSize) * 6;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -124,29 +182,57 @@ const linkClasses = {
           }
         });
       },
-      {
-        rootMargin: "-20% 0% -60% 0%",
-      }
+      { rootMargin: `-${sixRemInPx}px 0px -60% 0px` }
     );
 
     // Observe all headings
     headings.forEach((heading) => {
-      if (heading.id) {
-        observer.observe(heading);
-      }
+      if (heading.id) observer.observe(heading);
     });
 
     function updateActiveLink() {
+      const allDetails =
+        document.querySelectorAll<HTMLDetailsElement>("[data-toc-details]");
+      const activeLink = document.querySelector(
+        `[data-toc-link][data-heading-id="${activeId}"]`
+      );
+
+      let activeDetailsParent: HTMLDetailsElement | null = null;
+      if (activeLink) {
+        activeDetailsParent = activeLink.closest("details");
+      }
+
+      // Close all details elements except for the active one's parent
+      allDetails.forEach((details) => {
+        if (details === activeDetailsParent) {
+          if (!details.open) {
+            details.open = true;
+          }
+        } else {
+          if (details.open) {
+            details.open = false;
+          }
+        }
+      });
+
       tocLinks.forEach((link) => {
         const headingId = link.getAttribute("data-heading-id");
         const isActive = headingId === activeId;
 
         if (isActive) {
-          link.classList.add("text-content-primary", "font-medium");
-          link.classList.remove("text-content-secondary");
+          link.classList.add("text-interactive-blue");
+          link.classList.remove(
+            "text-content-secondary",
+            "text-content-primary",
+            "font-medium"
+          );
         } else {
-          link.classList.remove("text-content-primary", "font-medium");
           link.classList.add("text-content-secondary");
+          link.classList.remove(
+            "text-interactive-blue",
+            "text-content-primary",
+            "font-medium"
+          );
         }
       });
     }

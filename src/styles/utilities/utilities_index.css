@@ -1,6 +1,7 @@
-@import "./semantic-colors.css";
-@import "./interactive.css";
 @import "./backgrounds.css";
 @import "./effects.css";
-@import "./transitions.css";
 @import "./hero.css";
+@import "./interactive.css";
+@import "./semantic-colors.css";
+@import "./transitions.css";
+@import "./prose.css";

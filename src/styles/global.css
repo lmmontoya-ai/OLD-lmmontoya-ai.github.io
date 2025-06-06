@@ -105,8 +105,7 @@
 @import "./theme/animations.css" layer(theme);
 
 /* Base layer: normalize/reset styles */
-@import "./base/reset.css" layer(base);
-@import "./base/main.css" layer(base);
+@import "./base/base.css" layer(base);
 
 /* Animation properties and keyframes */
 @import "./animations/properties.css" layer(theme);

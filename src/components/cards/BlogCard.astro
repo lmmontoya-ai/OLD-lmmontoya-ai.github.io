@@ -19,17 +19,19 @@ const formattedDate = date.toLocaleDateString("en-US", {
 
 const classes = cn(
   blogCardVariants({ category }),
-  // Category-specific hover border colors
+  // Category-specific hover border colors using semantic variables
   category === "Research" &&
-    "hover:border-[rgb(var(--color-interactive-blue))]/30",
+    "hover:border-[oklch(var(--color-interactive-blue))]/30",
   category === "Technical" &&
-    "hover:border-[rgb(var(--color-status-success))]/30",
+    "hover:border-[oklch(var(--color-status-success))]/30",
   category === "Reflection" &&
-    "hover:border-[rgb(var(--color-interactive-gold))]/30",
+    "hover:border-[oklch(var(--color-interactive-gold))]/30",
   category === "Resource" &&
-    "hover:border-[rgb(var(--color-status-warning))]/30",
-  category === "Tutorial" && "hover:border-[rgb(134,25,143)]/30", // purple-500
-  category === "Update" && "hover:border-[rgb(6,182,212)]/30", // cyan-500
+    "hover:border-[oklch(var(--color-status-warning))]/30",
+  category === "Tutorial" &&
+    "hover:border-[oklch(var(--color-accent-tutorial))]/30",
+  category === "Update" &&
+    "hover:border-[oklch(var(--color-accent-update))]/30",
   className
 );
 
@@ -127,9 +129,9 @@ const estimatedReadingTime =
       }
       {
         category === "Tutorial" && (
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500/10">
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-accent-tutorial/10">
             <svg
-              class="w-4 h-4 text-purple-500"
+              class="w-4 h-4 text-accent-tutorial"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -146,9 +148,9 @@ const estimatedReadingTime =
       }
       {
         category === "Update" && (
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-cyan-500/10">
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-accent-update/10">
             <svg
-              class="w-4 h-4 text-cyan-500"
+              class="w-4 h-4 text-accent-update"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -206,16 +208,18 @@ const estimatedReadingTime =
       class={cn(
         "text-xl font-semibold text-primary transition-theme line-clamp-2",
         category === "Research" &&
-          "group-hover:text-[rgb(var(--color-interactive-blue))]",
+          "group-hover:text-[oklch(var(--color-interactive-blue))]",
         category === "Technical" &&
-          "group-hover:text-[rgb(var(--color-status-success))]",
+          "group-hover:text-[oklch(var(--color-status-success))]",
         category === "Reflection" &&
-          "group-hover:text-[rgb(var(--color-interactive-gold))]",
+          "group-hover:text-[oklch(var(--color-interactive-gold))]",
         category === "Resource" &&
-          "group-hover:text-[rgb(var(--color-status-warning))]",
-        category === "Tutorial" && "group-hover:text-[rgb(134,25,143)]", // purple-500
-        category === "Update" && "group-hover:text-[rgb(6,182,212)]", // cyan-500
-        !category && "group-hover:text-[rgb(var(--color-interactive-blue))]" // fallback
+          "group-hover:text-[oklch(var(--color-status-warning))]",
+        category === "Tutorial" &&
+          "group-hover:text-[oklch(var(--color-accent-tutorial))]",
+        category === "Update" &&
+          "group-hover:text-[oklch(var(--color-accent-update))]",
+        !category && "group-hover:text-[oklch(var(--color-interactive-blue))]" // fallback
       )}
     >
       {title}
@@ -298,18 +302,19 @@ const estimatedReadingTime =
     class={cn(
       "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-theme pointer-events-none rounded-xl",
       category === "Research" &&
-        "from-[rgb(var(--color-interactive-blue))]/0 to-[rgb(var(--color-interactive-blue))]/5",
+        "from-[oklch(var(--color-interactive-blue))]/0 to-[oklch(var(--color-interactive-blue))]/5",
       category === "Technical" &&
-        "from-[rgb(var(--color-status-success))]/0 to-[rgb(var(--color-status-success))]/5",
+        "from-[oklch(var(--color-status-success))]/0 to-[oklch(var(--color-status-success))]/5",
       category === "Reflection" &&
-        "from-[rgb(var(--color-interactive-gold))]/0 to-[rgb(var(--color-interactive-gold))]/5",
+        "from-[oklch(var(--color-interactive-gold))]/0 to-[oklch(var(--color-interactive-gold))]/5",
       category === "Resource" &&
-        "from-[rgb(var(--color-status-warning))]/0 to-[rgb(var(--color-status-warning))]/5",
+        "from-[oklch(var(--color-status-warning))]/0 to-[oklch(var(--color-status-warning))]/5",
       category === "Tutorial" &&
-        "from-[rgb(134,25,143)]/0 to-[rgb(134,25,143)]/5", // purple-500
-      category === "Update" && "from-[rgb(6,182,212)]/0 to-[rgb(6,182,212)]/5", // cyan-500
+        "from-[oklch(var(--color-accent-tutorial))]/0 to-[oklch(var(--color-accent-tutorial))]/5",
+      category === "Update" &&
+        "from-[oklch(var(--color-accent-update))]/0 to-[oklch(var(--color-accent-update))]/5",
       !category &&
-        "from-[rgb(var(--color-interactive-blue))]/0 to-[rgb(var(--color-interactive-blue))]/5" // fallback
+        "from-[oklch(var(--color-interactive-blue))]/0 to-[oklch(var(--color-interactive-blue))]/5" // fallback
     )}
   >
   </div>

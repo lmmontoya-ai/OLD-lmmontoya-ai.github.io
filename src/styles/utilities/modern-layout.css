@@ -237,23 +237,23 @@
 /* Border utilities that respect writing direction */
 
 @utility border-inline {
-  border-inline: 1px solid rgb(var(--color-border-primary) / 0.25);
+  border-inline: 1px solid oklch(var(--color-border-primary) / 0.25);
 }
 
 @utility border-block-start {
-  border-block-start: 1px solid rgb(var(--color-border-primary) / 0.25);
+  border-block-start: 1px solid oklch(var(--color-border-primary) / 0.25);
 }
 
 @utility border-block-end {
-  border-block-end: 1px solid rgb(var(--color-border-primary) / 0.25);
+  border-block-end: 1px solid oklch(var(--color-border-primary) / 0.25);
 }
 
 @utility border-inline-start {
-  border-inline-start: 1px solid rgb(var(--color-border-primary) / 0.25);
+  border-inline-start: 1px solid oklch(var(--color-border-primary) / 0.25);
 }
 
 @utility border-inline-end {
-  border-inline-end: 1px solid rgb(var(--color-border-primary) / 0.25);
+  border-inline-end: 1px solid oklch(var(--color-border-primary) / 0.25);
 }
 
 /* === LOGICAL POSITIONING UTILITIES === */

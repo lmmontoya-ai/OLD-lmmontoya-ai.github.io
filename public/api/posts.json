@@ -88,6 +88,19 @@
     "href": "/posts/test-roadmap-milestone"
   },
   {
+    "title": "Milestone: Transformer Architecture Deep Dive",
+    "slug": "roadmap-transformer-architecture",
+    "excerpt": "Comprehensive understanding of transformer architectures, attention mechanisms, and their role in modern language models.",
+    "content": "Transformer Architecture Deep Dive In-depth study of transformer architectures and attention mechanisms that power modern language models. Overview Currently working through a comprehensive understanding of transformer architectures, which are fundamental to modern AI systems and the focus of most interpretability research. This milestone bridges classical deep learning with cutting-edge language models. Current Progress ✅ Completed Areas Attention Mechanism Fundamentals Query, key, value matrix operations Scaled dot-product attention Computational complexity analysis Comparison with RNN sequence processing Multi-Head Attention Multiple attention heads and their purpose Head specialization and diversity Concatenation and projection operations Parallelization advantages Basic Transformer Components Layer normalization placement and effects Feed-forward network structure Residual connections importance Overall architecture design principles 🔄 Currently Working On Positional Encoding Abs",
+    "types": [
+      "roadmap"
+    ],
+    "category": "Technical",
+    "tags": [],
+    "date": "2024-03-15T00:00:00.000Z",
+    "href": "/posts/roadmap-transformer-architecture"
+  },
+  {
     "title": "Project: AI Interpretability Toolkit",
     "slug": "test-project-toolkit",
     "excerpt": "A comprehensive toolkit for analyzing and interpreting neural network behavior, with tools for activation patching, attention visualization, and mechanistic analysis.",
@@ -139,6 +152,25 @@
     "tags": [],
     "date": "2024-03-01T00:00:00.000Z",
     "href": "/posts/blog-learning-journey"
+  },
+  {
+    "title": "Milestone: Deep Learning Fundamentals",
+    "slug": "roadmap-deep-learning-fundamentals",
+    "excerpt": "Understanding neural networks, backpropagation, and modern deep learning architectures as preparation for interpretability research.",
+    "content": "Deep Learning Fundamentals Core understanding of neural networks and deep learning architectures essential for AI interpretability research. Overview Building on mathematical foundations, this milestone focused on understanding how neural networks work at a fundamental level. This deep understanding is crucial for later interpretability work where we need to understand what's happening inside these black boxes. Key Learning Areas Neural Network Basics Perceptrons and multilayer networks Activation functions and their properties Forward propagation mechanics Universal approximation theorem Backpropagation Algorithm Chain rule applications Gradient computation through networks Computational graphs Implementation from scratch Modern Architectures Convolutional Neural Networks (CNNs) Recurrent Neural Networks (RNNs) Attention mechanisms (preliminary) Regularization techniques Training Dynamics Loss function design Optimization algorithms (SGD, Adam, etc.) Batch normalization Dropout and re",
+    "types": [
+      "roadmap"
+    ],
+    "category": "Technical",
+    "tags": [
+      "Deep Learning",
+      "Neural Networks",
+      "Backpropagation",
+      "CNNs",
+      "RNNs"
+    ],
+    "date": "2024-02-20T00:00:00.000Z",
+    "href": "/posts/roadmap-deep-learning-fundamentals"
   },
   {
     "title": "Survey: Mechanistic Interpretability in Neural Networks",
@@ -197,6 +229,19 @@
     "tags": [],
     "date": "2024-01-20T00:00:00.000Z",
     "href": "/posts/project-circuit-analysis"
+  },
+  {
+    "title": "Milestone: Mathematics Foundations",
+    "slug": "roadmap-mathematics-foundations",
+    "excerpt": "Building strong mathematical foundations in linear algebra, calculus, and probability theory essential for understanding AI systems.",
+    "content": "Mathematics Foundations for AI Research The mathematical foundations required for deep understanding of AI systems and interpretability research. Overview Before diving into the complexities of AI alignment and interpretability, establishing solid mathematical foundations was crucial. This milestone focused on the core mathematical concepts that underpin modern machine learning and AI systems. Key Learning Areas Linear Algebra Vector spaces and linear transformations Eigenvalues and eigenvectors Matrix decompositions (SVD, PCA) Applications to neural network computations Probability Theory Probability distributions and their properties Bayesian inference fundamentals Information theory basics Statistical estimation methods Calculus and Optimization Multivariate calculus and gradients Optimization theory and methods Convex optimization principles Applications to gradient descent Completed Outcomes ✅ Linear Algebra Mastery: Developed strong understanding of vector spaces, matrix operatio",
+    "types": [
+      "roadmap"
+    ],
+    "category": "Research",
+    "tags": [],
+    "date": "2024-01-15T00:00:00.000Z",
+    "href": "/posts/roadmap-mathematics-foundations"
   },
   {
     "title": "Video Review: Robert Miles on AI Alignment and Safety",

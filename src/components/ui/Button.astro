@@ -52,29 +52,29 @@ const isRoadmap = variant === "roadmap";
 
   {isRoadmap && (
     <!-- Theme-aware background using gold color with inline style -->
-    <div class="absolute inset-0" style="background-color: rgb(var(--color-interactive-gold));"></div>
+    <div class="absolute inset-0 bg-interactive-gold"></div>
   )}
 
   {isPrimary && (
     <!-- Hover glow effect using semantic colors -->
     <div
-      class="absolute inset-0 transition-spring opacity-0 hover:opacity-100"
-      style="box-shadow: 0 0 20px rgb(var(--color-interactive-blue) / 0.3), 0 4px 8px rgba(0, 0, 0, 0.1);"
+      class="absolute inset-0 transition-spring opacity-0 hover:opacity-100 shadow-[var(--shadow-glow-accent-with-xs)]"
     ></div>
   )}
 
   {isRoadmap && (
     <!-- Hover glow effect using gold color -->
     <div
-      class="absolute inset-0 transition-spring opacity-0 hover:opacity-100"
-      style="box-shadow: 0 0 20px rgb(var(--color-interactive-gold) / 0.3), 0 4px 8px rgba(0, 0, 0, 0.1);"
+      class="absolute inset-0 transition-spring opacity-0 hover:opacity-100 shadow-[var(--shadow-glow-accent-with-xs)]"
     ></div>
   )}
 
   <!-- Button content -->
   <span
-    class="relative z-10 flex items-center"
-    style={isRoadmap ? "color: rgb(var(--color-interactive-gold-contrast));" : ""}
+    class:list={[
+      "relative z-10 flex items-center",
+      { "text-interactive-gold-contrast": isRoadmap },
+    ]}
   >
     <slot />
   </span>

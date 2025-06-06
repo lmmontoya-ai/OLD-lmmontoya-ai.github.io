@@ -1,15 +1,15 @@
 | ID | Phase | Task / User Story | Priority | Dependencies | Definition of Done (DoD) | Status |
 |----|-------|-------------------|----------|--------------|---------------------------|--------|
 | DOC | Guide | Use this table as a sequential checklist. Update **Status** with `[x]` when the **DoD** criteria are fully met. | - | - | Table committed to repo and referenced in README. | [ ] |
-| F-1 | Foundation & CSS | Install/Check Tailwind CSS v4 and core plugins. | Critical | | Tailwind packages added to `package.json`; site builds without errors. | [ ] |
-| F-2 | Foundation & CSS | Install `clsx`, `tailwind-merge`, `class-variance-authority`. | High | | Packages added to `package.json`; build succeeds. | [ ] |
-| F-3 | Foundation & CSS | Install `@radix-ui/react-slot`. | High | | Package added; no type errors. | [ ] |
-| F-4 | Foundation & CSS | Add **shadcn-ui** CLI as dev dependency. | Critical | F-1 | `npx shadcn-ui init` executable locally. | [ ] |
-| F-5 | Foundation & CSS | Configure `tsconfig.json` with path aliases. | Critical | F-4 | `tsconfig.json` includes `baseUrl: "."` and `paths: { "@/*": ["./src/*"] }`. Project resolves `@/` alias. | [ ] |
-| F-6 | Foundation & CSS | Run `shadcn-ui init` to generate `components.json`. | Critical | F-5 | `components.json` created with project aliases & settings matching guide. | [ ] |
-| F-7 | Foundation & CSS | Configure `components.json` (style, paths, aliases). | High | F-6 | File matches guide sample; lint passes. | [ ] |
-| F-8 | Foundation & CSS | Create `src/lib/utils.ts` with `cn()` helper. | High | F-2 | File exists, exports `cn`, passes type-check. | [ ] |
-| F-9 | Foundation & CSS | Migrate color tokens to **OKLCH** in `styles/theme/colors.css`. | High | | New color vars defined; old RGB tokens removed; visual diff approved. | [ ] |
+| F-1 | Foundation & CSS | Install/Check Tailwind CSS v4 and core plugins. | Critical | | Tailwind packages added to `package.json`; site builds without errors. | [x] |
+| F-2 | Foundation & CSS | Install `clsx`, `tailwind-merge`, `class-variance-authority`. | High | | Packages added to `package.json`; build succeeds. | [x] |
+| F-3 | Foundation & CSS | Install `@radix-ui/react-slot`. | High | | Package added; no type errors. | [x] |
+| F-4 | Foundation & CSS | Add **shadcn-ui** CLI as dev dependency. | Critical | F-1 | `npx shadcn-ui init` executable locally. | [x] |
+| F-5 | Foundation & CSS | Configure `tsconfig.json` with path aliases. | Critical | F-4 | `tsconfig.json` includes `baseUrl: "."` and `paths: { "@/*": ["./src/*"] }`. Project resolves `@/` alias. | [x] |
+| F-6 | Foundation & CSS | Run `shadcn-ui init` to generate `components.json`. | Critical | F-5 | `components.json` created with project aliases & settings matching guide. | [x] |
+| F-7 | Foundation & CSS | Configure `components.json` (style, paths, aliases). | High | F-6 | File matches guide sample; lint passes. | [x] |
+| F-8 | Foundation & CSS | Create `src/lib/utils.ts` with `cn()` helper. | High | F-2 | File exists, exports `cn`, passes type-check. | [x] |
+| F-9 | Foundation & CSS | Migrate color tokens to **OKLCH** and centralize them in `styles/theme/colors.css`. | High | | New color vars defined; old RGB tokens removed; visual diff approved. | [ ] |
 | F-10 | Foundation & CSS | Implement shadow system in `styles/theme/shadows.css`. | Medium | | CSS vars `--shadow-elevation-*` created; applied to one demo element. | [ ] |
 | F-11 | Foundation & CSS | Implement gradient system in `styles/theme/gradients.css`. | Medium | | `--gradient-*` vars & keyframes added; demo page shows animated gradient. | [ ] |
 | F-12 | Foundation & CSS | Create modern animation styles in `styles/animations/modern.css`. | Medium | | View-transition and `slide-up` keyframes compile; demo works. | [ ] |

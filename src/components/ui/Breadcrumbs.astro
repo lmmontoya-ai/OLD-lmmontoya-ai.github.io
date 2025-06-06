@@ -13,38 +13,40 @@ const { items } = Astro.props;
 
 <nav aria-label="Breadcrumb" class="text-sm font-mono">
   <ol class="flex items-center space-x-2">
-    {items.map((item, index) => {
-      const isLast = index === items.length - 1;
+    {
+      items.map((item, index) => {
+        const isLast = index === items.length - 1;
 
-      return (
-        <li class="flex items-center">
-          {!isLast ? (
-            <>
-              <a
-                href={item.href}
-                class="text-secondary hover:text-primary transition-spring"
-              >
-                {item.label}
-              </a>
-              <svg
-                class="w-4 h-4 mx-2 text-tertiary"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </>
-          ) : (
-            <span class="text-primary font-medium">{item.label}</span>
-          )}
-        </li>
-      );
-    })}
+        return (
+          <li class="flex items-center">
+            {!isLast ? (
+              <>
+                <a
+                  href={item.href}
+                  class="text-secondary hover:text-primary transition-spring"
+                >
+                  {item.label}
+                </a>
+                <svg
+                  class="w-4 h-4 mx-2 text-tertiary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </>
+            ) : (
+              <span class="text-primary font-medium">{item.label}</span>
+            )}
+          </li>
+        );
+      })
+    }
   </ol>
 </nav>

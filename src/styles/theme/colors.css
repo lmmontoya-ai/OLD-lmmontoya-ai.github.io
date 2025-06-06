@@ -1,64 +1,121 @@
-/**
- * Theme Colors - Semantic Tokens with Standard Dark Mode
- *
- * Uses Tailwind v4 @theme to define semantic color tokens.
- * Dark mode overrides are applied via a separate html.dark ruleset.
- */
-
 @theme {
   /* === SEMANTIC COLOR SYSTEM === */
 
   /* Base color definitions (Light Theme by default) */
-  --color-text-primary: 28 42 77;
-  --color-text-secondary: 51 65 85;
-  --color-text-tertiary: 100 116 139;
+  --color-text-primary: 22.5% 0.071 262.5deg;
+  --color-text-secondary: 29.8% 0.041 262.5deg;
+  --color-text-tertiary: 50.2% 0.041 262.5deg;
 
-  --color-surface-primary: 235 235 235; /* Muted off-white, less bright */
-  --color-surface-secondary: 248 248 248; /* Softer white */
-  --color-surface-tertiary: 235 235 235; /* Darker tertiary for better hierarchy */
+  --color-surface-primary: 93.7% 0.000 0deg; /* Muted off-white, less bright */
+  --color-surface-secondary: 97.8% 0.000 0deg; /* Softer white */
+  --color-surface-tertiary: 93.7% 0.000 0deg; /* Darker tertiary for better hierarchy */
 
-  --color-interactive-blue: 77 139 247;
-  --color-interactive-gold: 245 158 11;
-  --color-interactive-gold-contrast: 30 41 59; /* Dark text for gold background */
+  --color-interactive-blue: 62.3% 0.246 264.1deg;
+  --color-interactive-gold: 75.5% 0.153 92.4deg;
+  --color-interactive-gold-contrast: 19.8% 0.041 262.5deg; /* Dark text for gold background */
+  --color-interactive-focus: 62.3% 0.246 264.1deg; /* Focus ring color */
 
-  --color-accent-milestone: 245 158 11;
-  --color-accent-project: 37 99 235;
-  --color-accent-resource: 22 163 74;
+  --color-accent-milestone: 75.5% 0.153 92.4deg;
+  --color-accent-project: 55.2% 0.198 264.1deg;
+  --color-accent-resource: 60.8% 0.176 145.2deg;
+  --color-accent-tutorial: 55.5% 0.158 316.2deg; /* Purple for tutorial */
+  --color-accent-update: 70.2% 0.131 198.8deg; /* Cyan for update */
 
-  --color-status-success: 22 163 74;
-  --color-status-warning: 234 88 12;
-  --color-status-error: 220 38 38;
+  /* Category-specific accent colors */
+  --color-accent-research: 55.5% 0.158 316.2deg; /* Purple for research */
+  --color-accent-technical: 62.3% 0.246 264.1deg; /* Blue for technical */
+  --color-accent-reflection: 72.1% 0.191 64.8deg; /* Amber for reflection */
+  --color-accent-resource-cat: 60.8% 0.176 145.2deg; /* Green for resource */
 
-  --color-border-primary: 200 200 200; /* Darker for better visibility on muted background */
-  --color-border-subtle: 210 210 210; /* More visible on the less bright theme */
+  --color-status-success: 60.8% 0.176 145.2deg;
+  --color-status-warning: 72.1% 0.191 64.8deg;
+  --color-status-error: 62.8% 0.257 27.3deg;
 
-  --color-shadow-rgb: 28 42 77; /* For light theme shadows */
+  --color-border-primary: 80.5% 0.000 0deg; /* Darker for better visibility on muted background */
+  --color-border-secondary: 75.2% 0.000 0deg; /* More visible secondary border */
+  --color-border-subtle: 85.8% 0.000 0deg; /* More visible on the less bright theme */
+
+  /* Brand colors for consistency */
+  --color-brand-primary: 62.3% 0.246 264.1deg; /* Same as interactive-blue */
+  --color-brand-secondary: 75.5% 0.153 92.4deg; /* Same as interactive-gold */
+
+  /* Content color aliases for better semantics */
+  --color-content-primary: 22.5% 0.071 262.5deg;
+  --color-content-secondary: 29.8% 0.041 262.5deg;
+  --color-content-tertiary: 50.2% 0.041 262.5deg;
+  --color-content-inverse: 97.8% 0.005 262.5deg; /* For light backgrounds */
+
+  /* Background aliases for better semantics */
+  --color-bg-primary: 93.7% 0.000 0deg;
+  --color-bg-secondary: 97.8% 0.000 0deg;
+  --color-bg-tertiary: 93.7% 0.000 0deg;
+  --color-bg-inverse: 13.2% 0.041 262.5deg; /* Dark background for light theme */
+
+  /* Shadow color for light theme */
+  --color-shadow: 22.5% 0.071 262.5deg; /* For light theme shadows */
+
+  /* Glow colors for animations */
+  --color-glow-accent: 62.3% 0.246 264.1deg;
+  --color-glow-highlight: 75.5% 0.153 92.4deg;
+  --color-glow-success: 60.8% 0.176 145.2deg;
 }
 
 /* Dark Theme Overrides */
 html.dark {
-  --color-text-primary: 248 250 252;
-  --color-text-secondary: 203 213 225;
-  --color-text-tertiary: 148 163 184;
+  --color-text-primary: 97.8% 0.005 262.5deg;
+  --color-text-secondary: 85.9% 0.018 262.5deg;
+  --color-text-tertiary: 68.6% 0.028 262.5deg;
 
-  --color-surface-primary: 15 27 43;
-  --color-surface-secondary: 30 41 59;
-  --color-surface-tertiary: 11 20 31;
+  --color-surface-primary: 13.2% 0.041 262.5deg;
+  --color-surface-secondary: 19.8% 0.041 262.5deg;
+  --color-surface-tertiary: 10.1% 0.041 262.5deg;
 
-  --color-interactive-blue: 59 130 246;
-  --color-interactive-gold: 212 175 55;
-  --color-interactive-gold-contrast: 30 41 59; /* Dark text for gold background */
+  --color-interactive-blue: 58.8% 0.246 264.1deg;
+  --color-interactive-gold: 74.5% 0.123 92.4deg;
+  --color-interactive-gold-contrast: 19.8% 0.041 262.5deg; /* Dark text for gold background */
+  --color-interactive-focus: 58.8% 0.246 264.1deg; /* Focus ring color */
 
-  --color-accent-milestone: 212 175 55;
-  --color-accent-project: 59 130 246;
-  --color-accent-resource: 34 197 94;
+  --color-accent-milestone: 74.5% 0.123 92.4deg;
+  --color-accent-project: 58.8% 0.246 264.1deg;
+  --color-accent-resource: 66.3% 0.176 145.2deg;
+  --color-accent-tutorial: 65.8% 0.158 316.2deg; /* Purple for tutorial */
+  --color-accent-update: 75.5% 0.131 198.8deg; /* Cyan for update */
 
-  --color-status-success: 34 197 94;
-  --color-status-warning: 249 115 22;
-  --color-status-error: 239 68 68;
+  /* Category-specific accent colors for dark theme */
+  --color-accent-research: 65.8% 0.158 316.2deg; /* Purple for research */
+  --color-accent-technical: 58.8% 0.246 264.1deg; /* Blue for technical */
+  --color-accent-reflection: 77.8% 0.178 64.8deg; /* Amber for reflection */
+  --color-accent-resource-cat: 66.3% 0.176 145.2deg; /* Green for resource */
 
-  --color-border-primary: 100 116 139;
-  --color-border-subtle: 51 65 85;
+  --color-status-success: 66.3% 0.176 145.2deg;
+  --color-status-warning: 77.8% 0.178 64.8deg;
+  --color-status-error: 68.2% 0.257 27.3deg;
 
-  --color-shadow-rgb: 0 0 0; /* For dark theme shadows */
+  --color-border-primary: 50.2% 0.041 262.5deg;
+  --color-border-secondary: 38.5% 0.041 262.5deg;
+  --color-border-subtle: 29.8% 0.041 262.5deg;
+
+  /* Brand colors for dark theme */
+  --color-brand-primary: 58.8% 0.246 264.1deg;
+  --color-brand-secondary: 74.5% 0.123 92.4deg;
+
+  /* Content color aliases for dark theme */
+  --color-content-primary: 97.8% 0.005 262.5deg;
+  --color-content-secondary: 85.9% 0.018 262.5deg;
+  --color-content-tertiary: 68.6% 0.028 262.5deg;
+  --color-content-inverse: 22.5% 0.071 262.5deg; /* For dark backgrounds */
+
+  /* Background aliases for dark theme */
+  --color-bg-primary: 13.2% 0.041 262.5deg;
+  --color-bg-secondary: 19.8% 0.041 262.5deg;
+  --color-bg-tertiary: 10.1% 0.041 262.5deg;
+  --color-bg-inverse: 93.7% 0.000 0deg; /* Light background for dark theme */
+
+  /* Shadow color for dark theme */
+  --color-shadow: 0% 0.000 0deg; /* For dark theme shadows */
+
+  /* Glow colors for dark theme */
+  --color-glow-accent: 58.8% 0.246 264.1deg;
+  --color-glow-highlight: 74.5% 0.123 92.4deg;
+  --color-glow-success: 66.3% 0.176 145.2deg;
 }

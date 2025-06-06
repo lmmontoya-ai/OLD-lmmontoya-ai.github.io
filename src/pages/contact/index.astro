@@ -332,7 +332,7 @@ const email =
       background: linear-gradient(
         45deg,
         transparent,
-        rgba(59, 130, 246, 0.1),
+        oklch(var(--color-interactive-blue) / 0.1),
         transparent
       );
       transform: translateX(-100%);
@@ -356,7 +356,7 @@ const email =
       left: 50%;
       width: 0;
       height: 0;
-      background: rgba(59, 130, 246, 0.1);
+      background: oklch(var(--color-interactive-blue) / 0.1);
       border-radius: 50%;
       transform: translate(-50%, -50%);
       transition:

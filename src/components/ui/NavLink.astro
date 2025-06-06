@@ -1,6 +1,8 @@
 ---
 // src/components/ui/NavLink.astro
-// Navigation link using semantic color utilities - much more readable!
+// Navigation link using centralized variant system
+
+import { navLinkVariants, cn } from "../../utils/variants";
 
 interface Props {
   href: string;
@@ -19,49 +21,29 @@ const {
 // Check if this link is active
 const isActive = currentPath.startsWith(href);
 
-// Generate classes based on variant using semantic utilities
-const getClasses = () => {
-  const baseClasses = "relative group transition-spring";
-
-  if (variant === "desktop") {
-    return [
-      baseClasses,
-      "flex items-center h-10 px-3 font-medium font-mono text-sm rounded-lg",
-      // Semantic utilities make this much more readable
-      isActive
-        ? "text-interactive-blue"
-        : "text-primary hover:text-interactive-blue",
-      className,
-    ].join(" ");
-  } else {
-    // Mobile variant
-    return [
-      baseClasses,
-      "py-3 border-b border-subtle flex items-center justify-between font-mono transform hover:translate-x-1",
-      isActive
-        ? "text-interactive-blue border-interactive-blue/30"
-        : "text-primary hover:text-interactive-blue",
-      className,
-    ].join(" ");
-  }
-};
-
-// Underline classes for desktop variant using semantic utilities
-const getUnderlineClasses = () => {
-  return [
-    "absolute -bottom-1 left-0 w-full h-0.5",
-    "bg-interactive-blue",
-    "transform origin-left transition-spring",
-    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
-  ].join(" ");
-};
+// Generate classes using centralized variant system
+const linkClasses = cn(
+  navLinkVariants({ variant, active: isActive }),
+  className
+);
 ---
 
-<a href={href} class={getClasses()}>
+<a href={href} class={linkClasses}>
   <slot />
 
   <!-- Desktop underline animation -->
-  {variant === "desktop" && <span class={getUnderlineClasses()} />}
+  {
+    variant === "desktop" && (
+      <span
+        class={cn(
+          "absolute bottom-0 left-0 w-full h-0.5",
+          "transition-all duration-300 ease-out transform origin-left",
+          "bg-interactive-blue",
+          isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+        )}
+      />
+    )
+  }
 
   <!-- Mobile active indicator -->
   {

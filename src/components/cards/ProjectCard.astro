@@ -21,15 +21,16 @@ const classes = cn(
   projectCardVariants({ status }),
   // Status-specific hover border colors
   status === "completed" &&
-    "hover:border-[rgb(var(--color-status-success))]/30",
+    "hover:border-[oklch(var(--color-status-success))]/30",
   status === "in-progress" &&
-    "hover:border-[rgb(var(--color-status-warning))]/30",
+    "hover:border-[oklch(var(--color-status-warning))]/30",
   status === "planned" &&
-    "hover:border-[rgb(var(--color-interactive-blue))]/30",
+    "hover:border-[oklch(var(--color-interactive-blue))]/30",
   status === "published" &&
-    "hover:border-[rgb(var(--color-interactive-blue))]/30",
-  status === "draft" && "hover:border-[rgb(var(--color-border-subtle))]/30",
-  status === "archived" && "hover:border-[rgb(var(--color-text-tertiary))]/30",
+    "hover:border-[oklch(var(--color-interactive-blue))]/30",
+  status === "draft" && "hover:border-[oklch(var(--color-border-subtle))]/30",
+  status === "archived" &&
+    "hover:border-[oklch(var(--color-text-tertiary))]/30",
   className
 );
 ---
@@ -70,17 +71,17 @@ const classes = cn(
       class={cn(
         "text-xl font-semibold text-primary transition-theme",
         status === "completed" &&
-          "group-hover:text-[rgb(var(--color-status-success))]",
+          "group-hover:text-[oklch(var(--color-status-success))]",
         status === "in-progress" &&
-          "group-hover:text-[rgb(var(--color-status-warning))]",
+          "group-hover:text-[oklch(var(--color-status-warning))]",
         status === "planned" &&
-          "group-hover:text-[rgb(var(--color-interactive-blue))]",
+          "group-hover:text-[oklch(var(--color-interactive-blue))]",
         status === "published" &&
-          "group-hover:text-[rgb(var(--color-interactive-blue))]",
+          "group-hover:text-[oklch(var(--color-interactive-blue))]",
         status === "draft" &&
-          "group-hover:text-[rgb(var(--color-border-subtle))]",
+          "group-hover:text-[oklch(var(--color-border-subtle))]",
         status === "archived" &&
-          "group-hover:text-[rgb(var(--color-text-tertiary))]"
+          "group-hover:text-[oklch(var(--color-text-tertiary))]"
       )}
     >
       {title}
@@ -240,17 +241,17 @@ const classes = cn(
     class={cn(
       "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-theme pointer-events-none",
       status === "completed" &&
-        "from-[rgb(var(--color-status-success))]/0 to-[rgb(var(--color-status-success))]/5",
+        "from-[oklch(var(--color-status-success))]/0 to-[oklch(var(--color-status-success))]/5",
       status === "in-progress" &&
-        "from-[rgb(var(--color-status-warning))]/0 to-[rgb(var(--color-status-warning))]/5",
+        "from-[oklch(var(--color-status-warning))]/0 to-[oklch(var(--color-status-warning))]/5",
       status === "planned" &&
-        "from-[rgb(var(--color-interactive-blue))]/0 to-[rgb(var(--color-interactive-blue))]/5",
+        "from-[oklch(var(--color-interactive-blue))]/0 to-[oklch(var(--color-interactive-blue))]/5",
       status === "published" &&
-        "from-[rgb(var(--color-interactive-blue))]/0 to-[rgb(var(--color-interactive-blue))]/5",
+        "from-[oklch(var(--color-interactive-blue))]/0 to-[oklch(var(--color-interactive-blue))]/5",
       status === "draft" &&
-        "from-[rgb(var(--color-border-subtle))]/0 to-[rgb(var(--color-border-subtle))]/5",
+        "from-[oklch(var(--color-border-subtle))]/0 to-[oklch(var(--color-border-subtle))]/5",
       status === "archived" &&
-        "from-[rgb(var(--color-text-tertiary))]/0 to-[rgb(var(--color-text-tertiary))]/5"
+        "from-[oklch(var(--color-text-tertiary))]/0 to-[oklch(var(--color-text-tertiary))]/5"
     )}
   >
   </div>

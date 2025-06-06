@@ -61,11 +61,11 @@
   0% {
     --glow-shadow-size: 20px;
     --glow-shadow-opacity: 0.2;
-    box-shadow: 0 0 var(--glow-shadow-size) rgba(59, 130, 246, var(--glow-shadow-opacity));
+    box-shadow: 0 0 var(--glow-shadow-size) oklch(var(--color-glow-accent) / var(--glow-shadow-opacity));
   }
   100% {
     --glow-shadow-size: 40px;
     --glow-shadow-opacity: 0.4;
-    box-shadow: 0 0 var(--glow-shadow-size) rgba(59, 130, 246, var(--glow-shadow-opacity));
+    box-shadow: 0 0 var(--glow-shadow-size) oklch(var(--color-glow-accent) / var(--glow-shadow-opacity));
   }
 }

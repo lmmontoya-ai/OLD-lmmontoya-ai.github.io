@@ -48,7 +48,7 @@ const headerClasses = [
     </h3>
     <a
       href={seeAllHref}
-      class="text-primary hover:text-interactive-blue text-sm flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-interactive-blue focus-visible:outline-offset-2 group font-mono font-medium relative transition-spring"
+      class="text-primary hover:text-interactive-blue text-sm flex items-center group font-mono font-medium relative transition-spring focus-ring"
     >
       {seeAllText}
       <svg
@@ -63,7 +63,7 @@ const headerClasses = [
           clip-rule="evenodd"></path>
       </svg>
       <span
-        class="absolute -bottom-1 left-0 w-full h-0.5 bg-interactive-blue transform origin-left scale-x-0 transition-underline-themed group-hover:scale-x-100"
+        class="absolute bottom-0 left-0 w-full h-0.5 bg-interactive-blue transform origin-left scale-x-0 transition-all duration-300 ease-out group-hover:scale-x-100"
       ></span>
     </a>
   </div>

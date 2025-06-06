@@ -21,11 +21,11 @@ const classes = cn(
   projectCardVariants({ status }),
   // Status-specific hover border colors
   status === "completed" &&
-    "hover:border-[rgb(var(--color-status-success))]/30",
+    "hover:border-[oklch(var(--color-status-success))]/30",
   status === "in-progress" &&
-    "hover:border-[rgb(var(--color-status-warning))]/30",
+    "hover:border-[oklch(var(--color-status-warning))]/30",
   status === "planned" &&
-    "hover:border-[rgb(var(--color-interactive-blue))]/30",
+    "hover:border-[oklch(var(--color-interactive-blue))]/30",
   className
 );
 ---
@@ -62,11 +62,11 @@ const classes = cn(
       class={cn(
         "text-xl font-semibold text-primary transition-theme",
         status === "completed" &&
-          "group-hover:text-[rgb(var(--color-status-success))]",
+          "group-hover:text-[oklch(var(--color-status-success))]",
         status === "in-progress" &&
-          "group-hover:text-[rgb(var(--color-status-warning))]",
+          "group-hover:text-[oklch(var(--color-status-warning))]",
         status === "planned" &&
-          "group-hover:text-[rgb(var(--color-interactive-blue))]"
+          "group-hover:text-[oklch(var(--color-interactive-blue))]"
       )}
     >
       {title}
@@ -122,9 +122,7 @@ const classes = cn(
       <!-- Timeline -->
       {
         roadmap?.timeline && (
-          <div class="text-sm text-tertiary">
-            {roadmap.timeline}
-          </div>
+          <div class="text-sm text-tertiary">{roadmap.timeline}</div>
         )
       }
     </div>

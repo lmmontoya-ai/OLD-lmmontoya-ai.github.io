@@ -29,7 +29,7 @@ export const buttonVariants = cva(
       variant: {
         primary: [
           "bg-interactive-blue",
-          "text-white",
+          "text-content-inverse",
           "border",
           "border-transparent",
           "shadow-themed-sm",
@@ -279,12 +279,12 @@ export const projectCardVariants = cva(
   {
     variants: {
       status: {
-        completed: ["border-l-4", "border-l-[rgb(var(--color-status-success))]"],
-        "in-progress": ["border-l-4", "border-l-[rgb(var(--color-status-warning))]"],
-        planned: ["border-l-4", "border-l-[rgb(var(--color-interactive-blue))]"],
-        published: ["border-l-4", "border-l-[rgb(var(--color-interactive-blue))]"],
-        draft: ["border-l-4", "border-l-[rgb(var(--color-border-subtle))]"],
-        archived: ["border-l-4", "border-l-[rgb(var(--color-text-tertiary))]"],
+        completed: ["border-l-4", "border-l-[oklch(var(--color-status-success))]"],
+        "in-progress": ["border-l-4", "border-l-[oklch(var(--color-status-warning))]"],
+        planned: ["border-l-4", "border-l-[oklch(var(--color-interactive-blue))]"],
+        published: ["border-l-4", "border-l-[oklch(var(--color-interactive-blue))]"],
+        draft: ["border-l-4", "border-l-[oklch(var(--color-border-subtle))]"],
+        archived: ["border-l-4", "border-l-[oklch(var(--color-text-tertiary))]"],
       },
     },
     defaultVariants: {
@@ -316,11 +316,11 @@ export const literatureCardVariants = cva(
   {
     variants: {
       type: {
-        Paper: ["bg-gradient-to-br", "from-surface-secondary/80", "to-blue-500/5"],
-        Book: ["bg-gradient-to-br", "from-surface-secondary/80", "to-green-500/5"],
-        Video: ["bg-gradient-to-br", "from-surface-secondary/80", "to-purple-500/5"],
-        Blog: ["bg-gradient-to-br", "from-surface-secondary/80", "to-orange-500/5"],
-        Course: ["bg-gradient-to-br", "from-surface-secondary/80", "to-cyan-500/5"],
+        Paper: ["bg-gradient-to-br", "from-surface-secondary/80", "to-[oklch(var(--color-interactive-blue)/0.05)]"],
+        Book: ["bg-gradient-to-br", "from-surface-secondary/80", "to-[oklch(var(--color-status-success)/0.05)]"],
+        Video: ["bg-gradient-to-br", "from-surface-secondary/80", "to-[oklch(var(--color-accent-tutorial)/0.05)]"],
+        Blog: ["bg-gradient-to-br", "from-surface-secondary/80", "to-[oklch(var(--color-status-warning)/0.05)]"],
+        Course: ["bg-gradient-to-br", "from-surface-secondary/80", "to-[oklch(var(--color-accent-update)/0.05)]"],
       },
     },
     defaultVariants: {
@@ -351,12 +351,12 @@ export const blogCardVariants = cva(
   {
     variants: {
       category: {
-        Research: ["border-l-4", "border-l-[rgb(var(--color-interactive-blue))]"],
-        Technical: ["border-l-4", "border-l-[rgb(var(--color-status-success))]"],
-        Reflection: ["border-l-4", "border-l-[rgb(var(--color-interactive-gold))]"],
-        Resource: ["border-l-4", "border-l-[rgb(var(--color-status-warning))]"],
-        Tutorial: ["border-l-4", "border-l-[rgb(134,25,143)]"], // purple-500 RGB
-        Update: ["border-l-4", "border-l-[rgb(6,182,212)]"], // cyan-500 RGB
+        Research: ["border-l-4", "border-l-[oklch(var(--color-interactive-blue))]"],
+        Technical: ["border-l-4", "border-l-[oklch(var(--color-status-success))]"],
+        Reflection: ["border-l-4", "border-l-[oklch(var(--color-interactive-gold))]"],
+        Resource: ["border-l-4", "border-l-[oklch(var(--color-status-warning))]"],
+        Tutorial: ["border-l-4", "border-l-[oklch(var(--color-accent-tutorial))]"],
+        Update: ["border-l-4", "border-l-[oklch(var(--color-accent-update))]"],
       },
     },
     defaultVariants: {
@@ -375,3 +375,71 @@ export type UpdateCardTitleVariants = VariantProps<typeof updateCardTitleVariant
 export type ProjectCardVariants = VariantProps<typeof projectCardVariants>;
 export type LiteratureCardVariants = VariantProps<typeof literatureCardVariants>;
 export type BlogCardVariants = VariantProps<typeof blogCardVariants>;
+
+// NavLink component variants - Using semantic utilities
+export const navLinkVariants = cva(
+  [
+    "relative",
+    "group",
+    "transition-spring",
+  ],
+  {
+    variants: {
+      variant: {
+        desktop: [
+          "flex",
+          "items-center",
+          "h-10",
+          "px-3",
+          "font-medium",
+          "font-mono",
+          "text-sm",
+          "rounded-lg",
+        ],
+        mobile: [
+          "py-3",
+          "border-b",
+          "border-subtle",
+          "flex",
+          "items-center",
+          "justify-between",
+          "font-mono",
+          "transform",
+          "hover:translate-x-1",
+        ],
+      },
+      active: {
+        true: "",
+        false: "",
+      },
+    },
+    compoundVariants: [
+      {
+        variant: "desktop",
+        active: true,
+        class: "text-interactive-blue",
+      },
+      {
+        variant: "desktop",
+        active: false,
+        class: "text-primary hover:text-interactive-blue",
+      },
+      {
+        variant: "mobile",
+        active: true,
+        class: "text-interactive-blue border-interactive-blue/30",
+      },
+      {
+        variant: "mobile",
+        active: false,
+        class: "text-primary hover:text-interactive-blue",
+      },
+    ],
+    defaultVariants: {
+      variant: "desktop",
+      active: false,
+    },
+  }
+);
+
+export type NavLinkVariants = VariantProps<typeof navLinkVariants>;

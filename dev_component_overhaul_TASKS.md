@@ -9,7 +9,7 @@
 | F-6 | Foundation & CSS | Run `shadcn-ui init` to generate `components.json`. | Critical | F-5 | `components.json` created with project aliases & settings matching guide. | [x] |
 | F-7 | Foundation & CSS | Configure `components.json` (style, paths, aliases). | High | F-6 | File matches guide sample; lint passes. | [x] |
 | F-8 | Foundation & CSS | Create `src/lib/utils.ts` with `cn()` helper. | High | F-2 | File exists, exports `cn`, passes type-check. | [x] |
-| F-9 | Foundation & CSS | Migrate color tokens to **OKLCH** in `styles/theme/colors.css`. | High | | New color vars defined; old RGB tokens removed; visual diff approved. | [ ] |
+| F-9 | Foundation & CSS | Migrate color tokens to **OKLCH** and centralize them in `styles/theme/colors.css`. | High | | New color vars defined; old RGB tokens removed; visual diff approved. | [ ] |
 | F-10 | Foundation & CSS | Implement shadow system in `styles/theme/shadows.css`. | Medium | | CSS vars `--shadow-elevation-*` created; applied to one demo element. | [ ] |
 | F-11 | Foundation & CSS | Implement gradient system in `styles/theme/gradients.css`. | Medium | | `--gradient-*` vars & keyframes added; demo page shows animated gradient. | [ ] |
 | F-12 | Foundation & CSS | Create modern animation styles in `styles/animations/modern.css`. | Medium | | View-transition and `slide-up` keyframes compile; demo works. | [ ] |

@@ -1,23 +1,13 @@
 /**
- * Base Styles (Reset) - Simplified
+ * Base Styles
  *
  * Purpose:
- *   Provides CSS reset, base typography, and accessibility defaults.
- *   Works with standard Tailwind dark mode instead of custom theme system.
+ *   Provides base typography, accessibility defaults, and global styles.
+ *   Works with standard Tailwind dark mode and oklch colors.
+ *   This file should be imported before other styles.
  */
 
 @layer base {
-  /* Modern CSS reset */
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  * {
-    margin: 0;
-  }
-
   html {
     scroll-behavior: smooth;
     font-size: 16px;
@@ -36,6 +26,23 @@
     font-feature-settings: "kern" 1, "liga" 1, "cv02" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    /* Base body styles with grid background from main.css */
+    background-color: oklch(var(--color-surface-primary));
+    color: oklch(var(--color-text-primary));
+    transition: background-color 300ms ease, color 300ms ease;
+    background-image:
+      linear-gradient(to right, oklch(var(--color-interactive-blue) / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(var(--color-interactive-blue) / 0.06) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+    background-attachment: fixed; /* Makes the background grid static */
+  }
+
+  /* Dark theme override for body background grid */
+  html.dark body {
+    background-image:
+      linear-gradient(to right, oklch(var(--color-border-primary) / 0.15) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(var(--color-border-primary) / 0.15) 1px, transparent 1px);
   }
 
   /* Typography hierarchy */
@@ -106,38 +113,5 @@
   /* Improve text rendering */
   p {
     text-wrap: pretty;
-  }
-
-  /* Ensure clickable elements are accessible */
-  button,
-  [role="button"] {
-    cursor: pointer;
-  }
-
-  /* Remove default button styles */
-  button {
-    background: none;
-    border: none;
-    padding: 0;
-    font: inherit;
-    color: inherit;
-  }
-
-  /* Ensure images are responsive by default */
-  img,
-  picture,
-  video,
-  canvas,
-  svg {
-    display: block;
-    max-width: 100%;
-  }
-
-  /* Improve form elements */
-  input,
-  button,
-  textarea,
-  select {
-    font: inherit;
   }
 }

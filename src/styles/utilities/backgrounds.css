@@ -1,0 +1,78 @@
+/* /src/styles/utilities/backgrounds.css */
+
+/* === GRADIENTS === */
+.gradient-hero {
+  background: linear-gradient(135deg, oklch(var(--color-surface-tertiary)) 0%, oklch(var(--color-surface-primary)) 100%);
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, oklch(var(--color-interactive-blue)) 0%, oklch(var(--color-interactive-gold)) 100%);
+}
+
+/* === GRID PATTERN === */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.3) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+}
+
+.dark .bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.15) 1px, transparent 1px);
+}
+
+/* Fine grid pattern for subtle backgrounds */
+.bg-grid-fine {
+  background-image:
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.2) 1px, transparent 1px);
+  background-size: 1rem 1rem;
+}
+
+.dark .bg-grid-fine {
+  background-image:
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.1) 1px, transparent 1px);
+}
+
+/* Large grid pattern for sections */
+.bg-grid-large {
+  background-image:
+    linear-gradient(to right, oklch(var(--color-border-primary) / 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-primary) / 0.4) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+}
+
+.dark .bg-grid-large {
+  background-image:
+    linear-gradient(to right, oklch(var(--color-border-primary) / 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-primary) / 0.2) 1px, transparent 1px);
+}
+
+/* Dot grid pattern for hero sections */
+.bg-dots {
+  background-image: radial-gradient(circle, oklch(var(--color-border-subtle) / 0.3) 1px, transparent 1px);
+  background-size: 1.5rem 1.5rem;
+}
+
+.dark .bg-dots {
+  background-image: radial-gradient(circle, oklch(var(--color-border-subtle) / 0.2) 1px, transparent 1px);
+}
+
+/* Combined grid and dots for technical sections */
+.bg-grid-dots {
+  background-image:
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.2) 1px, transparent 1px),
+    radial-gradient(circle, oklch(var(--color-border-primary) / 0.15) 2px, transparent 2px);
+  background-size: 2rem 2rem, 2rem 2rem, 8rem 8rem;
+}
+
+.dark .bg-grid-dots {
+  background-image:
+    linear-gradient(to right, oklch(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--color-border-subtle) / 0.1) 1px, transparent 1px),
+    radial-gradient(circle, oklch(var(--color-border-primary) / 0.1) 2px, transparent 2px);
+}

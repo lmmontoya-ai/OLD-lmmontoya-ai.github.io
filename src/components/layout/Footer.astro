@@ -17,7 +17,7 @@ const footerClasses = [
   "border-primary",
   "py-12",
   "lg:py-16",
-  "bg-surface-tertiary",
+  "bg-surface-primary",
   "backdrop-blur-sm",
   className,
 ].join(" ");
@@ -68,16 +68,8 @@ const socialLinks = [
           <h2
             class="font-sans font-semibold text-xl lg:text-2xl tracking-tight mb-2 transition-theme"
           >
-            <span
-              class="text-transparent bg-clip-text gradient-brand bg-gradient-to-r from-interactive-blue to-interactive-gold group-hover:from-interactive-gold group-hover:to-interactive-blue transition-theme"
-            >
-              Luis Miguel Montoya
-            </span>
+            <span class="text-primary font-bold"> Luis Miguel Montoya </span>
           </h2>
-          <div
-            class="h-0.5 w-12 bg-gradient-to-r from-interactive-blue to-interactive-gold opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all duration-300 ease-out"
-          >
-          </div>
         </div>
         <p class="text-secondary text-sm lg:text-base max-w-xs leading-relaxed">
           Documenting my journey from Physicist-Data Scientist to AI
@@ -137,11 +129,8 @@ const socialLinks = [
               <a
                 href={social.href}
                 aria-label={social.label}
-                class="footer-social-link group relative inline-flex items-center justify-center w-11 h-11 rounded-xl bg-surface-secondary hover:bg-surface-primary text-secondary hover:text-primary transition-theme focus-ring overflow-hidden"
+                class="footer-social-link group relative inline-flex items-center justify-center w-11 h-11 rounded-xl bg-surface-primary hover:bg-surface-secondary text-secondary hover:text-primary transition-theme focus-ring overflow-hidden"
               >
-                {/* Background gradient on hover */}
-                <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-interactive-blue/5 to-interactive-gold/5 opacity-0 group-hover:opacity-100 transition-theme" />
-
                 {/* Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +138,7 @@ const socialLinks = [
                   height="20"
                   fill="currentColor"
                   viewBox="0 0 24 24"
-                  class="relative z-10 transition-transform duration-300 ease-out group-hover:scale-110"
+                  class="relative z-10 transition-transform duration-300 ease-out"
                 >
                   <path d={social.icon} />
                 </svg>

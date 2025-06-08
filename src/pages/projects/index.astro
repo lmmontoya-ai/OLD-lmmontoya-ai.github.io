@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import ProjectCard from "../../components/cards/ProjectCard.astro";
 import { getPostsByType } from "../../utils/content";
+import Pill from "../../components/ui/Pill.astro";
 
 // Fetch and sort projects
 const projects = await getPostsByType("project");
@@ -88,44 +89,35 @@ const statuses = Object.keys(projectsByStatus).sort();
 
         <!-- Status Filters -->
         <div class="flex flex-wrap gap-3">
-          <button
-            class="status-pill status-pill-all active"
+          <Pill
+            variant="default"
+            text={`All Projects`}
+            count={sortedProjects.length}
+            active={true}
+            class="status-filter-pill"
             data-filter="all"
-            data-type="status"
-          >
-            All Projects
-            <span class="ml-1.5 text-xs">({sortedProjects.length})</span>
-          </button>
-          <button
-            class="status-pill status-pill-completed"
+          />
+          <Pill
+            variant="completed"
+            text={`Completed`}
+            count={projectsByStatus.completed?.length || 0}
+            class="status-filter-pill"
             data-filter="completed"
-            data-type="status"
-          >
-            Completed
-            <span class="ml-1.5 text-xs"
-              >({projectsByStatus.completed?.length || 0})</span
-            >
-          </button>
-          <button
-            class="status-pill status-pill-in-progress"
+          />
+          <Pill
+            variant="in-progress"
+            text={`In Progress`}
+            count={projectsByStatus["in-progress"]?.length || 0}
+            class="status-filter-pill"
             data-filter="in-progress"
-            data-type="status"
-          >
-            In Progress
-            <span class="ml-1.5 text-xs"
-              >({projectsByStatus["in-progress"]?.length || 0})</span
-            >
-          </button>
-          <button
-            class="status-pill status-pill-planned"
+          />
+          <Pill
+            variant="planned"
+            text={`Planned`}
+            count={projectsByStatus.planned?.length || 0}
+            class="status-filter-pill"
             data-filter="planned"
-            data-type="status"
-          >
-            Planned
-            <span class="ml-1.5 text-xs"
-              >({projectsByStatus.planned?.length || 0})</span
-            >
-          </button>
+          />
         </div>
       </div>
 
@@ -219,7 +211,7 @@ const statuses = Object.keys(projectsByStatus).sort();
 
   <script>
     const filterButtons = document.querySelectorAll(".project-filter-tab");
-    const statusPills = document.querySelectorAll(".status-pill");
+    const statusPills = document.querySelectorAll(".status-filter-pill");
     const projectItems = document.querySelectorAll(".project-item");
     const projectsGrid = document.getElementById("projects-grid");
     const emptyState = document.querySelector(".text-center.py-20");
@@ -283,8 +275,9 @@ const statuses = Object.keys(projectsByStatus).sort();
         currentStatusFilter = filter;
 
         // Update pill states
-        statusPills.forEach((btn) => btn.classList.remove("active"));
-        button.classList.add("active");
+        statusPills.forEach((btn) => {
+          btn.classList.toggle("active", btn === button);
+        });
 
         applyFilters();
       });

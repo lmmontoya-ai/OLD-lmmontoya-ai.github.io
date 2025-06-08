@@ -98,28 +98,20 @@
 }
 
 /* Theme layer: design tokens using standard Tailwind approach */
-@import "./theme/colors.css" layer(theme);
-@import "./theme/typography.css" layer(theme);
-@import "./theme/spacing.css" layer(theme);
-@import "./theme/shadows.css" layer(theme);
-@import "./theme/animations.css" layer(theme);
+@import "./theme/theme_index.css";
 
 /* Base layer: normalize/reset styles */
-@import "./base/reset.css" layer(base);
-@import "./base/main.css" layer(base);
+@import "./base/base.css";
 
-/* Animation properties and keyframes */
-@import "./animations/properties.css" layer(theme);
-@import "./animations/keyframes.css" layer(theme);
+/* Animation properties and keyframes - part of the theme layer */
+@import "./animations/properties.css";
+@import "./animations/keyframes.css";
 
-/* Components layer: custom component classes */
-@import "./utilities/components.css" layer(components);
 
-/* Utilities layer: custom utility classes */
-@import "./utilities/semantic-colors.css" layer(utilities);
-@import "./utilities/interactive.css" layer(utilities);
-@import "./utilities/modern-layout.css" layer(utilities);
-@import "tw-animate-css" layer(utilities);
+/* Utilities: only essential custom utilities, assigned to the utilities layer */
+@import "./utilities/utilities_index.css";
+@import "tw-animate-css";
+
 
 /* === SHADCN TAILWIND INTEGRATION === */
 @theme inline {

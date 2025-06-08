@@ -1,0 +1,21 @@
+/* /src/styles/utilities/effects.css */
+
+/* === FILTERS === */
+.backdrop-blur-themed {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* === SHADOW SYSTEM === */
+/* These utilities now use theme-aware shadow variables */
+.shadow-themed-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-themed-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-themed-lg {
+  box-shadow: var(--shadow-lg);
+}

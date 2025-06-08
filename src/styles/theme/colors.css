@@ -1,7 +1,7 @@
-@theme {
-  /* === SEMANTIC COLOR SYSTEM === */
+/* === SEMANTIC COLOR SYSTEM === */
 
-  /* Base color definitions (Light Theme by default) */
+/* Base color definitions (Light Theme by default) */
+:root {
   --color-text-primary: 22.5% 0.071 262.5deg;
   --color-text-secondary: 29.8% 0.041 262.5deg;
   --color-text-tertiary: 50.2% 0.041 262.5deg;
@@ -66,9 +66,9 @@ html.dark {
   --color-text-secondary: 85.9% 0.018 262.5deg;
   --color-text-tertiary: 68.6% 0.028 262.5deg;
 
-  --color-surface-primary: 13.2% 0.041 262.5deg;
-  --color-surface-secondary: 19.8% 0.041 262.5deg;
-  --color-surface-tertiary: 10.1% 0.041 262.5deg;
+  --color-surface-primary: 22.73% 0.0038 286.09;
+  --color-surface-secondary: 19.8% 0.0038 286.09;
+  --color-surface-tertiary: 10.1% 0.0038 286.09;
 
   --color-interactive-blue: 58.8% 0.246 264.1deg;
   --color-interactive-gold: 74.5% 0.123 92.4deg;
@@ -106,9 +106,9 @@ html.dark {
   --color-content-inverse: 22.5% 0.071 262.5deg; /* For dark backgrounds */
 
   /* Background aliases for dark theme */
-  --color-bg-primary: 13.2% 0.041 262.5deg;
-  --color-bg-secondary: 19.8% 0.041 262.5deg;
-  --color-bg-tertiary: 10.1% 0.041 262.5deg;
+  --color-bg-primary: 22.73% 0.0038 286.09;
+  --color-bg-secondary: 19.8% 0.0038 286.09;
+  --color-bg-tertiary: 10.1% 0.0038 286.09;
   --color-bg-inverse: 93.7% 0.000 0deg; /* Light background for dark theme */
 
   /* Shadow color for dark theme */

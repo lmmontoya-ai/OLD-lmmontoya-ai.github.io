@@ -15,7 +15,7 @@ const relatedPosts = await getRelatedPosts(post, 3);
 // Social sharing configuration
 const currentUrl = new URL(Astro.url.pathname, Astro.site);
 const shareTitle = encodeURIComponent(post.data.title);
-const shareText = encodeURIComponent(post.data.excerpt);
+const shareText = encodeURIComponent(post.data.description);
 const shareUrl = encodeURIComponent(currentUrl.toString());
 
 const socialLinks = {
@@ -175,12 +175,12 @@ const categoryStyles = {
               ))}
             </div>
 
-            <!-- Title and excerpt -->
+            <!-- Title and description -->
             <h4 class="font-medium text-content-primary group-hover:text-interactive-primary transition-colors mb-2 line-clamp-2">
               {relatedPost.data.title}
             </h4>
             <p class="text-sm text-content-tertiary line-clamp-2 mb-3">
-              {relatedPost.data.excerpt}
+              {relatedPost.data.description}
             </p>
 
             <!-- Metadata -->

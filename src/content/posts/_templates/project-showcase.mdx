@@ -2,7 +2,7 @@
 title: "Project: Building an AI Safety Dashboard"
 slug: "project-ai-safety-dashboard"
 date: 2024-03-10
-excerpt: "Interactive dashboard for monitoring AI safety metrics and model behavior across development cycles."
+description: "Interactive dashboard for monitoring AI safety metrics and model behavior across development cycles."
 types: ["project", "blog"]
 category: "Technical"
 tags: ["AI Safety", "Dashboard", "Monitoring", "TypeScript"]
@@ -41,16 +41,19 @@ As AI models become more capable, we need better tools to monitor their behavior
 ## Solution Architecture
 
 ### Frontend
+
 - **React** with TypeScript for type safety
 - **D3.js** for custom data visualizations
 - **Tailwind CSS** for responsive design
 
 ### Backend
+
 - **FastAPI** for high-performance API endpoints
 - **PostgreSQL** for metric storage
 - **Redis** for real-time data caching
 
 ### Key Features
+
 1. **Real-time Monitoring**: Live updates of safety metrics
 2. **Alert System**: Automated notifications for threshold breaches
 3. **Historical Analysis**: Trend analysis across model versions
@@ -89,7 +92,7 @@ interface MetricVisualizationProps {
 const MetricVisualization: React.FC<MetricVisualizationProps> = ({
   data,
   threshold,
-  timeRange
+  timeRange,
 }) => {
   // D3.js visualization logic...
 };

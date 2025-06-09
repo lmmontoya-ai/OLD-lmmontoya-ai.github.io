@@ -4,6 +4,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type Post = CollectionEntry<'posts'>;
+export type PostType = 'blog' | 'roadmap' | 'project' | 'literature' | 'note' | 'guide';
 
 /**
  * Get all posts of specific type(s)
@@ -16,7 +17,7 @@ export async function getPostsByType(types: string | string[]): Promise<Post[]> 
 
   return posts.filter(post => {
     // Check if post matches the requested types
-    const matchingTypes = post.data.types.filter(type => typeArray.includes(type as any));
+    const matchingTypes = post.data.types.filter((type: PostType) => typeArray.includes(type));
     if (matchingTypes.length === 0) return false;
 
     // Define valid statuses per content type
@@ -31,10 +32,10 @@ export async function getPostsByType(types: string | string[]): Promise<Post[]> 
 
     // Collect statuses allowed for the matching types only
     const validStatuses = new Set<string>();
-    matchingTypes.forEach(type => {
+    matchingTypes.forEach((type: string) => {
       const statuses = validStatusesByType[type];
       if (statuses) {
-        statuses.forEach(status => validStatuses.add(status));
+        statuses.forEach((status: string) => validStatuses.add(status));
       }
     });
 
@@ -66,7 +67,7 @@ export async function getRelatedPosts(
       let score = 0;
 
       // Score based on shared types
-      const sharedTypes = post.data.types.filter(type =>
+      const sharedTypes = post.data.types.filter((type) =>
         currentPost.data.types.includes(type)
       );
       score += sharedTypes.length * 3;
@@ -78,7 +79,7 @@ export async function getRelatedPosts(
 
       // Score based on shared tags
       if (post.data.tags && currentPost.data.tags) {
-        const sharedTags = post.data.tags.filter(tag =>
+        const sharedTags = post.data.tags.filter((tag: string) =>
           currentPost.data.tags?.includes(tag)
         );
         score += sharedTags.length;
@@ -86,7 +87,7 @@ export async function getRelatedPosts(
 
       // Boost recent posts slightly
       const daysSincePublished = Math.floor(
-        (Date.now() - post.data.date.getTime()) / (1000 * 60 * 60 * 24)
+        (Date.now() - new Date(post.data.date).getTime()) / (1000 * 60 * 60 * 24)
       );
       if (daysSincePublished < 30) {
         score += 0.5;
@@ -121,7 +122,7 @@ export async function getNavigationPosts(): Promise<Record<string, Post[]>> {
   // Sort each group by date (newest first)
   Object.keys(grouped).forEach(type => {
     grouped[type].sort((a, b) =>
-      b.data.date.getTime() - a.data.date.getTime()
+      new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
     );
   });
 
@@ -210,7 +211,7 @@ export async function getFeaturedPosts(limit: number = 5): Promise<Post[]> {
     if (!aFeatured && bFeatured) return 1;
 
     // If both are featured or both are not, sort by date
-    return b.data.date.getTime() - a.data.date.getTime();
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
   });
 
   return sorted.slice(0, limit);
@@ -247,7 +248,7 @@ export async function searchPosts(query: string): Promise<Post[]> {
   return posts.filter(post => {
     const searchableText = [
       post.data.title,
-      post.data.excerpt,
+      post.data.description,
       ...(post.data.tags || []),
       post.data.category,
       ...post.data.types,
@@ -278,7 +279,7 @@ export async function getPostStats(): Promise<{
 
   posts.forEach(post => {
     // Count by type (posts can have multiple types)
-    post.data.types.forEach(type => {
+    post.data.types.forEach((type: string) => {
       stats.byType[type] = (stats.byType[type] || 0) + 1;
     });
 
@@ -286,7 +287,8 @@ export async function getPostStats(): Promise<{
     stats.byStatus[post.data.status] = (stats.byStatus[post.data.status] || 0) + 1;
 
     // Count by category
-    stats.byCategory[post.data.category] = (stats.byCategory[post.data.category] || 0) + 1;
+    const category = post.data.category || "Uncategorized";
+    stats.byCategory[category] = (stats.byCategory[category] || 0) + 1;
   });
 
   return stats;

@@ -51,7 +51,7 @@ alwaysApply: true
 title: "Mechanistic Interpretability Fundamentals"
 date: 2025-03-01
 status: "done" # [done | now | next]
-excerpt: "Core concepts in circuit analysis and feature visualization"
+description: "Core concepts in circuit analysis and feature visualization"
 x: 120 # horizontal coordinate in px
 y: -40 # vertical offset for parallel threads
 dependencies: ["circuit-analysis-basics", "mathematical-foundations"]
@@ -289,7 +289,7 @@ const roadmapCollection = defineCollection({
     title: z.string(),
     date: z.date(),
     status: z.enum(['done', 'now', 'next']),
-    excerpt: z.string(),
+    description: z.string(),
     x: z.number(),
     y: z.number(),
     dependencies: z.array(z.string()).optional(),

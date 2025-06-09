@@ -15,24 +15,24 @@ const literaturePosts = await getPostsByType("literature");
 
 // Get latest from each type (handle empty arrays)
 const latestRoadmap = roadmapPosts.sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 )[0];
 const latestProject = projectPosts.sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 )[0];
 const latestLiterature = literaturePosts.sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 )[0];
 
 // Helper function to format date for display
-function formatDate(date: Date): string {
-  return date.toISOString().split("T")[0];
+function formatDate(date: string): string {
+  return new Date(date).toISOString().split("T")[0];
 }
 
 // Create fallback data for empty states
 const fallbackRoadmap = {
   title: "Learning Journey Starting Soon",
-  date: formatDate(new Date()),
+  date: new Date().toISOString().split("T")[0],
   tag: "Roadmap Preview",
   description:
     "Follow along as I document my path through AI interpretability research.",
@@ -41,7 +41,7 @@ const fallbackRoadmap = {
 
 const fallbackProject = {
   title: "Projects Coming Soon",
-  date: formatDate(new Date()),
+  date: new Date().toISOString().split("T")[0],
   tag: "Project Preview",
   description:
     "Exciting AI research projects and tools will be showcased here.",
@@ -50,7 +50,7 @@ const fallbackProject = {
 
 const fallbackLiterature = {
   title: "Literature Reviews Loading",
-  date: formatDate(new Date()),
+  date: new Date().toISOString().split("T")[0],
   tag: "Literature Preview",
   description: "Curated paper reviews and research insights will appear here.",
   href: "/literature",
@@ -68,7 +68,7 @@ const fallbackLiterature = {
             title={latestRoadmap.data.title}
             date={formatDate(latestRoadmap.data.date)}
             tag="Latest Milestone"
-            description={latestRoadmap.data.excerpt}
+            description={latestRoadmap.data.description}
             href={`/posts/${latestRoadmap.id}`}
             icon="roadmap"
             variant="milestone"
@@ -93,7 +93,7 @@ const fallbackLiterature = {
             title={latestProject.data.title}
             date={formatDate(latestProject.data.date)}
             tag="Latest Project"
-            description={latestProject.data.excerpt}
+            description={latestProject.data.description}
             href={`/posts/${latestProject.id}`}
             icon="project"
             variant="project"
@@ -118,7 +118,7 @@ const fallbackLiterature = {
             title={latestLiterature.data.title}
             date={formatDate(latestLiterature.data.date)}
             tag="Latest Resource"
-            description={latestLiterature.data.excerpt}
+            description={latestLiterature.data.description}
             href={`/posts/${latestLiterature.id}`}
             icon="literature"
             variant="resource"

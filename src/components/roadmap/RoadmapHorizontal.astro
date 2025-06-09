@@ -18,7 +18,7 @@ const sortedPosts = posts.sort((a, b) => a.data.date.getTime() - b.data.date.get
   <div class="relative overflow-visible">
     <div class="flex gap-6 overflow-x-auto pb-8 pt-4 scroll-smooth px-4">
       {sortedPosts.map((post) => {
-        const { title, excerpt, date, status, roadmap, category } = post.data;
+        const { title, description, date, status, roadmap, category } = post.data;
 
         const formattedDate = date.toLocaleDateString("en-US", {
           month: "short",
@@ -83,7 +83,7 @@ const sortedPosts = posts.sort((a, b) => a.data.date.getTime() - b.data.date.get
                 </h3>
 
                 <p class="text-secondary line-clamp-2 flex-1">
-                  {excerpt}
+                  {description}
                 </p>
 
                 <!-- Key Outcomes -->

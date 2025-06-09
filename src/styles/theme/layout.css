@@ -1,0 +1,15 @@
+/* src/styles/theme/layout.css */
+
+@layer theme {
+  :root {
+    /* Layout spacing tokens */
+    --footer-height: 12rem;
+    --radius: 0.625rem;
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --footer-height: 14rem;
+    }
+  }
+}

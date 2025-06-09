@@ -6,7 +6,7 @@ import Fuse, { type FuseResult, type FuseResultMatch } from 'fuse.js';
 export interface SearchDocument {
   title: string;
   slug: string;
-  excerpt: string;
+  description: string;
   content: string;
   types: string[];
   category: string;
@@ -73,7 +73,7 @@ class SearchManager {
       this.fuse = new Fuse(this.documents, {
         keys: [
           { name: 'title', weight: 0.3 },
-          { name: 'excerpt', weight: 0.25 },
+          { name: 'description', weight: 0.25 },
           { name: 'content', weight: 0.2 },
           { name: 'tags', weight: 0.15 },
           { name: 'category', weight: 0.1 },

@@ -18,7 +18,7 @@ const CONFIG = {
   contentDir: join(__dirname, '../src/content/posts'),
   outputDir: join(__dirname, '../public/api'),
   outputFile: 'posts.json',
-  excerptLength: 280, // Match schema constraint
+  descriptionLength: 280, // Match schema constraint
 };
 
 /**
@@ -123,9 +123,9 @@ function extractContent(markdown) {
 }
 
 /**
- * Generate excerpt from content
+ * Generate description from content
  */
-function generateExcerpt(content, maxLength = CONFIG.excerptLength) {
+function generatedescription(content, maxLength = CONFIG.descriptionLength) {
   const cleaned = extractContent(content);
 
   if (cleaned.length <= maxLength) {
@@ -191,8 +191,8 @@ function processPost(filePath) {
     const filename = filePath.split('/').pop().replace('.mdx', '');
     const slug = data.slug || filename;
 
-    // Generate excerpt if not provided
-    const excerpt = data.excerpt || generateExcerpt(body);
+    // Generate description if not provided
+    const description = data.description || generatedescription(body);
 
     // Extract searchable content
     const searchableContent = extractContent(body);
@@ -201,7 +201,7 @@ function processPost(filePath) {
     const searchEntry = {
       title: data.title,
       slug: slug,
-      excerpt: excerpt,
+      description: description,
       content: searchableContent.slice(0, 1000), // Limit content for performance
       types: Array.isArray(data.types) ? data.types : (data.types ? [data.types] : []),
       category: data.category,

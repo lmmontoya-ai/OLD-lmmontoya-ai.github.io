@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { post, class: className } = Astro.props;
-const { title, excerpt, date, category, tags, readingTime } = post.data;
+const { title, description, date, category, tags, readingTime } = post.data;
 
 const formattedDate = date.toLocaleDateString("en-US", {
   month: "short",
@@ -37,7 +37,7 @@ const classes = cn(
 
 // Estimated reading time (if not provided)
 const estimatedReadingTime =
-  readingTime || Math.max(1, Math.ceil((excerpt?.length || 200) / 200));
+  readingTime || Math.max(1, Math.ceil((description?.length || 200) / 200));
 ---
 
 <article class={classes}>
@@ -226,7 +226,7 @@ const estimatedReadingTime =
     </h3>
 
     <p class="text-secondary line-clamp-3 leading-relaxed flex-1">
-      {excerpt}
+      {description}
     </p>
 
     <!-- Tags -->

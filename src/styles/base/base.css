@@ -7,6 +7,9 @@
  *   This file should be imported before other styles.
  */
 
+/* Base layer imports */
+@import "./scrollbar.css";
+
 @layer base {
   html {
     scroll-behavior: smooth;

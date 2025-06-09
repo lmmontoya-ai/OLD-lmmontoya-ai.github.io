@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { post, class: className } = Astro.props;
-const { title, excerpt, date, literature } = post.data;
+const { title, description, date, literature } = post.data;
 const type = literature?.type || "Paper"; // Fallback type
 
 const formattedDate = date.toLocaleDateString("en-US", {
@@ -129,7 +129,7 @@ const currentIcon = iconConfig[type] || iconConfig.Paper;
     }
 
     <p class="text-secondary text-sm line-clamp-3 leading-relaxed flex-1">
-      {excerpt}
+      {description}
     </p>
 
     {

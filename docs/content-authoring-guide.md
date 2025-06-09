@@ -31,7 +31,7 @@ Every post starts with YAML frontmatter that defines its metadata:
 title: "Your Post Title"
 slug: "your-post-title"
 date: 2025-05-30
-excerpt: "A brief description of your post (max 280 characters)"
+description: "A brief description of your post (max 280 characters)"
 types: ["blog"]
 category: "Technical"
 status: "published"
@@ -67,7 +67,7 @@ slug: "post-title"           # String - URL-friendly identifier (lowercase, hyph
 date: 2025-05-30             # Date - Publication date (YYYY-MM-DD format)
 
 # Content description
-excerpt: "Brief description"  # String - Maximum 280 characters for SEO and previews
+description: "Brief description"  # String - Maximum 280 characters for SEO and previews
 
 # Classification
 types: ["blog", "guide"]     # Array - One or more content types
@@ -172,7 +172,7 @@ media:
 ---
 seo:
   metaTitle: "Custom Title for SEO"          # String - Override title for search engines
-  metaDescription: "Custom meta description" # String - Override excerpt for search engines
+  metaDescription: "Custom meta description" # String - Override description for search engines
   canonicalUrl: "https://example.com"       # URL - Canonical URL if content exists elsewhere
   noIndex: false                             # Boolean - Prevent search engine indexing
 ---
@@ -182,9 +182,9 @@ seo:
 
 ## 🎨 Content Creation Guidelines
 
-### Writing Effective Excerpts
+### Writing Effective descriptions
 
-The excerpt is crucial for SEO and content discovery:
+The description is crucial for SEO and content discovery:
 
 - **Length**: Maximum 280 characters (like a tweet)
 - **Purpose**: Summarize the main value or takeaway
@@ -194,14 +194,14 @@ The excerpt is crucial for SEO and content discovery:
 **Examples:**
 
 ```yaml
-# ✅ Good excerpt
-excerpt: "Learn how to implement real-time collaborative editing in React using WebSockets, operational transforms, and conflict resolution strategies."
+# ✅ Good description
+description: "Learn how to implement real-time collaborative editing in React using WebSockets, operational transforms, and conflict resolution strategies."
 
 # ❌ Too generic
-excerpt: "This post talks about building web applications."
+description: "This post talks about building web applications."
 
 # ❌ Too long
-excerpt: "In this comprehensive tutorial, we'll walk through every single step needed to build a complete real-time collaborative text editor from scratch, including all the technical details and implementation considerations you need to know about."
+description: "In this comprehensive tutorial, we'll walk through every single step needed to build a complete real-time collaborative text editor from scratch, including all the technical details and implementation considerations you need to know about."
 ```
 
 ### Choosing Content Types
@@ -282,9 +282,9 @@ media:
 
 ```yaml
 ---
-# Basic SEO (auto-generated from title/excerpt if not provided)
+# Basic SEO (auto-generated from title/description if not provided)
 title: "How to Build AI-Powered Code Analysis Tools"
-excerpt: "Learn to create static analysis tools using machine learning for code quality, security scanning, and automated refactoring suggestions."
+description: "Learn to create static analysis tools using machine learning for code quality, security scanning, and automated refactoring suggestions."
 
 # Advanced SEO (optional overrides)
 seo:
@@ -451,7 +451,7 @@ Examples:
 
 Content is automatically indexed for search:
 
-- **Title and excerpt** are searchable
+- **Title and description** are searchable
 - **Tags and categories** boost relevance
 - **Content type** filters search results
 - Search supports fuzzy matching and keyboard shortcuts (`Cmd/Ctrl + K`)
@@ -501,8 +501,8 @@ category: "technical"  # Should be "Technical" (capitalized)
 # ❌ Invalid date format
 date: "May 30, 2025"  # Should be 2025-05-30
 
-# ❌ Excerpt too long
-excerpt: "This is a very long excerpt that exceeds the 280 character limit and will cause a validation error during the build process..."
+# ❌ description too long
+description: "This is a very long description that exceeds the 280 character limit and will cause a validation error during the build process..."
 
 # ❌ Invalid type
 types: ["blogpost"]  # Should be "blog"
@@ -513,7 +513,7 @@ types: ["blogpost"]  # Should be "blog"
 ## 🎯 Best Practices Summary
 
 1. **Start with templates** - Use provided templates as starting points
-2. **Write clear excerpts** - Summarize value in 280 characters or less
+2. **Write clear descriptions** - Summarize value in 280 characters or less
 3. **Choose meaningful tags** - Think about how readers will search
 4. **Use semantic categories** - Pick the category that best describes content nature
 5. **Optimize images** - Compress images and use descriptive filenames
@@ -529,7 +529,7 @@ types: ["blogpost"]  # Should be "blog"
 - [ ] `title` - Descriptive title
 - [ ] `slug` - URL-friendly identifier
 - [ ] `date` - Publication date (YYYY-MM-DD)
-- [ ] `excerpt` - Brief description (≤280 chars)
+- [ ] `description` - Brief description (≤280 chars)
 - [ ] `types` - Array of content types
 - [ ] `category` - Content category
 - [ ] `status` - Publication status

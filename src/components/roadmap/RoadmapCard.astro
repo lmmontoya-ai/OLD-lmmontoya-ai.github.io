@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { post, class: className } = Astro.props;
-const { title, excerpt, date, status, roadmap, category } = post.data;
+const { title, description, date, status, roadmap, category } = post.data;
 
 const formattedDate = date.toLocaleDateString("en-US", {
   month: "short",
@@ -73,7 +73,7 @@ const classes = cn(
     </h3>
 
     <p class="text-secondary line-clamp-2 flex-1">
-      {excerpt}
+      {description}
     </p>
 
     <!-- Key Outcomes -->

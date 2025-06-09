@@ -42,7 +42,7 @@ npm run build
 #### Search Index Script
 - `CONFIG.contentDir` - where to find MDX files
 - `CONFIG.outputDir` - where to write JSON
-- `CONFIG.excerptLength` - maximum excerpt length
+- `CONFIG.descriptionLength` - maximum description length
 
 #### Search Manager
 - `threshold` - search sensitivity (0.4 = more lenient)
@@ -96,7 +96,7 @@ public/
 title: "My Blog Post"
 slug: "my-blog-post"
 date: 2024-12-01
-excerpt: "A brief description of the post"
+description: "A brief description of the post"
 types: ["blog"]
 category: "Technical"
 status: "published"

@@ -9,39 +9,54 @@ import { glob } from 'astro/loaders';
  * blog, roadmap, project, literature, note, guide
  */
 const postsCollection = defineCollection({
-  loader: glob({
-    pattern: ["**/*.{md,mdx}", "!_templates/**"],
-    base: "./src/content/posts"
-  }),
   schema: z.object({
-    // Core required fields
+    // === CORE FIELDS (Required) ===
     title: z.string(),
-    slug: z.string(),
-    date: z.coerce.date(),
-    excerpt: z.string().max(280),
-    types: z.array(z.enum(['blog', 'roadmap', 'project', 'literature', 'note', 'guide'])),
-    category: z.enum(['Research', 'Technical', 'Reflection', 'Resource', 'Tutorial', 'Update']),
-    status: z.enum(['draft', 'published', 'archived', 'in-progress', 'completed', 'planned']),
+    description: z.string(), // This replaces 'excerpt'
+    date: z.string()
+      .or(z.date())
+      .transform((val) => {
+        const date = new Date(val);
+        return date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      }),
 
-    // Optional core fields
-    tags: z.array(z.string()).optional(),
-    readingTime: z.number().optional(), // Computed reading time in minutes
-    wordCount: z.number().optional(), // Total word count
-    lastModified: z.coerce.date().optional(), // Last modified date for editorial tracking
+    // === TYPE IDENTIFICATION ===
+    types: z.array(z.enum(['blog', 'roadmap', 'project', 'literature'])),
 
-    // Roadmap-specific fields
-    roadmap: z.object({
-      phase: z.number(),
-      dependencies: z.array(z.string()).optional(),
-      outcomes: z.array(z.string()).optional(),
-      timeline: z.string().optional(),
-      x: z.number().optional(),
-      y: z.number().optional(),
-    }).optional(),
+    // === COMMON OPTIONAL FIELDS ===
+    tags: z.array(z.string()).optional().default([]),
+    cover: z.string().optional(), // Hero image
+    status: z.enum([
+      'draft',
+      'published',
+      'archived',
+      'in-progress',
+      'completed',
+      'planned'
+    ]).optional().default('published'),
 
-    // Project-specific fields
+    category: z.enum([
+      'Research',
+      'Technical',
+      'Reflection',
+      'Resource',
+      'Tutorial',
+      'Update'
+    ]).optional(),
+
+    // === TYPE-SPECIFIC FIELDS ===
+    // Project-specific
     project: z.object({
-      area: z.enum(['Interpretability', 'Alignment', 'Tooling', 'Safety']).optional(),
+      area: z.enum([
+        'Interpretability',
+        'Alignment',
+        'Tooling',
+        'Safety'
+      ]).optional(),
       stack: z.array(z.string()).optional(),
       collaborators: z.array(z.string()).optional(),
       organization: z.string().optional(),
@@ -53,59 +68,28 @@ const postsCollection = defineCollection({
       }).optional(),
     }).optional(),
 
-    // Literature-specific fields
+    // Literature-specific
     literature: z.object({
       authors: z.array(z.string()).optional(),
-      year: z.number().optional(),
+      year: z.number().min(1900).max(2100).optional(),
       source: z.string().url().optional(),
-      type: z.enum(['Paper', 'Blog', 'Video', 'Book', 'Course']).optional(),
+      type: z.enum(['Paper', 'Book', 'Video', 'Blog', 'Course']).optional(),
       rating: z.number().min(1).max(5).optional(),
-      recommendedFor: z.array(z.string()).optional(),
+      key_insights: z.array(z.string()).optional(),
     }).optional(),
 
-    // Media fields
-    media: z.object({
-      hero: z.string().optional(),
-      thumbnail: z.string().optional(),
-      gallery: z.array(z.string()).optional(),
-      videos: z.array(z.object({
-        url: z.string().url(),
-        title: z.string(),
-        thumbnail: z.string().optional(),
-      })).optional(),
+    // Roadmap-specific
+    roadmap: z.object({
+      phase: z.number().min(1).optional(),
+      dependencies: z.array(z.string()).optional(),
+      outcomes: z.array(z.string()).optional(),
+      timeline: z.string().optional(), // e.g., "Q1 2024"
     }).optional(),
 
-    // Display configuration
-    display: z.object({
-      showToc: z.boolean().optional(),
-      showRelated: z.boolean().optional(),
-      layout: z.enum(['default', 'wide', 'centered']).optional(),
-      accent: z.enum(['blue', 'gold', 'green']).optional(),
-    }).optional(),
-
-    // SEO fields
-    seo: z.object({
-      metaTitle: z.string().optional(),
-      metaDescription: z.string().optional(),
-      canonicalUrl: z.string().url().optional(),
-      noIndex: z.boolean().optional(),
-    }).optional(),
-
-    // Legacy fields for backward compatibility
-    featured: z.boolean().optional(),
-    hero_image: z.string().optional(),
-    github_link: z.string().url().optional(),
-    paper_link: z.string().url().optional(),
-    summary: z.string().optional(),
-    author: z.string().optional(),
-    link: z.string().url().optional(),
-    note: z.string().optional(),
-    recommended_for: z.array(z.string()).optional(),
-    related_items: z.array(z.string()).optional(),
-    x: z.number().optional(),
-    y: z.number().optional(),
-    dependencies: z.array(z.string()).optional(),
-    outcomes: z.array(z.string()).optional(),
+    // === METADATA ===
+    lastModified: z.date().optional(),
+    featured: z.boolean().optional().default(false),
+    draft: z.boolean().optional().default(false),
   }),
 });
 

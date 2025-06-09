@@ -59,7 +59,7 @@ This directory contains MDX templates for creating different types of content in
 title: "Your Post Title"           # Post title
 slug: "your-post-slug"            # URL slug (must be unique)
 date: 2024-03-20                  # Publication date
-excerpt: "Brief description..."   # Max 280 characters
+description: "Brief description..."   # Max 280 characters
 types: ["blog"]                   # Content types array
 category: "Technical"             # Content category
 status: "published"               # Publication status
@@ -117,7 +117,7 @@ seo:
 
 ## Tips for Great Content
 
-1. **Write compelling excerpts** - They appear in listings and search results
+1. **Write compelling descriptions** - They appear in listings and search results
 2. **Use descriptive tags** - Helps with discoverability and filtering
 3. **Include code examples** - Syntax highlighting is automatically applied
 4. **Add interactive elements** - Embed Astro components for demos

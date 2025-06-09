@@ -23,12 +23,11 @@ const relatedPosts = await getRelatedPosts(post);
 const breadcrumbs = getBreadcrumbs(post);
 
 // Generate metadata for the page
-const title = post.data.seo?.metaTitle || post.data.title;
-const description = post.data.seo?.metaDescription || post.data.excerpt;
+const title = post.data.title;
+const description = post.data.description;
 const canonicalUrl = new URL(`/posts/${post.id}`, Astro.site);
 
 // Open Graph metadata
-const ogImage = post.data.media?.hero || post.data.media?.thumbnail;
 const ogType = post.data.types.includes("project") ? "article" : "article";
 
 // Structured data for SEO
@@ -36,20 +35,17 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "Article",
   headline: post.data.title,
-  description: post.data.excerpt,
+  description: post.data.description,
   author: {
     "@type": "Person",
     name: "Luis Miguel Montoya",
     url: Astro.site?.toString(),
   },
-  datePublished: post.data.date.toISOString(),
+  datePublished: new Date(post.data.date).toISOString(),
   ...(post.data.lastModified && {
     dateModified: post.data.lastModified.toISOString(),
   }),
   url: canonicalUrl.toString(),
-  ...(ogImage && {
-    image: new URL(ogImage, Astro.site).toString(),
-  }),
   publisher: {
     "@type": "Organization",
     name: "Luis Miguel Montoya",
@@ -131,8 +127,7 @@ const accentColors = {
 } as const;
 
 const primaryType = post.data.types[0];
-const accentColor =
-  post.data.display?.accent || accentColors[primaryType] || "blue";
+const accentColor = accentColors[primaryType] || "blue";
 
 // Layout classes
 const layoutClasses = {
@@ -141,11 +136,10 @@ const layoutClasses = {
   centered: "max-w-3xl",
 } as const;
 
-const contentWidth = layoutClasses[post.data.display?.layout || "default"];
+const contentWidth = layoutClasses["default"];
 
 // Show TOC if enabled and there are headings
 const showToc =
-  post.data.display?.showToc !== false &&
   headings.filter((h: any) => h.depth === 2 || h.depth === 3).length > 0;
 
 // Accent color CSS classes
@@ -188,28 +182,12 @@ const sidebarAccentClass = accentClasses[accentColor];
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Luis Miguel Montoya" />
-    {
-      ogImage && (
-        <meta
-          property="og:image"
-          content={new URL(ogImage, Astro.site).toString()}
-        />
-      )
-    }
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalUrl.toString()} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    {
-      ogImage && (
-        <meta
-          property="twitter:image"
-          content={new URL(ogImage, Astro.site).toString()}
-        />
-      )
-    }
 
     <!-- Article specific meta tags -->
     {
@@ -217,7 +195,7 @@ const sidebarAccentClass = accentClasses[accentColor];
         <>
           <meta
             property="article:published_time"
-            content={post.data.date.toISOString()}
+            content={new Date(post.data.date).toISOString()}
           />
           {post.data.lastModified && (
             <meta
@@ -274,29 +252,7 @@ const sidebarAccentClass = accentClasses[accentColor];
     }
 
     <!-- Robots meta tag -->
-    <meta
-      name="robots"
-      content={post.data.status === "draft"
-        ? "noindex, nofollow"
-        : post.data.seo?.noIndex
-          ? "noindex, follow"
-          : "index, follow"}
-    />
-
-    <!-- Reading time and word count for tools -->
-    {
-      post.data.readingTime && (
-        <meta
-          name="reading-time"
-          content={`${post.data.readingTime} minutes`}
-        />
-      )
-    }
-    {
-      post.data.wordCount && (
-        <meta name="word-count" content={post.data.wordCount.toString()} />
-      )
-    }
+    <meta name="robots" content="index, follow" />
 
     <!-- JSON-LD Structured Data -->
     <script
@@ -564,56 +520,59 @@ const sidebarAccentClass = accentClasses[accentColor];
 
                     <!-- Related posts with modern card design -->
                     {
-                      post.data.display?.showRelated !== false &&
-                        relatedPosts.length > 0 && (
-                          <div class="mt-12">
-                            <h3 class="text-lg font-sans font-semibold text-primary mb-6 flex items-center gap-2">
-                              <svg
-                                class="w-5 h-5 text-interactive-blue"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
+                      relatedPosts.length > 0 && (
+                        <div class="mt-12">
+                          <h3 class="text-lg font-sans font-semibold text-primary mb-6 flex items-center gap-2">
+                            <svg
+                              class="w-5 h-5 text-interactive-blue"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                              />
+                            </svg>
+                            Related Posts
+                          </h3>
+                          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                            {relatedPosts.map((relatedPost) => (
+                              <a
+                                href={`/posts/${relatedPost.id}`}
+                                class="group block p-6 bg-surface-secondary rounded-xl border border-border-primary hover:border-interactive-blue hover:bg-surface-tertiary transition-all duration-200"
                               >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                                />
-                              </svg>
-                              Related Posts
-                            </h3>
-                            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                              {relatedPosts.map((relatedPost) => (
-                                <a
-                                  href={`/posts/${relatedPost.id}`}
-                                  class="group block p-6 bg-surface-secondary rounded-xl border border-border-primary hover:border-interactive-blue hover:bg-surface-tertiary transition-all duration-200"
-                                >
-                                  <h4 class="font-sans font-semibold text-primary group-hover:text-interactive-blue transition-colors mb-2 line-clamp-2">
-                                    {relatedPost.data.title}
-                                  </h4>
-                                  <p class="text-sm text-secondary mb-3 line-clamp-3">
-                                    {relatedPost.data.excerpt}
-                                  </p>
-                                  <div class="flex items-center gap-2 text-xs text-tertiary">
-                                    <time
-                                      datetime={relatedPost.data.date.toISOString()}
-                                    >
-                                      {relatedPost.data.date.toLocaleDateString(
-                                        "en-US",
-                                        { month: "short", day: "numeric" }
-                                      )}
-                                    </time>
-                                    <span class="opacity-50">•</span>
-                                    <span class="capitalize">
-                                      {relatedPost.data.types[0]}
-                                    </span>
-                                  </div>
-                                </a>
-                              ))}
-                            </div>
+                                <h4 class="font-sans font-semibold text-primary group-hover:text-interactive-blue transition-colors mb-2 line-clamp-2">
+                                  {relatedPost.data.title}
+                                </h4>
+                                <p class="text-sm text-secondary mb-3 line-clamp-3">
+                                  {relatedPost.data.description}
+                                </p>
+                                <div class="flex items-center gap-2 text-xs text-tertiary">
+                                  <time
+                                    datetime={new Date(
+                                      relatedPost.data.date
+                                    ).toISOString()}
+                                  >
+                                    {new Date(
+                                      relatedPost.data.date
+                                    ).toLocaleDateString("en-US", {
+                                      month: "short",
+                                      day: "numeric",
+                                    })}
+                                  </time>
+                                  <span class="opacity-50">•</span>
+                                  <span class="capitalize">
+                                    {relatedPost.data.types[0]}
+                                  </span>
+                                </div>
+                              </a>
+                            ))}
                           </div>
-                        )
+                        </div>
+                      )
                     }
                   </footer>
                 </main>
